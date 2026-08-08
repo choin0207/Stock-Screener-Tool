@@ -34,7 +34,7 @@ jobs:
         run: |
           CODE="${{ inputs.code }}"
           if [ -z "$CODE" ] && [ -f diagnose-request.txt ]; then
-            CODE=$(tr -dc '0-9A-Za-z' < diagnose-request.txt)
+            CODE=$(head -n1 diagnose-request.txt | tr -dc '0-9A-Za-z')
           fi
           echo "診斷代號: $CODE"
           python run_diagnose.py "$CODE"
