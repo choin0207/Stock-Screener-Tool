@@ -494,11 +494,17 @@ def _mops_post(page, co_id, year, season):
 
 
 def _html_row_value(html, label):
-    """從 MOPS 報表 HTML 中找「會計項目 label」該列的第一個數字（單位：仟元）。"""
+    """從 MOPS 報表 HTML 中找「會計項目 label」該列的第一個數字。
+    支援小數（EPS 等）與會計格式負數 (1,234)。"""
     text = re.sub(r"<[^>]+>", "|", html)
     text = re.sub(r"[ \t\r\n　]+", "", text)
-    m = re.search(re.escape(label) + r"\|+(-?[\d,]+)", text)
-    return _num(m.group(1)) if m else None
+    m = re.search(re.escape(label) + r"\|+(\(?-?[\d,]+(?:\.\d+)?\)?)", text)
+    if not m:
+        return None
+    s = m.group(1)
+    neg = s.startswith("(") and s.endswith(")")
+    v = _num(s.strip("()"))
+    return -v if neg and v is not None else v
 
 
 def _recent_seasons(n=4):

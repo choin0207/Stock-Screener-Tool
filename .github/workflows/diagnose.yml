@@ -44,5 +44,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/data
           git commit -m "chore: 個股診斷結果 [skip ci]" || echo "no changes"
-          git pull --rebase origin main || true
-          git push
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && break
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done
