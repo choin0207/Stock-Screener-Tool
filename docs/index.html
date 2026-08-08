@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16233f">
+<title>台股選股雷達</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+  :root {
+    --bg: #f5f6fa; --card: #ffffff; --text: #1a2233; --muted: #66708a;
+    --line: #e3e6ee; --accent: #2456d6; --accent2: #eaf0ff;
+    --up: #c92a3d; --down: #1a9955;
+    --warn-bg: #fff4e5; --warn-line: #f0b45c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101420; --card: #1a2030; --text: #e8ebf2; --muted: #98a1b8;
+      --line: #2b3245; --accent: #7d9fff; --accent2: #232c45;
+      --warn-bg: #33270f; --warn-line: #8a6a2a;
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.6 "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+         padding-bottom: env(safe-area-inset-bottom); }
+  header { position: sticky; top: 0; z-index: 10; background: var(--bg);
+           padding: max(12px, env(safe-area-inset-top)) 16px 8px;
+           border-bottom: 1px solid var(--line); }
+  h1 { margin: 0; font-size: 19px; display: flex; align-items: center; gap: 8px; }
+  h1 .dot { width: 9px; height: 9px; border-radius: 50%; background: #aaa; }
+  h1 .dot.live { background: #2ecc71; }
+  .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 12px; max-width: 1400px; margin: 0 auto; }
+  .card { background: var(--card); border: 1px solid var(--line);
+          border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  button { background: var(--accent); color: #fff; border: 0; border-radius: 10px;
+           padding: 9px 14px; font-size: 14px; cursor: pointer; }
+  button.secondary { background: var(--accent2); color: var(--accent); }
+  button:disabled { opacity: .5; }
+  .msg { color: var(--muted); font-size: 12.5px; width: 100%; }
+  h2 { font-size: 15.5px; margin: 0 0 10px; }
+  .up { color: var(--up); } .down { color: var(--down); }
+  .empty { color: var(--muted); padding: 8px 0; font-size: 14px; }
+  .alert { background: var(--warn-bg); border: 1px solid var(--warn-line);
+           border-radius: 10px; padding: 10px 12px; margin: 8px 0; font-size: 14px; }
+  .alert time { color: var(--muted); font-size: 12px; display: block; }
+
+  /* 桌面：表格 */
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; white-space: nowrap; }
+  th, td { padding: 6px 9px; border-bottom: 1px solid var(--line); text-align: right; }
+  th { color: var(--muted); font-weight: 600; }
+  th:nth-child(-n+2), td:nth-child(-n+2) { text-align: left; }
+
+  /* 手機：卡片 */
+  .stock { border: 1px solid var(--line); border-radius: 12px;
+           padding: 12px 14px; margin: 10px 0; }
+  .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .stock .head b { font-size: 17px; }
+  .stock .price { font-size: 17px; font-weight: 700; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 4px 14px; margin-top: 8px; font-size: 13px; }
+  .grid span { color: var(--muted); }
+  #cards { display: none; }
+  @media (max-width: 800px) {
+    .tablewrap { display: none; }
+    #cards { display: block; }
+    main { padding: 10px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="dot" id="modeDot"></span>台股選股雷達
+    <span class="sub" id="modeText"></span></h1>
+  <div class="sub">五條件每日篩選 ＋ 盤中每10分鐘量能爆量警示</div>
+</header>
+<main>
+  <div class="card">
+    <div class="row">
+      <button id="btnScreen" style="display:none">立即篩選</button>
+      <button id="btnCheck" class="secondary" style="display:none">檢查量能</button>
+      <button id="btnNotify" class="secondary">🔔 啟用通知</button>
+      <button id="btnRefresh" class="secondary">↻ 更新</button>
+      <span class="msg" id="statusMsg">載入中…</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🚨 量能警示</h2>
+    <div id="alerts"><div class="empty">目前沒有警示。</div></div>
+  </div>
+
+  <div class="card">
+    <h2>📋 每日篩選結果</h2>
+    <div class="msg" id="resultMeta"></div>
+    <div id="cards"></div>
+    <div class="tablewrap">
+      <table id="resultTable" style="display:none">
+        <thead><tr>
+          <th>代號</th><th>名稱</th><th>收盤</th><th>漲跌</th><th>量(張)</th>
+          <th>外資買超</th><th>外資前日</th><th>投信買超</th><th>投信前日</th>
+          <th>法人合計</th><th>法人前日</th><th>主力買賣超</th>
+          <th>大戶%</th><th>大戶週變動</th><th>轉讓(張)</th>
+          <th>合約負債(億)</th><th>資本額(億)</th><th>EPS</th><th>期別</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="empty" id="resultEmpty" style="display:none">
+      目前沒有符合全部條件的股票。條件相當嚴格（法人買超放大10倍＋合約負債＞資本額），
+      無結果屬正常現象。</div>
+  </div>
+
+  <div class="card sub" style="font-size:12px">
+    條件：①外資+投信較前日大量買超 ②法人買賣超>前日10倍 ③近30日一般交易轉讓≤100張
+    ④合約負債>資本額 ⑤EPS>1.5 ｜ 僅供研究參考，不構成投資建議。
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+let serverMode = false;          // true: Flask 後端；false: GitHub Pages 靜態
+let knownAlerts = new Set();
+let firstAlertLoad = true;
+
+function fmt(v, d = 1) {
+  if (v === null || v === undefined) return "—";
+  return Number(v).toLocaleString("zh-Hant", { maximumFractionDigits: d });
+}
+function cls(v) { return v > 0 ? "up" : (v < 0 ? "down" : ""); }
+
+async function getJSON(url) {
+  try {
+    const r = await fetch(url + (url.includes("?") ? "&" : "?") + "t=" + Date.now());
+    return r.ok ? await r.json() : null;
+  } catch { return null; }
+}
+
+async function detectMode() {
+  const s = await getJSON("api/status");
+  serverMode = !!s;
+  $("modeDot").className = "dot" + (serverMode ? " live" : "");
+  $("modeText").textContent = serverMode ? "（即時模式）" : "（雲端模式）";
+  $("btnScreen").style.display = serverMode ? "" : "none";
+  $("btnCheck").style.display = serverMode ? "" : "none";
+  if (s) $("statusMsg").textContent = `監控清單 ${s.watchlist.length} 檔`
+    + (s.screen_running ? "｜篩選執行中…" : "");
+  else $("statusMsg").textContent = "雲端模式：資料由 GitHub Actions 定時更新";
+}
+
+async function loadResults() {
+  const r = await getJSON("data/screen_results.json");
+  if (!r) { $("resultMeta").textContent = "尚無資料"; return; }
+  $("resultMeta").textContent =
+    (r.trade_date ? `交易日 ${r.trade_date}｜` : "") + (r.message || "") +
+    (r.generated_at ? `｜更新 ${r.generated_at}` : "");
+  const rows = r.results || [];
+  $("resultTable").style.display = rows.length ? "" : "none";
+  $("resultEmpty").style.display = rows.length ? "none" : "";
+  const tb = $("resultTable").querySelector("tbody");
+  const cards = $("cards");
+  tb.innerHTML = ""; cards.innerHTML = "";
+  for (const s of rows) {
+    const liab = s.contract_liab_k != null ? s.contract_liab_k / 100000 : null;
+    const cap  = s.capital_k != null ? s.capital_k / 100000 : null;
+    const chg  = s.big_holder_chg == null ? "需累積2週" : fmt(s.big_holder_chg, 2) + "pp";
+    tb.insertAdjacentHTML("beforeend", `<tr>
+      <td>${s.code}</td><td>${s.name}</td><td>${fmt(s.close, 2)}</td>
+      <td class="${cls(s.change)}">${fmt(s.change, 2)}</td>
+      <td>${fmt(s.volume_lots, 0)}</td>
+      <td class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</td>
+      <td>${fmt(s.foreign_net_prev, 0)}</td>
+      <td class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</td>
+      <td>${fmt(s.trust_net_prev, 0)}</td>
+      <td class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</td>
+      <td>${fmt(s.total_net_prev, 0)}</td>
+      <td class="${cls(s.main_force_net)}" title="${s.main_force_src || ""}">${fmt(s.main_force_net, 0)}</td>
+      <td>${fmt(s.big_holder_pct, 2)}</td><td class="${cls(s.big_holder_chg)}">${chg}</td>
+      <td>${fmt(s.transfer_general_lots, 0)}</td>
+      <td>${fmt(liab, 2)}</td><td>${fmt(cap, 2)}</td>
+      <td>${fmt(s.eps, 2)}</td><td>${s.fin_period || "—"}</td></tr>`);
+    cards.insertAdjacentHTML("beforeend", `<div class="stock">
+      <div class="head"><b>${s.code} ${s.name}</b>
+        <span class="price ${cls(s.change)}">${fmt(s.close, 2)}
+          <small>${s.change > 0 ? "▲" : (s.change < 0 ? "▼" : "")}${fmt(Math.abs(s.change ?? 0), 2)}</small>
+        </span></div>
+      <div class="grid">
+        <div><span>成交量</span> ${fmt(s.volume_lots, 0)} 張</div>
+        <div><span>外資買超</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（前日 ${fmt(s.foreign_net_prev, 0)}）</div>
+        <div><span>投信買超</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（前日 ${fmt(s.trust_net_prev, 0)}）</div>
+        <div><span>法人合計</span> <b class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</b>（前日 ${fmt(s.total_net_prev, 0)}）</div>
+        <div><span>主力買賣超</span> ${fmt(s.main_force_net, 0)} 張</div>
+        <div><span>大戶>1000張</span> ${fmt(s.big_holder_pct, 2)}%（${chg}）</div>
+        <div><span>一般交易轉讓</span> ${fmt(s.transfer_general_lots, 0)} 張/30日</div>
+        <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
+        <div><span>EPS</span> ${fmt(s.eps, 2)} 元（${s.fin_period || "—"}）</div>
+      </div></div>`);
+  }
+}
+
+async function loadAlerts() {
+  const alerts = await getJSON("data/alerts.json") || [];
+  const box = $("alerts");
+  if (!alerts.length) {
+    box.innerHTML = '<div class="empty">目前沒有警示。</div>';
+    firstAlertLoad = false; return;
+  }
+  box.innerHTML = "";
+  for (const a of alerts.slice().reverse().slice(0, 30)) {
+    box.insertAdjacentHTML("beforeend",
+      `<div class="alert"><time>${a.time}</time>${a.message}</div>`);
+    const key = a.time + a.code;
+    if (!knownAlerts.has(key)) {
+      knownAlerts.add(key);
+      if (!firstAlertLoad && "Notification" in window &&
+          Notification.permission === "granted") {
+        new Notification(`🚨 ${a.code} ${a.name || ""} 量能警示`, { body: a.message });
+      }
+    }
+  }
+  firstAlertLoad = false;
+}
+
+$("btnScreen").onclick = async () => {
+  $("btnScreen").disabled = true;
+  const r = await getJSONPost("api/screen/run");
+  $("statusMsg").textContent = r ? r.message : "連線失敗";
+  setTimeout(() => { $("btnScreen").disabled = false; loadResults(); }, 8000);
+};
+$("btnCheck").onclick = async () => {
+  const r = await getJSONPost("api/monitor/check");
+  $("statusMsg").textContent = r && r.new_alerts.length
+    ? `發現 ${r.new_alerts.length} 筆新警示！` : "已檢查，無新警示";
+  loadAlerts();
+};
+async function getJSONPost(url) {
+  try { const r = await fetch(url, { method: "POST" });
+        return r.ok ? await r.json() : null; } catch { return null; }
+}
+$("btnNotify").onclick = () => {
+  if (!("Notification" in window)) {
+    $("statusMsg").textContent = "此瀏覽器不支援通知（iPhone 需先加入主畫面）"; return;
+  }
+  Notification.requestPermission().then(p => $("statusMsg").textContent =
+    p === "granted" ? "通知已啟用（頁面開啟時有新警示會提醒）" : "未授權通知");
+};
+$("btnRefresh").onclick = () => { loadResults(); loadAlerts(); detectMode(); };
+
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+
+detectMode().then(() => { loadResults(); loadAlerts(); });
+setInterval(loadAlerts, 60 * 1000);
+setInterval(loadResults, 5 * 60 * 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "台股選股雷達 Stock Screener",
+  "short_name": "選股雷達",
+  "description": "台股每日五條件篩選＋盤中量能爆量警示",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#16233f",
+  "theme_color": "#16233f",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
