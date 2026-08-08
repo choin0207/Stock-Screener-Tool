@@ -1,7 +1,34 @@
 {
-  "generated_at": "2026-08-08T10:02:48",
+  "generated_at": "2026-08-08T10:22:43",
   "trade_date": "20260807",
   "prev_trade_date": "20260806",
-  "results": [],
-  "message": "篩選完成：0 檔符合全部條件（法人條件通過 5 檔）"
+  "results": [
+    {
+      "code": "3443",
+      "name": "創意",
+      "close": 4545.0,
+      "change": 65.0,
+      "volume_lots": 1913.7,
+      "foreign_buy": 711.2,
+      "foreign_sell": 692.2,
+      "foreign_net": 19.0,
+      "foreign_net_prev": -18.2,
+      "trust_buy": 102.7,
+      "trust_sell": 2.0,
+      "trust_net": 100.7,
+      "trust_net_prev": 52.2,
+      "total_net": 102.6,
+      "total_net_prev": 26.5,
+      "main_force_net": 6977.0,
+      "main_force_src": "券商分點(富邦)",
+      "big_holder_pct": 52.52,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 13214722.0,
+      "capital_k": 1340119.0,
+      "eps": 11.0,
+      "fin_period": "2026Q2"
+    }
+  ],
+  "message": "篩選完成：1 檔符合全部條件（法人條件通過 9 檔）"
 }
