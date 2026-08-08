@@ -214,8 +214,36 @@ def run_daily_screen():
         "message": msg,
     }
     save_results(out)
+    _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev)
     log.info(out["message"])
     return out
+
+
+def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev):
+    """全市場每日快照（供網頁「自選名單」查任意個股）。欄位縮寫壓縮檔案大小：
+    n=名稱 m=市場 c=收盤 ch=漲跌 v=量(張) f/f0=外資買賣超今/昨(張)
+    t/t0=投信 x/x0=法人合計。"""
+    snap = {}
+    for code in set(quotes) | set(t86_today):
+        q = quotes.get(code, {})
+        cur = t86_today.get(code) or {}
+        prev = t86_prev.get(code) or {}
+
+        def k(d, key):
+            return round((d.get(key) or 0) / 1000, 1)
+
+        snap[code] = {
+            "n": q.get("name", ""), "m": q.get("market", "tse"),
+            "c": q.get("close"), "ch": q.get("change"),
+            "v": q.get("volume_lots"),
+            "f": k(cur, "foreign_net"), "f0": k(prev, "foreign_net"),
+            "t": k(cur, "trust_net"), "t0": k(prev, "trust_net"),
+            "x": k(cur, "total_net"), "x0": k(prev, "total_net"),
+        }
+    path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"trade_date": d_today, "prev_trade_date": d_prev,
+                   "stocks": snap}, f, ensure_ascii=False)
 
 
 def load_financials():
