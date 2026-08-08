@@ -1,13 +1,50 @@
 {
-  "generated_at": "2026-08-08T10:37:29",
+  "generated_at": "2026-08-08T11:54:19",
   "trade_date": "20260807",
   "prev_trade_date": "20260806",
   "results": [
+    {
+      "code": "2618",
+      "name": "長榮航",
+      "market": "tse",
+      "conds": {
+        "c1": true,
+        "c2": true,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 5,
+      "close": 44.4,
+      "change": 1.15,
+      "volume_lots": 37423.5,
+      "foreign_buy": 28462.3,
+      "foreign_sell": 6462.0,
+      "foreign_net": 22000.4,
+      "foreign_net_prev": 1673.9,
+      "trust_buy": 130.0,
+      "trust_sell": 3.0,
+      "trust_net": 127.0,
+      "trust_net_prev": -94.0,
+      "total_net": 22623.5,
+      "total_net_prev": 1046.1,
+      "main_force_net": 6977.0,
+      "main_force_src": "券商分點(富邦)",
+      "big_holder_pct": 78.27,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 36190224.0,
+      "capital_k": 54004443.0,
+      "eps": 1.53,
+      "fin_period": "2026Q1"
+    },
     {
       "code": "3443",
       "name": "創意",
       "market": "tse",
       "conds": {
+        "c1": true,
+        "c2": true,
         "c3": true,
         "c4": true,
         "c5": true
@@ -33,47 +70,16 @@
       "transfer_general_lots": 0.0,
       "contract_liab_k": 13214722.0,
       "capital_k": 1340119.0,
-      "eps": 11.0,
+      "eps": 11.61,
       "fin_period": "2026Q2"
-    },
-    {
-      "code": "2618",
-      "name": "長榮航",
-      "market": "tse",
-      "conds": {
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 4,
-      "close": 44.4,
-      "change": 1.15,
-      "volume_lots": 37423.5,
-      "foreign_buy": 28462.3,
-      "foreign_sell": 6462.0,
-      "foreign_net": 22000.4,
-      "foreign_net_prev": 1673.9,
-      "trust_buy": 130.0,
-      "trust_sell": 3.0,
-      "trust_net": 127.0,
-      "trust_net_prev": -94.0,
-      "total_net": 22623.5,
-      "total_net_prev": 1046.1,
-      "main_force_net": 6977.0,
-      "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 78.27,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 36190224.0,
-      "capital_k": 54004443.0,
-      "eps": 1.0,
-      "fin_period": "2026Q1"
     },
     {
       "code": "6213",
       "name": "聯茂",
       "market": "tse",
       "conds": {
+        "c1": true,
+        "c2": true,
         "c3": true,
         "c4": false,
         "c5": true
@@ -99,7 +105,7 @@
       "transfer_general_lots": 0.0,
       "contract_liab_k": null,
       "capital_k": 3638576.0,
-      "eps": 3.0,
+      "eps": 3.52,
       "fin_period": "2026Q2"
     },
     {
@@ -107,6 +113,8 @@
       "name": "長榮",
       "market": "tse",
       "conds": {
+        "c1": true,
+        "c2": true,
         "c3": true,
         "c4": false,
         "c5": true
@@ -132,7 +140,7 @@
       "transfer_general_lots": 0.0,
       "contract_liab_k": 8179845.0,
       "capital_k": 21650430.0,
-      "eps": 3.0,
+      "eps": 3.84,
       "fin_period": "2026Q1"
     },
     {
@@ -140,6 +148,8 @@
       "name": "豐祥-KY",
       "market": "tse",
       "conds": {
+        "c1": true,
+        "c2": true,
         "c3": true,
         "c4": false,
         "c5": true
@@ -165,7 +175,7 @@
       "transfer_general_lots": 0.0,
       "contract_liab_k": 150004.0,
       "capital_k": 696987.0,
-      "eps": 4.0,
+      "eps": 4.44,
       "fin_period": "2026Q2"
     },
     {
@@ -173,6 +183,8 @@
       "name": "威強電",
       "market": "tse",
       "conds": {
+        "c1": true,
+        "c2": true,
         "c3": true,
         "c4": false,
         "c5": false
@@ -206,6 +218,8 @@
       "name": "長興",
       "market": "tse",
       "conds": {
+        "c1": true,
+        "c2": true,
         "c3": true,
         "c4": false,
         "c5": false
@@ -229,49 +243,18 @@
       "big_holder_pct": 58.03,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
-      "contract_liab_k": 493199.0,
+      "contract_liab_k": 207082.0,
       "capital_k": 11722455.0,
-      "eps": null,
-      "fin_period": "2026Q2"
-    },
-    {
-      "code": "006205",
-      "name": "富邦上証",
-      "market": "tse",
-      "conds": {
-        "c3": true,
-        "c4": false,
-        "c5": false
-      },
-      "passed": 3,
-      "close": 41.8,
-      "change": 0.55,
-      "volume_lots": 376.1,
-      "foreign_buy": 43.0,
-      "foreign_sell": 3.0,
-      "foreign_net": 40.0,
-      "foreign_net_prev": -99.6,
-      "trust_buy": 40.0,
-      "trust_sell": 0.0,
-      "trust_net": 40.0,
-      "trust_net_prev": 0.0,
-      "total_net": 332.9,
-      "total_net_prev": 10.7,
-      "main_force_net": 6977.0,
-      "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 32.79,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": null,
-      "capital_k": null,
-      "eps": null,
-      "fin_period": "2026Q2"
+      "eps": 1.41,
+      "fin_period": "2025Q4"
     },
     {
       "code": "2387",
       "name": "精元",
       "market": "tse",
       "conds": {
+        "c1": true,
+        "c2": true,
         "c3": true,
         "c4": false,
         "c5": false
@@ -297,9 +280,9 @@
       "transfer_general_lots": 0.0,
       "contract_liab_k": 34914.0,
       "capital_k": 1952510.0,
-      "eps": null,
+      "eps": 0.17,
       "fin_period": "2026Q2"
     }
   ],
-  "message": "符合全部條件 1 檔；合約負債達標之部分符合 1 檔；其他法人動能股 7 檔"
+  "message": "符合全部條件 2 檔；法人動能+合約負債達標 0 檔；全市場合約負債達標 0 檔；其他法人動能股 6 檔（全市場財報資料庫尚未建立，請先執行 Financial Scan）"
 }
