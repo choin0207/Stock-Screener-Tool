@@ -62,6 +62,12 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 
 ## 目前狀態（2026-08-09 更新）
 
+- **本機 commit b0699c0（自選名單刪除按鈕改進）尚未推送**：此 Windows 環境無任何
+  GitHub 認證（GCM 無存憑證、無 gh、WSL 無 gitconfig），非互動 session 無法登入。
+  需使用者在互動終端跑一次 `git push`（GCM 會開瀏覽器登入），之後認證即會保存
+- 自選名單「加入後自動比對條件」本來就是自動的（前端讀快照即時算①②④⑤），
+  只差 market_snapshot.json 首份資料
+
 - 財報掃描資料庫 `docs/data/financials.json`：已涵蓋 1,316 檔（全市場約1,800），
   已觸發續掃補剩餘
 - 全市場快照 `market_snapshot.json`：**尚未產生**——首次觸發碰上深夜維護失敗，
