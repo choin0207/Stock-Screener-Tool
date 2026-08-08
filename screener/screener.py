@@ -2,9 +2,9 @@
 """每日選股邏輯：五個條件全部通過才列入名單。
 
   1. 外資與投信與前一日相比大量購入（皆為買超，且合計買超 >= 前日 * inst_surge_ratio）
-  2. 三大法人買賣超 > 前一日買賣超 * net_buy_ratio（預設 10 倍，前日需為買超）
+  2. 三大法人買賣超 > 前一日買賣超 * net_buy_ratio（預設 3 倍，前日需為買超）
   3. 近 N 日「一般交易」內部人持股轉讓合計 <= transfer_max_lots（預設 100 張）
-  4. 合約負債 > 實收資本額（股本）
+  4. 合約負債 > 實收資本額（股本）× contract_liability_capital_ratio（預設 0.5）
   5. 獲利能力：基本每股盈餘 EPS > profitability_threshold（預設 1.5 元）
 
 條件 1、2 用大盤整批資料先過濾，只對存活的少數個股查 MOPS 個別財報（條件 4、5），
@@ -74,7 +74,7 @@ def run_daily_screen():
         cond1 = (cur["foreign_net"] > 0 and cur["trust_net"] > 0 and
                  inst_today > max(inst_prev, 0) * surge_ratio and inst_today > 0)
 
-        # 條件2：三大法人買賣超 > 前日 10 倍（前日需為買超）
+        # 條件2：三大法人買賣超 > 前日 net_buy_ratio 倍（前日需為買超）
         cond2 = (prev["total_net"] > 0 and
                  cur["total_net"] > prev["total_net"] * net_ratio)
 
@@ -102,7 +102,8 @@ def run_daily_screen():
         eps = fin.get("eps")
 
         cond4 = (contract is not None and capital is not None and
-                 contract > capital)
+                 contract > capital *
+                 CONFIG["contract_liability_capital_ratio"])
         cond5 = (eps is not None and
                  eps > CONFIG["profitability_threshold"])
         if not (cond4 and cond5):

@@ -7,14 +7,14 @@ CONFIG = {
     "inst_surge_ratio": 2.0,
 
     # 條件2：三大法人買賣超 > 前一日買賣超的倍數（前一日需為買超）
-    "net_buy_ratio": 10.0,
+    "net_buy_ratio": 3.0,
 
     # 條件3：近 N 日內「一般交易」持股轉讓申報合計不得超過的張數
     "transfer_lookback_days": 30,
     "transfer_max_lots": 100,          # 100 張 = 100,000 股
 
-    # 條件4：合約負債 > 實收資本額（股本），單位一致後比較
-    "contract_liability_vs_capital": True,
+    # 條件4：合約負債 > 實收資本額（股本）× 此比例（0.5 = 資本額的一半即可）
+    "contract_liability_capital_ratio": 0.5,
 
     # 條件5：獲利能力門檻（預設用「基本每股盈餘 EPS」> 1.5 元）
     "profitability_metric": "eps",     # eps
