@@ -1,6 +1,8 @@
-/* PWA Service Worker：App 殼快取優先、資料一律走網路（避免看到舊行情）。
-   config.js 走「網路優先」讓登入設定更新能即時生效。 */
-const SHELL = "shell-v2";
+/* PWA Service Worker
+   - 頁面(index.html)與設定(config.js)：網路優先，確保永遠拿到最新版介面
+   - 資料(data/、api/)：一律走網路，避免看到舊行情
+   - 圖示等靜態資源：快取優先 */
+const SHELL = "shell-v3";
 const ASSETS = ["./", "index.html", "manifest.json", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", e => {
@@ -16,9 +18,19 @@ self.addEventListener("fetch", e => {
   if (url.pathname.includes("/data/") || url.pathname.includes("/api/")) {
     return;                                   // 資料永遠走網路
   }
-  if (url.pathname.endsWith("/config.js")) {  // 設定檔網路優先
-    e.respondWith(fetch(e.request).catch(() =>
-      caches.match(e.request, { ignoreSearch: true })));
+  const isPage = e.request.mode === "navigate" ||
+                 url.pathname.endsWith("/index.html") ||
+                 url.pathname.endsWith("/config.js");
+  if (isPage) {                               // 頁面網路優先，離線才用快取
+    e.respondWith(
+      fetch(e.request).then(r => {
+        const copy = r.clone();
+        caches.open(SHELL).then(c => c.put(e.request, copy));
+        return r;
+      }).catch(() =>
+        caches.match(e.request, { ignoreSearch: true })
+          .then(hit => hit || caches.match("index.html")))
+    );
     return;
   }
   e.respondWith(
