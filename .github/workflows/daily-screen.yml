@@ -1,11 +1,13 @@
-# 每交易日 15:30（台北，= 07:30 UTC）自動執行每日篩選，
+# 每交易日 15:30 與 17:00（台北，= 07:30 / 09:00 UTC）自動執行每日篩選：
+# 15:30 首跑（三大法人資料約 15:00 公布），17:00 補跑一次，
+# 涵蓋較晚公布的持股轉讓申報與財報資料。
 # 結果 commit 到 docs/data/，GitHub Pages 網頁即自動更新。
-# 注意：此 workflow 需位於獨立 repo 的預設分支才會依排程執行。
 name: Daily Screen
 
 on:
   schedule:
     - cron: "30 7 * * 1-5"
+    - cron: "0 9 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
