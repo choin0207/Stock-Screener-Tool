@@ -200,16 +200,39 @@ def fetch_tpex_inst(ymd):
         return cache
 
     roc = f"{int(ymd[:4]) - 1911}/{ymd[4:6]}/{ymd[6:]}"
-    data = _get_json("https://www.tpex.org.tw/www/zh-tw/insti/dailyTrade",
-                     params={"type": "Daily", "sect": "EW", "date": roc,
-                             "response": "json"})
+    headers = {"Referer": "https://www.tpex.org.tw/"}
+    data = None
+    try:
+        r = _session().get("https://www.tpex.org.tw/www/zh-tw/insti/dailyTrade",
+                           params={"type": "Daily", "sect": "EW", "date": roc,
+                                   "response": "json"},
+                           headers=headers, timeout=CONFIG["request_timeout"])
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:                                   # noqa: BLE001
+        log.warning("TPEx 法人資料(新版API)失敗: %s，改用舊版端點", e)
+
     fields, rows = [], []
     for t in (data or {}).get("tables", []):
         if t.get("data"):
             fields, rows = t.get("fields", []), t["data"]
             break
+
     if not rows:
-        return {}
+        # 備用：舊版 API（固定欄位順序的 aaData，se=EW 版面共 24 欄）
+        try:
+            r = _session().get(
+                "https://www.tpex.org.tw/web/stock/3insti/daily_trade/"
+                "3itrade_hedge_result.php",
+                params={"l": "zh-tw", "se": "EW", "t": "D", "d": roc,
+                        "o": "json"},
+                headers=headers, timeout=CONFIG["request_timeout"])
+            r.raise_for_status()
+            rows = r.json().get("aaData", [])
+            fields = []                       # 舊版無欄位名，用固定索引
+        except Exception as e:                               # noqa: BLE001
+            log.warning("TPEx 法人資料(舊版API)也失敗: %s", e)
+            return {}
 
     def col(*keywords):
         for i, f in enumerate(fields):
@@ -217,16 +240,23 @@ def fetch_tpex_inst(ymd):
                 return i
         return None
 
-    idx = {
-        "code": col("代號"),
-        "f_buy": col("不含", "買進"),
-        "f_sell": col("不含", "賣出"),
-        "f_net": col("不含", "買賣超"),
-        "t_buy": col("投信", "買進"),
-        "t_sell": col("投信", "賣出"),
-        "t_net": col("投信", "買賣超"),
-        "total": col("三大法人", "買賣超"),
-    }
+    if fields:
+        idx = {
+            "code": col("代號"),
+            "f_buy": col("不含", "買進"),
+            "f_sell": col("不含", "賣出"),
+            "f_net": col("不含", "買賣超"),
+            "t_buy": col("投信", "買進"),
+            "t_sell": col("投信", "賣出"),
+            "t_net": col("投信", "買賣超"),
+            "total": col("三大法人", "買賣超"),
+        }
+    else:
+        # 舊版固定欄位：0代號 1名稱 2-4外資(不含自營) 5-7外資自營
+        # 8-10外資合計 11-13投信 14-22自營商 23三大法人合計
+        idx = {"code": 0, "f_buy": 2, "f_sell": 3, "f_net": 4,
+               "t_buy": 11, "t_sell": 12, "t_net": 13, "total": 23}
+        rows = [r for r in rows if len(r) >= 24]
     if idx["code"] is None or idx["total"] is None:
         log.warning("TPEx 法人資料欄位解析失敗: %s", fields)
         return {}

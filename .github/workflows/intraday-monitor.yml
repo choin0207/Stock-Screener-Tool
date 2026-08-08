@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase || true
           git add docs/data
           git commit -m "chore: 盤中量能監控更新 [skip ci]" || echo "no changes"
+          git pull --rebase origin main || true
           git push

@@ -84,6 +84,8 @@ def run_daily_screen():
     log.info("條件1+2 通過：%d 檔 %s", len(candidates), candidates)
 
     # ---- 條件 3/4/5：逐檔評估，所有候選股都列出並依符合程度分級 ----
+    # 排除 ETF／受益憑證等非個股（台股個股為 4 碼數字；ETF 如 006205 為 5-6 碼）
+    candidates = [c for c in candidates if len(c) == 4 and c.isdigit()]
     # 依法人買超由大到小排序；設查詢上限保護 MOPS 不被大量請求
     candidates.sort(key=lambda c: -t86_today[c]["total_net"])
     max_q = CONFIG.get("max_financial_queries", 40)
