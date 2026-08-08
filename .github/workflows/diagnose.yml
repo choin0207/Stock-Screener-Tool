@@ -1,0 +1,38 @@
+# 個股五條件診斷：手動觸發，輸入股票代號，
+# 結果顯示於 Actions 紀錄並更新到網頁的「個股條件診斷」卡片。
+name: Diagnose Stock
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "股票代號（例如 3379）"
+        required: true
+        default: "3379"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: screener-data
+  cancel-in-progress: false
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Diagnose
+        run: python run_diagnose.py "${{ inputs.code }}"
+      - name: Commit result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          git commit -m "chore: 個股診斷 ${{ inputs.code }} [skip ci]" || echo "no changes"
+          git pull --rebase origin main || true
+          git push

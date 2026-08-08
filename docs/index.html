@@ -137,6 +137,12 @@
     <div id="alerts"><div class="empty">目前沒有警示。</div></div>
   </div>
 
+  <div class="card" id="diagCard" style="display:none">
+    <h2>🔎 個股條件診斷</h2>
+    <div class="msg" id="diagMeta"></div>
+    <div id="diagChecks"></div>
+  </div>
+
   <div class="card">
     <h2>📋 每日篩選結果</h2>
     <div class="msg" id="resultMeta"></div>
@@ -266,6 +272,23 @@ async function loadResults() {
   }
 }
 
+async function loadDiagnose() {
+  const d = await getJSON("data/diagnose.json");
+  if (!d || !d.checks) return;
+  $("diagCard").style.display = "";
+  $("diagMeta").textContent =
+    `${d.code} ${d.name || ""}${d.market === "otc" ? "（櫃）" : ""}` +
+    (d.close != null ? `｜收盤 ${d.close}` : "") +
+    `｜交易日 ${d.trade_date || "—"}｜診斷於 ${d.generated_at}`;
+  $("diagChecks").innerHTML = d.checks.map(c => {
+    const mark = c.ok === true ? '<span class="chip ok">符合 ✓</span>'
+               : c.ok === false ? '<span class="chip bad">不符 ✗</span>'
+               : '<span class="chip">無資料 ？</span>';
+    return `<div style="margin:7px 0">${mark} <b>${c.label}</b><br>
+            <span class="msg">${c.detail}</span></div>`;
+  }).join("");
+}
+
 async function loadAlerts() {
   const alerts = await getJSON("data/alerts.json") || [];
   const box = $("alerts");
@@ -312,7 +335,7 @@ $("btnNotify").onclick = () => {
   Notification.requestPermission().then(p => $("statusMsg").textContent =
     p === "granted" ? "通知已啟用（頁面開啟時有新警示會提醒）" : "未授權通知");
 };
-$("btnRefresh").onclick = () => { loadResults(); loadAlerts(); detectMode(); };
+$("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose(); detectMode(); };
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -336,9 +359,10 @@ function startApp() {
   appStarted = true;
   $("loginOverlay").classList.remove("show");
   $("logoutLink").style.display = AUTH_URL ? "" : "none";
-  detectMode().then(() => { loadResults(); loadAlerts(); });
+  detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose(); });
   setInterval(loadAlerts, 60 * 1000);
   setInterval(loadResults, 5 * 60 * 1000);
+  setInterval(loadDiagnose, 5 * 60 * 1000);
 }
 
 $("loginForm").onsubmit = async (e) => {
