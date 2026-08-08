@@ -20,6 +20,9 @@ CONFIG = {
     "profitability_metric": "eps",     # eps
     "profitability_threshold": 1.5,
 
+    # 通過條件①②的候選股最多評估幾檔財報（保護 MOPS 不被大量請求）
+    "max_financial_queries": 40,
+
     # ---- 盤中量能監控 ----
     "monitor_interval_min": 10,        # 每 10 分鐘檢查一次
     "volume_spike_ratio": 10.0,        # 最近一段量 > 當日先前每段平均量的倍數

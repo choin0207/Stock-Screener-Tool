@@ -61,6 +61,16 @@
   /* 手機：卡片 */
   .stock { border: 1px solid var(--line); border-radius: 12px;
            padding: 12px 14px; margin: 10px 0; }
+  .tierhead { font-weight: 700; font-size: 14px; margin: 14px 0 4px;
+              color: var(--muted); }
+  tr.tier td { font-weight: 700; color: var(--muted); background: var(--bg);
+               text-align: left; padding-top: 12px; }
+  .chip { display: inline-block; border-radius: 999px; padding: 1px 8px;
+          font-size: 11.5px; margin: 1px 2px; white-space: nowrap; }
+  .chip.ok { background: rgba(46, 204, 113, .15); color: #1a9955; }
+  .chip.bad { background: rgba(231, 76, 60, .15); color: #c92a3d; }
+  .badges { font-size: 12.5px; margin: 4px 0 2px; }
+  td.badges { text-align: left; }
   .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
   .stock .head b { font-size: 17px; }
   .stock .price { font-size: 17px; font-weight: 700; }
@@ -104,7 +114,7 @@
     <div class="tablewrap">
       <table id="resultTable" style="display:none">
         <thead><tr>
-          <th>代號</th><th>名稱</th><th>收盤</th><th>漲跌</th><th>量(張)</th>
+          <th>代號</th><th>名稱</th><th>符合條件</th><th>收盤</th><th>漲跌</th><th>量(張)</th>
           <th>外資買超</th><th>外資前日</th><th>投信買超</th><th>投信前日</th>
           <th>法人合計</th><th>法人前日</th><th>主力買賣超</th>
           <th>大戶%</th><th>大戶週變動</th><th>轉讓(張)</th>
@@ -114,7 +124,7 @@
       </table>
     </div>
     <div class="empty" id="resultEmpty" style="display:none">
-      目前沒有符合全部條件的股票。目前的條件組合仍然偏嚴格，無結果屬正常現象。</div>
+      今日沒有通過法人條件（外資投信大買＋法人買賣超放大）的候選股。</div>
   </div>
 
   <div class="card sub" style="font-size:12px">
@@ -166,12 +176,32 @@ async function loadResults() {
   const tb = $("resultTable").querySelector("tbody");
   const cards = $("cards");
   tb.innerHTML = ""; cards.innerHTML = "";
+  const NCOLS = 20;
+  const tierOf = s => !s.conds ? 0 :
+    (s.passed === 5 ? 0 : (s.conds.c4 ? 1 : 2));
+  const TIERS = ["🏆 符合全部條件",
+                 "🟡 合約負債達標（部分條件符合）",
+                 "⚪ 其他法人動能股（合約負債未達標）"];
+  const badges = s => !s.conds ? "—" :
+    [["c3", "③轉讓"], ["c4", "④合約負債"], ["c5", "⑤EPS"]]
+      .map(([k, t]) => `<span class="chip ${s.conds[k] ? "ok" : "bad"}">${t}${s.conds[k] ? "✓" : "✗"}</span>`)
+      .join("");
+  let lastTier = -1;
   for (const s of rows) {
+    const tier = tierOf(s);
+    if (tier !== lastTier) {
+      lastTier = tier;
+      tb.insertAdjacentHTML("beforeend",
+        `<tr class="tier"><td colspan="${NCOLS}">${TIERS[tier]}</td></tr>`);
+      cards.insertAdjacentHTML("beforeend", `<div class="tierhead">${TIERS[tier]}</div>`);
+    }
     const liab = s.contract_liab_k != null ? s.contract_liab_k / 100000 : null;
     const cap  = s.capital_k != null ? s.capital_k / 100000 : null;
     const chg  = s.big_holder_chg == null ? "需累積2週" : fmt(s.big_holder_chg, 2) + "pp";
     tb.insertAdjacentHTML("beforeend", `<tr>
-      <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td><td>${fmt(s.close, 2)}</td>
+      <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td>
+      <td class="badges">${s.passed ?? "—"}/5 ${badges(s)}</td>
+      <td>${fmt(s.close, 2)}</td>
       <td class="${cls(s.change)}">${fmt(s.change, 2)}</td>
       <td>${fmt(s.volume_lots, 0)}</td>
       <td class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</td>
@@ -190,6 +220,7 @@ async function loadResults() {
         <span class="price ${cls(s.change)}">${fmt(s.close, 2)}
           <small>${s.change > 0 ? "▲" : (s.change < 0 ? "▼" : "")}${fmt(Math.abs(s.change ?? 0), 2)}</small>
         </span></div>
+      <div class="badges">${s.passed ?? "—"}/5 ${badges(s)}</div>
       <div class="grid">
         <div><span>成交量</span> ${fmt(s.volume_lots, 0)} 張</div>
         <div><span>外資買超</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（前日 ${fmt(s.foreign_net_prev, 0)}）</div>

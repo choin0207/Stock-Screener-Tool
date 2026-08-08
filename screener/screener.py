@@ -83,19 +83,20 @@ def run_daily_screen():
 
     log.info("條件1+2 通過：%d 檔 %s", len(candidates), candidates)
 
-    # ---- 條件 3：一般交易持股轉讓 ----
-    survivors = []
-    transfer_lots = {}
+    # ---- 條件 3/4/5：逐檔評估，所有候選股都列出並依符合程度分級 ----
+    # 依法人買超由大到小排序；設查詢上限保護 MOPS 不被大量請求
+    candidates.sort(key=lambda c: -t86_today[c]["total_net"])
+    max_q = CONFIG.get("max_financial_queries", 40)
+    if len(candidates) > max_q:
+        log.warning("候選 %d 檔超過財報查詢上限 %d，僅評估法人買超前 %d 檔",
+                    len(candidates), max_q, max_q)
+        candidates = candidates[:max_q]
+
+    results = []
     for code in candidates:
         lots = ds.transfer_general_lots(code)
-        transfer_lots[code] = lots
-        if lots <= CONFIG["transfer_max_lots"]:
-            survivors.append(code)
-    log.info("條件3 通過：%d 檔", len(survivors))
+        cond3 = lots <= CONFIG["transfer_max_lots"]
 
-    # ---- 條件 4 + 5：個別公司財報（僅查存活個股）----
-    results = []
-    for code in survivors:
         fin = ds.fetch_financials(code)
         contract = fin.get("contract_liab_k")
         capital = fin.get("capital_k")
@@ -106,8 +107,9 @@ def run_daily_screen():
                  CONFIG["contract_liability_capital_ratio"])
         cond5 = (eps is not None and
                  eps > CONFIG["profitability_threshold"])
-        if not (cond4 and cond5):
-            continue
+
+        conds = {"c3": cond3, "c4": cond4, "c5": cond5}
+        passed = 2 + sum(conds.values())          # 條件①②為入場門檻，必為通過
 
         cur = t86_today[code]
         prev = t86_prev[code]
@@ -119,6 +121,8 @@ def run_daily_screen():
             "code": code,
             "name": q.get("name", ""),
             "market": q.get("market", "tse"),
+            "conds": conds,
+            "passed": passed,
             "close": q.get("close"),
             "change": q.get("change"),
             "volume_lots": q.get("volume_lots"),
@@ -141,7 +145,7 @@ def run_daily_screen():
             "big_holder_pct": big_pct,
             "big_holder_chg": big_chg,
             # 持股轉讓
-            "transfer_general_lots": round(transfer_lots[code], 1),
+            "transfer_general_lots": round(lots, 1),
             # 財報
             "contract_liab_k": contract,
             "capital_k": capital,
@@ -149,13 +153,21 @@ def run_daily_screen():
             "fin_period": fin.get("period"),
         })
 
+    # 排序：全部符合 → 合約負債達標的部分符合（依符合數）→ 其他法人動能股，
+    # 同級內依法人買超由大到小
+    results.sort(key=lambda r: (r["passed"] != 5, not r["conds"]["c4"],
+                                -r["passed"], -(r["total_net"] or 0)))
+
+    n_full = sum(1 for r in results if r["passed"] == 5)
+    n_c4 = sum(1 for r in results if r["conds"]["c4"] and r["passed"] < 5)
+    n_rest = len(results) - n_full - n_c4
     out = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "trade_date": d_today,
         "prev_trade_date": d_prev,
         "results": results,
-        "message": f"篩選完成：{len(results)} 檔符合全部條件"
-                   f"（法人條件通過 {len(candidates)} 檔）",
+        "message": (f"符合全部條件 {n_full} 檔；合約負債達標之部分符合 {n_c4} 檔；"
+                    f"其他法人動能股 {n_rest} 檔"),
     }
     save_results(out)
     log.info(out["message"])
@@ -163,8 +175,9 @@ def run_daily_screen():
 
 
 def watchlist():
-    """盤中監控清單 = 最新篩選結果 + 設定檔中額外指定的股票。"""
-    codes = [r["code"] for r in load_results().get("results", [])]
+    """盤中監控清單 = 篩選結果中合約負債達標(④)以上的股票 + 額外指定的股票。"""
+    codes = [r["code"] for r in load_results().get("results", [])
+             if r.get("conds", {}).get("c4", True)]
     for c in CONFIG["monitor_extra_symbols"]:
         if c not in codes:
             codes.append(c)
