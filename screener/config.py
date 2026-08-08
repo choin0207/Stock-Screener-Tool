@@ -33,6 +33,23 @@ CONFIG = {
     "market_open": "09:00",
     "market_close": "13:30",
 
+    # ---- 持股風險紅黃綠燈（自選/持股監控，run_monitor.py 內執行）----
+    # 持股清單檔：一行一個代號，# 開頭為註解；清單內股票每 10 分鐘評估燈號
+    "holdings_file": "watchlist.txt",
+    # 市場層級訊號門檻 [黃燈, 紅燈]
+    "risk_vix_level": [22.0, 30.0],            # VIX 絕對水位
+    "risk_vix_spike_pct": [15.0, 30.0],        # VIX 對前收漲幅 %
+    "risk_es_drop_pct": [-1.5, -3.0],          # S&P500 期貨對前收跌幅 %
+    "risk_twii_drop_pct": [-2.0, -3.5],        # 加權指數盤中對前收跌幅 %
+    "risk_ewt_drop_pct": [-2.0, -3.5],         # EWT(台灣ETF,夜間代理)跌幅 %
+    "risk_asia_drop_pct": [-2.0, -3.5],        # 日經/KOSPI 跌幅 %
+    # 個股層級訊號門檻
+    "risk_stock_drop_pct": [-3.0, -4.5],       # 個股對昨收跌幅 % [黃, 紅]
+    "risk_imbalance_ratio": [8.0, 15.0],       # 委賣5檔量/委買5檔量 [黃, 紅]
+    "risk_imbalance_min_ask_lots": 300,        # 失衡判斷的最低委賣掛單量（張）
+    "risk_dump_vol_ratio": 5.0,                # 急跌時最近段量>平均段量此倍數→紅燈
+    "risk_market_overlay_drop_pct": -1.0,      # 市場紅燈時個股跌逾此%才跟著升紅
+
     # ---- 每日排程 ----
     "daily_screen_time": "15:30",      # 台北時間，盤後資料公布後執行
 

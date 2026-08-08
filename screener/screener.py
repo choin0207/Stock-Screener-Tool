@@ -262,7 +262,7 @@ def watchlist():
              if r.get("conds", {}).get("c4", True)
              and r.get("conds", {}).get("c1", True)
              and r.get("conds", {}).get("c2", True)]
-    for c in CONFIG["monitor_extra_symbols"]:
+    for c in CONFIG["monitor_extra_symbols"] + ds.load_holdings():
         if c not in codes:
             codes.append(c)
     return codes

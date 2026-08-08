@@ -1,11 +1,13 @@
 # 盤中（台北 09:00–13:30 = UTC 01:00–05:30）每 10 分鐘檢查監控清單成交量，
 # 爆量警示 commit 到 docs/data/alerts.json，網頁每分鐘輪詢並跳出通知。
+# UTC 0 時段（台北 08:00–08:50 開盤前）僅做市場風險訊號（VIX/美期/亞股/EWT），
+# 供熔斷前兆紅黃綠燈判斷；持股個股燈號於交易時段內產生。
 # 注意：GitHub Actions 排程屬盡力執行，尖峰時段可能延遲數分鐘。
 name: Intraday Volume Monitor
 
 on:
   schedule:
-    - cron: "*/10 1-5 * * 1-5"
+    - cron: "*/10 0-5 * * 1-5"
   workflow_dispatch: {}
 
 permissions:

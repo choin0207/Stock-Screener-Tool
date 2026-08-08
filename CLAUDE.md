@@ -60,11 +60,24 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在
   `google-apps-script/Code.gs`。使用者說「先不要用帳密」
 
+## 持股風險紅黃綠燈（2026-08-09 新增）
+
+- 持股清單：repo 根目錄 `watchlist.txt`（一行一代號，# 註解）。前端 localStorage
+  自選名單與此檔**互相獨立**——燈號監控只看 watchlist.txt，使用者說要加誰就編輯此檔
+- `screener/risk.py`：市場訊號（VIX 水位/飆升、ES=F、^TWII、EWT、日經、KOSPI，
+  皆 Yahoo chart API）+ 個股訊號（跌幅、委賣/委買五檔失衡、急跌爆量）→
+  `docs/data/watch_alerts.json`；紅燈「轉紅」時追加 alerts.json（不重複轟炸）
+- **台指期夜盤無免費即時源**：以 EWT（美股台灣ETF）+ ES=F 作夜間代理（標註假設）
+- 執行順序陷阱：`run_monitor.py` 必須**先 risk.assess() 再 check_volume_spike()**，
+  因後者會把 monitor_state 更新成本段累積量，反過來跑「最近段量」恆為 0
+- 監控 workflow cron 提前到 UTC 0-5（台北 08:00 起），開盤前僅市場訊號
+- 門檻都在 config.py `risk_*`；離線測試 13 項於 scratchpad test_risk.py 全過
+
 ## 目前狀態（2026-08-09 更新）
 
-- **本機 commit b0699c0（自選名單刪除按鈕改進）尚未推送**：此 Windows 環境無任何
-  GitHub 認證（GCM 無存憑證、無 gh、WSL 無 gitconfig），非互動 session 無法登入。
-  需使用者在互動終端跑一次 `git push`（GCM 會開瀏覽器登入），之後認證即會保存
+- GitHub 推送認證：使用者已在互動終端登入過一次，GCM 憑證存於 Windows
+  認證管理員（git:https://github.com），助理可直接推送
+- 本機 Windows Python 3.14 已補裝 requests / tzdata / pyyaml 供離線測試
 - 自選名單「加入後自動比對條件」本來就是自動的（前端讀快照即時算①②④⑤），
   只差 market_snapshot.json 首份資料
 
@@ -85,3 +98,16 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 - 測試：改動後跑離線測試（mock 資料來源）+ `python3 -m py_compile` +
   workflow YAML 驗證 + 前端 JS `new Function()` 語法檢查
 - commit 訊息用繁中；資料 commit 加 `[skip ci]`
+
+<!-- OPENWIKI:START -->
+
+## OpenWiki
+
+This repository has a generated `openwiki/` evidence index. It is optional just-in-time context, not required startup reading.
+
+- Treat source code and tests as authoritative. A brief's unknowns and review items are verification gaps, not automatic requirements.
+- Prefer the narrowest quiet validation that proves the changed behavior. Preserve complete failure output.
+
+The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do not hand-edit generated OpenWiki pages unless explicitly asked; prefer updating source code/docs and letting OpenWiki regenerate.
+
+<!-- OPENWIKI:END -->

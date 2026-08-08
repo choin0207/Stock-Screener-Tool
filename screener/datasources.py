@@ -617,3 +617,117 @@ def fetch_intraday_volumes(codes, market_map=None):
             log.warning("即時行情抓取失敗: %s", e)
         time.sleep(1)
     return out
+
+
+def fetch_intraday_quotes_full(codes, market_map=None):
+    """回傳 {代號: {price, prev_close, change_pct, volume_lots,
+    ask_lots, bid_lots, name, time}}。ask/bid_lots 為揭示五檔委賣/委買總量（張），
+    供委買賣失衡（流動性急凍）判斷；盤前或收盤後掛單欄位可能為空 → None。"""
+    if not codes:
+        return {}
+    market_map = market_map or {}
+    queries = []
+    for c in codes:
+        m = market_map.get(c)
+        for prefix in ([m] if m in ("tse", "otc") else ["tse", "otc"]):
+            queries.append(f"{prefix}_{c}.tw")
+
+    def _five_sum(s):
+        vals = [_num(x) for x in str(s or "").split("_") if x.strip()]
+        vals = [v for v in vals if v is not None]
+        return sum(vals) if vals else None
+
+    out = {}
+    s = _session()
+    try:
+        s.get("https://mis.twse.com.tw/stock/index.jsp", timeout=15)
+    except Exception:                                        # noqa: BLE001
+        pass
+    for i in range(0, len(queries), 20):
+        ex_ch = "|".join(queries[i:i + 20])
+        try:
+            r = s.get("https://mis.twse.com.tw/stock/api/getStockInfo.jsp",
+                      params={"ex_ch": ex_ch, "json": "1", "delay": "0"},
+                      timeout=CONFIG["request_timeout"])
+            r.raise_for_status()
+            for item in r.json().get("msgArray", []):
+                code = item.get("c")
+                if not code:
+                    continue
+                price = _num(item.get("z")) or _num(item.get("y"))
+                prev = _num(item.get("y"))
+                out[code] = {
+                    "price": price,
+                    "prev_close": prev,
+                    "change_pct": (round((price - prev) / prev * 100, 2)
+                                   if price and prev else None),
+                    "volume_lots": _num(item.get("v")) or 0,
+                    "ask_lots": _five_sum(item.get("f")),
+                    "bid_lots": _five_sum(item.get("g")),
+                    "name": item.get("n", ""),
+                    "time": item.get("t", ""),
+                }
+        except Exception as e:                               # noqa: BLE001
+            log.warning("即時完整行情抓取失敗: %s", e)
+        time.sleep(1)
+    return out
+
+
+def load_holdings():
+    """讀取持股清單檔（一行一代號，# 註解），供風險燈號與量能監控使用。
+    檔案不存在回傳空 list。"""
+    path = CONFIG.get("holdings_file", "watchlist.txt")
+    codes = []
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                code = line.split("#")[0].strip()
+                if code and code not in codes:
+                    codes.append(code)
+    except FileNotFoundError:
+        pass
+    return codes
+
+
+# ---------------------------------------------------------------------------
+# 國際市場風險指標（Yahoo Finance 公開 chart API）
+# ---------------------------------------------------------------------------
+
+def _yahoo_quote(symbol):
+    """回傳 {price, prev_close, change_pct}，失敗回傳 None。"""
+    data = _get_json(
+        f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}",
+        params={"range": "1d", "interval": "15m"})
+    try:
+        meta = data["chart"]["result"][0]["meta"]
+        price = meta.get("regularMarketPrice")
+        prev = meta.get("chartPreviousClose")
+        if price is None or not prev:
+            return None
+        return {"price": price, "prev_close": prev,
+                "change_pct": round((price - prev) / prev * 100, 2)}
+    except Exception:                                        # noqa: BLE001
+        return None
+
+
+def fetch_market_indicators():
+    """抓熔斷前市場訊號用的指標。台指期夜盤無免費即時源，
+    以 EWT（美股掛牌台灣ETF，反映夜間台股情緒）與 ES=F 作代理。
+    回傳 {key: {price, prev_close, change_pct}}，抓不到的 key 不出現。"""
+    symbols = {
+        "vix": "%5EVIX",       # 恐慌指數
+        "es": "ES%3DF",        # S&P 500 期貨（近24小時交易）
+        "twii": "%5ETWII",     # 加權指數（盤中現貨急殺）
+        "ewt": "EWT",          # 台灣ETF（夜間情緒代理）
+        "n225": "%5EN225",     # 日經
+        "kospi": "%5EKS11",    # 韓股
+    }
+    out = {}
+    for key, sym in symbols.items():
+        q = _yahoo_quote(sym)
+        if q:
+            out[key] = q
+        else:
+            log.warning("市場指標 %s(%s) 抓取失敗", key, sym)
+        time.sleep(0.5)
+    return out

@@ -71,6 +71,12 @@
   .chip.bad { background: rgba(231, 76, 60, .15); color: #c92a3d; }
   button.wlDel { background: rgba(231, 76, 60, .12); color: #c92a3d;
                  padding: 5px 10px; font-size: 12.5px; border-radius: 8px; }
+  .chip.warn { background: rgba(241, 196, 15, .2); color: #9a7d0a; }
+  .riskbar { border-radius: 10px; padding: 10px 12px; margin: 8px 0;
+             font-size: 14px; font-weight: 600; }
+  .riskbar.green { background: rgba(46, 204, 113, .12); color: #1a9955; }
+  .riskbar.yellow { background: rgba(241, 196, 15, .18); color: #9a7d0a; }
+  .riskbar.red { background: rgba(231, 76, 60, .15); color: #c92a3d; }
   .badges { font-size: 12.5px; margin: 4px 0 2px; }
   td.badges { text-align: left; }
   .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
@@ -137,6 +143,13 @@
   <div class="card">
     <h2>🚨 量能警示</h2>
     <div id="alerts"><div class="empty">目前沒有警示。</div></div>
+  </div>
+
+  <div class="card">
+    <h2>🚦 持股風險燈號（崩盤前兆訊號）</h2>
+    <div class="msg" id="riskMeta"></div>
+    <div id="riskMarket"></div>
+    <div id="riskStocks"></div>
   </div>
 
   <div class="card">
@@ -353,7 +366,7 @@ async function loadWatchlist() {
       : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
     const finUnknown = fin.contract_liab_k == null && fin.capital_k == null;
     box.insertAdjacentHTML("beforeend", `<div class="stock">
-      <div class="head"><b>${code} ${s.n}${s.m === "otc" ? ' <small>(櫃)</small>' : ''}</b>
+      <div class="head"><b>${wlLight(code)}${code} ${s.n}${s.m === "otc" ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(s.ch)}">${fmt(s.c, 2)}
           <small>${s.ch > 0 ? "▲" : (s.ch < 0 ? "▼" : "")}${fmt(Math.abs(s.ch ?? 0), 2)}</small></span></div>
       <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
@@ -385,6 +398,42 @@ async function loadDiagnose() {
     return `<div style="margin:7px 0">${mark} <b>${c.label}</b><br>
             <span class="msg">${c.detail}</span></div>`;
   }).join("");
+}
+
+// ---- 持股風險紅黃綠燈（docs/data/watch_alerts.json，Actions 每10分鐘產生）----
+let riskData = null;
+const LT_ICON = { green: "🟢", yellow: "🟡", red: "🔴" };
+const LT_TEXT = { green: "正常", yellow: "注意", red: "危險" };
+const wlLight = code => (riskData && riskData.stocks && riskData.stocks[code])
+  ? LT_ICON[riskData.stocks[code].light] + " " : "";
+
+async function loadRisk() {
+  const d = await getJSON("data/watch_alerts.json");
+  riskData = d;
+  const meta = $("riskMeta"), mkt = $("riskMarket"), stk = $("riskStocks");
+  if (!d) {
+    meta.textContent = "尚未產生（平日 08:00 起每 10 分鐘更新）";
+    mkt.innerHTML = ""; stk.innerHTML = ""; return;
+  }
+  meta.textContent = `更新 ${d.generated_at}｜監控清單增減請告訴 AI 助理`;
+  const m = d.market || { light: "green", signals: [] };
+  mkt.innerHTML =
+    `<div class="riskbar ${m.light}">${LT_ICON[m.light]} 市場整體：${LT_TEXT[m.light]}</div>`
+    + '<div class="badges">' + m.signals.map(s => {
+        const c = s.light === "red" ? "bad" : (s.light === "yellow" ? "warn" : "ok");
+        return `<span class="chip ${c}">${s.label} ${fmt(s.value, 2)}${s.unit}</span>`;
+      }).join(" ") + "</div>";
+  const entries = Object.entries(d.stocks || {});
+  stk.innerHTML = entries.length ? "" :
+    '<div class="empty">個股燈號於交易時段（09:00–13:30）每 10 分鐘產生。</div>';
+  for (const [code, s] of entries) {
+    stk.insertAdjacentHTML("beforeend", `<div class="stock">
+      <div class="head"><b>${LT_ICON[s.light]} ${code} ${s.name || ""}</b>
+        <span class="price ${cls(s.change_pct)}">${fmt(s.price, 2)}
+          <small>${s.change_pct != null ? fmt(s.change_pct, 2) + "%" : ""}</small></span></div>
+      <div class="msg">${(s.reasons && s.reasons.length) ? s.reasons.join("；") : "無風險訊號"}</div>
+    </div>`);
+  }
 }
 
 async function loadAlerts() {
@@ -433,7 +482,8 @@ $("btnNotify").onclick = () => {
   Notification.requestPermission().then(p => $("statusMsg").textContent =
     p === "granted" ? "通知已啟用（頁面開啟時有新警示會提醒）" : "未授權通知");
 };
-$("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose(); loadWatchlist(); detectMode(); };
+$("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose();
+                                  loadRisk().then(loadWatchlist); detectMode(); };
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -458,8 +508,9 @@ function startApp() {
   $("loginOverlay").classList.remove("show");
   $("logoutLink").style.display = AUTH_URL ? "" : "none";
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
-                            loadWatchlist(); });
+                            loadRisk().then(loadWatchlist); });
   setInterval(loadAlerts, 60 * 1000);
+  setInterval(loadRisk, 60 * 1000);
   setInterval(loadResults, 5 * 60 * 1000);
   setInterval(loadDiagnose, 5 * 60 * 1000);
   setInterval(loadWatchlist, 5 * 60 * 1000);
