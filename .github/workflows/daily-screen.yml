@@ -9,6 +9,9 @@ on:
     - cron: "30 7 * * 1-5"
     - cron: "0 9 * * 1-5"
   workflow_dispatch: {}
+  push:
+    paths:
+      - "screen-request.txt"
 
 permissions:
   contents: write
