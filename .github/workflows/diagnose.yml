@@ -1,4 +1,5 @@
-# 個股五條件診斷：手動觸發，輸入股票代號，
+# 個股五條件診斷：手動觸發（輸入股票代號），或修改 diagnose-request.txt
+# 後推送亦會觸發（檔案內容 = 要診斷的代號）。
 # 結果顯示於 Actions 紀錄並更新到網頁的「個股條件診斷」卡片。
 name: Diagnose Stock
 
@@ -9,6 +10,9 @@ on:
         description: "股票代號（例如 3379）"
         required: true
         default: "3379"
+  push:
+    paths:
+      - "diagnose-request.txt"
 
 permissions:
   contents: write
@@ -27,12 +31,18 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - name: Diagnose
-        run: python run_diagnose.py "${{ inputs.code }}"
+        run: |
+          CODE="${{ inputs.code }}"
+          if [ -z "$CODE" ] && [ -f diagnose-request.txt ]; then
+            CODE=$(tr -dc '0-9A-Za-z' < diagnose-request.txt)
+          fi
+          echo "診斷代號: $CODE"
+          python run_diagnose.py "$CODE"
       - name: Commit result
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/data
-          git commit -m "chore: 個股診斷 ${{ inputs.code }} [skip ci]" || echo "no changes"
+          git commit -m "chore: 個股診斷結果 [skip ci]" || echo "no changes"
           git pull --rebase origin main || true
           git push
