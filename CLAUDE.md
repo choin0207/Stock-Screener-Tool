@@ -1,0 +1,81 @@
+# CLAUDE.md — 專案工作記憶
+
+> 本檔為 AI 助理的專案脈絡檔。Claude Code / Cowork 開啟本專案時會自動讀取，
+> 讓新對話延續先前的開發脈絡。修改專案時請同步更新本檔的「目前狀態」。
+
+## 專案是什麼
+
+台股每日五條件篩選 + 盤中量能監控的跨平台 PWA，完全免伺服器：
+
+- **正式網頁**：https://choin0207.github.io/Stock-Screener-Tool/ （GitHub Pages，來源 main 分支 /docs）
+- **GitHub repo**：https://github.com/choin0207/Stock-Screener-Tool
+- 運算全部跑在 GitHub Actions；結果 commit 回 `docs/data/` 更新網頁
+- 使用者主要用手機開網頁（已加入主畫面當 App），**不開 GitHub**；
+  維運操作透過修改觸發檔推送（見下）
+
+## 五條件與分級（門檻都在 `screener/config.py`）
+
+1. ① 外資+投信皆買超，合計 ≥ 前日 × 2（inst_surge_ratio）
+2. ② 三大法人買賣超 > 前日 × 3（net_buy_ratio，原10倍，使用者要求放寬）
+3. ③ 近30日內部人「一般交易」轉讓 ≤ 100 張
+4. ④ 合約負債 > 資本額 × 0.5（contract_liability_capital_ratio，原1.0，已放寬）
+5. ⑤ EPS > 1.5 元
+
+結果分四組：🏆全符合(5/5)、🟡①②+④、🔵全市場④達標（**不論法人動向**，
+來自每週財報掃描資料庫）、⚪①②但④未達標。盤中監控只跟 🏆🟡 組。
+
+## 自動排程（.github/workflows/）
+
+| workflow | 排程（UTC） | 推送觸發檔 | 作用 |
+|---|---|---|---|
+| daily-screen.yml | 平日 07:30、09:00（=台北15:30/17:00） | `screen-request.txt` | 每日篩選＋產出全市場快照 |
+| intraday-monitor.yml | 平日 01:00–05:50 每10分 | — | 量能爆量警示（10分鐘段量>當日均段量10倍） |
+| financial-scan.yml | 週六 22:00（週五UTC） | `finscan-request.txt` | 全市場財報掃描→financials.json |
+| diagnose.yml | 手動/推送 | `diagnose-request.txt`（**只讀第一行**的代號） | 個股五條件診斷→網頁診斷卡 |
+
+**遠端觸發方式**：`date > <觸發檔> && git commit && git push`。
+commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
+
+## 資料來源與已知地雷
+
+- 上市法人 T86：`twse.com.tw/rwd/zh/fund/T86`；**台北深夜(約00-06時)維護會整批失敗**，
+  篩選會 exit 1 顯示紅燈，白天重跑即可
+- 上櫃法人：TPEx 新版 `www/zh-tw/insti/dailyTrade` **常回 520**，程式會 fallback
+  舊版 `3itrade_hedge_result.php`（固定24欄索引）；兩者都掛過一次
+- MOPS 個別財報：POST `mopsov.twse.com.tw/mops/web/ajax_t164sb03`(資產負債表)/
+  `ajax_t164sb04`(損益表)，有限速(mops_delay_sec=3)；HTML 解析在
+  `_html_row_value()`，**已修過小數截斷與 (123) 會計負數 bug**
+- 集保大戶(TDCC 1-5)：週資料，需累積兩週才有「週變動」；歷史存 `.cache/tdcc_history.json`
+- ETF 排除：候選股只留 4 碼數字代號（006205 曾造成 MOPS 逾時）
+- `.cache/` 不入版控；`docs/data/` 由 Actions commit
+
+## 前端（docs/）
+
+- 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
+  看到舊版介面，SHELL 版本 shell-v3）
+- 自選名單：localStorage（key `mywatch`），每台裝置獨立；資料來自
+  `data/market_snapshot.json`（每日篩選產出，欄位縮寫見 `_save_market_snapshot`）
+  + `data/financials.json`；前端 `TH` 常數需與 config.py 門檻同步
+- 登入（選用，預設關）：`docs/config.js` 的 AUTH_URL 填 Apps Script 網址即啟用；
+  帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在
+  `google-apps-script/Code.gs`。使用者說「先不要用帳密」
+
+## 目前狀態（2026-08-09 更新）
+
+- 財報掃描資料庫 `docs/data/financials.json`：已涵蓋 1,316 檔（全市場約1,800），
+  已觸發續掃補剩餘
+- 全市場快照 `market_snapshot.json`：**尚未產生**——首次觸發碰上深夜維護失敗，
+  等下一次成功的 Daily Screen（週一15:30自動或手動觸發）後，自選名單卡片才有數據
+- 個案：3379彬台=④達標但法人未進場（會落🔵組）、EPS -0.54；
+  6152百一=合約負債4.71億僅佔資本額28%、④未達標（使用者關注中，放自選名單）；
+  3443創意=最近一次唯一5/5全過
+- 使用者曾詢問未做的事：多使用者自選名單同步（目前 localStorage 各裝置獨立；
+  升級方案=登入後存 Google Sheet）
+
+## 慣例
+
+- 對使用者溝通用繁體中文；使用者用手機操作、不熟 GitHub，
+  盡量由助理透過觸發檔代辦，避免要求使用者開 GitHub
+- 測試：改動後跑離線測試（mock 資料來源）+ `python3 -m py_compile` +
+  workflow YAML 驗證 + 前端 JS `new Function()` 語法檢查
+- commit 訊息用繁中；資料 commit 加 `[skip ci]`
