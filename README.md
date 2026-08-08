@@ -104,6 +104,12 @@ stock-screener-tool/
 └── requirements.txt
 ```
 
+## 選用功能：登入保護
+
+網頁可加上帳號密碼登入，可通行帳密清單放在您私人的 Google Sheet
+（Apps Script 驗證，帳密不進 GitHub）。設定步驟見 [SETUP_AUTH.md](SETUP_AUTH.md)；
+不設定則維持免登入。
+
 ## 注意事項與限制
 
 * 條件組合仍偏嚴格，多數交易日可能沒有

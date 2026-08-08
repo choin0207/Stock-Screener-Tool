@@ -83,12 +83,42 @@
     #cards { display: block; }
     main { padding: 10px; }
   }
+
+  /* 登入畫面 */
+  #loginOverlay { position: fixed; inset: 0; z-index: 100; background: var(--bg);
+                  display: none; align-items: center; justify-content: center;
+                  padding: 24px; }
+  #loginOverlay.show { display: flex; }
+  .loginbox { background: var(--card); border: 1px solid var(--line);
+              border-radius: 14px; padding: 26px 24px; width: 100%;
+              max-width: 340px; text-align: center; }
+  .loginbox h2 { margin: 0 0 4px; font-size: 18px; }
+  .loginbox .sub { margin-bottom: 16px; }
+  .loginbox input { width: 100%; margin: 6px 0; padding: 10px 12px;
+                    border: 1px solid var(--line); border-radius: 10px;
+                    background: var(--bg); color: var(--text); font-size: 15px; }
+  .loginbox button { width: 100%; margin-top: 12px; padding: 11px; }
+  .loginerr { color: var(--up); font-size: 13px; min-height: 18px; margin-top: 8px; }
+  #logoutLink { color: var(--muted); font-size: 12px; text-decoration: none;
+                margin-left: auto; }
 </style>
 </head>
 <body>
+<div id="loginOverlay">
+  <form class="loginbox" id="loginForm">
+    <h2>🔐 台股選股雷達</h2>
+    <div class="sub">請登入以繼續</div>
+    <input id="loginUser" placeholder="帳號" autocomplete="username" required>
+    <input id="loginPass" type="password" placeholder="密碼"
+           autocomplete="current-password" required>
+    <button type="submit" id="loginBtn">登入</button>
+    <div class="loginerr" id="loginErr"></div>
+  </form>
+</div>
 <header>
   <h1><span class="dot" id="modeDot"></span>台股選股雷達
-    <span class="sub" id="modeText"></span></h1>
+    <span class="sub" id="modeText"></span>
+    <a href="#" id="logoutLink" style="display:none">登出</a></h1>
   <div class="sub">五條件每日篩選 ＋ 盤中每10分鐘量能爆量警示</div>
 </header>
 <main>
@@ -133,6 +163,7 @@
   </div>
 </main>
 
+<script src="config.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 let serverMode = false;          // true: Flask 後端；false: GitHub Pages 靜態
@@ -287,9 +318,65 @@ if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
 }
 
-detectMode().then(() => { loadResults(); loadAlerts(); });
-setInterval(loadAlerts, 60 * 1000);
-setInterval(loadResults, 5 * 60 * 1000);
+// ---- 登入（帳密由 Google Sheet + Apps Script 驗證，見 SETUP_AUTH.md）----
+const AUTH_URL = (window.APP_CONFIG || {}).AUTH_URL || "";
+
+function getSession() {
+  try { return JSON.parse(localStorage.getItem("session") || "null"); }
+  catch { return null; }
+}
+function loggedIn() {
+  const s = getSession();
+  return !!(s && s.exp > Date.now());
+}
+
+let appStarted = false;
+function startApp() {
+  if (appStarted) return;
+  appStarted = true;
+  $("loginOverlay").classList.remove("show");
+  $("logoutLink").style.display = AUTH_URL ? "" : "none";
+  detectMode().then(() => { loadResults(); loadAlerts(); });
+  setInterval(loadAlerts, 60 * 1000);
+  setInterval(loadResults, 5 * 60 * 1000);
+}
+
+$("loginForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = $("loginBtn");
+  btn.disabled = true; btn.textContent = "驗證中…"; $("loginErr").textContent = "";
+  try {
+    const r = await fetch(AUTH_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ user: $("loginUser").value.trim(),
+                             pass: $("loginPass").value }),
+    });
+    const j = await r.json();
+    if (j.ok) {
+      localStorage.setItem("session",
+        JSON.stringify({ user: j.user, exp: j.exp }));
+      startApp();
+    } else {
+      $("loginErr").textContent = j.error || "登入失敗";
+    }
+  } catch {
+    $("loginErr").textContent = "無法連線驗證服務，請稍後再試";
+  }
+  btn.disabled = false; btn.textContent = "登入";
+};
+
+$("logoutLink").onclick = (e) => {
+  e.preventDefault();
+  localStorage.removeItem("session");
+  location.reload();
+};
+
+if (!AUTH_URL || loggedIn()) {
+  startApp();
+} else {
+  $("loginOverlay").classList.add("show");
+}
 </script>
 </body>
 </html>
