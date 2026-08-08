@@ -69,6 +69,8 @@
           font-size: 11.5px; margin: 1px 2px; white-space: nowrap; }
   .chip.ok { background: rgba(46, 204, 113, .15); color: #1a9955; }
   .chip.bad { background: rgba(231, 76, 60, .15); color: #c92a3d; }
+  button.wlDel { background: rgba(231, 76, 60, .12); color: #c92a3d;
+                 padding: 5px 10px; font-size: 12.5px; border-radius: 8px; }
   .badges { font-size: 12.5px; margin: 4px 0 2px; }
   td.badges { text-align: left; }
   .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
@@ -322,9 +324,9 @@ async function loadWatchlist() {
   const snap = await getJSON("data/market_snapshot.json");
   const fins = await getJSON("data/financials.json") || {};
   if (!snap) {
-    box.innerHTML = '<div class="empty">全市場快照尚未產生（下一次每日篩選後可用）。目前名單：'
-      + list.map(c => `<b>${c}</b> <a href="#" onclick="wlRemove('${c}');return false">✕</a>`).join("、")
-      + '</div>';
+    box.innerHTML = '<div class="empty">全市場快照尚未產生（下一次每日篩選後可用）。</div>'
+      + list.map(c => `<div class="stock"><div class="head"><b>${c}</b>
+          <button class="wlDel" onclick="wlRemove('${c}')">✕ 移除</button></div></div>`).join("");
     return;
   }
   $("wlMeta").textContent = `交易日 ${snap.trade_date}（前一日 ${snap.prev_trade_date}）`;
@@ -334,7 +336,7 @@ async function loadWatchlist() {
     const fin = fins[code] || {};
     if (!s) {
       box.insertAdjacentHTML("beforeend", `<div class="stock"><div class="head">
-        <b>${code}</b><a href="#" onclick="wlRemove('${code}');return false">✕ 移除</a></div>
+        <b>${code}</b><button class="wlDel" onclick="wlRemove('${code}')">✕ 移除</button></div>
         <div class="msg">查無此代號的行情資料</div></div>`);
       continue;
     }
@@ -363,8 +365,7 @@ async function loadWatchlist() {
         <div><span>法人合計</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（前日 ${fmt(s.x0, 0)}）</div>
         <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
         <div><span>EPS</span> ${fmt(fin.eps, 2)} 元（${fin.period || "—"}）</div>
-        <div><a href="#" onclick="wlRemove('${code}');return false"
-                style="color:var(--muted)">✕ 從名單移除</a></div>
+        <div><button class="wlDel" onclick="wlRemove('${code}')">✕ 從名單移除</button></div>
       </div></div>`);
   }
 }
