@@ -214,14 +214,23 @@ async function loadResults() {
   const cards = $("cards");
   tb.innerHTML = ""; cards.innerHTML = "";
   const NCOLS = 20;
-  const tierOf = s => !s.conds ? 0 :
-    (s.passed === 5 ? 0 : (s.conds.c4 ? 1 : 2));
+  const tierOf = s => {
+    if (!s.conds) return 0;
+    const gate = (s.conds.c1 ?? true) && (s.conds.c2 ?? true);
+    if (s.passed === 5) return 0;
+    if (gate && s.conds.c4) return 1;
+    if (s.conds.c4) return 2;
+    return 3;
+  };
   const TIERS = ["🏆 符合全部條件",
-                 "🟡 合約負債達標（部分條件符合）",
+                 "🟡 法人動能＋合約負債達標（部分符合）",
+                 "🔵 全市場合約負債達標股（法人尚未進場）",
                  "⚪ 其他法人動能股（合約負債未達標）"];
   const badges = s => !s.conds ? "—" :
-    [["c3", "③轉讓"], ["c4", "④合約負債"], ["c5", "⑤EPS"]]
-      .map(([k, t]) => `<span class="chip ${s.conds[k] ? "ok" : "bad"}">${t}${s.conds[k] ? "✓" : "✗"}</span>`)
+    [["c1", "①外投買超"], ["c2", "②法人放大"], ["c3", "③轉讓"],
+     ["c4", "④合約負債"], ["c5", "⑤EPS"]]
+      .map(([k, t]) => s.conds[k] === undefined ? "" :
+        `<span class="chip ${s.conds[k] ? "ok" : "bad"}">${t}${s.conds[k] ? "✓" : "✗"}</span>`)
       .join("");
   let lastTier = -1;
   for (const s of rows) {

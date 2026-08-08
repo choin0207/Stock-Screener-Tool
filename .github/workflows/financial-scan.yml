@@ -1,0 +1,44 @@
+# 全市場財報掃描（合約負債/股本/EPS）：每週六 06:00 台北（週五 22:00 UTC）
+# 自動執行；也可手動觸發或修改 finscan-request.txt 後推送觸發。
+# 首次執行需數小時（逐檔查 MOPS 並限速）；之後每週僅補新資料。
+name: Financial Scan
+
+on:
+  schedule:
+    - cron: "0 22 * * 5"
+  workflow_dispatch: {}
+  push:
+    paths:
+      - "finscan-request.txt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finscan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Scan financials
+        run: python run_finscan.py
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          git commit -m "chore: 更新全市場財報資料 [skip ci]" || echo "no changes"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && break
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done

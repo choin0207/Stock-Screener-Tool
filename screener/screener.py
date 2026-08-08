@@ -94,37 +94,46 @@ def run_daily_screen():
                     len(candidates), max_q, max_q)
         candidates = candidates[:max_q]
 
-    results = []
-    for code in candidates:
-        lots = ds.transfer_general_lots(code)
-        cond3 = lots <= CONFIG["transfer_max_lots"]
+    bulk_fin = load_financials()
 
-        fin = ds.fetch_financials(code)
+    def build_entry(code, cur, prev, fin, fetch_main_force=True):
+        """組出一檔股票的完整結果（含五條件旗標）。cur/prev 可為 None。"""
+        z = {"foreign_buy": 0, "foreign_sell": 0, "foreign_net": 0,
+             "trust_buy": 0, "trust_sell": 0, "trust_net": 0,
+             "dealer_net": 0, "total_net": 0}
+        cur, prev = cur or z, prev or z
+        q = quotes.get(code, {})
+
+        inst_today = cur["foreign_net"] + cur["trust_net"]
+        inst_prev = prev["foreign_net"] + prev["trust_net"]
+        c1 = (cur["foreign_net"] > 0 and cur["trust_net"] > 0 and
+              inst_today > 0 and inst_today > max(inst_prev, 0) * surge_ratio)
+        c2 = (prev["total_net"] > 0 and
+              cur["total_net"] > prev["total_net"] * net_ratio)
+
+        lots = ds.transfer_general_lots(code)
+        c3 = lots <= CONFIG["transfer_max_lots"]
+
         contract = fin.get("contract_liab_k")
         capital = fin.get("capital_k")
         eps = fin.get("eps")
+        c4 = (contract is not None and capital is not None and
+              contract > capital * CONFIG["contract_liability_capital_ratio"])
+        c5 = (eps is not None and eps > CONFIG["profitability_threshold"])
 
-        cond4 = (contract is not None and capital is not None and
-                 contract > capital *
-                 CONFIG["contract_liability_capital_ratio"])
-        cond5 = (eps is not None and
-                 eps > CONFIG["profitability_threshold"])
-
-        conds = {"c3": cond3, "c4": cond4, "c5": cond5}
-        passed = 2 + sum(conds.values())          # 條件①②為入場門檻，必為通過
-
-        cur = t86_today[code]
-        prev = t86_prev[code]
-        q = quotes.get(code, {})
+        conds = {"c1": c1, "c2": c2, "c3": c3, "c4": c4, "c5": c5}
         big_pct, big_chg = ds.tdcc_weekly_change(code)
-        mf_net, mf_src = ds.fetch_main_force_net(code)
+        if fetch_main_force:
+            mf_net, mf_src = ds.fetch_main_force_net(code)
+        else:
+            mf_net, mf_src = None, "以法人合計替代"
 
-        results.append({
+        return {
             "code": code,
             "name": q.get("name", ""),
             "market": q.get("market", "tse"),
             "conds": conds,
-            "passed": passed,
+            "passed": sum(conds.values()),
             "close": q.get("close"),
             "change": q.get("change"),
             "volume_lots": q.get("volume_lots"),
@@ -153,33 +162,78 @@ def run_daily_screen():
             "capital_k": capital,
             "eps": eps,
             "fin_period": fin.get("period"),
-        })
+        }
 
-    # 排序：全部符合 → 合約負債達標的部分符合（依符合數）→ 其他法人動能股，
-    # 同級內依法人買超由大到小
-    results.sort(key=lambda r: (r["passed"] != 5, not r["conds"]["c4"],
-                                -r["passed"], -(r["total_net"] or 0)))
+    # 法人動能候選股（通過①②門檻）
+    results = []
+    for code in candidates:
+        fin = bulk_fin.get(code) or {}
+        if not fin.get("period"):
+            fin = ds.fetch_financials(code)
+        results.append(build_entry(code, t86_today[code], t86_prev.get(code),
+                                   fin, fetch_main_force=True))
 
-    n_full = sum(1 for r in results if r["passed"] == 5)
-    n_c4 = sum(1 for r in results if r["conds"]["c4"] and r["passed"] < 5)
-    n_rest = len(results) - n_full - n_c4
+    # 全市場合約負債達標股（④✓ 但法人未進場）——需先跑過 Financial Scan
+    listed = {r["code"] for r in results}
+    ratio = CONFIG["contract_liability_capital_ratio"]
+    for code, fin in bulk_fin.items():
+        if code in listed or len(code) != 4 or not code.isdigit():
+            continue
+        contract, capital = fin.get("contract_liab_k"), fin.get("capital_k")
+        if contract is None or capital is None or contract <= capital * ratio:
+            continue
+        if code not in quotes and code not in t86_today:
+            continue                          # 已下市或無交易資料
+        results.append(build_entry(code, t86_today.get(code),
+                                   t86_prev.get(code), fin,
+                                   fetch_main_force=False))
+
+    def tier(r):
+        gate = r["conds"]["c1"] and r["conds"]["c2"]
+        if r["passed"] == 5:
+            return 0
+        if gate and r["conds"]["c4"]:
+            return 1
+        if r["conds"]["c4"]:
+            return 2
+        return 3
+
+    results.sort(key=lambda r: (tier(r), -r["passed"],
+                                -(r["total_net"] or 0)))
+
+    n = [sum(1 for r in results if tier(r) == t) for t in range(4)]
+    msg = (f"符合全部條件 {n[0]} 檔；法人動能+合約負債達標 {n[1]} 檔；"
+           f"全市場合約負債達標 {n[2]} 檔；其他法人動能股 {n[3]} 檔")
+    if not bulk_fin:
+        msg += "（全市場財報資料庫尚未建立，請先執行 Financial Scan）"
     out = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "trade_date": d_today,
         "prev_trade_date": d_prev,
         "results": results,
-        "message": (f"符合全部條件 {n_full} 檔；合約負債達標之部分符合 {n_c4} 檔；"
-                    f"其他法人動能股 {n_rest} 檔"),
+        "message": msg,
     }
     save_results(out)
     log.info(out["message"])
     return out
 
 
+def load_financials():
+    """全市場財報資料庫（run_finscan.py 產生）。{code: {contract_liab_k, ...}}"""
+    try:
+        with open(os.path.join(CONFIG["data_dir"], "financials.json"),
+                  encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:                                        # noqa: BLE001
+        return {}
+
+
 def watchlist():
-    """盤中監控清單 = 篩選結果中合約負債達標(④)以上的股票 + 額外指定的股票。"""
+    """盤中監控清單 = 法人動能且合約負債達標(🏆/🟡組)的股票 + 額外指定。"""
     codes = [r["code"] for r in load_results().get("results", [])
-             if r.get("conds", {}).get("c4", True)]
+             if r.get("conds", {}).get("c4", True)
+             and r.get("conds", {}).get("c1", True)
+             and r.get("conds", {}).get("c2", True)]
     for c in CONFIG["monitor_extra_symbols"]:
         if c not in codes:
             codes.append(c)
