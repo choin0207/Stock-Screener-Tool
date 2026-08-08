@@ -171,7 +171,7 @@ async function loadResults() {
     const cap  = s.capital_k != null ? s.capital_k / 100000 : null;
     const chg  = s.big_holder_chg == null ? "需累積2週" : fmt(s.big_holder_chg, 2) + "pp";
     tb.insertAdjacentHTML("beforeend", `<tr>
-      <td>${s.code}</td><td>${s.name}</td><td>${fmt(s.close, 2)}</td>
+      <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td><td>${fmt(s.close, 2)}</td>
       <td class="${cls(s.change)}">${fmt(s.change, 2)}</td>
       <td>${fmt(s.volume_lots, 0)}</td>
       <td class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</td>
@@ -186,7 +186,7 @@ async function loadResults() {
       <td>${fmt(liab, 2)}</td><td>${fmt(cap, 2)}</td>
       <td>${fmt(s.eps, 2)}</td><td>${s.fin_period || "—"}</td></tr>`);
     cards.insertAdjacentHTML("beforeend", `<div class="stock">
-      <div class="head"><b>${s.code} ${s.name}</b>
+      <div class="head"><b>${s.code} ${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(s.change)}">${fmt(s.close, 2)}
           <small>${s.change > 0 ? "▲" : (s.change < 0 ? "▼" : "")}${fmt(Math.abs(s.change ?? 0), 2)}</small>
         </span></div>

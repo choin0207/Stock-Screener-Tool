@@ -95,9 +95,12 @@ def _cache_save(name, obj):
 # ---------------------------------------------------------------------------
 
 def fetch_daily_quotes():
-    """回傳 {代號: {name, close, change, volume_lots}}。volume 單位：張。"""
-    data = _get_json("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL")
+    """回傳 {代號: {name, close, change, volume_lots, market}}。volume 單位：張。
+    market: 'tse'=上市, 'otc'=上櫃。"""
     out = {}
+
+    # 上市（證交所）
+    data = _get_json("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL")
     for row in data or []:
         code = row.get("Code")
         if not code:
@@ -108,6 +111,22 @@ def fetch_daily_quotes():
             "close": _num(row.get("ClosingPrice")),
             "change": _num(row.get("Change")),
             "volume_lots": round(vol / 1000, 1) if vol else 0,
+            "market": "tse",
+        }
+
+    # 上櫃（櫃買中心）
+    data = _get_json("https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes")
+    for row in data or []:
+        code = row.get("SecuritiesCompanyCode")
+        if not code:
+            continue
+        vol = _num(row.get("TradingShares"))
+        out[code] = {
+            "name": row.get("CompanyName", ""),
+            "close": _num(row.get("Close")),
+            "change": _num(row.get("Change")),
+            "volume_lots": round(vol / 1000, 1) if vol else 0,
+            "market": "otc",
         }
     return out
 
@@ -174,8 +193,77 @@ def fetch_t86(ymd):
     return out
 
 
+def fetch_tpex_inst(ymd):
+    """上櫃三大法人買賣超（櫃買中心）。回傳格式與 fetch_t86 相同，單位：股。"""
+    cache = _cache_load(f"tpex_inst_{ymd}.json")
+    if cache is not None:
+        return cache
+
+    roc = f"{int(ymd[:4]) - 1911}/{ymd[4:6]}/{ymd[6:]}"
+    data = _get_json("https://www.tpex.org.tw/www/zh-tw/insti/dailyTrade",
+                     params={"type": "Daily", "sect": "EW", "date": roc,
+                             "response": "json"})
+    fields, rows = [], []
+    for t in (data or {}).get("tables", []):
+        if t.get("data"):
+            fields, rows = t.get("fields", []), t["data"]
+            break
+    if not rows:
+        return {}
+
+    def col(*keywords):
+        for i, f in enumerate(fields):
+            if all(k in f for k in keywords):
+                return i
+        return None
+
+    idx = {
+        "code": col("代號"),
+        "f_buy": col("不含", "買進"),
+        "f_sell": col("不含", "賣出"),
+        "f_net": col("不含", "買賣超"),
+        "t_buy": col("投信", "買進"),
+        "t_sell": col("投信", "賣出"),
+        "t_net": col("投信", "買賣超"),
+        "total": col("三大法人", "買賣超"),
+    }
+    if idx["code"] is None or idx["total"] is None:
+        log.warning("TPEx 法人資料欄位解析失敗: %s", fields)
+        return {}
+
+    out = {}
+    for row in rows:
+        try:
+            code = str(row[idx["code"]]).strip()
+        except Exception:                                    # noqa: BLE001
+            continue
+        if not code or not code[0].isdigit():
+            continue
+
+        def v(key):
+            i = idx[key]
+            return _num(row[i]) if i is not None and i < len(row) else None
+
+        foreign, trust = v("f_net") or 0, v("t_net") or 0
+        total = v("total") or 0
+        out[code] = {
+            "foreign_buy": v("f_buy") or 0,
+            "foreign_sell": v("f_sell") or 0,
+            "foreign_net": foreign,
+            "trust_buy": v("t_buy") or 0,
+            "trust_sell": v("t_sell") or 0,
+            "trust_net": trust,
+            "dealer_net": total - foreign - trust,
+            "total_net": total,
+        }
+    if out:
+        _cache_save(f"tpex_inst_{ymd}.json", out)
+    return out
+
+
 def fetch_t86_latest_two(today=None):
-    """抓最近兩個有 T86 資料的交易日，回傳 (今日dict, 前一日dict, 今日日期, 前日日期)。"""
+    """抓最近兩個有法人資料的交易日（上市+上櫃合併），
+    回傳 (今日dict, 前一日dict, 今日日期, 前日日期)。以上市 T86 判斷交易日。"""
     d = today or date.today()
     found = []
     probe = d
@@ -183,7 +271,9 @@ def fetch_t86_latest_two(today=None):
         ymd = probe.strftime("%Y%m%d")
         data = fetch_t86(ymd)
         if data:
-            found.append((ymd, data))
+            merged = dict(data)
+            merged.update(fetch_tpex_inst(ymd))   # 上櫃併入（代號不重疊）
+            found.append((ymd, merged))
             if len(found) == 2:
                 break
         probe -= timedelta(days=1)
@@ -262,34 +352,57 @@ def tdcc_weekly_change(code):
 # 4. 內部人持股轉讓申報（董監事、經理人、大股東）
 # ---------------------------------------------------------------------------
 
+def _norm_transfer_row(row):
+    """把一筆持股轉讓申報（dict）正規化。依欄位名稱模糊比對，
+    避免官方欄位名稱微調造成解析失敗。"""
+    def field(*keywords):
+        for k, v in row.items():
+            if k and all(w in k for w in keywords):
+                return v
+        return None
+
+    code = field("公司代號") or field("證券代號")
+    if not code:
+        return None
+    return {
+        "code": str(code).strip(),
+        "name": (field("公司名稱") or "").strip(),
+        "date": (field("申報日期") or field("日期") or "").strip(),
+        "holder": (field("身分") or field("申報人") or "").strip(),
+        "method": (field("轉讓方式") or field("預定轉讓方式") or "").strip(),
+        "shares": _num(field("轉讓股數") or field("預定轉讓股數")) or 0,
+    }
+
+
 def fetch_share_transfers():
-    """上市公司持股轉讓日報表。回傳 list of
+    """上市＋上櫃公司持股轉讓日報表。回傳 list of
     {code, name, date, method, shares}，method 例如「一般交易」「信託」「贈與」。"""
     cache = _cache_load("transfers.json", max_age_hours=12)
     if cache is not None:
         return cache
 
-    data = _get_json("https://openapi.twse.com.tw/v1/opendata/t187ap12_L")
     out = []
-    for row in data or []:
-        # 依欄位名稱模糊比對，避免官方欄位名稱微調造成解析失敗
-        def field(*keywords):
-            for k, v in row.items():
-                if all(w in k for w in keywords):
-                    return v
-            return None
 
-        code = field("公司代號") or field("證券代號")
-        if not code:
-            continue
-        out.append({
-            "code": str(code).strip(),
-            "name": (field("公司名稱") or "").strip(),
-            "date": (field("申報日期") or field("日期") or "").strip(),
-            "holder": (field("身分") or field("申報人") or "").strip(),
-            "method": (field("轉讓方式") or field("預定轉讓方式") or "").strip(),
-            "shares": _num(field("轉讓股數") or field("預定轉讓股數")) or 0,
-        })
+    # 上市（證交所 OpenAPI）
+    data = _get_json("https://openapi.twse.com.tw/v1/opendata/t187ap12_L")
+    for row in data or []:
+        t = _norm_transfer_row(row)
+        if t:
+            out.append(t)
+
+    # 上櫃（MOPS 開放資料 CSV）
+    try:
+        r = _session().get("https://mopsfin.twse.com.tw/opendata/t187ap12_O.csv",
+                           timeout=60)
+        r.raise_for_status()
+        r.encoding = "utf-8-sig"
+        for row in csv.DictReader(io.StringIO(r.text)):
+            t = _norm_transfer_row(row)
+            if t:
+                out.append(t)
+    except Exception as e:                                   # noqa: BLE001
+        log.warning("上櫃持股轉讓資料抓取失敗: %s", e)
+
     if out:
         _cache_save("transfers.json", out)
     return out
@@ -428,10 +541,19 @@ def fetch_main_force_net(code):
 # 7. 盤中即時行情（累積成交量）
 # ---------------------------------------------------------------------------
 
-def fetch_intraday_volumes(codes):
-    """回傳 {代號: {volume_lots, price, time}}，volume 為當日累積成交張數。"""
+def fetch_intraday_volumes(codes, market_map=None):
+    """回傳 {代號: {volume_lots, price, time}}，volume 為當日累積成交張數。
+    market_map: {代號: 'tse'|'otc'}；未知市場的代號會同時以兩種前綴查詢，
+    行情站只回應存在的那個。"""
     if not codes:
         return {}
+    market_map = market_map or {}
+    queries = []
+    for c in codes:
+        m = market_map.get(c)
+        for prefix in ([m] if m in ("tse", "otc") else ["tse", "otc"]):
+            queries.append(f"{prefix}_{c}.tw")
+
     out = {}
     s = _session()
     try:
@@ -439,9 +561,8 @@ def fetch_intraday_volumes(codes):
     except Exception:                                        # noqa: BLE001
         pass
     # 每次最多查 20 檔
-    for i in range(0, len(codes), 20):
-        batch = codes[i:i + 20]
-        ex_ch = "|".join(f"tse_{c}.tw" for c in batch)
+    for i in range(0, len(queries), 20):
+        ex_ch = "|".join(queries[i:i + 20])
         try:
             r = s.get("https://mis.twse.com.tw/stock/api/getStockInfo.jsp",
                       params={"ex_ch": ex_ch, "json": "1", "delay": "0"},

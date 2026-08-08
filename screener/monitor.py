@@ -94,7 +94,9 @@ def check_volume_spike(force=False):
     if state["date"] != today:                 # 換日重置
         state = {"date": today, "stocks": {}}
 
-    quotes = ds.fetch_intraday_volumes(codes)
+    market_map = {r["code"]: r.get("market", "tse")
+                  for r in screener.load_results().get("results", [])}
+    quotes = ds.fetch_intraday_volumes(codes, market_map)
     ratio = CONFIG["volume_spike_ratio"]
     new_alerts = []
 

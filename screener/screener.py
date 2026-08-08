@@ -118,6 +118,7 @@ def run_daily_screen():
         results.append({
             "code": code,
             "name": q.get("name", ""),
+            "market": q.get("market", "tse"),
             "close": q.get("close"),
             "change": q.get("change"),
             "volume_lots": q.get("volume_lots"),
