@@ -50,6 +50,10 @@ CONFIG = {
     "risk_dump_vol_ratio": 5.0,                # 急跌時最近段量>平均段量此倍數→紅燈
     "risk_market_overlay_drop_pct": -1.0,      # 市場紅燈時個股跌逾此%才跟著升紅
 
+    # ---- 篩選成效追蹤與跌前警告（screener/performance.py）----
+    "perf_drop_alert_pct": -5.0,       # 追蹤股跌破入選價此 % → 記為下跌事件並警示
+    "perf_contract_drop_pct": 20.0,    # 新一季合約負債較入選時下降逾此 % → 轉弱警訊
+
     # ---- 每日排程 ----
     "daily_screen_time": "15:30",      # 台北時間，盤後資料公布後執行
 

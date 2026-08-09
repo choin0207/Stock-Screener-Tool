@@ -216,8 +216,10 @@ def run_daily_screen():
     }
     save_results(out)
     _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev)
-    try:                      # 篩選成效追蹤（🏆/🟡 入選股一個月股價驗證）
-        performance.update(results, quotes, d_today)
+    try:                      # 篩選成效追蹤（🏆/🟡 入選股一個月股價驗證＋跌前警告）
+        performance.update(results, quotes, d_today, t86=t86_today,
+                           financials=bulk_fin,
+                           transfer_fn=ds.transfer_general_lots)
     except Exception:                                        # noqa: BLE001
         log.exception("績效追蹤更新失敗（不影響篩選結果）")
     log.info(out["message"])

@@ -481,6 +481,7 @@ async function loadPerf() {
       ? `：勝率 ${d.win_rate}%、平均報酬 ${d.avg_ret > 0 ? "+" : ""}${d.avg_ret}%` : "") +
     `｜更新 ${p.updated_at || "—"}`;
   const pd = x => x ? `${x.slice(0, 4)}/${x.slice(4, 6)}/${x.slice(6)}` : "—";
+  const md = x => x ? `${x.slice(4, 6)}/${x.slice(6)}` : "—";
   const pr = v => v == null ? "—"
     : `<b class="${cls(v)}">${v > 0 ? "+" : ""}${fmt(v, 2)}%</b>`;
   const rows = p.records.slice()
@@ -488,13 +489,37 @@ async function loadPerf() {
       ? a.code.localeCompare(b.code)
       : (a.entry_date < b.entry_date ? 1 : -1));
   box.innerHTML = "";
+
+  // 轉弱警告橫幅：追蹤中且最近一個交易日仍有警訊的股票
+  const hot = rows.filter(r => !r.done && r.warnings &&
+    Object.values(r.warnings).some(w => w.last_date === p.trade_date));
+  if (hot.length) {
+    box.insertAdjacentHTML("beforeend",
+      `<div class="riskbar yellow">⚠️ ${hot.length} 檔追蹤股條件因素轉弱：` +
+      hot.map(r => `${r.code} ${r.name || ""}（` +
+        Object.values(r.warnings).filter(w => w.last_date === p.trade_date)
+          .map(w => w.label).join("、") + "）").join("；") + "</div>");
+  }
+
   for (const r of rows.slice(0, 60)) {
+    const wchips = r.warnings ? Object.values(r.warnings)
+      .map(w => `<span class="chip warn" title="${w.detail || ""}">` +
+                `⚠️${w.label}（條件${w.cond}，${md(w.first_date)}起）</span>`)
+      .join(" ") : "";
+    const dropLine = r.drop
+      ? `<div class="msg">📉 ${pd(r.drop.date)} 跌破入選價（${fmt(r.drop.ret_pct, 1)}%）` +
+        `｜跌前訊號：${r.drop.preceded.length
+          ? r.drop.preceded.map(x => `${x.label}(提前${x.lead_days}日)`).join("、")
+          : "無（事前無轉弱訊號）"}</div>`
+      : "";
     box.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${r.tier === 0 ? "🏆" : "🟡"} ${r.code} ${r.name || ""}</b>
         <span class="price">${pr(r.ret_pct)}</span></div>
       <div class="msg">入選 ${pd(r.entry_date)} @ ${fmt(r.entry_close, 2)} →
         最新 ${fmt(r.last_close, 2)}（${pd(r.last_date)}）｜
         ${r.done ? "✅ 已滿約一個月" : `追蹤中 ${r.days_tracked ?? 0}/${p.track_days} 交易日`}</div>
+      ${wchips ? `<div class="badges">${wchips}</div>` : ""}
+      ${dropLine}
       <div class="grid">
         <div><span>5日後</span> ${pr(r.ret_d5)}</div>
         <div><span>10日後</span> ${pr(r.ret_d10)}</div>
@@ -504,6 +529,29 @@ async function loadPerf() {
   }
   if (rows.length > 60)
     box.insertAdjacentHTML("beforeend", '<div class="msg">僅顯示最近 60 筆</div>');
+
+  // 下跌前兆統計：哪個條件因素最常在下跌前先變壞
+  const ds = s.drop_stats;
+  if (ds && (ds.drops_total > 0 ||
+             Object.values(ds.factors || {}).some(f => f.warned > 0))) {
+    const lines = Object.values(ds.factors)
+      .filter(f => f.warned > 0 || f.hit > 0)
+      .sort((a, b) => b.hit - a.hit)
+      .map(f => {
+        let t = `<b>${f.label}</b>（條件${f.cond}）：警訊出現於 ${f.warned} 檔`;
+        if (f.warn_settled > 0)
+          t += `，其中 ${f.warn_then_drop}/${f.warn_settled} 檔隨後下跌`
+            + `（準確率 ${fmt(f.warn_then_drop / f.warn_settled * 100, 0)}%）`;
+        if (ds.drops_total > 0)
+          t += `；${ds.drops_total} 次下跌中 ${f.hit} 次事先出現`
+            + `（覆蓋率 ${fmt(f.hit / ds.drops_total * 100, 0)}%）`;
+        return `<div style="margin:4px 0">${t}</div>`;
+      });
+    box.insertAdjacentHTML("beforeend",
+      `<div style="margin-top:12px;border-top:1px solid var(--line);padding-top:8px">
+        <b>📉 下跌前兆統計</b><span class="msg">（跌破入選價 5% 視為下跌事件；
+        統計哪個條件因素最常在下跌前先轉弱）</span>${lines.join("")}</div>`);
+  }
 }
 
 async function loadDiagnose() {
