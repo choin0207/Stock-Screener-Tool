@@ -1,10 +1,87 @@
 {
- "updated_at": "2026-08-09T09:52:00+08:00",
+ "updated_at": "2026-08-09T15:33:45+08:00",
  "track_days": 20,
- "records": [],
+ "records": [
+  {
+   "code": "2618",
+   "name": "長榮航",
+   "tier": 0,
+   "entry_date": "20260807",
+   "entry_close": 44.4,
+   "prices": {
+    "20260807": 44.4
+   },
+   "flows": {
+    "20260807": [
+     22000.4,
+     127.0,
+     22623.5
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 36190224.0,
+    "capital_k": 54004443.0,
+    "eps": 1.53,
+    "period": "2026Q1"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260807": 37423.5
+   },
+   "days_tracked": 0,
+   "last_date": "20260807",
+   "last_close": 44.4,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  },
+  {
+   "code": "3443",
+   "name": "創意",
+   "tier": 0,
+   "entry_date": "20260807",
+   "entry_close": 4545.0,
+   "prices": {
+    "20260807": 4545.0
+   },
+   "flows": {
+    "20260807": [
+     19.0,
+     100.7,
+     102.6
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 13214722.0,
+    "capital_k": 1340119.0,
+    "eps": 11.61,
+    "period": "2026Q2"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260807": 1913.7
+   },
+   "days_tracked": 0,
+   "last_date": "20260807",
+   "last_close": 4545.0,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  }
+ ],
  "summary": {
-  "total": 0,
-  "tracking": 0,
+  "total": 2,
+  "tracking": 2,
   "done": {
    "n": 0,
    "win_rate": null,
