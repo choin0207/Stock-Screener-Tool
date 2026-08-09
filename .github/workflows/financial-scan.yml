@@ -8,6 +8,7 @@ on:
     - cron: "0 22 * * 5"
   workflow_dispatch: {}
   push:
+    branches: [main]
     paths:
       - "finscan-request.txt"
 

@@ -11,6 +11,7 @@ on:
         required: true
         default: "3379"
   push:
+    branches: [main]
     paths:
       - "diagnose-request.txt"
 
