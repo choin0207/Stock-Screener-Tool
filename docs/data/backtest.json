@@ -1,0 +1,168 @@
+{
+ "generated_at": "2026-08-09T15:12:47+08:00",
+ "period": {
+  "from": "20250811",
+  "to": "20260807",
+  "days": 241
+ },
+ "outcome": {
+  "n": 1487,
+  "n_ret20": 1251,
+  "win_rate_20d": 54.3,
+  "avg_ret20": 4.77,
+  "drops_total": 706,
+  "drop_rate": 47.5
+ },
+ "factors": [
+  {
+   "key": "inst_ratio",
+   "label": "外資+投信買超放大倍數（①）",
+   "n": 1251,
+   "ic": 0.049,
+   "top_win": 56.6,
+   "bot_win": 50.8
+  },
+  {
+   "key": "net_ratio",
+   "label": "法人買賣超放大倍數（②）",
+   "n": 1251,
+   "ic": 0.05,
+   "top_win": 55.6,
+   "bot_win": 49.4
+  },
+  {
+   "key": "inst_lots",
+   "label": "外資+投信買超張數",
+   "n": 1251,
+   "ic": 0.069,
+   "top_win": 60.0,
+   "bot_win": 52.0
+  },
+  {
+   "key": "mom20",
+   "label": "入選前20日漲幅",
+   "n": 1251,
+   "ic": 0.05,
+   "top_win": 54.7,
+   "bot_win": 52.0
+  },
+  {
+   "key": "vol_ratio",
+   "label": "入選日量能（對20日均量）",
+   "n": 1251,
+   "ic": 0.022,
+   "top_win": 54.0,
+   "bot_win": 52.0
+  },
+  {
+   "key": "liab_ratio",
+   "label": "合約負債/資本額（④）",
+   "n": 157,
+   "ic": 0.042,
+   "top_win": 34.6,
+   "bot_win": 30.8
+  },
+  {
+   "key": "eps",
+   "label": "EPS（⑤）",
+   "n": 203,
+   "ic": 0.143,
+   "top_win": 49.3,
+   "bot_win": 26.9
+  }
+ ],
+ "weights": {
+  "inst_ratio": 0.173,
+  "net_ratio": 0.176,
+  "liab_ratio": 0.148,
+  "eps": 0.504
+ },
+ "warnings": [
+  {
+   "key": "w_foreign_big",
+   "label": "外資單日賣超吃掉入選日買超",
+   "fired": 976,
+   "tp": 394,
+   "fp": 474,
+   "late": 108,
+   "drops_total": 706,
+   "precision": 40.4,
+   "recall": 55.8,
+   "lead_median": 3
+  },
+  {
+   "key": "w_vol_dump",
+   "label": "爆量下跌（量>5日均2倍且跌>2%）",
+   "fired": 309,
+   "tp": 120,
+   "fp": 82,
+   "late": 107,
+   "drops_total": 706,
+   "precision": 38.8,
+   "recall": 17.0,
+   "lead_median": 0
+  },
+  {
+   "key": "w_inst2",
+   "label": "法人合計連2日賣超",
+   "fired": 1302,
+   "tp": 496,
+   "fp": 632,
+   "late": 174,
+   "drops_total": 706,
+   "precision": 38.1,
+   "recall": 70.3,
+   "lead_median": 3
+  },
+  {
+   "key": "w_foreign2",
+   "label": "外資連2日賣超",
+   "fired": 1312,
+   "tp": 481,
+   "fp": 638,
+   "late": 193,
+   "drops_total": 706,
+   "precision": 36.7,
+   "recall": 68.1,
+   "lead_median": 3
+  },
+  {
+   "key": "w_streak3",
+   "label": "連3黑",
+   "fired": 1031,
+   "tp": 350,
+   "fp": 421,
+   "late": 260,
+   "drops_total": 706,
+   "precision": 33.9,
+   "recall": 49.6,
+   "lead_median": 2
+  },
+  {
+   "key": "w_trust2",
+   "label": "投信連2日賣超",
+   "fired": 1130,
+   "tp": 299,
+   "fp": 563,
+   "late": 268,
+   "drops_total": 706,
+   "precision": 26.5,
+   "recall": 42.4,
+   "lead_median": 4
+  },
+  {
+   "key": "w_ma5",
+   "label": "跌破5日均線",
+   "fired": 1330,
+   "tp": 276,
+   "fp": 689,
+   "late": 365,
+   "drops_total": 706,
+   "precision": 20.8,
+   "recall": 39.1,
+   "lead_median": 4
+  }
+ ],
+ "fin_pairs_skipped": 581,
+ "note": "樣本為近一年通過①②的訊號；④⑤用訊號當時已公布的季報，③內部人與大戶無歷史資料未納入。樣本數有限，權重與命中率僅供參考、非投資建議。"
+}
