@@ -191,6 +191,7 @@
           <th>法人合計</th><th>法人前日</th><th>主力買賣超</th>
           <th>大戶%</th><th>大戶週變動</th><th>轉讓(張)</th>
           <th>合約負債(億)</th><th>資本額(億)</th><th>EPS</th><th>期別</th>
+          <th title="近一年相似④⑤條件訊號，一週內最大漲幅達2/4/6%的歷史機率">一週漲2/4/6%</th>
         </tr></thead>
         <tbody></tbody>
       </table>
@@ -268,8 +269,23 @@ async function detectMode() {
   else $("statusMsg").textContent = "雲端模式：資料由 GitHub Actions 定時更新";
 }
 
+// 近一年「相似④⑤條件」訊號的一週表現（來自 backtest.json week_stats）
+function weekInfo(s, ws) {
+  if (!ws || !ws.overall || !ws.overall.n) return null;
+  const TAGS = { "45": "④⑤皆符合", "4": "僅④符合", "5": "僅⑤符合",
+                 "0": "④⑤未達", "u": "財報未知" };
+  const finUnknown = s.contract_liab_k == null && s.eps == null;
+  const b = finUnknown ? "u"
+    : (s.conds?.c4 ? (s.conds?.c5 ? "45" : "4") : (s.conds?.c5 ? "5" : "0"));
+  let st = (ws.buckets || {})[b], tag = TAGS[b];
+  if (!st || st.n < 30) { st = ws.overall; tag = "全部①②訊號"; }
+  return { st, tag };
+}
+
 async function loadResults() {
   const r = await getJSON("data/screen_results.json");
+  const bt = await getJSON("data/backtest.json");
+  const ws = bt && bt.week_stats;
   if (!r) { $("resultMeta").textContent = "尚無資料"; return; }
   $("resultMeta").textContent =
     (r.trade_date ? `交易日 ${r.trade_date}｜` : "") + (r.message || "") +
@@ -280,7 +296,7 @@ async function loadResults() {
   const tb = $("resultTable").querySelector("tbody");
   const cards = $("cards");
   tb.innerHTML = ""; cards.innerHTML = "";
-  const NCOLS = 20;
+  const NCOLS = 21;
   const tierOf = s => {
     if (!s.conds) return 0;
     const gate = (s.conds.c1 ?? true) && (s.conds.c2 ?? true);
@@ -313,6 +329,17 @@ async function loadResults() {
     const chg  = s.big_holder_chg == null ? "需累積2週" : fmt(s.big_holder_chg, 2) + "pp";
     const scoreChip = s.score != null
       ? `<span class="chip score">評分 ${s.score}</span>` : "";
+    const wk = weekInfo(s, ws);
+    const wkCell = wk
+      ? `${fmt(wk.st.p2, 0)}/${fmt(wk.st.p4, 0)}/${fmt(wk.st.p6, 0)}%` : "—";
+    const wkLine = wk
+      ? `<div class="msg" style="margin-top:6px">📈 近一年相似條件
+         （${wk.tag}，n=${wk.st.n}）：一週內漲≥2% <b>${fmt(wk.st.p2, 0)}%</b>
+         ｜≥4% <b>${fmt(wk.st.p4, 0)}%</b>｜≥6% <b>${fmt(wk.st.p6, 0)}%</b>
+         ｜平均上漲 ${fmt(wk.st.avg_up_days, 1)}/5 天
+         ｜最大漲幅中位 ${wk.st.med_max_up > 0 ? "+" : ""}${fmt(wk.st.med_max_up, 1)}%
+         ${wk.st.med_peak_day ? `（多在第 ${wk.st.med_peak_day} 天見高）` : ""}</div>`
+      : "";
     tb.insertAdjacentHTML("beforeend", `<tr>
       <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td>
       <td class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</td>
@@ -329,7 +356,8 @@ async function loadResults() {
       <td>${fmt(s.big_holder_pct, 2)}</td><td class="${cls(s.big_holder_chg)}">${chg}</td>
       <td>${fmt(s.transfer_general_lots, 0)}</td>
       <td>${fmt(liab, 2)}</td><td>${fmt(cap, 2)}</td>
-      <td>${fmt(s.eps, 2)}</td><td>${s.fin_period || "—"}</td></tr>`);
+      <td>${fmt(s.eps, 2)}</td><td>${s.fin_period || "—"}</td>
+      <td title="${wk ? `${wk.tag}，n=${wk.st.n}` : ""}">${wkCell}</td></tr>`);
     cards.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${s.code} ${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(s.change)}">${fmt(s.close, 2)}
@@ -346,7 +374,7 @@ async function loadResults() {
         <div><span>一般交易轉讓</span> ${fmt(s.transfer_general_lots, 0)} 張/30日</div>
         <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
         <div><span>EPS</span> ${fmt(s.eps, 2)} 元（${s.fin_period || "—"}）</div>
-      </div></div>`);
+      </div>${wkLine}</div>`);
   }
 }
 

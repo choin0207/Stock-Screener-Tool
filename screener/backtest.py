@@ -267,6 +267,21 @@ def attach_outcomes(signals, prices):
             return None
 
         s["ret5"], s["ret10"], s["ret20"] = ret(5), ret(10), ret(20)
+
+        # 一週（5 個交易日）內走勢：最大漲幅、上漲天數、見高點日
+        week = dates[i + 1:i + 6]
+        ups, mx, peak_day, prev_c = 0, None, None, entry
+        for j, d in enumerate(week):
+            c = px[d][0]
+            if c > prev_c:
+                ups += 1
+            prev_c = c
+            g = (c - entry) / entry * 100
+            if mx is None or g > mx:
+                mx, peak_day = g, j + 1
+        s["max_up5_pct"] = round(mx, 2) if mx is not None else None
+        s["up_days5"] = ups if week else None
+        s["peak_day5"] = peak_day
         win = dates[i + 1:i + 1 + TRACK]
         s["drop_date"] = next(
             (d for d in win
@@ -368,6 +383,49 @@ def eval_warning_indicators(signals, prices, t86_hist):
         })
     out.sort(key=lambda x: -(x["precision"] or 0))
     return out, drops_total
+
+
+# ---------------------------------------------------------------------------
+# 一週漲幅機率（依 ④⑤ 條件分組，供每日篩選結果註記「相似條件歷史表現」）
+# ---------------------------------------------------------------------------
+
+def _bucket(s):
+    """依訊號當時的 ④⑤ 條件分組：45=皆符合 4=僅④ 5=僅⑤ 0=皆未達 u=財報未知。"""
+    liab, eps = s.get("liab_ratio"), s.get("eps")
+    if liab is None and eps is None:
+        return "u"
+    c4 = liab is not None and liab > CONFIG["contract_liability_capital_ratio"]
+    c5 = eps is not None and eps > CONFIG["profitability_threshold"]
+    return {"11": "45", "10": "4", "01": "5", "00": "0"}[
+        f"{int(c4)}{int(c5)}"]
+
+
+def week_stats(signals):
+    """一週內漲 ≥2/4/6% 的歷史機率、平均上漲天數、最大漲幅中位數。"""
+    def stat(rows):
+        xs = [s for s in rows if s.get("max_up5_pct") is not None]
+        if not xs:
+            return {"n": 0}
+        mx = sorted(s["max_up5_pct"] for s in xs)
+
+        def p(th):
+            return round(sum(1 for s in xs if s["max_up5_pct"] >= th)
+                         / len(xs) * 100, 1)
+
+        ups = [s["up_days5"] for s in xs if s.get("up_days5") is not None]
+        peaks = [s["peak_day5"] for s in xs if s.get("peak_day5")]
+        r5 = [s["ret5"] for s in xs if s.get("ret5") is not None]
+        return {
+            "n": len(xs), "p2": p(2), "p4": p(4), "p6": p(6),
+            "med_max_up": mx[len(mx) // 2],
+            "avg_up_days": round(sum(ups) / len(ups), 1) if ups else None,
+            "med_peak_day": sorted(peaks)[len(peaks) // 2] if peaks else None,
+            "avg_ret5": round(sum(r5) / len(r5), 2) if r5 else None,
+        }
+
+    return {"overall": stat(signals),
+            "buckets": {b: stat([s for s in signals if _bucket(s) == b])
+                        for b in ("45", "4", "5", "0", "u")}}
 
 
 # ---------------------------------------------------------------------------
@@ -517,6 +575,7 @@ def run_backtest():
         "factors": factor_rows,
         "weights": weights,
         "warnings": warn_rows,
+        "week_stats": week_stats(signals),
         "fin_pairs_skipped": fin_skipped,
         "note": ("樣本為近一年通過①②的訊號；④⑤用訊號當時已公布的季報，"
                  "③內部人與大戶無歷史資料未納入。樣本數有限，"
