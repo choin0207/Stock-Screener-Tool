@@ -1,0 +1,48 @@
+# 一年歷史回測訓練：重演 ①② 篩選、計算因子權重與跌前指標命中率。
+# 手動觸發或推送 backtest-request.txt。第一次跑約 1 小時（法人歷史 + MOPS 限速），
+# .cache 以 actions/cache 保留，重跑可增量。結果 commit 到 docs/data/backtest.json，
+# 每日篩選會自動用權重替結果打分。
+name: Backtest
+
+on:
+  workflow_dispatch: {}
+  push:
+    paths:
+      - "backtest-request.txt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backtest
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: .cache
+          key: backtest-cache-${{ github.run_id }}
+          restore-keys: |
+            backtest-cache-
+      - run: pip install -r requirements.txt
+      - name: Run backtest
+        run: python run_backtest.py
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/backtest.json
+          git commit -m "chore: 更新一年回測結果 [skip ci]" || echo "no changes"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && break
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done

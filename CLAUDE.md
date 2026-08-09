@@ -32,6 +32,7 @@
 | intraday-monitor.yml | 平日 01:00–05:50 每10分 | — | 量能爆量警示（10分鐘段量>當日均段量10倍） |
 | financial-scan.yml | 週六 22:00（週五UTC） | `finscan-request.txt` | 全市場財報掃描→financials.json |
 | diagnose.yml | 手動/推送 | `diagnose-request.txt`（**只讀第一行**的代號） | 個股五條件診斷→網頁診斷卡 |
+| backtest.yml | 手動/推送 | `backtest-request.txt` | 一年回測訓練→backtest.json（首跑約1hr，.cache 走 actions/cache） |
 
 **遠端觸發方式**：`date > <觸發檔> && git commit && git push`。
 commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
@@ -79,7 +80,24 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   跌破入選價5%（perf_drop_alert_pct）記「下跌事件」並歸因哪些警訊先出現、
   提前幾個交易日，累積各因素命中率統計（summary.drop_stats）顯示在前端
   「下跌前兆統計」。法人流向存 rec.flows（來自當日已抓的 T86，零額外 API）
-- 離線測試：scratchpad test_performance.py 33 項全過
+- 技術跌前訊號（2026-08-09 二補）：爆量下跌（量>5日均2倍且跌>2%）、
+  跌破5日線（向下穿越才觸發）、連3黑，資料只用 record 內 prices/vols，零額外請求；
+  FACTORS cond="技" 顯示為「技術訊號」
+- 離線測試：scratchpad test_performance.py 38 項全過
+
+## 一年回測訓練（2026-08-09 新增）
+
+- `screener/backtest.py` + `run_backtest.py` + backtest.yml（backtest-request.txt 觸發）：
+  ^TWII 取交易日 → 逐日抓一年 T86+TPEx（.cache 逐日快取，workflow 用 actions/cache
+  保留）→ 重演①②訊號 → Yahoo 抓各訊號股 15 個月日K → MOPS 補「訊號當時已公布」
+  季度的④⑤（backtest_max_mops_pairs=250 上限，近期訊號優先）
+- 產出 docs/data/backtest.json：因子 IC＋高低分組勝率、跌前指標
+  precision/recall/中位提前天數、**評分權重**（live 因子正 IC 正規化）
+- `screener.py` 每日篩選讀 backtest.load_weights() → 每檔 `score` 0-100，
+  同分級內按評分排序；前端「評分」chip＋「🧪 一年回測」卡片
+- **③內部人與集保大戶無歷史資料，無法回測**；樣本僅數百筆，權重僅供參考
+- 修正：4 碼 ETF（0050/0056 等 00 開頭）現於篩選與回測皆排除
+- 離線測試：scratchpad test_backtest.py 21 項全過（純函式，不碰網路）
 
 ## 持股風險紅黃綠燈（2026-08-09 新增）
 

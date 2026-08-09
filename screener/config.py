@@ -54,6 +54,11 @@ CONFIG = {
     "perf_drop_alert_pct": -5.0,       # 追蹤股跌破入選價此 % → 記為下跌事件並警示
     "perf_contract_drop_pct": 20.0,    # 新一季合約負債較入選時下降逾此 % → 轉弱警訊
 
+    # ---- 一年回測訓練（screener/backtest.py，backtest-request.txt 觸發）----
+    "backtest_days": 365,              # 回測涵蓋的日曆天數
+    "backtest_max_mops_pairs": 250,    # 歷史財報最多抓幾個 (個股,季度) 組合
+    "backtest_request_delay_sec": 1.2, # 逐日抓法人資料的間隔秒數
+
     # ---- 每日排程 ----
     "daily_screen_time": "15:30",      # 台北時間，盤後資料公布後執行
 

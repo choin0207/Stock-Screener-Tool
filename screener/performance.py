@@ -37,7 +37,7 @@ TRACK_DAYS = 20            # 追蹤的交易日數（約一個月）
 STALE_CALENDAR_DAYS = 45   # 入選超過此日曆天數仍湊不滿 20 筆價格 → 直接定案
 MAX_RECORDS = 400          # 檔案最多保留幾筆紀錄（舊的先刪）
 
-# 跌前警告因素（factor → (顯示名稱, 對應篩選條件)）
+# 跌前警告因素（factor → (顯示名稱, 對應篩選條件；「技」=技術訊號)）
 FACTORS = {
     "foreign":  ("外資轉賣", "①"),
     "trust":    ("投信轉賣", "①"),
@@ -45,6 +45,9 @@ FACTORS = {
     "insider":  ("內部人轉讓增加", "③"),
     "contract": ("合約負債下降", "④"),
     "eps":      ("獲利轉弱", "⑤"),
+    "vol_dump": ("爆量下跌", "技"),
+    "ma5":      ("跌破5日線", "技"),
+    "streak":   ("連3黑", "技"),
 }
 
 
@@ -145,11 +148,12 @@ def _warn(rec, new_alerts, trade_date, factor, detail):
         return
     w[factor] = {"label": label, "cond": cond, "first_date": trade_date,
                  "last_date": trade_date, "count": 1, "detail": detail}
+    src = "技術訊號" if cond == "技" else f"篩選條件{cond}因素"
     new_alerts.append({
         "time": _now().isoformat(timespec="seconds"),
         "code": rec["code"], "name": rec.get("name", ""),
         "message": (f"⚠️ 轉弱警訊 {rec['code']} {rec.get('name', '')}："
-                    f"{label}（篩選條件{cond}因素）— {detail}。"
+                    f"{label}（{src}）— {detail}。"
                     f"入選日 {rec['entry_date']}，目前報酬 "
                     f"{rec.get('ret_pct') if rec.get('ret_pct') is not None else '—'}%。"),
     })
@@ -222,6 +226,33 @@ def _insider_check(rec, trade_date, transfer_lots, new_alerts):
         _warn(rec, new_alerts, trade_date, "insider",
               f"近30日一般交易轉讓 {transfer_lots:,.0f} 張"
               f"（入選時 {base:,.0f} 張）")
+
+
+def _tech_checks(rec, trade_date, new_alerts):
+    """技術跌前訊號（回測驗證的候選指標）：爆量下跌、跌破5日線、連3黑。"""
+    dates = sorted(d for d in rec["prices"] if d <= trade_date)
+    if trade_date not in rec["prices"] or len(dates) < 2:
+        return
+    closes = [rec["prices"][d] for d in dates]
+    j = len(dates) - 1
+    chg = ((closes[j] - closes[j - 1]) / closes[j - 1] * 100
+           if closes[j - 1] else 0)
+    vols = rec.get("vols") or {}
+    pv = [vols[d] for d in dates[max(0, j - 5):j] if vols.get(d)]
+    v_now = vols.get(trade_date)
+    if len(pv) >= 3 and v_now and v_now > 2 * sum(pv) / len(pv) and chg <= -2:
+        _warn(rec, new_alerts, trade_date, "vol_dump",
+              f"成交 {v_now:,.0f} 張為5日均量 {sum(pv) / len(pv):,.0f} 張的 "
+              f"{v_now / (sum(pv) / len(pv)):.1f} 倍，且下跌 {abs(chg):.1f}%")
+    if j >= 5:
+        ma5 = sum(closes[j - 4:j + 1]) / 5
+        ma5p = sum(closes[j - 5:j]) / 5
+        if closes[j] < ma5 and closes[j - 1] >= ma5p:
+            _warn(rec, new_alerts, trade_date, "ma5",
+                  f"收盤 {closes[j]} 跌破5日均線 {ma5:.2f}")
+    if j >= 3 and closes[j] < closes[j - 1] < closes[j - 2] < closes[j - 3]:
+        _warn(rec, new_alerts, trade_date, "streak",
+              f"連 3 個交易日收黑（{closes[j - 3]} → {closes[j]}）")
 
 
 def _drop_check(rec, trade_date, new_alerts):
@@ -346,15 +377,19 @@ def update(results, quotes, trade_date, t86=None, financials=None,
     for rec in recs:
         if rec.get("done"):
             continue
-        close = (quotes.get(rec["code"]) or {}).get("close")
+        q = quotes.get(rec["code"]) or {}
+        close = q.get("close")
         if close is not None:
             rec["prices"][trade_date] = close
+            if q.get("volume_lots") is not None:
+                rec.setdefault("vols", {})[trade_date] = q["volume_lots"]
         fl = lots(rec["code"])
         if fl is not None:
             rec.setdefault("flows", {})[trade_date] = fl
         _derive(rec, trade_date)
 
         _flow_checks(rec, trade_date, new_alerts)
+        _tech_checks(rec, trade_date, new_alerts)
         _fin_checks(rec, trade_date, financials.get(rec["code"]), new_alerts)
         if transfer_fn is not None:
             try:
