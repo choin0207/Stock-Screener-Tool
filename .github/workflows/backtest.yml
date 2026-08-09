@@ -7,6 +7,7 @@ name: Backtest
 on:
   workflow_dispatch: {}
   push:
+    branches: [main]
     paths:
       - "backtest-request.txt"
 
