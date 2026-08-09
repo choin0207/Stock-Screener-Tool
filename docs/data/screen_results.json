@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-09T01:27:56",
+  "generated_at": "2026-08-09T01:52:00",
   "trade_date": "20260807",
   "prev_trade_date": "20260806",
   "results": [
     {
       "code": "2618",
-      "name": "長榮航",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -15,9 +15,9 @@
         "c5": true
       },
       "passed": 5,
-      "close": 44.4,
-      "change": 1.15,
-      "volume_lots": 37423.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 28462.3,
       "foreign_sell": 6462.0,
       "foreign_net": 22000.4,
@@ -36,11 +36,12 @@
       "contract_liab_k": 36190224.0,
       "capital_k": 54004443.0,
       "eps": 1.53,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3443",
-      "name": "創意",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -50,9 +51,9 @@
         "c5": true
       },
       "passed": 5,
-      "close": 4545.0,
-      "change": 65.0,
-      "volume_lots": 1913.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 711.2,
       "foreign_sell": 692.2,
       "foreign_net": 19.0,
@@ -71,11 +72,12 @@
       "contract_liab_k": 13214722.0,
       "capital_k": 1340119.0,
       "eps": 11.61,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5522",
-      "name": "遠雄",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -85,9 +87,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 64.1,
-      "change": 0.3,
-      "volume_lots": 3062.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 2343.0,
       "foreign_sell": 408.0,
       "foreign_net": 1935.0,
@@ -106,11 +108,12 @@
       "contract_liab_k": 9132791.0,
       "capital_k": 7815962.0,
       "eps": 1.76,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2101",
-      "name": "南港",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -120,9 +123,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 35.5,
-      "change": 0.9,
-      "volume_lots": 3926.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 2255.3,
       "foreign_sell": 533.4,
       "foreign_net": 1721.9,
@@ -141,11 +144,12 @@
       "contract_liab_k": 11593255.0,
       "capital_k": 7339349.0,
       "eps": 1.86,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6214",
-      "name": "精誠",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -155,9 +159,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 146.5,
-      "change": 1.0,
-      "volume_lots": 1516.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 822.8,
       "foreign_sell": 354.2,
       "foreign_net": 468.6,
@@ -176,11 +180,12 @@
       "contract_liab_k": 3551136.0,
       "capital_k": 2722431.0,
       "eps": 2.64,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6691",
-      "name": "洋基工程",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -190,9 +195,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 735.0,
-      "change": 13.0,
-      "volume_lots": 1091.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 603.9,
       "foreign_sell": 187.0,
       "foreign_net": 416.9,
@@ -211,11 +216,12 @@
       "contract_liab_k": 3448684.0,
       "capital_k": 1214872.0,
       "eps": 7.19,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6753",
-      "name": "龍德造船",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -225,9 +231,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 135.0,
-      "change": 3.0,
-      "volume_lots": 1276.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 404.6,
       "foreign_sell": 297.2,
       "foreign_net": 107.4,
@@ -246,7 +252,8 @@
       "contract_liab_k": 1597033.0,
       "capital_k": 1172532.0,
       "eps": 2.7,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6143",
@@ -281,7 +288,8 @@
       "contract_liab_k": 454732.0,
       "capital_k": 860589.0,
       "eps": 1.62,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5206",
@@ -316,11 +324,12 @@
       "contract_liab_k": 1823541.0,
       "capital_k": 1715175.0,
       "eps": 2.45,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2610",
-      "name": "華航",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -330,9 +339,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 22.5,
-      "change": 0.35,
-      "volume_lots": 30516.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 17228.9,
       "foreign_sell": 11057.5,
       "foreign_net": 6171.4,
@@ -351,11 +360,12 @@
       "contract_liab_k": 35177116.0,
       "capital_k": 61199649.0,
       "eps": 0.85,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2006",
-      "name": "東和鋼鐵",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -365,9 +375,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 88.5,
-      "change": 2.3,
-      "volume_lots": 7446.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 5359.0,
       "foreign_sell": 2370.6,
       "foreign_net": 2988.3,
@@ -386,11 +396,12 @@
       "contract_liab_k": 4289438.0,
       "capital_k": 7302138.0,
       "eps": 2.41,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "6177",
-      "name": "達麗",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -400,9 +411,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 48.8,
-      "change": 1.0,
-      "volume_lots": 2409.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1478.0,
       "foreign_sell": 344.0,
       "foreign_net": 1134.0,
@@ -421,11 +432,12 @@
       "contract_liab_k": 4057826.0,
       "capital_k": 4723707.0,
       "eps": 3.53,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2727",
-      "name": "王品",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -435,9 +447,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 236.0,
-      "change": 12.0,
-      "volume_lots": 1627.4,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1353.1,
       "foreign_sell": 210.0,
       "foreign_net": 1143.1,
@@ -456,11 +468,12 @@
       "contract_liab_k": 3042434.0,
       "capital_k": 829401.0,
       "eps": 4.82,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2542",
-      "name": "興富發",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -470,9 +483,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 44.3,
-      "change": 0.2,
-      "volume_lots": 4881.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1833.0,
       "foreign_sell": 1714.0,
       "foreign_net": 119.0,
@@ -491,11 +504,12 @@
       "contract_liab_k": 21331420.0,
       "capital_k": 21730835.0,
       "eps": 1.15,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2912",
-      "name": "統一超",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -505,9 +519,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 221.0,
-      "change": 1.0,
-      "volume_lots": 2382.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1818.2,
       "foreign_sell": 928.2,
       "foreign_net": 890.0,
@@ -526,11 +540,12 @@
       "contract_liab_k": 11678280.0,
       "capital_k": 10396223.0,
       "eps": 3.06,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2536",
-      "name": "宏普",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -540,9 +555,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 19.4,
-      "change": 1.45,
-      "volume_lots": 2136.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1427.0,
       "foreign_sell": 956.0,
       "foreign_net": 471.0,
@@ -561,7 +576,44 @@
       "contract_liab_k": 5295214.0,
       "capital_k": 3328087.0,
       "eps": 2.05,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
+    },
+    {
+      "code": "6757",
+      "name": "",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
+      "foreign_buy": 781.2,
+      "foreign_sell": 284.0,
+      "foreign_net": 497.2,
+      "foreign_net_prev": -78.2,
+      "trust_buy": 0.0,
+      "trust_sell": 84.0,
+      "trust_net": -84.0,
+      "trust_net_prev": -74.0,
+      "total_net": 462.2,
+      "total_net_prev": -160.5,
+      "main_force_net": 462.2,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 73.34,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 3869053.0,
+      "capital_k": 4595300.0,
+      "eps": 2.91,
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6757",
@@ -600,7 +652,7 @@
     },
     {
       "code": "3035",
-      "name": "智原",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -610,9 +662,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 172.0,
-      "change": 1.0,
-      "volume_lots": 3306.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1455.6,
       "foreign_sell": 950.1,
       "foreign_net": 505.5,
@@ -631,11 +683,12 @@
       "contract_liab_k": 2088766.0,
       "capital_k": 2605503.0,
       "eps": 0.76,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3703",
-      "name": "欣陸",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -645,9 +698,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 20.4,
-      "change": 0.05,
-      "volume_lots": 1449.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 921.0,
       "foreign_sell": 632.0,
       "foreign_net": 289.0,
@@ -666,7 +719,8 @@
       "contract_liab_k": 15918899.0,
       "capital_k": 8232160.0,
       "eps": 0.24,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3213",
@@ -701,11 +755,12 @@
       "contract_liab_k": 395634.0,
       "capital_k": 586855.0,
       "eps": 3.02,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "6531",
-      "name": "愛普*",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -715,9 +770,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 951.0,
-      "change": 51.0,
-      "volume_lots": 2226.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 520.1,
       "foreign_sell": 493.7,
       "foreign_net": 26.3,
@@ -736,7 +791,8 @@
       "contract_liab_k": 1320592.0,
       "capital_k": 815989.0,
       "eps": 4.18,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "4907",
@@ -771,11 +827,12 @@
       "contract_liab_k": 860884.0,
       "capital_k": 1181458.0,
       "eps": 2.76,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5515",
-      "name": "建國",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -785,9 +842,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 43.25,
-      "change": 0.85,
-      "volume_lots": 664.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 238.3,
       "foreign_sell": 183.1,
       "foreign_net": 55.2,
@@ -806,11 +863,12 @@
       "contract_liab_k": 2692832.0,
       "capital_k": 2016001.0,
       "eps": 1.96,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2597",
-      "name": "潤弘",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -820,9 +878,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 166.0,
-      "change": 1.5,
-      "volume_lots": 151.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 111.1,
       "foreign_sell": 41.1,
       "foreign_net": 69.9,
@@ -841,7 +899,8 @@
       "contract_liab_k": 2068749.0,
       "capital_k": 3107160.0,
       "eps": 2.38,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1268",
@@ -876,11 +935,12 @@
       "contract_liab_k": 871745.0,
       "capital_k": 422237.0,
       "eps": 3.34,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "4770",
-      "name": "上品",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -890,9 +950,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 216.5,
-      "change": 4.0,
-      "volume_lots": 231.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 117.0,
       "foreign_sell": 51.0,
       "foreign_net": 66.0,
@@ -911,11 +971,12 @@
       "contract_liab_k": 430623.0,
       "capital_k": 799760.0,
       "eps": 10.2,
-      "fin_period": "2025Q4"
+      "fin_period": "2025Q4",
+      "score": null
     },
     {
       "code": "2430",
-      "name": "燦坤",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -925,9 +986,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 17.1,
-      "change": 0.35,
-      "volume_lots": 154.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 72.0,
       "foreign_sell": 17.0,
       "foreign_net": 55.0,
@@ -946,7 +1007,8 @@
       "contract_liab_k": 796924.0,
       "capital_k": 1168000.0,
       "eps": 0.02,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2596",
@@ -981,11 +1043,12 @@
       "contract_liab_k": 1112113.0,
       "capital_k": 1000000.0,
       "eps": 0.2,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "8462",
-      "name": "柏文",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -995,9 +1058,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 168.5,
-      "change": 4.0,
-      "volume_lots": 207.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 91.2,
       "foreign_sell": 38.4,
       "foreign_net": 52.8,
@@ -1016,11 +1079,12 @@
       "contract_liab_k": 1270371.0,
       "capital_k": 803867.0,
       "eps": 2.42,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "7740",
-      "name": "熙特爾-創",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1030,9 +1094,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 161.0,
-      "change": 6.0,
-      "volume_lots": 293.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 104.1,
       "foreign_sell": 53.0,
       "foreign_net": 51.1,
@@ -1051,11 +1115,12 @@
       "contract_liab_k": 604792.0,
       "capital_k": 532000.0,
       "eps": 3.64,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6414",
-      "name": "樺漢",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1065,9 +1130,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 474.0,
-      "change": 6.0,
-      "volume_lots": 2327.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1041.0,
       "foreign_sell": 934.1,
       "foreign_net": 106.9,
@@ -1086,11 +1151,12 @@
       "contract_liab_k": 24327436.0,
       "capital_k": 1458864.0,
       "eps": 5.15,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2247",
-      "name": "汎德永業",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1100,9 +1166,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 228.5,
-      "change": -1.5,
-      "volume_lots": 71.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 52.0,
       "foreign_sell": 12.0,
       "foreign_net": 40.0,
@@ -1121,11 +1187,12 @@
       "contract_liab_k": 1514056.0,
       "capital_k": 807087.0,
       "eps": 2.35,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3167",
-      "name": "大量",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1135,9 +1202,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 691.0,
-      "change": -14.0,
-      "volume_lots": 418.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 113.0,
       "foreign_sell": 47.3,
       "foreign_net": 65.7,
@@ -1156,11 +1223,12 @@
       "contract_liab_k": 1365210.0,
       "capital_k": 895049.0,
       "eps": 3.19,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "7822",
-      "name": "倍利科",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1170,9 +1238,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 850.0,
-      "change": -17.0,
-      "volume_lots": 91.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 31.0,
       "foreign_sell": 16.4,
       "foreign_net": 14.6,
@@ -1191,7 +1259,8 @@
       "contract_liab_k": 819896.0,
       "capital_k": 455608.0,
       "eps": 4.93,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "4506",
@@ -1226,11 +1295,12 @@
       "contract_liab_k": 3387055.0,
       "capital_k": 1770120.0,
       "eps": 2.11,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6192",
-      "name": "巨路",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1240,9 +1310,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 115.5,
-      "change": 1.5,
-      "volume_lots": 129.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 53.0,
       "foreign_sell": 47.0,
       "foreign_net": 6.0,
@@ -1261,7 +1331,8 @@
       "contract_liab_k": 3373423.0,
       "capital_k": 961558.0,
       "eps": 2.63,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1259",
@@ -1296,11 +1367,12 @@
       "contract_liab_k": 337637.0,
       "capital_k": 323895.0,
       "eps": 1.96,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2762",
-      "name": "世界健身-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1310,9 +1382,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 82.5,
-      "change": -0.3,
-      "volume_lots": 11.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 3.0,
       "foreign_sell": 4.0,
       "foreign_net": -1.0,
@@ -1331,7 +1403,8 @@
       "contract_liab_k": 2551858.0,
       "capital_k": 1125000.0,
       "eps": 2.01,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "4138",
@@ -1366,7 +1439,8 @@
       "contract_liab_k": 522449.0,
       "capital_k": 399300.0,
       "eps": 3.81,
-      "fin_period": "2025Q4"
+      "fin_period": "2025Q4",
+      "score": null
     },
     {
       "code": "5536",
@@ -1401,11 +1475,12 @@
       "contract_liab_k": 6933888.0,
       "capital_k": 620405.0,
       "eps": 12.76,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2493",
-      "name": "揚博",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1415,9 +1490,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 215.0,
-      "change": -5.0,
-      "volume_lots": 3314.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1205.1,
       "foreign_sell": 1240.0,
       "foreign_net": -34.9,
@@ -1436,7 +1511,8 @@
       "contract_liab_k": 826006.0,
       "capital_k": 1267965.0,
       "eps": 4.36,
-      "fin_period": "2025Q4"
+      "fin_period": "2025Q4",
+      "score": null
     },
     {
       "code": "5287",
@@ -1471,7 +1547,8 @@
       "contract_liab_k": 362890.0,
       "capital_k": 603106.0,
       "eps": 2.97,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5903",
@@ -1506,7 +1583,8 @@
       "contract_liab_k": 4176993.0,
       "capital_k": 2232200.0,
       "eps": 2.46,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5209",
@@ -1541,11 +1619,12 @@
       "contract_liab_k": 1571903.0,
       "capital_k": 285672.0,
       "eps": 5.37,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "1472",
-      "name": "三洋實業",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1555,9 +1634,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 88.8,
-      "change": 0.3,
-      "volume_lots": 29.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 7.0,
       "foreign_sell": 11.0,
       "foreign_net": -4.0,
@@ -1576,7 +1655,8 @@
       "contract_liab_k": 1398594.0,
       "capital_k": 524881.0,
       "eps": 1.78,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2745",
@@ -1611,11 +1691,12 @@
       "contract_liab_k": 772542.0,
       "capital_k": 338085.0,
       "eps": 3.44,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3130",
-      "name": "一零四",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1625,9 +1706,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 203.5,
-      "change": 0.5,
-      "volume_lots": 55.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 16.0,
       "foreign_sell": 32.0,
       "foreign_net": -16.0,
@@ -1646,11 +1727,12 @@
       "contract_liab_k": 1324000.0,
       "capital_k": 331907.0,
       "eps": 3.57,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5292",
-      "name": "華懋",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1660,9 +1742,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 172.0,
-      "change": 3.5,
-      "volume_lots": 108.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 25.1,
       "foreign_sell": 57.0,
       "foreign_net": -31.9,
@@ -1681,11 +1763,12 @@
       "contract_liab_k": 1443720.0,
       "capital_k": 421080.0,
       "eps": 2.58,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3661",
-      "name": "世芯-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1695,9 +1778,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 3715.0,
-      "change": 55.0,
-      "volume_lots": 2277.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 797.1,
       "foreign_sell": 837.1,
       "foreign_net": -40.0,
@@ -1716,11 +1799,12 @@
       "contract_liab_k": 12249487.0,
       "capital_k": 815340.0,
       "eps": 17.55,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "7769",
-      "name": "鴻勁",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1730,9 +1814,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 6320.0,
-      "change": -155.0,
-      "volume_lots": 539.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 273.6,
       "foreign_sell": 265.1,
       "foreign_net": 8.5,
@@ -1751,11 +1835,12 @@
       "contract_liab_k": 4916074.0,
       "capital_k": 1799300.0,
       "eps": 25.7,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2404",
-      "name": "漢唐",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1765,9 +1850,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1150.0,
-      "change": -20.0,
-      "volume_lots": 1105.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 596.1,
       "foreign_sell": 579.4,
       "foreign_net": 16.7,
@@ -1786,11 +1871,12 @@
       "contract_liab_k": 48264643.0,
       "capital_k": 1905867.0,
       "eps": 16.31,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6515",
-      "name": "穎崴",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1800,9 +1886,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 6760.0,
-      "change": -15.0,
-      "volume_lots": 452.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 200.3,
       "foreign_sell": 215.0,
       "foreign_net": -14.7,
@@ -1821,11 +1907,12 @@
       "contract_liab_k": 293209.0,
       "capital_k": 360380.0,
       "eps": 19.54,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6196",
-      "name": "帆宣",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1835,9 +1922,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 493.5,
-      "change": -14.5,
-      "volume_lots": 1712.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 798.2,
       "foreign_sell": 388.0,
       "foreign_net": 410.2,
@@ -1856,11 +1943,12 @@
       "contract_liab_k": 21180728.0,
       "capital_k": 2203295.0,
       "eps": 5.08,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6669",
-      "name": "緯穎",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1870,9 +1958,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 6100.0,
-      "change": -165.0,
-      "volume_lots": 1427.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 532.3,
       "foreign_sell": 670.4,
       "foreign_net": -138.2,
@@ -1891,11 +1979,12 @@
       "contract_liab_k": 4811647.0,
       "capital_k": 5585384.0,
       "eps": 80.43,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2454",
-      "name": "聯發科",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1905,9 +1994,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 3900.0,
-      "change": -20.0,
-      "volume_lots": 6607.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 3143.6,
       "foreign_sell": 3072.0,
       "foreign_net": 71.6,
@@ -1926,7 +2015,8 @@
       "contract_liab_k": 8406381.0,
       "capital_k": 16038954.0,
       "eps": 15.28,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5511",
@@ -1961,11 +2051,12 @@
       "contract_liab_k": 1553120.0,
       "capital_k": 1134400.0,
       "eps": 2.54,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6944",
-      "name": "兆聯實業",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -1975,9 +2066,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 771.0,
-      "change": -23.0,
-      "volume_lots": 454.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 112.4,
       "foreign_sell": 220.0,
       "foreign_net": -107.6,
@@ -1996,11 +2087,12 @@
       "contract_liab_k": 2947059.0,
       "capital_k": 766879.0,
       "eps": 10.08,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2467",
-      "name": "志聖",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2010,9 +2102,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 500.0,
-      "change": -19.0,
-      "volume_lots": 819.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 318.0,
       "foreign_sell": 426.4,
       "foreign_net": -108.4,
@@ -2031,11 +2123,12 @@
       "contract_liab_k": 2989798.0,
       "capital_k": 1615137.0,
       "eps": 4.09,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2376",
-      "name": "技嘉",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2045,9 +2138,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 344.0,
-      "change": 0.0,
-      "volume_lots": 5232.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 2294.1,
       "foreign_sell": 2160.4,
       "foreign_net": 133.8,
@@ -2066,7 +2159,8 @@
       "contract_liab_k": 7582569.0,
       "capital_k": 6698889.0,
       "eps": 7.86,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3402",
@@ -2101,11 +2195,12 @@
       "contract_liab_k": 1180674.0,
       "capital_k": 730476.0,
       "eps": 1.56,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2546",
-      "name": "根基",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2115,9 +2210,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 99.1,
-      "change": -0.9,
-      "volume_lots": 436.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 50.0,
       "foreign_sell": 199.0,
       "foreign_net": -149.0,
@@ -2136,11 +2231,12 @@
       "contract_liab_k": 3504558.0,
       "capital_k": 1461871.0,
       "eps": 7.46,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2731",
-      "name": "雄獅",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2150,9 +2246,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 145.0,
-      "change": -1.0,
-      "volume_lots": 614.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 172.0,
       "foreign_sell": 316.0,
       "foreign_net": -144.0,
@@ -2171,11 +2267,12 @@
       "contract_liab_k": 3980175.0,
       "capital_k": 932777.0,
       "eps": 4.17,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1513",
-      "name": "中興電",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2185,9 +2282,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 157.5,
-      "change": -3.0,
-      "volume_lots": 1522.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 448.6,
       "foreign_sell": 593.7,
       "foreign_net": -145.0,
@@ -2206,7 +2303,8 @@
       "contract_liab_k": 10298638.0,
       "capital_k": 5031125.0,
       "eps": 1.94,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3131",
@@ -2241,11 +2339,12 @@
       "contract_liab_k": 3244571.0,
       "capital_k": 292589.0,
       "eps": 16.11,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2535",
-      "name": "達欣工",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2255,9 +2354,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 90.1,
-      "change": -2.9,
-      "volume_lots": 464.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 70.0,
       "foreign_sell": 282.0,
       "foreign_net": -212.0,
@@ -2276,11 +2375,12 @@
       "contract_liab_k": 4847316.0,
       "capital_k": 2707940.0,
       "eps": 3.44,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5434",
-      "name": "崇越",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2290,9 +2390,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 499.0,
-      "change": -10.0,
-      "volume_lots": 776.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 380.1,
       "foreign_sell": 366.7,
       "foreign_net": 13.4,
@@ -2311,11 +2411,12 @@
       "contract_liab_k": 3267164.0,
       "capital_k": 1940080.0,
       "eps": 7.92,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "7711",
-      "name": "永擎",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2325,9 +2426,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 375.0,
-      "change": 13.5,
-      "volume_lots": 2470.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 306.1,
       "foreign_sell": 508.5,
       "foreign_net": -202.3,
@@ -2346,11 +2447,12 @@
       "contract_liab_k": 1323303.0,
       "capital_k": 717004.0,
       "eps": 9.76,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3209",
-      "name": "全科",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2360,9 +2462,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 57.6,
-      "change": -1.4,
-      "volume_lots": 1309.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 427.1,
       "foreign_sell": 679.6,
       "foreign_net": -252.6,
@@ -2381,11 +2483,12 @@
       "contract_liab_k": 2092507.0,
       "capital_k": 2353912.0,
       "eps": 1.52,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1519",
-      "name": "華城",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2395,9 +2498,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 653.0,
-      "change": -9.0,
-      "volume_lots": 1012.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 342.0,
       "foreign_sell": 588.3,
       "foreign_net": -246.3,
@@ -2416,11 +2519,12 @@
       "contract_liab_k": 5412436.0,
       "capital_k": 3158808.0,
       "eps": 3.29,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1503",
-      "name": "士電",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2430,9 +2534,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 193.5,
-      "change": -2.0,
-      "volume_lots": 1176.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 300.0,
       "foreign_sell": 577.4,
       "foreign_net": -277.4,
@@ -2451,11 +2555,12 @@
       "contract_liab_k": 8196485.0,
       "capital_k": 5209722.0,
       "eps": 2.79,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3515",
-      "name": "華擎",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2465,9 +2570,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 212.5,
-      "change": -2.0,
-      "volume_lots": 922.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 152.5,
       "foreign_sell": 455.0,
       "foreign_net": -302.5,
@@ -2486,11 +2591,12 @@
       "contract_liab_k": 1538177.0,
       "capital_k": 1235238.0,
       "eps": 2.96,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3583",
-      "name": "辛耘",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2500,9 +2606,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 693.0,
-      "change": -44.0,
-      "volume_lots": 1080.4,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 277.0,
       "foreign_sell": 632.0,
       "foreign_net": -355.0,
@@ -2521,7 +2627,8 @@
       "contract_liab_k": 14703739.0,
       "capital_k": 803461.0,
       "eps": 4.14,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3147",
@@ -2556,11 +2663,12 @@
       "contract_liab_k": 273271.0,
       "capital_k": 436868.0,
       "eps": 3.66,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3135",
-      "name": "凌航",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2570,9 +2678,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 168.0,
-      "change": -18.5,
-      "volume_lots": 3711.4,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 116.0,
       "foreign_sell": 549.1,
       "foreign_net": -433.1,
@@ -2591,11 +2699,12 @@
       "contract_liab_k": 1939574.0,
       "capital_k": 900715.0,
       "eps": 10.76,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3023",
-      "name": "信邦",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2605,9 +2714,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 318.0,
-      "change": -5.0,
-      "volume_lots": 1721.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 443.0,
       "foreign_sell": 1233.0,
       "foreign_net": -790.0,
@@ -2626,11 +2735,12 @@
       "contract_liab_k": 1578923.0,
       "capital_k": 2400690.0,
       "eps": 3.76,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3596",
-      "name": "智易",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2640,9 +2750,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 178.5,
-      "change": -4.0,
-      "volume_lots": 995.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 169.0,
       "foreign_sell": 772.1,
       "foreign_net": -603.1,
@@ -2661,11 +2771,12 @@
       "contract_liab_k": 7794411.0,
       "capital_k": 2203543.0,
       "eps": 3.38,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3037",
-      "name": "欣興",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2675,9 +2786,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 955.0,
-      "change": -18.0,
-      "volume_lots": 21596.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 8079.6,
       "foreign_sell": 8870.2,
       "foreign_net": -790.6,
@@ -2696,11 +2807,12 @@
       "contract_liab_k": 12557264.0,
       "capital_k": 15913226.0,
       "eps": 8.45,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "6139",
-      "name": "亞翔",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2710,9 +2822,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 802.0,
-      "change": -34.0,
-      "volume_lots": 3539.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 780.6,
       "foreign_sell": 1810.1,
       "foreign_net": -1029.5,
@@ -2731,11 +2843,12 @@
       "contract_liab_k": 25602356.0,
       "capital_k": 2355757.0,
       "eps": 9.45,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2345",
-      "name": "智邦",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2745,9 +2858,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 2215.0,
-      "change": -195.0,
-      "volume_lots": 4227.4,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1560.9,
       "foreign_sell": 2799.7,
       "foreign_net": -1238.8,
@@ -2766,11 +2879,12 @@
       "contract_liab_k": 5030444.0,
       "capital_k": 5611179.0,
       "eps": 19.78,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2308",
-      "name": "台達電",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2780,9 +2894,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1650.0,
-      "change": -30.0,
-      "volume_lots": 10432.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 5108.8,
       "foreign_sell": 6805.8,
       "foreign_net": -1697.1,
@@ -2801,7 +2915,8 @@
       "contract_liab_k": 13464002.0,
       "capital_k": 25975433.0,
       "eps": 9.68,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5483",
@@ -2836,11 +2951,12 @@
       "contract_liab_k": 7510875.0,
       "capital_k": 6412217.0,
       "eps": 1.83,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2382",
-      "name": "廣達",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2850,9 +2966,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 298.0,
-      "change": -4.0,
-      "volume_lots": 17517.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 6456.7,
       "foreign_sell": 12760.0,
       "foreign_net": -6303.3,
@@ -2871,11 +2987,12 @@
       "contract_liab_k": 123687517.0,
       "capital_k": 38626274.0,
       "eps": 5.5,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3036",
-      "name": "文曄",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2885,9 +3002,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 211.5,
-      "change": -22.0,
-      "volume_lots": 42344.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 12030.6,
       "foreign_sell": 20683.4,
       "foreign_net": -8652.8,
@@ -2906,11 +3023,12 @@
       "contract_liab_k": 25539236.0,
       "capital_k": 12691499.0,
       "eps": 5.32,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2903",
-      "name": "遠百",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2920,9 +3038,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.0,
-      "change": 0.15,
-      "volume_lots": 1280.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 745.0,
       "foreign_sell": 309.6,
       "foreign_net": 435.4,
@@ -2941,11 +3059,12 @@
       "contract_liab_k": 9933416.0,
       "capital_k": 14169406.0,
       "eps": 0.39,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2356",
-      "name": "英業達",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2955,9 +3074,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 64.0,
-      "change": -1.5,
-      "volume_lots": 14275.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 6354.5,
       "foreign_sell": 4875.0,
       "foreign_net": 1479.5,
@@ -2976,11 +3095,12 @@
       "contract_liab_k": 20258144.0,
       "capital_k": 35874751.0,
       "eps": 0.68,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2537",
-      "name": "聯上發",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -2990,9 +3110,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 11.05,
-      "change": 0.1,
-      "volume_lots": 638.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 446.0,
       "foreign_sell": 29.0,
       "foreign_net": 417.0,
@@ -3011,11 +3131,12 @@
       "contract_liab_k": 2312630.0,
       "capital_k": 3005579.0,
       "eps": 0.4,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2348",
-      "name": "海悅",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3025,9 +3146,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 71.4,
-      "change": 1.8,
-      "volume_lots": 745.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 513.6,
       "foreign_sell": 80.0,
       "foreign_net": 433.6,
@@ -3046,11 +3167,12 @@
       "contract_liab_k": 3584185.0,
       "capital_k": 1818989.0,
       "eps": null,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2520",
-      "name": "冠德",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3060,9 +3182,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 34.7,
-      "change": 0.6,
-      "volume_lots": 1583.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 775.1,
       "foreign_sell": 479.0,
       "foreign_net": 296.1,
@@ -3081,7 +3203,8 @@
       "contract_liab_k": 4346312.0,
       "capital_k": 6094871.0,
       "eps": 1.35,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5314",
@@ -3116,11 +3239,12 @@
       "contract_liab_k": 142749.0,
       "capital_k": 146000.0,
       "eps": 0.37,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5521",
-      "name": "工信",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3130,9 +3254,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 10.15,
-      "change": 0.0,
-      "volume_lots": 1503.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 647.0,
       "foreign_sell": 466.0,
       "foreign_net": 181.0,
@@ -3151,11 +3275,12 @@
       "contract_liab_k": 4401854.0,
       "capital_k": 4922802.0,
       "eps": 0.13,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1532",
-      "name": "勤美",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3165,9 +3290,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 21.8,
-      "change": 0.3,
-      "volume_lots": 394.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 221.0,
       "foreign_sell": 95.0,
       "foreign_net": 126.0,
@@ -3186,11 +3311,12 @@
       "contract_liab_k": 5516424.0,
       "capital_k": 4226043.0,
       "eps": -0.09,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2480",
-      "name": "敦陽科",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3200,9 +3326,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 156.5,
-      "change": 1.0,
-      "volume_lots": 300.5,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 229.3,
       "foreign_sell": 40.0,
       "foreign_net": 189.3,
@@ -3221,11 +3347,12 @@
       "contract_liab_k": 2423217.0,
       "capital_k": 1063603.0,
       "eps": null,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "9933",
-      "name": "中鼎",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3235,9 +3362,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 37.75,
-      "change": 0.6,
-      "volume_lots": 2103.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1318.4,
       "foreign_sell": 1054.6,
       "foreign_net": 263.8,
@@ -3256,11 +3383,12 @@
       "contract_liab_k": 52341682.0,
       "capital_k": 8993381.0,
       "eps": 1.0,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2505",
-      "name": "國揚",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3270,9 +3398,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 18.0,
-      "change": 0.3,
-      "volume_lots": 340.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 211.2,
       "foreign_sell": 72.0,
       "foreign_net": 139.2,
@@ -3291,11 +3419,12 @@
       "contract_liab_k": 2405625.0,
       "capital_k": 3800000.0,
       "eps": 0.17,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2388",
-      "name": "威盛",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3305,9 +3434,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 77.9,
-      "change": -1.5,
-      "volume_lots": 4537.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1706.5,
       "foreign_sell": 1367.3,
       "foreign_net": 339.2,
@@ -3326,7 +3455,8 @@
       "contract_liab_k": 9588498.0,
       "capital_k": 5560715.0,
       "eps": 0.08,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6122",
@@ -3361,11 +3491,12 @@
       "contract_liab_k": 1102054.0,
       "capital_k": 780916.0,
       "eps": 1.16,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5534",
-      "name": "長虹",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3375,9 +3506,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 78.4,
-      "change": 0.6,
-      "volume_lots": 298.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 157.2,
       "foreign_sell": 70.0,
       "foreign_net": 87.2,
@@ -3396,11 +3527,12 @@
       "contract_liab_k": 3317270.0,
       "capital_k": 3153260.0,
       "eps": 0.19,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2013",
-      "name": "中鋼構",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3410,9 +3542,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 41.3,
-      "change": 0.6,
-      "volume_lots": 209.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 92.0,
       "foreign_sell": 31.0,
       "foreign_net": 61.0,
@@ -3431,11 +3563,12 @@
       "contract_liab_k": 2506550.0,
       "capital_k": 2000000.0,
       "eps": 0.78,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5706",
-      "name": "鳳凰",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3445,9 +3578,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 45.35,
-      "change": 0.55,
-      "volume_lots": 190.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 84.0,
       "foreign_sell": 33.0,
       "foreign_net": 51.0,
@@ -3466,11 +3599,12 @@
       "contract_liab_k": 596437.0,
       "capital_k": 837679.0,
       "eps": 1.17,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2723",
-      "name": "美食-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3480,9 +3614,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 62.1,
-      "change": 0.7,
-      "volume_lots": 183.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 108.0,
       "foreign_sell": 54.0,
       "foreign_net": 54.0,
@@ -3501,11 +3635,12 @@
       "contract_liab_k": 1004739.0,
       "capital_k": 1800000.0,
       "eps": null,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6689",
-      "name": "伊雲谷",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3515,9 +3650,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 61.6,
-      "change": 0.5,
-      "volume_lots": 188.4,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 90.0,
       "foreign_sell": 55.0,
       "foreign_net": 35.0,
@@ -3536,7 +3671,8 @@
       "contract_liab_k": 733656.0,
       "capital_k": 680000.0,
       "eps": 0.53,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6163",
@@ -3571,7 +3707,8 @@
       "contract_liab_k": 926622.0,
       "capital_k": 1472800.0,
       "eps": 0.02,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5324",
@@ -3606,7 +3743,8 @@
       "contract_liab_k": 1293460.0,
       "capital_k": 2263791.0,
       "eps": -0.11,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3489",
@@ -3641,7 +3779,8 @@
       "contract_liab_k": 929516.0,
       "capital_k": 904522.0,
       "eps": -0.03,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3558",
@@ -3676,11 +3815,12 @@
       "contract_liab_k": 438344.0,
       "capital_k": 590609.0,
       "eps": 0.71,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2514",
-      "name": "龍邦",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3690,9 +3830,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 12.25,
-      "change": 0.1,
-      "volume_lots": 153.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 49.0,
       "foreign_sell": 17.0,
       "foreign_net": 32.0,
@@ -3711,7 +3851,8 @@
       "contract_liab_k": 3041016.0,
       "capital_k": 3947293.0,
       "eps": 0.42,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5529",
@@ -3746,11 +3887,12 @@
       "contract_liab_k": 989611.0,
       "capital_k": 1018374.0,
       "eps": 0.67,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "4582",
-      "name": "聚恆-創",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3760,9 +3902,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 29.0,
-      "change": 0.6,
-      "volume_lots": 174.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 43.0,
       "foreign_sell": 16.0,
       "foreign_net": 27.0,
@@ -3781,11 +3923,12 @@
       "contract_liab_k": 1730741.0,
       "capital_k": 666000.0,
       "eps": 0.53,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6933",
-      "name": "AMAX-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3795,9 +3938,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 164.5,
-      "change": -4.5,
-      "volume_lots": 548.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 119.0,
       "foreign_sell": 94.0,
       "foreign_net": 25.0,
@@ -3816,11 +3959,12 @@
       "contract_liab_k": 496915.0,
       "capital_k": 423848.0,
       "eps": 1.1,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2471",
-      "name": "資通",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3830,9 +3974,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 48.4,
-      "change": -0.05,
-      "volume_lots": 74.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 38.0,
       "foreign_sell": 15.0,
       "foreign_net": 23.0,
@@ -3851,11 +3995,12 @@
       "contract_liab_k": 349047.0,
       "capital_k": 472539.0,
       "eps": 1.11,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "5525",
-      "name": "順天",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3865,9 +4010,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.05,
-      "change": 0.3,
-      "volume_lots": 110.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 37.0,
       "foreign_sell": 21.0,
       "foreign_net": 16.0,
@@ -3886,11 +4031,12 @@
       "contract_liab_k": 3445601.0,
       "capital_k": 3181054.0,
       "eps": 1.0,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2739",
-      "name": "寒舍",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -3900,9 +4046,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 34.2,
-      "change": 0.1,
-      "volume_lots": 70.7,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 37.0,
       "foreign_sell": 24.0,
       "foreign_net": 13.0,
@@ -3921,7 +4067,8 @@
       "contract_liab_k": 476172.0,
       "capital_k": 915260.0,
       "eps": 1.3,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5403",
@@ -3956,7 +4103,8 @@
       "contract_liab_k": 987853.0,
       "capital_k": 781629.0,
       "eps": 1.42,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2743",
@@ -3991,7 +4139,8 @@
       "contract_liab_k": 899760.0,
       "capital_k": 468152.0,
       "eps": null,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5530",
@@ -4026,11 +4175,12 @@
       "contract_liab_k": 42421321.0,
       "capital_k": 4200842.0,
       "eps": 0.95,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1438",
-      "name": "三地開發",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4040,9 +4190,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.35,
-      "change": -0.1,
-      "volume_lots": 32.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 11.0,
       "foreign_sell": 7.0,
       "foreign_net": 4.0,
@@ -4061,11 +4211,12 @@
       "contract_liab_k": 1514454.0,
       "capital_k": 1112058.0,
       "eps": 0.65,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1439",
-      "name": "雋揚",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4075,9 +4226,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 27.4,
-      "change": -1.5,
-      "volume_lots": 29.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 5.0,
       "foreign_sell": 1.0,
       "foreign_net": 4.0,
@@ -4096,7 +4247,8 @@
       "contract_liab_k": 513215.0,
       "capital_k": 920000.0,
       "eps": 0.59,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2926",
@@ -4131,7 +4283,8 @@
       "contract_liab_k": 286866.0,
       "capital_k": 473897.0,
       "eps": 0.17,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3508",
@@ -4166,11 +4319,12 @@
       "contract_liab_k": 886398.0,
       "capital_k": 1043117.0,
       "eps": -0.1,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "7823",
-      "name": "奧義賽博-KY創",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4180,9 +4334,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 85.1,
-      "change": 0.1,
-      "volume_lots": 32.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1.0,
       "foreign_sell": 2.0,
       "foreign_net": -1.0,
@@ -4201,7 +4355,8 @@
       "contract_liab_k": 203325.0,
       "capital_k": 334909.0,
       "eps": -0.15,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5455",
@@ -4236,11 +4391,12 @@
       "contract_liab_k": 665166.0,
       "capital_k": 655018.0,
       "eps": -0.15,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2509",
-      "name": "全坤建",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4250,9 +4406,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 13.0,
-      "change": 0.05,
-      "volume_lots": 68.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 6.0,
       "foreign_sell": 5.0,
       "foreign_net": 1.0,
@@ -4271,7 +4427,8 @@
       "contract_liab_k": 2852850.0,
       "capital_k": 2245505.0,
       "eps": null,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3310",
@@ -4306,7 +4463,8 @@
       "contract_liab_k": 406536.0,
       "capital_k": 749485.0,
       "eps": 0.34,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5547",
@@ -4341,7 +4499,44 @@
       "contract_liab_k": 483417.0,
       "capital_k": 452880.0,
       "eps": 0.37,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
+    },
+    {
+      "code": "3158",
+      "name": "嘉實",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": null,
+      "change": null,
+      "volume_lots": 0,
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 0.0,
+      "total_net_prev": 0.0,
+      "main_force_net": 0.0,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 23.39,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 153408.0,
+      "capital_k": 304784.0,
+      "eps": 1.5,
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3158",
@@ -4380,7 +4575,7 @@
     },
     {
       "code": "4190",
-      "name": "佐登-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4390,9 +4585,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 25.5,
-      "change": 0.3,
-      "volume_lots": 4.3,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1.0,
       "foreign_sell": 1.0,
       "foreign_net": 0.0,
@@ -4411,46 +4606,12 @@
       "contract_liab_k": 1631979.0,
       "capital_k": 614441.0,
       "eps": -0.26,
-      "fin_period": "2026Q1"
-    },
-    {
-      "code": "8443",
-      "name": "阿瘦",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 11.4,
-      "change": -0.05,
-      "volume_lots": 3.3,
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": -15.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 0.0,
-      "total_net_prev": -16.0,
-      "main_force_net": 0.0,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 61.07,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 382521.0,
-      "capital_k": 668000.0,
-      "eps": -0.37,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "9926",
-      "name": "新海",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4460,9 +4621,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 49.3,
-      "change": -0.2,
-      "volume_lots": 6.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1.0,
       "foreign_sell": 1.0,
       "foreign_net": 0.0,
@@ -4481,7 +4642,8 @@
       "contract_liab_k": 2023227.0,
       "capital_k": 1795041.0,
       "eps": 0.68,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3379",
@@ -4516,7 +4678,8 @@
       "contract_liab_k": 339669.0,
       "capital_k": 380417.0,
       "eps": -0.54,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2937",
@@ -4551,11 +4714,12 @@
       "contract_liab_k": 752545.0,
       "capital_k": 478962.0,
       "eps": 0.87,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2496",
-      "name": "卓越",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4565,9 +4729,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 59.2,
-      "change": 0.1,
-      "volume_lots": 37.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 3.0,
       "foreign_sell": 6.0,
       "foreign_net": -3.0,
@@ -4586,11 +4750,12 @@
       "contract_liab_k": 413426.0,
       "capital_k": 200555.0,
       "eps": 0.83,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "6887",
-      "name": "寶綠特-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4600,9 +4765,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 36.9,
-      "change": 0.45,
-      "volume_lots": 65.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 3.0,
       "foreign_sell": 7.0,
       "foreign_net": -4.0,
@@ -4621,7 +4786,8 @@
       "contract_liab_k": 877651.0,
       "capital_k": 741515.0,
       "eps": -0.62,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3687",
@@ -4656,11 +4822,12 @@
       "contract_liab_k": 182740.0,
       "capital_k": 300608.0,
       "eps": 0.31,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1535",
-      "name": "中宇",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4670,9 +4837,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 45.95,
-      "change": 0.25,
-      "volume_lots": 61.2,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 23.0,
       "foreign_sell": 31.0,
       "foreign_net": -8.0,
@@ -4691,11 +4858,12 @@
       "contract_liab_k": 1610460.0,
       "capital_k": 1237426.0,
       "eps": 0.87,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "9931",
-      "name": "欣高",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4705,9 +4873,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 33.7,
-      "change": -0.25,
-      "volume_lots": 12.0,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 1.0,
       "foreign_sell": 8.0,
       "foreign_net": -7.0,
@@ -4726,11 +4894,12 @@
       "contract_liab_k": 1640738.0,
       "capital_k": 1203693.0,
       "eps": 0.69,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6281",
-      "name": "全國電",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4740,9 +4909,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 51.3,
-      "change": -0.4,
-      "volume_lots": 59.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 6.0,
       "foreign_sell": 12.0,
       "foreign_net": -6.0,
@@ -4761,7 +4930,8 @@
       "contract_liab_k": 932956.0,
       "capital_k": 991729.0,
       "eps": null,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3498",
@@ -4796,11 +4966,12 @@
       "contract_liab_k": 1419380.0,
       "capital_k": 612730.0,
       "eps": -0.2,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2704",
-      "name": "國賓",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4810,9 +4981,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 45.85,
-      "change": 0.25,
-      "volume_lots": 57.4,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 25.0,
       "foreign_sell": 36.0,
       "foreign_net": -11.0,
@@ -4831,7 +5002,8 @@
       "contract_liab_k": 2947909.0,
       "capital_k": 3669234.0,
       "eps": 0.16,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3628",
@@ -4866,7 +5038,8 @@
       "contract_liab_k": 393857.0,
       "capital_k": 450000.0,
       "eps": 0.63,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "4523",
@@ -4901,11 +5074,12 @@
       "contract_liab_k": 362893.0,
       "capital_k": 649490.0,
       "eps": -0.15,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5203",
-      "name": "訊連",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4915,9 +5089,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 66.6,
-      "change": -0.4,
-      "volume_lots": 116.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 27.0,
       "foreign_sell": 44.0,
       "foreign_net": -17.0,
@@ -4936,11 +5110,12 @@
       "contract_liab_k": 458151.0,
       "capital_k": 793426.0,
       "eps": 0.33,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "6464",
-      "name": "台數科",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -4989,6 +5164,42 @@
       "change": 0.0,
       "volume_lots": 301.0,
       "foreign_buy": 0.0,
+      "foreign_sell": 19.0,
+      "foreign_net": -19.0,
+      "foreign_net_prev": -22.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": -18.0,
+      "total_net_prev": -21.0,
+      "main_force_net": -18.0,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 78.19,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 728420.0,
+      "capital_k": 1287815.0,
+      "eps": 1.39,
+      "fin_period": "2026Q1",
+      "score": null
+    },
+    {
+      "code": "5213",
+      "name": "亞昕",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 20.95,
+      "change": 0.0,
+      "volume_lots": 301.0,
+      "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
       "foreign_net_prev": 0.0,
@@ -5006,11 +5217,12 @@
       "contract_liab_k": 4103140.0,
       "capital_k": 7213343.0,
       "eps": -0.12,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "6706",
-      "name": "惠特",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -5020,9 +5232,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 109.0,
-      "change": -3.0,
-      "volume_lots": 1361.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 415.0,
       "foreign_sell": 465.0,
       "foreign_net": -50.0,
@@ -5041,11 +5253,12 @@
       "contract_liab_k": 625060.0,
       "capital_k": 785489.0,
       "eps": -0.96,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2243",
-      "name": "宏旭-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -5055,9 +5268,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 40.05,
-      "change": -2.85,
-      "volume_lots": 448.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 149.0,
       "foreign_sell": 229.5,
       "foreign_net": -80.5,
@@ -5076,7 +5289,8 @@
       "contract_liab_k": 726961.0,
       "capital_k": 693736.0,
       "eps": 0.66,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "4542",
@@ -5111,11 +5325,12 @@
       "contract_liab_k": 246317.0,
       "capital_k": 345864.0,
       "eps": 0.4,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2501",
-      "name": "國建",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -5125,9 +5340,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.05,
-      "change": 0.05,
-      "volume_lots": 1165.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 579.0,
       "foreign_sell": 695.0,
       "foreign_net": -116.0,
@@ -5146,11 +5361,12 @@
       "contract_liab_k": 13501706.0,
       "capital_k": 11595611.0,
       "eps": 1.21,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2427",
-      "name": "三商電",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -5160,9 +5376,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 21.8,
-      "change": -0.1,
-      "volume_lots": 445.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 77.0,
       "foreign_sell": 232.0,
       "foreign_net": -155.0,
@@ -5181,11 +5397,12 @@
       "contract_liab_k": 1081615.0,
       "capital_k": 1979996.0,
       "eps": null,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2359",
-      "name": "所羅門",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -5195,9 +5412,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 143.5,
-      "change": -1.0,
-      "volume_lots": 8863.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 2462.9,
       "foreign_sell": 2708.0,
       "foreign_net": -245.1,
@@ -5216,11 +5433,12 @@
       "contract_liab_k": 1934014.0,
       "capital_k": 1714711.0,
       "eps": 0.78,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2540",
-      "name": "愛山林",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -5230,9 +5448,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 54.9,
-      "change": 0.2,
-      "volume_lots": 1690.9,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 282.0,
       "foreign_sell": 638.0,
       "foreign_net": -356.0,
@@ -5251,7 +5469,8 @@
       "contract_liab_k": 8915931.0,
       "capital_k": 9448741.0,
       "eps": -0.01,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "3581",
@@ -5286,11 +5505,12 @@
       "contract_liab_k": 320146.0,
       "capital_k": 510060.0,
       "eps": 0.31,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "2548",
-      "name": "華固",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": false,
@@ -5300,9 +5520,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 94.4,
-      "change": -0.9,
-      "volume_lots": 1959.4,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 499.2,
       "foreign_sell": 1650.4,
       "foreign_net": -1151.2,
@@ -5321,11 +5541,12 @@
       "contract_liab_k": 6558117.0,
       "capital_k": 3357046.0,
       "eps": 0.64,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "6213",
-      "name": "聯茂",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -5335,9 +5556,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 389.0,
-      "change": 14.0,
-      "volume_lots": 50764.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 18068.7,
       "foreign_sell": 12267.3,
       "foreign_net": 5801.4,
@@ -5356,11 +5577,12 @@
       "contract_liab_k": null,
       "capital_k": 3638576.0,
       "eps": 3.52,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2603",
-      "name": "長榮",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -5370,9 +5592,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 207.5,
-      "change": 3.5,
-      "volume_lots": 6028.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 3485.8,
       "foreign_sell": 1013.3,
       "foreign_net": 2472.5,
@@ -5391,11 +5613,12 @@
       "contract_liab_k": 8179845.0,
       "capital_k": 21650430.0,
       "eps": 3.84,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "5288",
-      "name": "豐祥-KY",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -5405,9 +5628,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 192.5,
-      "change": 4.0,
-      "volume_lots": 257.1,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 172.0,
       "foreign_sell": 27.0,
       "foreign_net": 145.0,
@@ -5426,11 +5649,12 @@
       "contract_liab_k": 150004.0,
       "capital_k": 696987.0,
       "eps": 4.44,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "3022",
-      "name": "威強電",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -5440,9 +5664,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 103.0,
-      "change": 2.5,
-      "volume_lots": 6864.8,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 2877.6,
       "foreign_sell": 1693.0,
       "foreign_net": 1184.6,
@@ -5461,11 +5685,12 @@
       "contract_liab_k": 540590.0,
       "capital_k": 1765978.0,
       "eps": 0.96,
-      "fin_period": "2026Q1"
+      "fin_period": "2026Q1",
+      "score": null
     },
     {
       "code": "1717",
-      "name": "長興",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -5475,9 +5700,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 66.2,
-      "change": 0.0,
-      "volume_lots": 5561.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 2392.7,
       "foreign_sell": 1626.8,
       "foreign_net": 765.9,
@@ -5496,11 +5721,12 @@
       "contract_liab_k": 493199.0,
       "capital_k": 11722455.0,
       "eps": 0.72,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     },
     {
       "code": "2387",
-      "name": "精元",
+      "name": "",
       "market": "tse",
       "conds": {
         "c1": true,
@@ -5510,9 +5736,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 38.4,
-      "change": 0.45,
-      "volume_lots": 302.6,
+      "close": null,
+      "change": null,
+      "volume_lots": null,
       "foreign_buy": 202.0,
       "foreign_sell": 34.0,
       "foreign_net": 168.0,
@@ -5531,8 +5757,9 @@
       "contract_liab_k": 34914.0,
       "capital_k": 1952510.0,
       "eps": 0.17,
-      "fin_period": "2026Q2"
+      "fin_period": "2026Q2",
+      "score": null
     }
   ],
-  "message": "符合全部條件 2 檔；法人動能+合約負債達標 0 檔；全市場合約負債達標 150 檔；其他法人動能股 6 檔"
+  "message": "符合全部條件 2 檔；法人動能+合約負債達標 0 檔；全市場合約負債達標 149 檔；其他法人動能股 6 檔"
 }
