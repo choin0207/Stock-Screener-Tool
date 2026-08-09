@@ -1,0 +1,151 @@
+{
+ "updated_at": "2026-08-09T09:27:56+08:00",
+ "track_days": 20,
+ "records": [
+  {
+   "code": "2618",
+   "name": "長榮航",
+   "tier": 0,
+   "entry_date": "20260807",
+   "entry_close": 44.4,
+   "prices": {
+    "20260807": 44.4
+   },
+   "flows": {
+    "20260807": [
+     22000.4,
+     127.0,
+     22623.5
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 36190224.0,
+    "capital_k": 54004443.0,
+    "eps": 1.53,
+    "period": "2026Q1"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "days_tracked": 0,
+   "last_date": "20260807",
+   "last_close": 44.4,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  },
+  {
+   "code": "3443",
+   "name": "創意",
+   "tier": 0,
+   "entry_date": "20260807",
+   "entry_close": 4545.0,
+   "prices": {
+    "20260807": 4545.0
+   },
+   "flows": {
+    "20260807": [
+     19.0,
+     100.7,
+     102.6
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 13214722.0,
+    "capital_k": 1340119.0,
+    "eps": 11.61,
+    "period": "2026Q2"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "days_tracked": 0,
+   "last_date": "20260807",
+   "last_close": 4545.0,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  }
+ ],
+ "summary": {
+  "total": 2,
+  "tracking": 2,
+  "done": {
+   "n": 0,
+   "win_rate": null,
+   "avg_ret": null
+  },
+  "by_tier": {
+   "0": {
+    "n": 0,
+    "win_rate": null,
+    "avg_ret": null
+   },
+   "1": {
+    "n": 0,
+    "win_rate": null,
+    "avg_ret": null
+   }
+  },
+  "drop_stats": {
+   "drops_total": 0,
+   "factors": {
+    "foreign": {
+     "label": "外資轉賣",
+     "cond": "①",
+     "warned": 0,
+     "warn_settled": 0,
+     "warn_then_drop": 0,
+     "hit": 0
+    },
+    "trust": {
+     "label": "投信轉賣",
+     "cond": "①",
+     "warned": 0,
+     "warn_settled": 0,
+     "warn_then_drop": 0,
+     "hit": 0
+    },
+    "inst": {
+     "label": "法人連賣",
+     "cond": "②",
+     "warned": 0,
+     "warn_settled": 0,
+     "warn_then_drop": 0,
+     "hit": 0
+    },
+    "insider": {
+     "label": "內部人轉讓增加",
+     "cond": "③",
+     "warned": 0,
+     "warn_settled": 0,
+     "warn_then_drop": 0,
+     "hit": 0
+    },
+    "contract": {
+     "label": "合約負債下降",
+     "cond": "④",
+     "warned": 0,
+     "warn_settled": 0,
+     "warn_then_drop": 0,
+     "hit": 0
+    },
+    "eps": {
+     "label": "獲利轉弱",
+     "cond": "⑤",
+     "warned": 0,
+     "warn_settled": 0,
+     "warn_then_drop": 0,
+     "hit": 0
+    }
+   }
+  }
+ },
+ "trade_date": "20260807"
+}
