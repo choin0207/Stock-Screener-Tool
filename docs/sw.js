@@ -2,7 +2,7 @@
    - 頁面(index.html)與設定(config.js)：網路優先，確保永遠拿到最新版介面
    - 資料(data/、api/)：一律走網路，避免看到舊行情
    - 圖示等靜態資源：快取優先 */
-const SHELL = "shell-v3";
+const SHELL = "shell-v4";
 const ASSETS = ["./", "index.html", "manifest.json", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", e => {

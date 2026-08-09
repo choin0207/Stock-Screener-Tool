@@ -52,13 +52,26 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v3）
+  看到舊版介面，SHELL 版本 shell-v4）
 - 自選名單：localStorage（key `mywatch`），每台裝置獨立；資料來自
   `data/market_snapshot.json`（每日篩選產出，欄位縮寫見 `_save_market_snapshot`）
   + `data/financials.json`；前端 `TH` 常數需與 config.py 門檻同步
 - 登入（選用，預設關）：`docs/config.js` 的 AUTH_URL 填 Apps Script 網址即啟用；
   帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在
   `google-apps-script/Code.gs`。使用者說「先不要用帳密」
+
+## 合約負債篩選卡與績效追蹤（2026-08-09 新增）
+
+- 前端「📦 合約負債（在手訂單）篩選」卡片：**純前端**讀 financials.json +
+  market_snapshot.json，門檻選單（>0 / ≥資本額50%(④) / ≥100%）＋代號名稱搜尋，
+  依「合約負債/資本額」排序，預設顯示30筆可展開；不增加任何後端請求
+- `screener/performance.py`：每日篩選成功後（run_daily_screen 尾端 try/except 呼叫）
+  記錄 🏆/🟡 入選股（入選日收盤=進場價），之後每個交易日用**當日已抓的行情快照**
+  補收盤（零額外 API），追蹤 20 個交易日≈一個月 → `docs/data/performance.json`；
+  算 D+5/D+10/D+20 報酬、期間最高最低、定案訊號勝率與平均報酬（總計+分組）。
+  同日兩次排程以 (code, entry_date) 去重；逾 45 日曆天不足20筆自動定案（防停牌卡住）；
+  檔案最多留 400 筆。前端「📈 篩選成效追蹤」卡片顯示，作為選股是否值得買進的證據
+- 離線測試：scratchpad test_performance.py 18 項全過
 
 ## 持股風險紅黃綠燈（2026-08-09 新增）
 

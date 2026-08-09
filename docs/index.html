@@ -77,6 +77,11 @@
   .riskbar.green { background: rgba(46, 204, 113, .12); color: #1a9955; }
   .riskbar.yellow { background: rgba(241, 196, 15, .18); color: #9a7d0a; }
   .riskbar.red { background: rgba(231, 76, 60, .15); color: #c92a3d; }
+  select { padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px;
+           background: var(--bg); color: var(--text); font-size: 14px; }
+  .clrow { border-bottom: 1px solid var(--line); padding: 8px 2px; }
+  .clrow .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .clrow .ratio { font-weight: 700; color: var(--accent); }
   .badges { font-size: 12.5px; margin: 4px 0 2px; }
   td.badges { text-align: left; }
   .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
@@ -189,6 +194,31 @@
     </div>
     <div class="empty" id="resultEmpty" style="display:none">
       今日沒有通過法人條件（外資投信大買＋法人買賣超放大）的候選股。</div>
+  </div>
+
+  <div class="card">
+    <h2>📦 合約負債（在手訂單）篩選</h2>
+    <div class="row">
+      <select id="clMin">
+        <option value="0">有合約負債（&gt;0）</option>
+        <option value="0.5">≥ 資本額 50%（條件④達標）</option>
+        <option value="1">≥ 資本額 100%</option>
+      </select>
+      <input id="clSearch" placeholder="搜尋代號或名稱" style="flex:1;min-width:120px;
+             padding:9px 12px;border:1px solid var(--line);border-radius:10px;
+             background:var(--bg);color:var(--text);font-size:15px">
+    </div>
+    <div class="msg" id="clMeta">載入中…</div>
+    <div id="clList"></div>
+    <div class="row" style="margin-top:8px">
+      <button id="clMore" class="secondary" style="display:none">顯示更多</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📈 篩選成效追蹤（入選後一個月）</h2>
+    <div class="msg" id="perfMeta">載入中…</div>
+    <div id="perfList"></div>
   </div>
 
   <div class="card sub" style="font-size:12px">
@@ -383,6 +413,99 @@ async function loadWatchlist() {
   }
 }
 
+// ---- 合約負債（在手訂單）篩選：資料來自 financials.json + market_snapshot.json ----
+let clAll = null, clShown = 30;
+async function loadContract(force) {
+  if (force) clAll = null;
+  if (!clAll) {
+    const [fins, snap] = await Promise.all([
+      getJSON("data/financials.json"), getJSON("data/market_snapshot.json")]);
+    if (!fins) {
+      $("clMeta").textContent = "財報資料庫尚未產生（需先執行 Financial Scan）";
+      return;
+    }
+    const stocks = (snap && snap.stocks) || {};
+    clAll = [];
+    for (const code of Object.keys(fins)) {
+      if (!/^\d{4}$/.test(code)) continue;              // 排除 ETF 等非個股
+      const f = fins[code];
+      if (!(f.contract_liab_k > 0)) continue;           // 只留「有合約負債」
+      const s = stocks[code] || {};
+      clAll.push({ code, name: s.n || "", m: s.m, close: s.c,
+                   liab: f.contract_liab_k, cap: f.capital_k,
+                   eps: f.eps, period: f.period,
+                   ratio: f.capital_k > 0 ? f.contract_liab_k / f.capital_k : null });
+    }
+    clAll.sort((a, b) => (b.ratio ?? -1) - (a.ratio ?? -1));
+  }
+  renderContract();
+}
+function renderContract() {
+  if (!clAll) return;
+  const min = parseFloat($("clMin").value);
+  const q = $("clSearch").value.trim().toLowerCase();
+  const list = clAll.filter(x =>
+    (min === 0 || (x.ratio != null && x.ratio >= min)) &&
+    (!q || x.code.includes(q) || x.name.toLowerCase().includes(q)));
+  $("clMeta").textContent =
+    `符合 ${list.length} 檔（依 合約負債／資本額 由高到低；合約負債＝已收未認列的訂單款）`;
+  const box = $("clList");
+  box.innerHTML = list.length ? "" : '<div class="empty">沒有符合的股票。</div>';
+  for (const x of list.slice(0, clShown)) {
+    box.insertAdjacentHTML("beforeend", `<div class="clrow">
+      <div class="head"><b>${x.code} ${x.name}${x.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
+        <span class="ratio">${x.ratio != null ? fmt(x.ratio * 100, 0) + "%" : "占比—"}</span></div>
+      <div class="msg">合約負債 ${fmt(x.liab / 100000, 2)} 億／資本額 ${fmt(x.cap / 100000, 2)} 億
+        ｜EPS ${fmt(x.eps, 2)}｜收盤 ${fmt(x.close, 2)}｜${x.period || "—"}</div></div>`);
+  }
+  $("clMore").style.display = list.length > clShown ? "" : "none";
+}
+$("clMin").onchange = () => { clShown = 30; renderContract(); };
+$("clSearch").addEventListener("input", () => { clShown = 30; renderContract(); });
+$("clMore").onclick = () => { clShown += 50; renderContract(); };
+
+// ---- 篩選成效追蹤（🏆/🟡 入選後一個月股價，data/performance.json）----
+async function loadPerf() {
+  const p = await getJSON("data/performance.json");
+  const meta = $("perfMeta"), box = $("perfList");
+  if (!p || !(p.records || []).length) {
+    meta.textContent =
+      "尚無資料：每日篩選出 🏆／🟡 組股票後，會自動記錄並追蹤其後一個月股價。";
+    box.innerHTML = ""; return;
+  }
+  const s = p.summary || {}, d = s.done || {};
+  meta.textContent =
+    `累計 ${s.total ?? p.records.length} 筆訊號｜追蹤中 ${s.tracking ?? "—"} 筆` +
+    `｜已滿約一個月 ${d.n ?? 0} 筆` +
+    (d.win_rate != null
+      ? `：勝率 ${d.win_rate}%、平均報酬 ${d.avg_ret > 0 ? "+" : ""}${d.avg_ret}%` : "") +
+    `｜更新 ${p.updated_at || "—"}`;
+  const pd = x => x ? `${x.slice(0, 4)}/${x.slice(4, 6)}/${x.slice(6)}` : "—";
+  const pr = v => v == null ? "—"
+    : `<b class="${cls(v)}">${v > 0 ? "+" : ""}${fmt(v, 2)}%</b>`;
+  const rows = p.records.slice()
+    .sort((a, b) => a.entry_date === b.entry_date
+      ? a.code.localeCompare(b.code)
+      : (a.entry_date < b.entry_date ? 1 : -1));
+  box.innerHTML = "";
+  for (const r of rows.slice(0, 60)) {
+    box.insertAdjacentHTML("beforeend", `<div class="stock">
+      <div class="head"><b>${r.tier === 0 ? "🏆" : "🟡"} ${r.code} ${r.name || ""}</b>
+        <span class="price">${pr(r.ret_pct)}</span></div>
+      <div class="msg">入選 ${pd(r.entry_date)} @ ${fmt(r.entry_close, 2)} →
+        最新 ${fmt(r.last_close, 2)}（${pd(r.last_date)}）｜
+        ${r.done ? "✅ 已滿約一個月" : `追蹤中 ${r.days_tracked ?? 0}/${p.track_days} 交易日`}</div>
+      <div class="grid">
+        <div><span>5日後</span> ${pr(r.ret_d5)}</div>
+        <div><span>10日後</span> ${pr(r.ret_d10)}</div>
+        <div><span>20日後(≈1個月)</span> ${pr(r.ret_d20)}</div>
+        <div><span>期間最高／最低</span> ${pr(r.max_ret_pct)}／${pr(r.min_ret_pct)}</div>
+      </div></div>`);
+  }
+  if (rows.length > 60)
+    box.insertAdjacentHTML("beforeend", '<div class="msg">僅顯示最近 60 筆</div>');
+}
+
 async function loadDiagnose() {
   const d = await getJSON("data/diagnose.json");
   if (!d || !d.checks) return;
@@ -483,7 +606,8 @@ $("btnNotify").onclick = () => {
     p === "granted" ? "通知已啟用（頁面開啟時有新警示會提醒）" : "未授權通知");
 };
 $("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose();
-                                  loadRisk().then(loadWatchlist); detectMode(); };
+                                  loadRisk().then(loadWatchlist); detectMode();
+                                  loadContract(true); loadPerf(); };
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -508,7 +632,8 @@ function startApp() {
   $("loginOverlay").classList.remove("show");
   $("logoutLink").style.display = AUTH_URL ? "" : "none";
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
-                            loadRisk().then(loadWatchlist); });
+                            loadRisk().then(loadWatchlist);
+                            loadContract(); loadPerf(); });
   setInterval(loadAlerts, 60 * 1000);
   setInterval(loadRisk, 60 * 1000);
   setInterval(loadResults, 5 * 60 * 1000);

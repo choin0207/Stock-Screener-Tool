@@ -18,6 +18,7 @@ from datetime import datetime
 
 from .config import CONFIG
 from . import datasources as ds
+from . import performance
 
 log = logging.getLogger("screener.core")
 
@@ -215,6 +216,10 @@ def run_daily_screen():
     }
     save_results(out)
     _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev)
+    try:                      # 篩選成效追蹤（🏆/🟡 入選股一個月股價驗證）
+        performance.update(results, quotes, d_today)
+    except Exception:                                        # noqa: BLE001
+        log.exception("績效追蹤更新失敗（不影響篩選結果）")
     log.info(out["message"])
     return out
 
