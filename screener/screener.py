@@ -240,6 +240,16 @@ def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev):
     """全市場每日快照（供網頁「自選名單」查任意個股）。欄位縮寫壓縮檔案大小：
     n=名稱 m=市場 c=收盤 ch=漲跌 v=量(張) f/f0=外資買賣超今/昨(張)
     t/t0=投信 x/x0=法人合計。"""
+    path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
+    # 行情來源偶發整批失敗（如假日維護）：沿用上一份快照的名稱/價格保底，
+    # 避免出現「有法人數據但無名稱股價」的空白快照
+    prev_snap = {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            prev_snap = json.load(f).get("stocks", {})
+    except Exception:                                        # noqa: BLE001
+        pass
+
     snap = {}
     for code in set(quotes) | set(t86_today):
         q = quotes.get(code, {})
@@ -257,7 +267,10 @@ def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev):
             "t": k(cur, "trust_net"), "t0": k(prev, "trust_net"),
             "x": k(cur, "total_net"), "x0": k(prev, "total_net"),
         }
-    path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
+        old = prev_snap.get(code)
+        if not q and old and old.get("n"):
+            for key in ("n", "m", "c", "ch", "v"):
+                snap[code][key] = old.get(key)
     with open(path, "w", encoding="utf-8") as f:
         json.dump({"trade_date": d_today, "prev_trade_date": d_prev,
                    "stocks": snap}, f, ensure_ascii=False)

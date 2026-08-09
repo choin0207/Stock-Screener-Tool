@@ -99,8 +99,19 @@ def fetch_daily_quotes():
     market: 'tse'=上市, 'otc'=上櫃。"""
     out = {}
 
+    def _retry_json(url, tries=3, wait=8):
+        for i in range(tries):
+            data = _get_json(url)
+            if data:
+                return data
+            if i < tries - 1:
+                time.sleep(wait)
+        return None
+
     # 上市（證交所）
-    data = _get_json("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL")
+    data = _retry_json("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL")
+    if not data:
+        log.warning("上市每日行情（STOCK_DAY_ALL）重試後仍失敗，本次快照將沿用舊資料")
     for row in data or []:
         code = row.get("Code")
         if not code:
@@ -115,7 +126,9 @@ def fetch_daily_quotes():
         }
 
     # 上櫃（櫃買中心）
-    data = _get_json("https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes")
+    data = _retry_json("https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes")
+    if not data:
+        log.warning("上櫃每日行情重試後仍失敗，本次快照將沿用舊資料")
     for row in data or []:
         code = row.get("SecuritiesCompanyCode")
         if not code:
