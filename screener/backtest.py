@@ -222,7 +222,8 @@ def attach_financials(signals):
         d = datetime.strptime(s["date"], "%Y%m%d").date()
         y, q = published_period(d)
         pairs.setdefault((s["code"], y, q), []).append(s)
-    todo = sorted(pairs, key=lambda k: -max(s["date"] for s in pairs[k]))
+    todo = sorted(pairs, key=lambda k: max(s["date"] for s in pairs[k]),
+                  reverse=True)
     cap = CONFIG.get("backtest_max_mops_pairs", 250)
     skipped = max(0, len(todo) - cap)
     for n, key in enumerate(todo[:cap]):

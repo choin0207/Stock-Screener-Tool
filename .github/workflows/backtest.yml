@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
         with:
           path: .cache
           key: backtest-cache-${{ github.run_id }}
@@ -36,6 +36,12 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Run backtest
         run: python run_backtest.py
+      # 失敗也要存快取，重跑才能接續（法人歷史+股價抓一次要 40 分鐘以上）
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .cache
+          key: backtest-cache-${{ github.run_id }}
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
