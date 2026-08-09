@@ -81,6 +81,8 @@
            background: var(--bg); color: var(--text); font-size: 14px; }
   .clrow { border-bottom: 1px solid var(--line); padding: 8px 2px; }
   .clrow .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .clrow .head b { font-size: 15.5px; }
+  .clrow .price { font-size: 15.5px; font-weight: 700; }
   .clrow .ratio { font-weight: 700; color: var(--accent); }
   .chip.score { background: var(--accent2); color: var(--accent); font-weight: 700; }
   .badges { font-size: 12.5px; margin: 4px 0 2px; }
@@ -462,10 +464,11 @@ function renderContract() {
   box.innerHTML = list.length ? "" : '<div class="empty">沒有符合的股票。</div>';
   for (const x of list.slice(0, clShown)) {
     box.insertAdjacentHTML("beforeend", `<div class="clrow">
-      <div class="head"><b>${x.code} ${x.name}${x.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
-        <span class="ratio">${x.ratio != null ? fmt(x.ratio * 100, 0) + "%" : "占比—"}</span></div>
-      <div class="msg">合約負債 ${fmt(x.liab / 100000, 2)} 億／資本額 ${fmt(x.cap / 100000, 2)} 億
-        ｜EPS ${fmt(x.eps, 2)}｜收盤 ${fmt(x.close, 2)}｜${x.period || "—"}</div></div>`);
+      <div class="head"><b>${x.code} ${x.name || "（查無名稱）"}${x.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
+        <span class="price">${x.close != null ? fmt(x.close, 2) + " 元" : "—"}</span></div>
+      <div class="msg">占比 <span class="ratio">${x.ratio != null ? fmt(x.ratio * 100, 0) + "%" : "—"}</span>
+        ｜合約負債 ${fmt(x.liab / 100000, 2)} 億／資本額 ${fmt(x.cap / 100000, 2)} 億
+        ｜EPS ${fmt(x.eps, 2)}｜${x.period || "—"}</div></div>`);
   }
   $("clMore").style.display = list.length > clShown ? "" : "none";
 }
