@@ -19,6 +19,7 @@ from datetime import datetime
 from .config import CONFIG
 from . import datasources as ds
 from . import performance
+from . import backtest
 
 log = logging.getLogger("screener.core")
 
@@ -85,8 +86,10 @@ def run_daily_screen():
     log.info("條件1+2 通過：%d 檔 %s", len(candidates), candidates)
 
     # ---- 條件 3/4/5：逐檔評估，所有候選股都列出並依符合程度分級 ----
-    # 排除 ETF／受益憑證等非個股（台股個股為 4 碼數字；ETF 如 006205 為 5-6 碼）
-    candidates = [c for c in candidates if len(c) == 4 and c.isdigit()]
+    # 排除 ETF／受益憑證等非個股（台股個股為 4 碼數字且不以 00 開頭；
+    # ETF 如 006205 為 5-6 碼、0050/0056 為 00 開頭 4 碼）
+    candidates = [c for c in candidates
+                  if len(c) == 4 and c.isdigit() and not c.startswith("00")]
     # 依法人買超由大到小排序；設查詢上限保護 MOPS 不被大量請求
     candidates.sort(key=lambda c: -t86_today[c]["total_net"])
     max_q = CONFIG.get("max_financial_queries", 40)
@@ -178,7 +181,8 @@ def run_daily_screen():
     listed = {r["code"] for r in results}
     ratio = CONFIG["contract_liability_capital_ratio"]
     for code, fin in bulk_fin.items():
-        if code in listed or len(code) != 4 or not code.isdigit():
+        if code in listed or len(code) != 4 or not code.isdigit() \
+                or code.startswith("00"):
             continue
         contract, capital = fin.get("contract_liab_k"), fin.get("capital_k")
         if contract is None or capital is None or contract <= capital * ratio:
@@ -188,6 +192,11 @@ def run_daily_screen():
         results.append(build_entry(code, t86_today.get(code),
                                    t86_prev.get(code), fin,
                                    fetch_main_force=False))
+
+    # 回測權重評分（backtest.json 存在時），同分級內以評分排序
+    weights = backtest.load_weights()
+    for r in results:
+        r["score"] = backtest.live_score(r, weights) if weights else None
 
     def tier(r):
         gate = r["conds"]["c1"] and r["conds"]["c2"]
@@ -200,6 +209,7 @@ def run_daily_screen():
         return 3
 
     results.sort(key=lambda r: (tier(r), -r["passed"],
+                                -(r["score"] or 0),
                                 -(r["total_net"] or 0)))
 
     n = [sum(1 for r in results if tier(r) == t) for t in range(4)]

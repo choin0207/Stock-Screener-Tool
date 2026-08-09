@@ -82,6 +82,7 @@
   .clrow { border-bottom: 1px solid var(--line); padding: 8px 2px; }
   .clrow .head { display: flex; justify-content: space-between; align-items: baseline; }
   .clrow .ratio { font-weight: 700; color: var(--accent); }
+  .chip.score { background: var(--accent2); color: var(--accent); font-weight: 700; }
   .badges { font-size: 12.5px; margin: 4px 0 2px; }
   td.badges { text-align: left; }
   .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
@@ -221,6 +222,12 @@
     <div id="perfList"></div>
   </div>
 
+  <div class="card" id="btCard" style="display:none">
+    <h2>🧪 一年回測（因子權重與跌前指標）</h2>
+    <div class="msg" id="btMeta"></div>
+    <div id="btBody"></div>
+  </div>
+
   <div class="card sub" style="font-size:12px">
     條件：①外資+投信較前日大量買超 ②法人買賣超>前日3倍 ③近30日一般交易轉讓≤100張
     ④合約負債>資本額50% ⑤EPS>1.5 ｜ 僅供研究參考，不構成投資建議。
@@ -302,9 +309,11 @@ async function loadResults() {
     const liab = s.contract_liab_k != null ? s.contract_liab_k / 100000 : null;
     const cap  = s.capital_k != null ? s.capital_k / 100000 : null;
     const chg  = s.big_holder_chg == null ? "需累積2週" : fmt(s.big_holder_chg, 2) + "pp";
+    const scoreChip = s.score != null
+      ? `<span class="chip score">評分 ${s.score}</span>` : "";
     tb.insertAdjacentHTML("beforeend", `<tr>
       <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td>
-      <td class="badges">${s.passed ?? "—"}/5 ${badges(s)}</td>
+      <td class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</td>
       <td>${fmt(s.close, 2)}</td>
       <td class="${cls(s.change)}">${fmt(s.change, 2)}</td>
       <td>${fmt(s.volume_lots, 0)}</td>
@@ -324,7 +333,7 @@ async function loadResults() {
         <span class="price ${cls(s.change)}">${fmt(s.close, 2)}
           <small>${s.change > 0 ? "▲" : (s.change < 0 ? "▼" : "")}${fmt(Math.abs(s.change ?? 0), 2)}</small>
         </span></div>
-      <div class="badges">${s.passed ?? "—"}/5 ${badges(s)}</div>
+      <div class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
         <div><span>成交量</span> ${fmt(s.volume_lots, 0)} 張</div>
         <div><span>外資買超</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（前日 ${fmt(s.foreign_net_prev, 0)}）</div>
@@ -504,7 +513,8 @@ async function loadPerf() {
   for (const r of rows.slice(0, 60)) {
     const wchips = r.warnings ? Object.values(r.warnings)
       .map(w => `<span class="chip warn" title="${w.detail || ""}">` +
-                `⚠️${w.label}（條件${w.cond}，${md(w.first_date)}起）</span>`)
+                `⚠️${w.label}（${w.cond === "技" ? "技術" : "條件" + w.cond}，` +
+                `${md(w.first_date)}起）</span>`)
       .join(" ") : "";
     const dropLine = r.drop
       ? `<div class="msg">📉 ${pd(r.drop.date)} 跌破入選價（${fmt(r.drop.ret_pct, 1)}%）` +
@@ -552,6 +562,48 @@ async function loadPerf() {
         <b>📉 下跌前兆統計</b><span class="msg">（跌破入選價 5% 視為下跌事件；
         統計哪個條件因素最常在下跌前先轉弱）</span>${lines.join("")}</div>`);
   }
+}
+
+// ---- 一年回測結果（data/backtest.json，Backtest workflow 產生）----
+async function loadBacktest() {
+  const b = await getJSON("data/backtest.json");
+  if (!b || !b.outcome) { $("btCard").style.display = "none"; return; }
+  $("btCard").style.display = "";
+  const o = b.outcome;
+  $("btMeta").textContent =
+    `期間 ${b.period.from}–${b.period.to}（${b.period.days} 個交易日）` +
+    `｜①②訊號 ${o.n} 筆｜20日勝率 ${o.win_rate_20d ?? "—"}%` +
+    `｜平均20日報酬 ${o.avg_ret20 ?? "—"}%` +
+    `｜下跌事件(-5%) ${o.drops_total} 次（${o.drop_rate ?? "—"}%）` +
+    `｜產生於 ${b.generated_at}`;
+  let h = "";
+  const ws = Object.entries(b.weights || {});
+  if (ws.length) {
+    h += `<div style="margin:8px 0"><b>評分權重</b>（正向預測因子的 IC 正規化，
+      已套用到每日篩選的「評分」）：` +
+      ws.map(([k, v]) => {
+        const f = (b.factors || []).find(x => x.key === k);
+        return `<span class="chip score">${f ? f.label : k}：${fmt(v * 100, 0)}%</span>`;
+      }).join(" ") + "</div>";
+  }
+  const fr = (b.factors || []).filter(f => f.ic != null);
+  if (fr.length) {
+    h += `<div style="margin:8px 0"><b>因子預測力</b>（IC=與20日報酬的等級相關；
+      高分組/低分組勝率）</div>` + fr.map(f =>
+      `<div class="msg" style="margin:3px 0">${f.label}：IC ${f.ic}
+       ｜高 ${fmt(f.top_win, 0)}% vs 低 ${fmt(f.bot_win, 0)}%（n=${f.n}）</div>`).join("");
+  }
+  const wr = (b.warnings || []).filter(w => w.fired > 0);
+  if (wr.length) {
+    h += `<div style="margin:10px 0 4px"><b>跌前警示指標排行</b>
+      （準確率=發警後真的跌 -5% 的比例；覆蓋率=下跌事件中事先有警告的比例）</div>` +
+      wr.map(w =>
+        `<div class="msg" style="margin:3px 0">${w.label}：
+         準確率 ${w.precision ?? "—"}%｜覆蓋率 ${w.recall ?? "—"}%
+         ｜中位提前 ${w.lead_median ?? "—"} 日（發警 ${w.fired} 次）</div>`).join("");
+  }
+  h += `<div class="msg" style="margin-top:8px">${b.note || ""}</div>`;
+  $("btBody").innerHTML = h;
 }
 
 async function loadDiagnose() {
@@ -655,7 +707,7 @@ $("btnNotify").onclick = () => {
 };
 $("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose();
                                   loadRisk().then(loadWatchlist); detectMode();
-                                  loadContract(true); loadPerf(); };
+                                  loadContract(true); loadPerf(); loadBacktest(); };
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -681,7 +733,7 @@ function startApp() {
   $("logoutLink").style.display = AUTH_URL ? "" : "none";
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
                             loadRisk().then(loadWatchlist);
-                            loadContract(); loadPerf(); });
+                            loadContract(); loadPerf(); loadBacktest(); });
   setInterval(loadAlerts, 60 * 1000);
   setInterval(loadRisk, 60 * 1000);
   setInterval(loadResults, 5 * 60 * 1000);
