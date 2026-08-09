@@ -81,6 +81,28 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   「下跌前兆統計」。法人流向存 rec.flows（來自當日已抓的 T86，零額外 API）
 - 離線測試：scratchpad test_performance.py 33 項全過
 
+## 一年回測研究（2026-08-09 新增）
+
+- `screener/research.py`＋`run_research.py`＋`research.yml`（週六 07:30 台北自動，
+  或推 `research-request.txt` 觸發）：抓過去約一年全市場資料回測 →
+  `docs/data/research.json`，前端「🧪 指標回測研究」卡片顯示
+- 資料源：TWSE MI_INDEX（單日全市場收盤/量，一次請求）、TPEx 新版
+  afterTrading（舊版 stk_wn1430 備援，**備援只有收盤沒有量**）、法人沿用
+  fetch_t86/fetch_tpex_inst；逐日快取 `.cache/research/`，workflow 用
+  actions/cache 保留（key `research-history-`），重跑只補新交易日；
+  首次全抓約 30–60 分鐘（research_delay_sec=1.2 限速）
+- 評估：10 個買進指標（含現行①②當基準）看 D+5/10/20 報酬與勝率 vs 全市場
+  基準（lift_pp）；9 個跌前訊號看「後 5 日內收盤跌逾 5%」機率 vs 基準
+  （lift_x）；條件④用現行 financials.json 回測（**有前視偏誤**，notes 有標）
+- 過濾：4 碼個股、歷史 ≥120 日、中位數日量 ≥30 張；門檻都在 config
+  `research_*`；「建議採用」= 樣本 ≥150 且 lift 過門檻，數據呈現在網頁、
+  不自動改篩選條件（要調門檻由使用者看數據決定）
+- 警示引擎接線：performance.py FACTORS 新增 tech_voldown（爆量下跌，量≥追蹤期
+  均量3倍且日跌逾3%）、tech_dd（自追蹤期高點回落逾8%），cond="技"；
+  records 新增 vols 欄位（收量同記）；門檻 `perf_tech_*` 與回測定義一致；
+  前端 condTxt() 把「技」顯示成「技術訊號」
+- 離線測試：scratchpad test_research.py 36 項、test_perf_tech.py 14 項全過
+
 ## 持股風險紅黃綠燈（2026-08-09 新增）
 
 - 持股清單：repo 根目錄 `watchlist.txt`（一行一代號，# 註解）。前端 localStorage

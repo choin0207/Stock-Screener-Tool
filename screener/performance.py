@@ -37,7 +37,8 @@ TRACK_DAYS = 20            # 追蹤的交易日數（約一個月）
 STALE_CALENDAR_DAYS = 45   # 入選超過此日曆天數仍湊不滿 20 筆價格 → 直接定案
 MAX_RECORDS = 400          # 檔案最多保留幾筆紀錄（舊的先刪）
 
-# 跌前警告因素（factor → (顯示名稱, 對應篩選條件)）
+# 跌前警告因素（factor → (顯示名稱, 對應篩選條件)）；cond="技" 為技術面訊號，
+# 門檻與 research.py 一年回測的定義一致（回測命中率見 research.json）
 FACTORS = {
     "foreign":  ("外資轉賣", "①"),
     "trust":    ("投信轉賣", "①"),
@@ -45,6 +46,8 @@ FACTORS = {
     "insider":  ("內部人轉讓增加", "③"),
     "contract": ("合約負債下降", "④"),
     "eps":      ("獲利轉弱", "⑤"),
+    "tech_voldown": ("爆量下跌", "技"),
+    "tech_dd":  ("高點回落", "技"),
 }
 
 
@@ -224,6 +227,38 @@ def _insider_check(rec, trade_date, transfer_lots, new_alerts):
               f"（入選時 {base:,.0f} 張）")
 
 
+def _tech_checks(rec, trade_date, new_alerts):
+    """技術面因素：爆量下跌、自追蹤期高點回落。只用已記錄的收盤與成交量，
+    零額外 API；定義與 research.py 回測相同（均量以追蹤期內樣本近似）。"""
+    prices = rec.get("prices") or {}
+    dates = sorted(d for d in prices if d <= trade_date)
+    if trade_date not in prices or len(dates) < 2:
+        return
+    close = prices[trade_date]
+    prev_close = prices[dates[-2]]
+
+    # 爆量下跌：今日量 ≥ 之前追蹤期均量 × perf_tech_vol_ratio 且跌逾門檻
+    vols = rec.get("vols") or {}
+    prior = [vols[d] for d in dates[:-1] if vols.get(d)]
+    v = vols.get(trade_date)
+    if v and len(prior) >= 3 and prev_close:
+        avg = sum(prior) / len(prior)
+        chg = (close / prev_close - 1) * 100
+        if avg > 0 and v >= CONFIG["perf_tech_vol_ratio"] * avg and \
+                chg <= CONFIG["perf_tech_down_pct"]:
+            _warn(rec, new_alerts, trade_date, "tech_voldown",
+                  f"今日量 {v:,.0f} 張＝追蹤期均量 {v / avg:.1f} 倍，"
+                  f"股價下跌 {abs(chg):.1f}%")
+
+    # 高點回落：收盤自追蹤期最高收盤回落逾 perf_tech_dd_pct
+    peak = max(prices[d] for d in dates)
+    if peak > 0:
+        dd = (close / peak - 1) * 100
+        if dd <= CONFIG["perf_tech_dd_pct"]:
+            _warn(rec, new_alerts, trade_date, "tech_dd",
+                  f"自追蹤期高點 {peak:,.2f} 回落 {abs(dd):.1f}%")
+
+
 def _drop_check(rec, trade_date, new_alerts):
     """跌破入選價門檻 → 記錄下跌事件並歸因：哪些警訊先出現、提前幾天。"""
     if rec.get("drop") or rec.get("ret_pct") is None:
@@ -322,6 +357,7 @@ def update(results, quotes, trade_date, t86=None, financials=None,
             log.warning("績效追蹤：%s 無收盤價，本日略過", r["code"])
             continue
         key = (r["code"], trade_date)
+        vol = (quotes.get(r["code"]) or {}).get("volume_lots")
         fin_entry = {"contract_liab_k": r.get("contract_liab_k"),
                      "capital_k": r.get("capital_k"),
                      "eps": r.get("eps"), "period": r.get("fin_period")}
@@ -332,10 +368,13 @@ def update(results, quotes, trade_date, t86=None, financials=None,
                                 "entry_transfer_lots":
                                     r.get("transfer_general_lots")})
             by_key[key]["prices"][trade_date] = close
+            if vol is not None:
+                by_key[key].setdefault("vols", {})[trade_date] = vol
         else:
             rec = {"code": r["code"], "name": r.get("name", ""), "tier": t,
                    "entry_date": trade_date, "entry_close": close,
                    "prices": {trade_date: close}, "flows": {},
+                   "vols": ({trade_date: vol} if vol is not None else {}),
                    "fin_at_entry": fin_entry,
                    "entry_transfer_lots": r.get("transfer_general_lots"),
                    "done": False}
@@ -346,15 +385,19 @@ def update(results, quotes, trade_date, t86=None, financials=None,
     for rec in recs:
         if rec.get("done"):
             continue
-        close = (quotes.get(rec["code"]) or {}).get("close")
+        q = quotes.get(rec["code"]) or {}
+        close = q.get("close")
         if close is not None:
             rec["prices"][trade_date] = close
+        if q.get("volume_lots") is not None:
+            rec.setdefault("vols", {})[trade_date] = q["volume_lots"]
         fl = lots(rec["code"])
         if fl is not None:
             rec.setdefault("flows", {})[trade_date] = fl
         _derive(rec, trade_date)
 
         _flow_checks(rec, trade_date, new_alerts)
+        _tech_checks(rec, trade_date, new_alerts)
         _fin_checks(rec, trade_date, financials.get(rec["code"]), new_alerts)
         if transfer_fn is not None:
             try:

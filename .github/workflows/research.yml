@@ -1,0 +1,52 @@
+# 一年歷史回測研究：評估候選買進指標與跌前訊號因子 → docs/data/research.json。
+# 每週六 07:30 台北（週五 23:30 UTC）自動重跑（逐日資料有快取，僅補新交易日）；
+# 也可手動觸發或修改 research-request.txt 後推送觸發。
+# 首次執行需下載約 250 個交易日 × 4 種資料，約 30–60 分鐘。
+name: Research Backtest
+
+on:
+  schedule:
+    - cron: "30 23 * * 5"
+  workflow_dispatch: {}
+  push:
+    paths:
+      - "research-request.txt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: research
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Restore history cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: research-history-${{ github.run_id }}
+          restore-keys: research-history-
+      - name: Run research backtest
+        run: python run_research.py
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          git commit -m "chore: 更新指標回測研究結果 [skip ci]" || echo "no changes"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin ${{ github.ref_name }} \
+              && git push origin HEAD:${{ github.ref_name }} && break
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done

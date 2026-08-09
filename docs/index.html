@@ -221,6 +221,12 @@
     <div id="perfList"></div>
   </div>
 
+  <div class="card">
+    <h2>🧪 指標回測研究（過去一年）</h2>
+    <div class="msg" id="rsMeta">載入中…</div>
+    <div id="rsBody"></div>
+  </div>
+
   <div class="card sub" style="font-size:12px">
     條件：①外資+投信較前日大量買超 ②法人買賣超>前日3倍 ③近30日一般交易轉讓≤100張
     ④合約負債>資本額50% ⑤EPS>1.5 ｜ 僅供研究參考，不構成投資建議。
@@ -504,7 +510,7 @@ async function loadPerf() {
   for (const r of rows.slice(0, 60)) {
     const wchips = r.warnings ? Object.values(r.warnings)
       .map(w => `<span class="chip warn" title="${w.detail || ""}">` +
-                `⚠️${w.label}（條件${w.cond}，${md(w.first_date)}起）</span>`)
+                `⚠️${w.label}（${condTxt(w.cond)}，${md(w.first_date)}起）</span>`)
       .join(" ") : "";
     const dropLine = r.drop
       ? `<div class="msg">📉 ${pd(r.drop.date)} 跌破入選價（${fmt(r.drop.ret_pct, 1)}%）` +
@@ -538,7 +544,7 @@ async function loadPerf() {
       .filter(f => f.warned > 0 || f.hit > 0)
       .sort((a, b) => b.hit - a.hit)
       .map(f => {
-        let t = `<b>${f.label}</b>（條件${f.cond}）：警訊出現於 ${f.warned} 檔`;
+        let t = `<b>${f.label}</b>（${condTxt(f.cond)}）：警訊出現於 ${f.warned} 檔`;
         if (f.warn_settled > 0)
           t += `，其中 ${f.warn_then_drop}/${f.warn_settled} 檔隨後下跌`
             + `（準確率 ${fmt(f.warn_then_drop / f.warn_settled * 100, 0)}%）`;
@@ -552,6 +558,62 @@ async function loadPerf() {
         <b>📉 下跌前兆統計</b><span class="msg">（跌破入選價 5% 視為下跌事件；
         統計哪個條件因素最常在下跌前先轉弱）</span>${lines.join("")}</div>`);
   }
+}
+
+// ---- 指標回測研究（data/research.json，Actions 每週回測一年資料產生）----
+const condTxt = c => c === "技" ? "技術訊號" : `條件${c}`;
+async function loadResearch() {
+  const r = await getJSON("data/research.json");
+  const meta = $("rsMeta"), box = $("rsBody");
+  if (!r) {
+    meta.textContent = "尚未執行回測。每週六早上自動執行；也可請 AI 助理立即觸發。";
+    box.innerHTML = ""; return;
+  }
+  const b = r.baseline || {}, pd = x => x ? `${x.slice(0,4)}/${x.slice(4,6)}/${x.slice(6)}` : "—";
+  meta.textContent =
+    `回測期間 ${pd(r.period.start)}–${pd(r.period.end)}（${r.period.trading_days} 個交易日）` +
+    `｜${r.universe.stocks} 檔、${fmt(r.universe.eval_points, 0)} 個樣本點` +
+    `｜更新 ${r.generated_at}`;
+  const sign = v => v == null ? "—" : `<b class="${cls(v)}">${v > 0 ? "+" : ""}${fmt(v, 2)}%</b>`;
+  let h = `<div class="msg" style="margin:6px 0">全市場基準：買進後 20 日平均 ${sign(b.fwd20)}、
+    勝率 ${fmt(b.win20, 1)}%｜任一時點 5 日內跌逾 5% 的機率 ${fmt(b.drop_rate, 1)}%</div>`;
+
+  h += `<div style="margin-top:10px"><b>📈 買進加分指標排行</b>
+    <span class="msg">（D+20 平均報酬與全市場基準的差距，愈高愈好）</span></div>`;
+  for (const f of r.buy_factors || []) {
+    const chips =
+      (f.adopted ? '<span class="chip ok">建議採用 ✓</span>' : "") +
+      (f.key === "cond12" ? '<span class="chip warn">現行篩選門檻</span>' : "");
+    h += `<div class="clrow"><div class="head"><b>${f.label}</b>
+      <span class="ratio">${f.lift_pp == null ? "—" : (f.lift_pp > 0 ? "+" : "") + fmt(f.lift_pp, 2) + "pp"}</span></div>
+      <div class="badges">${chips}</div>
+      <div class="msg">${f.desc}｜觸發 ${fmt(f.n, 0)} 次｜D+5 ${sign(f.fwd5)}
+        ・D+10 ${sign(f.fwd10)}・D+20 ${sign(f.fwd20)}｜勝率 ${fmt(f.win20, 1)}%</div></div>`;
+  }
+
+  h += `<div style="margin-top:14px"><b>📉 跌前訊號因子排行</b>
+    <span class="msg">（${r.drop_event_def}；倍數＝訊號後下跌機率÷基準機率）</span></div>`;
+  for (const f of r.drop_factors || []) {
+    const chips =
+      (f.adopted ? '<span class="chip bad">有效跌前訊號 ✓</span>' : "") +
+      (f.live ? '<span class="chip warn">已納入追蹤股警示</span>' : "");
+    h += `<div class="clrow"><div class="head"><b>${f.label}</b>
+      <span class="ratio">${f.lift_x == null ? "—" : fmt(f.lift_x, 2) + "×"}</span></div>
+      <div class="badges">${chips}</div>
+      <div class="msg">${f.desc}｜觸發 ${fmt(f.n, 0)} 次｜訊號後 5 日內跌逾 5% 機率
+        ${fmt(f.drop_rate, 1)}%（基準 ${fmt(b.drop_rate, 1)}%）｜5 日平均 ${sign(f.fwd5)}</div></div>`;
+  }
+
+  const c4 = r.cond4_test || {};
+  if (c4["0.5"] && c4["0.5"].n) {
+    h += `<div style="margin-top:14px"><b>📦 條件④（合約負債）檢驗</b></div>
+      <div class="msg">合約負債≥資本額50%（${fmt(c4["0.5"].stocks, 0)} 檔）：
+        D+20 平均 ${sign(c4["0.5"].fwd20)}、勝率 ${fmt(c4["0.5"].win20, 1)}%；
+        ≥100%（${fmt(c4["1.0"].stocks, 0)} 檔）：D+20 平均 ${sign(c4["1.0"].fwd20)}、
+        勝率 ${fmt(c4["1.0"].win20, 1)}%（基準 ${sign(b.fwd20)}／${fmt(b.win20, 1)}%）</div>`;
+  }
+  h += `<div class="msg" style="margin-top:10px">${(r.notes || []).map(x => "・" + x).join("<br>")}</div>`;
+  box.innerHTML = h;
 }
 
 async function loadDiagnose() {
@@ -655,7 +717,7 @@ $("btnNotify").onclick = () => {
 };
 $("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose();
                                   loadRisk().then(loadWatchlist); detectMode();
-                                  loadContract(true); loadPerf(); };
+                                  loadContract(true); loadPerf(); loadResearch(); };
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -681,7 +743,7 @@ function startApp() {
   $("logoutLink").style.display = AUTH_URL ? "" : "none";
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
                             loadRisk().then(loadWatchlist);
-                            loadContract(); loadPerf(); });
+                            loadContract(); loadPerf(); loadResearch(); });
   setInterval(loadAlerts, 60 * 1000);
   setInterval(loadRisk, 60 * 1000);
   setInterval(loadResults, 5 * 60 * 1000);

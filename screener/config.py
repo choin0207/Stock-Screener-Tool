@@ -53,6 +53,19 @@ CONFIG = {
     # ---- 篩選成效追蹤與跌前警告（screener/performance.py）----
     "perf_drop_alert_pct": -5.0,       # 追蹤股跌破入選價此 % → 記為下跌事件並警示
     "perf_contract_drop_pct": 20.0,    # 新一季合約負債較入選時下降逾此 % → 轉弱警訊
+    # 技術面跌前訊號（門檻定義與 research.py 回測一致）
+    "perf_tech_vol_ratio": 3.0,        # 爆量下跌：量 ≥ 均量此倍數
+    "perf_tech_down_pct": -3.0,        # 爆量下跌：單日跌逾此 %
+    "perf_tech_dd_pct": -8.0,          # 高點回落：自近期高點回落逾此 %
+
+    # ---- 一年歷史回測研究（screener/research.py → research.json）----
+    "research_lookback_days": 400,     # 往回掃的日曆天數（約 250 個交易日）
+    "research_delay_sec": 1.2,         # 每次歷史資料請求間隔（避免被限流）
+    "research_min_history": 120,       # 個股至少要有幾日收盤才納入回測
+    "research_min_vol_lots": 30,       # 中位數日成交量低於此張數的個股不評估
+    "research_min_samples": 150,       # 指標至少觸發幾次才可能被「建議採用」
+    "research_buy_lift_pp": 1.0,       # 買進指標：D+20 平均贏過基準此百分點
+    "research_drop_lift": 1.3,         # 跌前訊號：下跌機率達基準此倍數
 
     # ---- 每日排程 ----
     "daily_screen_time": "15:30",      # 台北時間，盤後資料公布後執行
