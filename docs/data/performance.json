@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-09T15:33:45+08:00",
+ "updated_at": "2026-08-10T16:59:25+08:00",
  "track_days": 20,
  "records": [
   {
@@ -9,13 +9,19 @@
    "entry_date": "20260807",
    "entry_close": 44.4,
    "prices": {
-    "20260807": 44.4
+    "20260807": 44.4,
+    "20260810": 44.4
    },
    "flows": {
     "20260807": [
      22000.4,
      127.0,
      22623.5
+    ],
+    "20260810": [
+     -356.2,
+     244.6,
+     -1340.4
     ]
    },
    "fin_at_entry": {
@@ -27,17 +33,18 @@
    "entry_transfer_lots": 0.0,
    "done": false,
    "vols": {
-    "20260807": 37423.5
+    "20260807": 37423.5,
+    "20260810": 37423.5
    },
-   "days_tracked": 0,
-   "last_date": "20260807",
+   "days_tracked": 1,
+   "last_date": "20260810",
    "last_close": 44.4,
    "ret_pct": 0.0,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": null,
-   "min_ret_pct": null,
+   "max_ret_pct": 0.0,
+   "min_ret_pct": 0.0,
    "transfer_lots_now": 0.0
   },
   {
@@ -47,13 +54,19 @@
    "entry_date": "20260807",
    "entry_close": 4545.0,
    "prices": {
-    "20260807": 4545.0
+    "20260807": 4545.0,
+    "20260810": 4545.0
    },
    "flows": {
     "20260807": [
      19.0,
      100.7,
      102.6
+    ],
+    "20260810": [
+     -119.4,
+     -152.0,
+     -215.6
     ]
    },
    "fin_at_entry": {
@@ -65,18 +78,37 @@
    "entry_transfer_lots": 0.0,
    "done": false,
    "vols": {
-    "20260807": 1913.7
+    "20260807": 1913.7,
+    "20260810": 1913.7
    },
-   "days_tracked": 0,
-   "last_date": "20260807",
+   "days_tracked": 1,
+   "last_date": "20260810",
    "last_close": 4545.0,
    "ret_pct": 0.0,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": null,
-   "min_ret_pct": null,
-   "transfer_lots_now": 0.0
+   "max_ret_pct": 0.0,
+   "min_ret_pct": 0.0,
+   "transfer_lots_now": 0.0,
+   "warnings": {
+    "foreign": {
+     "label": "外資轉賣",
+     "cond": "①",
+     "first_date": "20260810",
+     "last_date": "20260810",
+     "count": 1,
+     "detail": "今日外資賣超 119 張（入選日買超 19 張）"
+    },
+    "trust": {
+     "label": "投信轉賣",
+     "cond": "①",
+     "first_date": "20260810",
+     "last_date": "20260810",
+     "count": 1,
+     "detail": "今日投信賣超 152 張（入選日買超 101 張）"
+    }
+   }
   }
  ],
  "summary": {
@@ -105,7 +137,7 @@
     "foreign": {
      "label": "外資轉賣",
      "cond": "①",
-     "warned": 0,
+     "warned": 1,
      "warn_settled": 0,
      "warn_then_drop": 0,
      "hit": 0
@@ -113,7 +145,7 @@
     "trust": {
      "label": "投信轉賣",
      "cond": "①",
-     "warned": 0,
+     "warned": 1,
      "warn_settled": 0,
      "warn_then_drop": 0,
      "hit": 0
@@ -177,5 +209,5 @@
    }
   }
  },
- "trade_date": "20260807"
+ "trade_date": "20260810"
 }
