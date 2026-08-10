@@ -91,26 +91,33 @@ def _yahoo_daily(symbol, rng="15mo"):
         return {}
 
 
+def _price_range():
+    """依 backtest_days 選 Yahoo range：1年內用 15mo，3年用 5y。"""
+    return "15mo" if CONFIG.get("backtest_days", 365) <= 380 else "5y"
+
+
 def fetch_price_history(code, market=None):
-    """個股一年日K（收盤、成交張數）。逐檔快取。"""
-    cached = ds._cache_load(f"bt_px_{code}.json", max_age_hours=24 * 3)
+    """個股日K歷史（收盤、成交張數）。逐檔快取（快取名含 range）。"""
+    rng = _price_range()
+    name = f"bt_px_{rng}_{code}.json"
+    cached = ds._cache_load(name, max_age_hours=24 * 3)
     if cached is not None:
         return cached
     suffixes = [".TWO", ".TW"] if market == "otc" else [".TW", ".TWO"]
     px = {}
     for suf in suffixes:
-        px = _yahoo_daily(code + suf)
+        px = _yahoo_daily(code + suf, rng)
         if px:
             break
         time.sleep(0.5)
-    ds._cache_save(f"bt_px_{code}.json", px)
+    ds._cache_save(name, px)
     time.sleep(0.4)
     return px
 
 
 def trading_days(lookback_days):
     """由加權指數取得回測期間的交易日清單（升冪 ymd）。"""
-    px = _yahoo_daily("%5ETWII")
+    px = _yahoo_daily("%5ETWII", _price_range())
     cutoff = (date.today() - timedelta(days=lookback_days)).strftime("%Y%m%d")
     return sorted(d for d in px if d >= cutoff)
 
@@ -282,6 +289,12 @@ def attach_outcomes(signals, prices):
         s["max_up5_pct"] = round(mx, 2) if mx is not None else None
         s["up_days5"] = ups if week else None
         s["peak_day5"] = peak_day
+
+        # 一個月（20 個交易日）內首次漲達 5%/7%/10% 的天數（未達為 None）
+        month = dates[i + 1:i + 1 + TRACK]
+        for th, key in ((5, "hit5_day"), (7, "hit7_day"), (10, "hit10_day")):
+            s[key] = next((j + 1 for j, d in enumerate(month)
+                           if px[d][0] >= entry * (1 + th / 100)), None)
         win = dates[i + 1:i + 1 + TRACK]
         s["drop_date"] = next(
             (d for d in win
@@ -415,12 +428,30 @@ def week_stats(signals):
         ups = [s["up_days5"] for s in xs if s.get("up_days5") is not None]
         peaks = [s["peak_day5"] for s in xs if s.get("peak_day5")]
         r5 = [s["ret5"] for s in xs if s.get("ret5") is not None]
+        r10 = [s["ret10"] for s in xs if s.get("ret10") is not None]
+
+        def pos(vals):
+            return (round(sum(1 for v in vals if v > 0) / len(vals) * 100, 1)
+                    if vals else None)
+
+        def hit(key):
+            ds_ = sorted(s[key] for s in xs if s.get(key))
+            return {"p": round(len(ds_) / len(xs) * 100, 1),
+                    "med_days": ds_[len(ds_) // 2] if ds_ else None}
+
         return {
             "n": len(xs), "p2": p(2), "p4": p(4), "p6": p(6),
             "med_max_up": mx[len(mx) // 2],
             "avg_up_days": round(sum(ups) / len(ups), 1) if ups else None,
             "med_peak_day": sorted(peaks)[len(peaks) // 2] if peaks else None,
             "avg_ret5": round(sum(r5) / len(r5), 2) if r5 else None,
+            # 一週/兩週後仍收漲的機率、連 5 個交易日全收紅的機率
+            "w1_pos": pos(r5), "w2_pos": pos(r10),
+            "streak5": (round(sum(1 for s in xs if s.get("up_days5") == 5)
+                              / len(xs) * 100, 1) if xs else None),
+            # 一個月內漲達 5%/7%/10% 的機率與中位所需交易日
+            "m5": hit("hit5_day"), "m7": hit("hit7_day"),
+            "m10": hit("hit10_day"),
         }
 
     # 第二維度：外資+投信買超規模三分位（張），讓相似條件更貼近個股
