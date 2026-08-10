@@ -280,6 +280,21 @@ async function detectMode() {
   else $("statusMsg").textContent = "雲端模式：資料由 GitHub Actions 定時更新";
 }
 
+// ---- 盤中價同步（data/intraday_quotes.json，交易時段每10分鐘由 Actions 更新）----
+let intraQ = null, intraTime = "";
+async function loadIntraday() {
+  const d = await getJSON("data/intraday_quotes.json");
+  if (d && d.generated_at &&
+      Date.now() - new Date(d.generated_at).getTime() < 25 * 60 * 1000) {
+    intraQ = d.quotes || null;
+    intraTime = d.generated_at.slice(11, 16);
+  } else { intraQ = null; intraTime = ""; }
+}
+const live = code => (intraQ && intraQ[code] && intraQ[code].p != null)
+  ? intraQ[code] : null;
+const liveNote = () => intraQ
+  ? `｜💹 盤中價 ${intraTime} 同步（約10分鐘更新）` : "";
+
 // 近一年「相似條件」訊號的一週表現（來自 backtest.json week_stats）。
 // 歷史樣本的前提是通過①②，因此僅對法人動能組（①②皆過）顯示；
 // 分組 = ④⑤條件 × 外投買超規模，樣本<30 依序退回較大的組。
@@ -311,11 +326,12 @@ function weekInfo(s, ws) {
 async function loadResults() {
   const r = await getJSON("data/screen_results.json");
   const bt = await getJSON("data/backtest.json");
+  await loadIntraday();
   const ws = bt && bt.week_stats;
   if (!r) { $("resultMeta").textContent = "尚無資料"; return; }
   $("resultMeta").textContent =
     (r.trade_date ? `交易日 ${r.trade_date}｜` : "") + (r.message || "") +
-    (r.generated_at ? `｜更新 ${r.generated_at}` : "");
+    (r.generated_at ? `｜更新 ${r.generated_at}` : "") + liveNote();
   const rows = r.results || [];
   $("resultTable").style.display = rows.length ? "" : "none";
   $("resultEmpty").style.display = rows.length ? "none" : "";
@@ -374,11 +390,14 @@ async function loadResults() {
          ｜兩週後收漲 <b>${fmt(wk.st.w2_pos, 0)}%</b>
          ｜連5日紅 ${fmt(wk.st.streak5, 0)}%</div>` : ""}`
       : "";
+    const lv = live(s.code);
+    const px = lv ? lv.p : s.close;
+    const pchg = lv && lv.pc != null ? +(lv.p - lv.pc).toFixed(2) : s.change;
     tb.insertAdjacentHTML("beforeend", `<tr>
       <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td>
       <td class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</td>
-      <td>${fmt(s.close, 2)}</td>
-      <td class="${cls(s.change)}">${fmt(s.change, 2)}</td>
+      <td title="${lv ? "盤中價" : "篩選日收盤"}">${fmt(px, 2)}${lv ? "*" : ""}</td>
+      <td class="${cls(pchg)}">${fmt(pchg, 2)}</td>
       <td>${fmt(s.volume_lots, 0)}</td>
       <td class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</td>
       <td>${fmt(s.foreign_net_prev, 0)}</td>
@@ -394,8 +413,8 @@ async function loadResults() {
       <td title="${wk ? `${wk.tag}，n=${wk.st.n}` : ""}">${wkCell}</td></tr>`);
     cards.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${s.code} ${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</b>
-        <span class="price ${cls(s.change)}">${fmt(s.close, 2)}
-          <small>${s.change > 0 ? "▲" : (s.change < 0 ? "▼" : "")}${fmt(Math.abs(s.change ?? 0), 2)}</small>
+        <span class="price ${cls(pchg)}">${fmt(px, 2)}
+          <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? " 盤中" : ""}</small>
         </span></div>
       <div class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
@@ -445,7 +464,9 @@ async function loadWatchlist() {
           <button class="wlDel" onclick="wlRemove('${c}')">✕ 移除</button></div></div>`).join("");
     return;
   }
-  $("wlMeta").textContent = `交易日 ${snap.trade_date}（前一日 ${snap.prev_trade_date}）`;
+  await loadIntraday();
+  $("wlMeta").textContent =
+    `交易日 ${snap.trade_date}（前一日 ${snap.prev_trade_date}）` + liveNote();
   box.innerHTML = "";
   for (const code of list) {
     const s = snap.stocks[code];
@@ -468,10 +489,13 @@ async function loadWatchlist() {
       ? `<span class="chip">${t}—</span>`
       : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
     const finUnknown = fin.contract_liab_k == null && fin.capital_k == null;
+    const lv = live(code);
+    const px = lv ? lv.p : s.c;
+    const pch = lv && lv.pc != null ? +(lv.p - lv.pc).toFixed(2) : s.ch;
     box.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${wlLight(code)}${code} ${s.n}${s.m === "otc" ? ' <small>(櫃)</small>' : ''}</b>
-        <span class="price ${cls(s.ch)}">${fmt(s.c, 2)}
-          <small>${s.ch > 0 ? "▲" : (s.ch < 0 ? "▼" : "")}${fmt(Math.abs(s.ch ?? 0), 2)}</small></span></div>
+        <span class="price ${cls(pch)}">${fmt(px, 2)}
+          <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? " 盤中" : ""}</small></span></div>
       <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
