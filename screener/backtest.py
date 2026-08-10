@@ -423,9 +423,28 @@ def week_stats(signals):
             "avg_ret5": round(sum(r5) / len(r5), 2) if r5 else None,
         }
 
-    return {"overall": stat(signals),
-            "buckets": {b: stat([s for s in signals if _bucket(s) == b])
-                        for b in ("45", "4", "5", "0", "u")}}
+    # 第二維度：外資+投信買超規模三分位（張），讓相似條件更貼近個股
+    xs = sorted(s["inst_lots"] for s in signals
+                if s.get("inst_lots") is not None)
+    cut1 = xs[len(xs) // 3] if xs else 0
+    cut2 = xs[2 * len(xs) // 3] if xs else 0
+
+    def size_bucket(s):
+        v = s.get("inst_lots") or 0
+        return "L" if v >= cut2 else ("M" if v >= cut1 else "S")
+
+    buckets = {}
+    for b in ("45", "4", "5", "0", "u"):
+        rows = [s for s in signals if _bucket(s) == b]
+        buckets[b] = stat(rows)
+        for sb in ("S", "M", "L"):
+            buckets[f"{b}|{sb}"] = stat(
+                [s for s in rows if size_bucket(s) == sb])
+    for sb in ("S", "M", "L"):
+        buckets[sb] = stat([s for s in signals if size_bucket(s) == sb])
+
+    return {"overall": stat(signals), "buckets": buckets,
+            "inst_cuts": [round(cut1, 1), round(cut2, 1)]}
 
 
 # ---------------------------------------------------------------------------

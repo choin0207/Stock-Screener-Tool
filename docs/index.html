@@ -279,17 +279,32 @@ async function detectMode() {
   else $("statusMsg").textContent = "雲端模式：資料由 GitHub Actions 定時更新";
 }
 
-// 近一年「相似④⑤條件」訊號的一週表現（來自 backtest.json week_stats）
+// 近一年「相似條件」訊號的一週表現（來自 backtest.json week_stats）。
+// 歷史樣本的前提是通過①②，因此僅對法人動能組（①②皆過）顯示；
+// 分組 = ④⑤條件 × 外投買超規模，樣本<30 依序退回較大的組。
 function weekInfo(s, ws) {
   if (!ws || !ws.overall || !ws.overall.n) return null;
+  if (!(s.conds && s.conds.c1 && s.conds.c2)) return null;   // 🔵/未過①② 不適用
   const TAGS = { "45": "④⑤皆符合", "4": "僅④符合", "5": "僅⑤符合",
                  "0": "④⑤未達", "u": "財報未知" };
+  const SBT = { S: "外投買超偏小", M: "外投買超中等", L: "外投買超大量" };
   const finUnknown = s.contract_liab_k == null && s.eps == null;
   const b = finUnknown ? "u"
     : (s.conds?.c4 ? (s.conds?.c5 ? "45" : "4") : (s.conds?.c5 ? "5" : "0"));
-  let st = (ws.buckets || {})[b], tag = TAGS[b];
-  if (!st || st.n < 30) { st = ws.overall; tag = "全部①②訊號"; }
-  return { st, tag };
+  const inst = (s.foreign_net || 0) + (s.trust_net || 0);
+  const cuts = ws.inst_cuts || [0, 0];
+  const sb = inst >= cuts[1] ? "L" : (inst >= cuts[0] ? "M" : "S");
+  const bk = ws.buckets || {};
+  const tries = [
+    [bk[`${b}|${sb}`], `${TAGS[b]}＋${SBT[sb]}`],
+    [bk[b], TAGS[b]],
+    [bk[sb], SBT[sb]],
+    [ws.overall, "全部①②訊號"],
+  ];
+  for (const [st, tag] of tries) {
+    if (st && st.n >= 30) return { st, tag };
+  }
+  return { st: ws.overall, tag: "全部①②訊號" };
 }
 
 async function loadResults() {
