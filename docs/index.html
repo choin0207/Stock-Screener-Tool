@@ -244,6 +244,7 @@
   <div class="card sub" style="font-size:12px">
     條件：①外資+投信較前日大量買超 ②法人買賣超>前日3倍 ③近30日一般交易轉讓≤100張
     ④合約負債>資本額50% ⑤EPS>1.5 ｜ 僅供研究參考，不構成投資建議。
+    <a id="reportLink" href="report.html" style="display:none">📊 選股成效報告</a>
   </div>
 </main>
 
@@ -843,6 +844,11 @@ $("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose();
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
 }
+
+// 成效報告產出後（report.yml）才顯示入口
+fetch("report.html?t=" + Date.now(), { method: "HEAD" })
+  .then(r => { if (r.ok) $("reportLink").style.display = ""; })
+  .catch(() => {});
 
 // ---- 登入（帳密由 Google Sheet + Apps Script 驗證，見 SETUP_AUTH.md）----
 const AUTH_URL = (window.APP_CONFIG || {}).AUTH_URL || "";

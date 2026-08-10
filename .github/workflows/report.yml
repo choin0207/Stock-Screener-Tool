@@ -1,0 +1,43 @@
+# 選股成效報告：把實盤追蹤與回測數據整理成 docs/report.html。
+# 排程：11/10 09:23 台北（實盤追蹤滿三個月）自動產出首份報告，之後每年同日更新；
+# 也可隨時手動觸發或推送 report-request.txt 看階段性數據。
+name: Performance Report
+
+on:
+  schedule:
+    - cron: "23 1 10 11 *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "report-request.txt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: screener-data
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Build report
+        run: python run_report.py
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/report.html
+          git commit -m "chore: 更新選股成效報告 [skip ci]" || echo "no changes"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && break
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done

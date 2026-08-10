@@ -33,6 +33,7 @@
 | financial-scan.yml | 週六 22:00（週五UTC） | `finscan-request.txt` | 全市場財報掃描→financials.json |
 | diagnose.yml | 手動/推送 | `diagnose-request.txt`（**只讀第一行**的代號） | 個股五條件診斷→網頁診斷卡 |
 | backtest.yml | 平日 10:07（=台北18:07）＋手動/推送 | `backtest-request.txt` | 3年回測訓練→backtest.json（首跑約2-3hr，.cache 走 actions/cache） |
+| report.yml | 每年11/10 01:23（=台北09:23）＋手動/推送 | `report-request.txt` | 成效報告→docs/report.html（screener/report.py 純模板渲染，實盤+回測+大盤對照；首份=2026-11-10 實盤滿三個月，使用者要求） |
 
 **遠端觸發方式**：`date > <觸發檔> && git commit && git push`。
 commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
