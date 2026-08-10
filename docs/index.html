@@ -357,13 +357,21 @@ async function loadResults() {
     const wk = weekInfo(s, ws);
     const wkCell = wk
       ? `${fmt(wk.st.p2, 0)}/${fmt(wk.st.p4, 0)}/${fmt(wk.st.p6, 0)}%` : "—";
+    const hitTxt = (o, lab) => (o && o.p != null)
+      ? `≥${lab} <b>${fmt(o.p, 0)}%</b>${o.med_days ? `<small>(中位${o.med_days}日)</small>` : ""}`
+      : "";
     const wkLine = wk
-      ? `<div class="msg" style="margin-top:6px">📈 近一年相似條件
+      ? `<div class="msg" style="margin-top:6px">📈 歷史相似條件
          （${wk.tag}，n=${wk.st.n}）：一週內漲≥2% <b>${fmt(wk.st.p2, 0)}%</b>
          ｜≥4% <b>${fmt(wk.st.p4, 0)}%</b>｜≥6% <b>${fmt(wk.st.p6, 0)}%</b>
          ｜平均上漲 ${fmt(wk.st.avg_up_days, 1)}/5 天
          ｜最大漲幅中位 ${wk.st.med_max_up > 0 ? "+" : ""}${fmt(wk.st.med_max_up, 1)}%
-         ${wk.st.med_peak_day ? `（多在第 ${wk.st.med_peak_day} 天見高）` : ""}</div>`
+         ${wk.st.med_peak_day ? `（多在第 ${wk.st.med_peak_day} 天見高）` : ""}</div>
+        ${wk.st.m5 ? `<div class="msg">↳ 一個月內漲 ${hitTxt(wk.st.m5, "5%")}
+         ｜${hitTxt(wk.st.m7, "7%")}｜${hitTxt(wk.st.m10, "10%")}
+         ｜一週後收漲 <b>${fmt(wk.st.w1_pos, 0)}%</b>
+         ｜兩週後收漲 <b>${fmt(wk.st.w2_pos, 0)}%</b>
+         ｜連5日紅 ${fmt(wk.st.streak5, 0)}%</div>` : ""}`
       : "";
     tb.insertAdjacentHTML("beforeend", `<tr>
       <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td>

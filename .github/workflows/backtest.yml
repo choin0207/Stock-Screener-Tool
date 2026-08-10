@@ -1,13 +1,13 @@
-# 一年歷史回測訓練：重演 ①② 篩選、計算因子權重與跌前指標命中率。
-# 每月 16 日 00:23 UTC（台北 08:23）自動重跑（接在財報公布期限 5/15、8/14、
-# 11/14 之後，新一季財報會被納入）；也可手動觸發或推送 backtest-request.txt。
-# 第一次跑約 1 小時（法人歷史 + MOPS 限速），.cache 以 actions/cache 保留，
-# 重跑可增量。結果 commit 到 docs/data/backtest.json，每日篩選自動用權重打分。
+# 歷史回測訓練（3 年）：重演 ①② 篩選、計算因子權重與跌前指標命中率。
+# 每個交易日 10:07 UTC（台北 18:07，接在每日篩選之後）自動重跑，統計逐日更新；
+# 也可手動觸發或推送 backtest-request.txt。首次跑 3 年資料約 2-3 小時，
+# .cache 以 actions/cache 保留，之後每日增量約 20-30 分鐘。
+# 結果 commit 到 docs/data/backtest.json，每日篩選自動用權重打分。
 name: Backtest
 
 on:
   schedule:
-    - cron: "23 0 16 * *"
+    - cron: "7 10 * * 1-5"
   workflow_dispatch: {}
   push:
     branches: [main]

@@ -32,7 +32,7 @@
 | intraday-monitor.yml | 平日 01:00–05:50 每10分 | — | 量能爆量警示（10分鐘段量>當日均段量10倍） |
 | financial-scan.yml | 週六 22:00（週五UTC） | `finscan-request.txt` | 全市場財報掃描→financials.json |
 | diagnose.yml | 手動/推送 | `diagnose-request.txt`（**只讀第一行**的代號） | 個股五條件診斷→網頁診斷卡 |
-| backtest.yml | 每月16日 00:23（=台北08:23）＋手動/推送 | `backtest-request.txt` | 一年回測訓練→backtest.json（首跑約1hr，.cache 走 actions/cache） |
+| backtest.yml | 平日 10:07（=台北18:07）＋手動/推送 | `backtest-request.txt` | 3年回測訓練→backtest.json（首跑約2-3hr，.cache 走 actions/cache） |
 
 **遠端觸發方式**：`date > <觸發檔> && git commit && git push`。
 commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
@@ -96,9 +96,13 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 - `screener.py` 每日篩選讀 backtest.load_weights() → 每檔 `score` 0-100，
   同分級內按評分排序；前端「評分」chip＋「🧪 一年回測」卡片
 - **③內部人與集保大戶無歷史資料，無法回測**；樣本僅數百筆，權重僅供參考
-- week_stats（2026-08-09 三補）：每筆訊號算一週內最大漲幅/上漲天數/見高日，
-  依④⑤分組（45/4/5/0/u）出「漲≥2/4/6%機率」；前端每日篩選卡註記
-  「近一年相似條件」歷史機率（組樣本<30 fallback 全體）
+- week_stats（2026-08-09 三補、08-10 擴充）：每筆訊號算一週內最大漲幅/上漲天數/
+  見高日＋一個月內漲達5/7/10%的機率與中位天數＋一週/兩週收漲率＋連5紅率；
+  分組=④⑤（45/4/5/0/u）×外投買超規模三分位（S/M/L，inst_cuts），
+  樣本<30依序退回 ④⑤組→規模組→全體；**僅①②皆過的股票顯示註記**（🔵不適用）
+- 2026-08-10：backtest_days 改 1095（3年，2015/6後同為10%漲跌幅、2018後才有
+  合約負債科目故不回測10年）；排程改平日18:07台北每日重跑；
+  股價快取名含 range（bt_px_5y_*）
 - 修正：4 碼 ETF（0050/0056 等 00 開頭）現於篩選與回測皆排除
 - 離線測試：scratchpad test_backtest.py 21 項全過（純函式，不碰網路）
 
