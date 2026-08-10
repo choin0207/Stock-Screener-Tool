@@ -26,3 +26,6 @@ if __name__ == "__main__":
             print("ALERT:", a["message"])
     else:
         print("無新量能警示（或非交易時段）")
+
+    n = monitor.update_intraday_quotes()
+    print(f"盤中價同步 {n} 檔" if n else "盤中價同步：非交易時段未執行")

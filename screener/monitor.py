@@ -70,6 +70,36 @@ def _now():
     return datetime.now()
 
 
+def update_intraday_quotes():
+    """盤中價同步：抓「每日篩選結果＋持股清單」的現價寫入
+    docs/data/intraday_quotes.json，前端在盤中覆蓋顯示（約每 10 分鐘更新）。
+    僅交易日 08:55–14:10 執行；回傳更新檔數。"""
+    now = _now()
+    hm = now.strftime("%H:%M")
+    if now.weekday() >= 5 or not ("08:55" <= hm <= "14:10"):
+        return 0
+    res = screener.load_results().get("results", [])
+    codes = [r["code"] for r in res]
+    market_map = {r["code"]: r.get("market", "tse") for r in res}
+    for c in ds.load_holdings():
+        if c not in codes:
+            codes.append(c)
+    if not codes:
+        return 0
+    raw = ds.fetch_intraday_quotes_full(codes, market_map)
+    quotes = {}
+    for c, v in raw.items():
+        if v.get("price") is None:
+            continue
+        quotes[c] = {"p": v["price"], "pc": v.get("prev_close"),
+                     "v": v.get("volume_lots")}
+    with open(_data_path("intraday_quotes.json"), "w", encoding="utf-8") as f:
+        json.dump({"generated_at": now.isoformat(timespec="seconds"),
+                   "quotes": quotes}, f, ensure_ascii=False)
+    log.info("盤中價同步 %d 檔", len(quotes))
+    return len(quotes)
+
+
 def _in_market_hours(now=None):
     now = now or _now()
     if now.weekday() >= 5:
