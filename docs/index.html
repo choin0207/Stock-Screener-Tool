@@ -202,6 +202,15 @@
   </div>
 
   <div class="card">
+    <h2>🔴 今日漲停股</h2>
+    <div class="msg" id="luMeta">載入中…</div>
+    <div id="luList"></div>
+    <div class="row" style="margin-top:8px">
+      <button id="luMore" class="secondary" style="display:none">顯示更多</button>
+    </div>
+  </div>
+
+  <div class="card">
     <h2>📦 合約負債（在手訂單）篩選</h2>
     <div class="row">
       <select id="clMin">
@@ -452,6 +461,72 @@ async function loadWatchlist() {
       </div></div>`);
   }
 }
+
+// ---- 今日漲停股：收盤價=漲停價（依台股檔位規則計算），純前端判定 ----
+function tickSize(p) {
+  return p < 10 ? 0.01 : p < 50 ? 0.05 : p < 100 ? 0.1
+       : p < 500 ? 0.5 : p < 1000 ? 1 : 5;
+}
+function limitUpPrice(prev) {
+  const raw = prev * 1.1;
+  const t = tickSize(raw);
+  return Math.floor((raw + 1e-9) / t) * t;
+}
+let luShown = 30;
+async function loadLimitUp() {
+  const [snap, fins] = await Promise.all([
+    getJSON("data/market_snapshot.json"), getJSON("data/financials.json")]);
+  const meta = $("luMeta"), box = $("luList");
+  if (!snap || !snap.stocks) {
+    meta.textContent = "全市場快照尚未產生"; box.innerHTML = ""; return;
+  }
+  const rows = [];
+  for (const [code, s] of Object.entries(snap.stocks)) {
+    if (!/^\d{4}$/.test(code) || code.startsWith("00")) continue;   // 排除 ETF
+    if (s.c == null || s.ch == null || s.ch <= 0) continue;
+    const prev = s.c - s.ch;
+    if (prev <= 0) continue;
+    const lim = limitUpPrice(prev);
+    if (Math.abs(s.c - lim) < tickSize(lim) / 2 && s.ch / prev >= 0.08) {
+      rows.push([code, s]);
+    }
+  }
+  rows.sort((a, b) => (b[1].x || 0) - (a[1].x || 0));    // 法人合計大到小
+  meta.textContent = `交易日 ${snap.trade_date}｜共 ${rows.length} 檔收盤鎖漲停` +
+    `（依收盤價=漲停價判定，含盤中開板收盤回鎖者）`;
+  box.innerHTML = rows.length ? "" : '<div class="empty">今日沒有收漲停的個股。</div>';
+  for (const [code, s] of rows.slice(0, luShown)) {
+    const fin = (fins || {})[code] || {};
+    const instT = s.f + s.t, instP = s.f0 + s.t0;
+    const c1 = s.f > 0 && s.t > 0 && instT > Math.max(instP, 0) * TH.surge && instT > 0;
+    const c2 = s.x0 > 0 && s.x > s.x0 * TH.net;
+    const c4 = fin.contract_liab_k != null && fin.capital_k != null &&
+               fin.contract_liab_k > fin.capital_k * TH.liab;
+    const c5 = fin.eps != null && fin.eps > TH.eps;
+    const finUnknown = fin.contract_liab_k == null && fin.capital_k == null;
+    const chip = (ok, t, unknown) => unknown
+      ? `<span class="chip">${t}—</span>`
+      : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
+    const liab = fin.contract_liab_k != null ? fin.contract_liab_k / 100000 : null;
+    const cap = fin.capital_k != null ? fin.capital_k / 100000 : null;
+    box.insertAdjacentHTML("beforeend", `<div class="stock">
+      <div class="head"><b>${code} ${s.n || ""}${s.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
+        <span class="price up">${fmt(s.c, 2)}
+          <small>▲${fmt(s.ch, 2)}（+${fmt(s.ch / (s.c - s.ch) * 100, 1)}%）</small></span></div>
+      <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
+        ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
+      <div class="grid">
+        <div><span>成交量</span> ${fmt(s.v, 0)} 張</div>
+        <div><span>外資買賣超</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（前日 ${fmt(s.f0, 0)}）</div>
+        <div><span>投信買賣超</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（前日 ${fmt(s.t0, 0)}）</div>
+        <div><span>法人合計</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（前日 ${fmt(s.x0, 0)}）</div>
+        <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
+        <div><span>EPS</span> ${fmt(fin.eps, 2)} 元（${fin.period || "—"}）</div>
+      </div></div>`);
+  }
+  $("luMore").style.display = rows.length > luShown ? "" : "none";
+}
+$("luMore").onclick = () => { luShown += 50; loadLimitUp(); };
 
 // ---- 合約負債（在手訂單）篩選：資料來自 financials.json + market_snapshot.json ----
 let clAll = null, clShown = 30;
@@ -739,7 +814,8 @@ $("btnNotify").onclick = () => {
 };
 $("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose();
                                   loadRisk().then(loadWatchlist); detectMode();
-                                  loadContract(true); loadPerf(); loadBacktest(); };
+                                  loadContract(true); loadPerf(); loadBacktest();
+                                  loadLimitUp(); };
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
@@ -765,7 +841,8 @@ function startApp() {
   $("logoutLink").style.display = AUTH_URL ? "" : "none";
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
                             loadRisk().then(loadWatchlist);
-                            loadContract(); loadPerf(); loadBacktest(); });
+                            loadContract(); loadPerf(); loadBacktest();
+                            loadLimitUp(); });
   setInterval(loadAlerts, 60 * 1000);
   setInterval(loadRisk, 60 * 1000);
   setInterval(loadResults, 5 * 60 * 1000);
