@@ -282,23 +282,30 @@ async function detectMode() {
 }
 
 // ---- 盤中價同步（data/intraday_quotes.json，交易時段每10分鐘由 Actions 更新）----
-let intraQ = null, intraTime = "";
+let intraQ = null, intraTime = "", intraLive = false;
 async function loadIntraday() {
   const d = await getJSON("data/intraday_quotes.json");
-  if (d && d.generated_at &&
-      Date.now() - new Date(d.generated_at).getTime() < 25 * 60 * 1000) {
-    intraQ = d.quotes || null;
-    intraTime = d.generated_at.slice(11, 16);
-  } else { intraQ = null; intraTime = ""; }
+  intraQ = null; intraTime = ""; intraLive = false;
+  if (d && d.generated_at && d.quotes) {
+    const fresh = Date.now() - new Date(d.generated_at).getTime() < 25 * 60 * 1000;
+    const sameDay = d.generated_at.slice(0, 10) ===
+                    new Date().toLocaleDateString("sv");
+    if (fresh || sameDay) {          // 盤中即時；收盤後保留當日三價到午夜
+      intraQ = d.quotes;
+      intraTime = d.generated_at.slice(11, 16);
+      intraLive = fresh;
+    }
+  }
 }
 const live = code => (intraQ && intraQ[code] && intraQ[code].p != null)
   ? intraQ[code] : null;
-const liveNote = () => intraQ
-  ? `｜💹 盤中價 ${intraTime} 同步（約5分鐘更新）` : "";
-// 昨收/今開/現價 一行（僅盤中有資料時顯示）
+const liveNote = () => !intraQ ? ""
+  : (intraLive ? `｜💹 盤中價 ${intraTime} 同步（約5分鐘更新）`
+               : `｜💹 含當日三價（${intraTime} 收盤同步）`);
+// 昨收/今開/現價（收盤後標示為收盤）
 const triLine = lv => lv
-  ? `<div><span>昨收/今開/現價</span> ${fmt(lv.pc, 2)} / ${fmt(lv.o, 2)} /
-     <b>${fmt(lv.p, 2)}</b></div>` : "";
+  ? `<div><span>昨收/今開/${intraLive ? "現價" : "收盤"}</span>
+     ${fmt(lv.pc, 2)} / ${fmt(lv.o, 2)} / <b>${fmt(lv.p, 2)}</b></div>` : "";
 
 // 近一年「相似條件」訊號的一週表現（來自 backtest.json week_stats）。
 // 歷史樣本的前提是通過①②，因此僅對法人動能組（①②皆過）顯示；
@@ -427,7 +434,7 @@ async function loadResults() {
     cards.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${s.code} ${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(pchg)}">${fmt(px, 2)}
-          <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? " 盤中" : ""}</small>
+          <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? (intraLive ? " 盤中" : " 收盤") : ""}</small>
         </span></div>
       <div class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
@@ -509,7 +516,7 @@ async function loadWatchlist() {
     box.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${wlLight(code)}${code} ${s.n}${s.m === "otc" ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(pch)}">${fmt(px, 2)}
-          <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? " 盤中" : ""}</small></span></div>
+          <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? (intraLive ? " 盤中" : " 收盤") : ""}</small></span></div>
       <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
