@@ -57,6 +57,15 @@ def run_daily_screen():
         save_results(out)
         return out
 
+    # 防止資料來源異常時「舊交易日覆蓋新結果」（T86 間歇失敗會往回摸到舊日期）
+    existing = load_results()
+    if existing.get("trade_date") and d_today < existing["trade_date"]:
+        msg = (f"T86 資料異常：本次僅取得 {d_today}（舊於現有結果 "
+               f"{existing['trade_date']}），不覆寫，請稍後重跑")
+        log.error(msg)
+        return {"generated_at": datetime.now().isoformat(timespec="seconds"),
+                "trade_date": None, "results": [], "message": msg}
+
     quotes = _quotes_with_fallback(ds.fetch_daily_quotes())
     ds.fetch_tdcc_dispersion()          # 更新大戶資料快取與週歷史
 
