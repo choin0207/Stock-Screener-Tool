@@ -46,6 +46,7 @@ CONFIG = {
     "risk_es_drop_pct": [-1.5, -3.0],          # S&P500 期貨對前收跌幅 %
     "risk_twii_drop_pct": [-2.0, -3.5],        # 加權指數盤中對前收跌幅 %
     "risk_ewt_drop_pct": [-2.0, -3.5],         # EWT(台灣ETF,夜間代理)跌幅 %
+    "risk_night_drop_pct": [-1.5, -3.0],       # 台指期夜盤跌幅 % [黃, 紅]
     "risk_asia_drop_pct": [-2.0, -3.5],        # 日經/KOSPI 跌幅 %
     # 個股層級訊號門檻
     "risk_stock_drop_pct": [-3.0, -4.5],       # 個股對昨收跌幅 % [黃, 紅]

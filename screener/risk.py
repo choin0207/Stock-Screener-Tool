@@ -107,6 +107,19 @@ def assess_market(ind=None):
                              _grade(q["change_pct"],
                                     CONFIG["risk_asia_drop_pct"], "le")))
 
+    # 台指期夜盤（TAIFEX，抓不到改用加權指數開盤跳空代理）
+    night, night_label = None, "台指期夜盤"
+    try:
+        night = ds.fetch_night_futures()
+        if night is None:
+            night = ds.fetch_index_gap()
+            night_label = "開盤跳空(夜盤代理)"
+    except Exception:                                        # noqa: BLE001
+        pass
+    if night is not None:
+        sigs.append(_sig(night_label, night,
+                         _grade(night, CONFIG["risk_night_drop_pct"], "le")))
+
     light = GREEN
     for s in sigs:
         if _RANK[s["light"]] > _RANK[light]:
