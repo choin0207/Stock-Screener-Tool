@@ -749,6 +749,7 @@ def fetch_intraday_quotes_full(codes, market_map=None):
                 out[code] = {
                     "price": price,
                     "prev_close": prev,
+                    "open": _num(item.get("o")),
                     "change_pct": (round((price - prev) / prev * 100, 2)
                                    if price and prev else None),
                     "volume_lots": _num(item.get("v")) or 0,

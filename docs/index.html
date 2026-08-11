@@ -294,7 +294,11 @@ async function loadIntraday() {
 const live = code => (intraQ && intraQ[code] && intraQ[code].p != null)
   ? intraQ[code] : null;
 const liveNote = () => intraQ
-  ? `｜💹 盤中價 ${intraTime} 同步（約10分鐘更新）` : "";
+  ? `｜💹 盤中價 ${intraTime} 同步（約5分鐘更新）` : "";
+// 昨收/今開/現價 一行（僅盤中有資料時顯示）
+const triLine = lv => lv
+  ? `<div><span>昨收/今開/現價</span> ${fmt(lv.pc, 2)} / ${fmt(lv.o, 2)} /
+     <b>${fmt(lv.p, 2)}</b></div>` : "";
 
 // 近一年「相似條件」訊號的一週表現（來自 backtest.json week_stats）。
 // 歷史樣本的前提是通過①②，因此僅對法人動能組（①②皆過）顯示；
@@ -427,7 +431,8 @@ async function loadResults() {
         </span></div>
       <div class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
-        <div><span>成交量</span> ${fmt(s.volume_lots, 0)} 張</div>
+        ${triLine(lv)}
+        <div><span>成交量</span> ${fmt(lv && lv.v != null ? lv.v : s.volume_lots, 0)} 張</div>
         <div><span>外資買超</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（前日 ${fmt(s.foreign_net_prev, 0)}）</div>
         <div><span>投信買超</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（前日 ${fmt(s.trust_net_prev, 0)}）</div>
         <div><span>法人合計</span> <b class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</b>（前日 ${fmt(s.total_net_prev, 0)}）</div>
@@ -508,7 +513,8 @@ async function loadWatchlist() {
       <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
-        <div><span>成交量</span> ${fmt(s.v, 0)} 張</div>
+        ${triLine(live(code))}
+        <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
         <div><span>外資買賣超</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（前日 ${fmt(s.f0, 0)}）</div>
         <div><span>投信買賣超</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（前日 ${fmt(s.t0, 0)}）</div>
         <div><span>法人合計</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（前日 ${fmt(s.x0, 0)}）</div>
@@ -533,6 +539,7 @@ let luShown = 30;
 async function loadLimitUp() {
   const [snap, fins] = await Promise.all([
     getJSON("data/market_snapshot.json"), getJSON("data/financials.json")]);
+  await loadIntraday();
   const meta = $("luMeta"), box = $("luList");
   if (!snap || !snap.stocks) {
     meta.textContent = "全市場快照尚未產生"; box.innerHTML = ""; return;
@@ -573,7 +580,8 @@ async function loadLimitUp() {
       <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
-        <div><span>成交量</span> ${fmt(s.v, 0)} 張</div>
+        ${triLine(live(code))}
+        <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
         <div><span>外資買賣超</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（前日 ${fmt(s.f0, 0)}）</div>
         <div><span>投信買賣超</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（前日 ${fmt(s.t0, 0)}）</div>
         <div><span>法人合計</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（前日 ${fmt(s.x0, 0)}）</div>

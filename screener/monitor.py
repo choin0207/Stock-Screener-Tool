@@ -124,7 +124,7 @@ def update_intraday_quotes():
         if v.get("price") is None:
             continue
         quotes[c] = {"p": v["price"], "pc": v.get("prev_close"),
-                     "v": v.get("volume_lots")}
+                     "o": v.get("open"), "v": v.get("volume_lots")}
     with open(_data_path("intraday_quotes.json"), "w", encoding="utf-8") as f:
         json.dump({"generated_at": now.isoformat(timespec="seconds"),
                    "quotes": quotes}, f, ensure_ascii=False)
