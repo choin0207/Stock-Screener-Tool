@@ -1,55 +1,55 @@
 {
- "generated_at": "2026-08-10T19:19:40+08:00",
+ "generated_at": "2026-08-11T19:02:31+08:00",
  "period": {
-  "from": "20230811",
-  "to": "20260810",
+  "from": "20230814",
+  "to": "20260811",
   "days": 727
  },
  "outcome": {
-  "n": 5929,
-  "n_ret20": 5693,
+  "n": 5925,
+  "n_ret20": 5688,
   "win_rate_20d": 51.0,
   "avg_ret20": 1.86,
-  "drops_total": 2612,
+  "drops_total": 2610,
   "drop_rate": 44.1
  },
  "factors": [
   {
    "key": "inst_ratio",
    "label": "外資+投信買超放大倍數（①）",
-   "n": 5693,
+   "n": 5688,
    "ic": -0.001,
-   "top_win": 50.9,
-   "bot_win": 51.0
+   "top_win": 50.8,
+   "bot_win": 51.1
   },
   {
    "key": "net_ratio",
    "label": "法人買賣超放大倍數（②）",
-   "n": 5693,
-   "ic": -0.0,
-   "top_win": 50.6,
+   "n": 5688,
+   "ic": -0.001,
+   "top_win": 50.5,
    "bot_win": 51.1
   },
   {
    "key": "inst_lots",
    "label": "外資+投信買超張數",
-   "n": 5693,
+   "n": 5688,
    "ic": 0.002,
    "top_win": 51.3,
-   "bot_win": 50.3
+   "bot_win": 50.4
   },
   {
    "key": "mom20",
    "label": "入選前20日漲幅",
-   "n": 5693,
-   "ic": -0.018,
+   "n": 5688,
+   "ic": -0.019,
    "top_win": 49.5,
    "bot_win": 53.3
   },
   {
    "key": "vol_ratio",
    "label": "入選日量能（對20日均量）",
-   "n": 5693,
+   "n": 5688,
    "ic": 0.008,
    "top_win": 50.7,
    "bot_win": 50.2
@@ -57,45 +57,45 @@
   {
    "key": "liab_ratio",
    "label": "合約負債/資本額（④）",
-   "n": 157,
-   "ic": 0.042,
+   "n": 156,
+   "ic": 0.032,
    "top_win": 34.6,
-   "bot_win": 30.8
+   "bot_win": 32.7
   },
   {
    "key": "eps",
    "label": "EPS（⑤）",
-   "n": 203,
-   "ic": 0.143,
+   "n": 202,
+   "ic": 0.153,
    "top_win": 49.3,
    "bot_win": 26.9
   }
  ],
  "weights": {
-  "liab_ratio": 0.227,
-  "eps": 0.773
+  "liab_ratio": 0.173,
+  "eps": 0.827
  },
  "warnings": [
   {
    "key": "w_vol_dump",
    "label": "爆量下跌（量>5日均2倍且跌>2%）",
-   "fired": 1483,
+   "fired": 1482,
    "tp": 625,
    "fp": 431,
-   "late": 427,
-   "drops_total": 2612,
-   "precision": 42.1,
+   "late": 426,
+   "drops_total": 2610,
+   "precision": 42.2,
    "recall": 23.9,
    "lead_median": 0
   },
   {
    "key": "w_foreign_big",
    "label": "外資單日賣超吃掉入選日買超",
-   "fired": 4101,
-   "tp": 1524,
-   "fp": 2203,
+   "fired": 4096,
+   "tp": 1522,
+   "fp": 2200,
    "late": 374,
-   "drops_total": 2612,
+   "drops_total": 2610,
    "precision": 37.2,
    "recall": 58.3,
    "lead_median": 4
@@ -103,23 +103,23 @@
   {
    "key": "w_inst2",
    "label": "法人合計連2日賣超",
-   "fired": 5180,
-   "tp": 1838,
-   "fp": 2695,
+   "fired": 5176,
+   "tp": 1836,
+   "fp": 2693,
    "late": 647,
-   "drops_total": 2612,
+   "drops_total": 2610,
    "precision": 35.5,
-   "recall": 70.4,
+   "recall": 70.3,
    "lead_median": 3
   },
   {
    "key": "w_foreign2",
    "label": "外資連2日賣超",
-   "fired": 5409,
-   "tp": 1876,
-   "fp": 2894,
+   "fired": 5404,
+   "tp": 1874,
+   "fp": 2891,
    "late": 639,
-   "drops_total": 2612,
+   "drops_total": 2610,
    "precision": 34.7,
    "recall": 71.8,
    "lead_median": 4
@@ -127,11 +127,11 @@
   {
    "key": "w_streak3",
    "label": "連3黑",
-   "fired": 4148,
-   "tp": 1364,
+   "fired": 4146,
+   "tp": 1363,
    "fp": 1920,
-   "late": 864,
-   "drops_total": 2612,
+   "late": 863,
+   "drops_total": 2610,
    "precision": 32.9,
    "recall": 52.2,
    "lead_median": 2
@@ -139,11 +139,11 @@
   {
    "key": "w_trust2",
    "label": "投信連2日賣超",
-   "fired": 3938,
-   "tp": 998,
-   "fp": 2101,
+   "fired": 3936,
+   "tp": 997,
+   "fp": 2100,
    "late": 839,
-   "drops_total": 2612,
+   "drops_total": 2610,
    "precision": 25.3,
    "recall": 38.2,
    "lead_median": 4
@@ -151,11 +151,11 @@
   {
    "key": "w_ma5",
    "label": "跌破5日均線",
-   "fired": 5692,
-   "tp": 1224,
-   "fp": 3198,
-   "late": 1270,
-   "drops_total": 2612,
+   "fired": 5687,
+   "tp": 1223,
+   "fp": 3195,
+   "late": 1269,
+   "drops_total": 2610,
    "precision": 21.5,
    "recall": 46.9,
    "lead_median": 4
@@ -163,16 +163,16 @@
  ],
  "week_stats": {
   "overall": {
-   "n": 5921,
+   "n": 5916,
    "p2": 46.6,
-   "p4": 29.0,
+   "p4": 28.9,
    "p6": 18.8,
    "med_max_up": 1.74,
    "avg_up_days": 2.3,
    "med_peak_day": 3,
    "avg_ret5": 0.66,
    "w1_pos": 50.2,
-   "w2_pos": 49.9,
+   "w2_pos": 49.8,
    "streak5": 1.8,
    "m5": {
     "p": 49.2,
@@ -389,27 +389,27 @@
     }
    },
    "5": {
-    "n": 174,
-    "p2": 51.7,
-    "p4": 36.2,
-    "p6": 26.4,
-    "med_max_up": 2.05,
+    "n": 173,
+    "p2": 51.4,
+    "p4": 35.8,
+    "p6": 26.0,
+    "med_max_up": 2.03,
     "avg_up_days": 2.2,
     "med_peak_day": 3,
     "avg_ret5": 0.2,
-    "w1_pos": 45.9,
-    "w2_pos": 49.3,
+    "w1_pos": 45.6,
+    "w2_pos": 49.6,
     "streak5": 1.7,
     "m5": {
-     "p": 51.7,
+     "p": 51.4,
      "med_days": 3
     },
     "m7": {
-     "p": 43.7,
+     "p": 43.4,
      "med_days": 4
     },
     "m10": {
-     "p": 31.0,
+     "p": 30.6,
      "med_days": 4
     }
    },
@@ -439,27 +439,27 @@
     }
    },
    "5|M": {
-    "n": 57,
-    "p2": 52.6,
-    "p4": 38.6,
-    "p6": 28.1,
+    "n": 56,
+    "p2": 51.8,
+    "p4": 37.5,
+    "p6": 26.8,
     "med_max_up": 2.05,
     "avg_up_days": 2.1,
     "med_peak_day": 2,
-    "avg_ret5": -1.37,
-    "w1_pos": 53.8,
-    "w2_pos": 43.5,
+    "avg_ret5": -1.42,
+    "w1_pos": 52.9,
+    "w2_pos": 44.4,
     "streak5": 0.0,
     "m5": {
-     "p": 52.6,
+     "p": 51.8,
      "med_days": 3
     },
     "m7": {
-     "p": 43.9,
-     "med_days": 3
+     "p": 42.9,
+     "med_days": 4
     },
     "m10": {
-     "p": 26.3,
+     "p": 25.0,
      "med_days": 4
     }
    },
@@ -589,7 +589,7 @@
     }
    },
    "u": {
-    "n": 5537,
+    "n": 5533,
     "p2": 46.3,
     "p4": 28.6,
     "p6": 18.4,
@@ -614,16 +614,16 @@
     }
    },
    "u|S": {
-    "n": 1844,
-    "p2": 47.7,
-    "p4": 27.7,
-    "p6": 17.5,
-    "med_max_up": 1.82,
+    "n": 1842,
+    "p2": 47.6,
+    "p4": 27.6,
+    "p6": 17.4,
+    "med_max_up": 1.81,
     "avg_up_days": 2.4,
     "med_peak_day": 3,
     "avg_ret5": 0.65,
     "w1_pos": 51.3,
-    "w2_pos": 50.1,
+    "w2_pos": 50.2,
     "streak5": 1.7,
     "m5": {
      "p": 48.7,
@@ -648,10 +648,10 @@
     "med_peak_day": 3,
     "avg_ret5": 0.66,
     "w1_pos": 50.8,
-    "w2_pos": 50.3,
+    "w2_pos": 50.2,
     "streak5": 2.2,
     "m5": {
-     "p": 51.2,
+     "p": 51.1,
      "med_days": 6
     },
     "m7": {
@@ -664,15 +664,15 @@
     }
    },
    "u|L": {
-    "n": 1847,
+    "n": 1845,
     "p2": 43.5,
     "p4": 27.5,
     "p6": 18.6,
-    "med_max_up": 1.54,
+    "med_max_up": 1.56,
     "avg_up_days": 2.3,
     "med_peak_day": 3,
     "avg_ret5": 0.75,
-    "w1_pos": 49.4,
+    "w1_pos": 49.5,
     "w2_pos": 50.3,
     "streak5": 1.6,
     "m5": {
@@ -680,7 +680,7 @@
      "med_days": 6
     },
     "m7": {
-     "p": 37.8,
+     "p": 37.9,
      "med_days": 7
     },
     "m10": {
@@ -689,16 +689,16 @@
     }
    },
    "S": {
-    "n": 1973,
-    "p2": 48.1,
+    "n": 1971,
+    "p2": 48.0,
     "p4": 28.1,
     "p6": 17.9,
     "med_max_up": 1.85,
     "avg_up_days": 2.4,
     "med_peak_day": 3,
-    "avg_ret5": 0.65,
+    "avg_ret5": 0.64,
     "w1_pos": 50.8,
-    "w2_pos": 49.9,
+    "w2_pos": 50.0,
     "streak5": 1.7,
     "m5": {
      "p": 48.3,
@@ -714,7 +714,7 @@
     }
    },
    "M": {
-    "n": 1974,
+    "n": 1973,
     "p2": 47.9,
     "p4": 31.0,
     "p6": 19.6,
@@ -723,26 +723,26 @@
     "med_peak_day": 3,
     "avg_ret5": 0.61,
     "w1_pos": 50.7,
-    "w2_pos": 49.8,
+    "w2_pos": 49.7,
     "streak5": 2.1,
     "m5": {
-     "p": 50.9,
+     "p": 50.8,
      "med_days": 6
     },
     "m7": {
-     "p": 39.8,
+     "p": 39.7,
      "med_days": 7
     },
     "m10": {
-     "p": 29.4,
+     "p": 29.3,
      "med_days": 9
     }
    },
    "L": {
-    "n": 1974,
-    "p2": 43.7,
+    "n": 1972,
+    "p2": 43.8,
     "p4": 27.8,
-    "p6": 18.8,
+    "p6": 18.9,
     "med_max_up": 1.56,
     "avg_up_days": 2.3,
     "med_peak_day": 3,
@@ -751,11 +751,11 @@
     "w2_pos": 49.8,
     "streak5": 1.7,
     "m5": {
-     "p": 48.5,
+     "p": 48.6,
      "med_days": 6
     },
     "m7": {
-     "p": 37.5,
+     "p": 37.6,
      "med_days": 7
     },
     "m10": {
@@ -765,10 +765,10 @@
    }
   },
   "inst_cuts": [
-   552.0,
-   2182.1
+   552.4,
+   2187.0
   ]
  },
- "fin_pairs_skipped": 2595,
+ "fin_pairs_skipped": 2591,
  "note": "樣本為近一年通過①②的訊號；④⑤用訊號當時已公布的季報，③內部人與大戶無歷史資料未納入。樣本數有限，權重與命中率僅供參考、非投資建議。"
 }
