@@ -70,6 +70,34 @@ def _now():
     return datetime.now()
 
 
+def _limit_up_codes():
+    """由最新快照找出「收盤=漲停價」的個股（與前端判定邏輯一致）。"""
+    try:
+        with open(_data_path("market_snapshot.json"), encoding="utf-8") as f:
+            stocks = json.load(f).get("stocks", {})
+    except Exception:                                        # noqa: BLE001
+        return []
+
+    def tick(p):
+        return (0.01 if p < 10 else 0.05 if p < 50 else 0.1 if p < 100
+                else 0.5 if p < 500 else 1 if p < 1000 else 5)
+
+    out = []
+    for code, s in stocks.items():
+        if len(code) != 4 or not code.isdigit() or code.startswith("00"):
+            continue
+        c, ch = s.get("c"), s.get("ch")
+        if c is None or ch is None or ch <= 0 or c - ch <= 0:
+            continue
+        prev = c - ch
+        raw = prev * 1.1
+        t = tick(raw)
+        lim = int((raw + 1e-9) / t) * t
+        if abs(c - lim) < t / 2 and ch / prev >= 0.08:
+            out.append((code, s.get("m", "tse")))
+    return out
+
+
 def update_intraday_quotes():
     """盤中價同步：抓「每日篩選結果＋持股清單」的現價寫入
     docs/data/intraday_quotes.json，前端在盤中覆蓋顯示（約每 10 分鐘更新）。
@@ -84,6 +112,10 @@ def update_intraday_quotes():
     for c in ds.load_holdings():
         if c not in codes:
             codes.append(c)
+    for c, m in _limit_up_codes():          # 昨日漲停股（常被關注）一併涵蓋
+        if c not in codes:
+            codes.append(c)
+            market_map[c] = m
     if not codes:
         return 0
     raw = ds.fetch_intraday_quotes_full(codes, market_map)
