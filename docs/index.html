@@ -261,6 +261,7 @@ function fmt(v, d = 1) {
   return Number(v).toLocaleString("zh-Hant", { maximumFractionDigits: d });
 }
 function cls(v) { return v > 0 ? "up" : (v < 0 ? "down" : ""); }
+const mdd = x => x ? `${+String(x).slice(4, 6)}/${+String(x).slice(6)}` : "—";
 
 async function getJSON(url) {
   try {
@@ -350,8 +351,14 @@ async function loadResults() {
   $("resultMeta").textContent =
     (r.trade_date ? `交易日 ${r.trade_date}｜` : "") + (r.message || "") +
     (r.generated_at ? `｜更新 ${r.generated_at}` : "") + mkLine + liveNote();
+  const dT = mdd(r.trade_date), dP = mdd(r.prev_trade_date);
   const rows = r.results || [];
   $("resultTable").style.display = rows.length ? "" : "none";
+  const TH_D = { 3: `收盤(${dT})`, 6: `外資買超(${dT})`, 7: `外資(${dP})`,
+                 8: `投信買超(${dT})`, 9: `投信(${dP})`,
+                 10: `法人合計(${dT})`, 11: `法人(${dP})` };
+  $("resultTable").querySelectorAll("thead th")
+    .forEach((el, i) => { if (TH_D[i]) el.textContent = TH_D[i]; });
   $("resultEmpty").style.display = rows.length ? "none" : "";
   const tb = $("resultTable").querySelector("tbody");
   const cards = $("cards");
@@ -440,9 +447,9 @@ async function loadResults() {
       <div class="grid">
         ${triLine(lv)}
         <div><span>成交量</span> ${fmt(lv && lv.v != null ? lv.v : s.volume_lots, 0)} 張</div>
-        <div><span>外資買超</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（前日 ${fmt(s.foreign_net_prev, 0)}）</div>
-        <div><span>投信買超</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（前日 ${fmt(s.trust_net_prev, 0)}）</div>
-        <div><span>法人合計</span> <b class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</b>（前日 ${fmt(s.total_net_prev, 0)}）</div>
+        <div><span>外資買超(${dT})</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（${dP}：${fmt(s.foreign_net_prev, 0)}）</div>
+        <div><span>投信買超(${dT})</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（${dP}：${fmt(s.trust_net_prev, 0)}）</div>
+        <div><span>法人合計(${dT})</span> <b class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</b>（${dP}：${fmt(s.total_net_prev, 0)}）</div>
         <div><span>主力買賣超</span> ${fmt(s.main_force_net, 0)} 張</div>
         <div><span>大戶>1000張</span> ${fmt(s.big_holder_pct, 2)}%（${chg}）</div>
         <div><span>一般交易轉讓</span> ${fmt(s.transfer_general_lots, 0)} 張/30日</div>
@@ -486,6 +493,7 @@ async function loadWatchlist() {
     return;
   }
   await loadIntraday();
+  const dT2 = mdd(snap.trade_date), dP2 = mdd(snap.prev_trade_date);
   $("wlMeta").textContent =
     `交易日 ${snap.trade_date}（前一日 ${snap.prev_trade_date}）` + liveNote();
   box.innerHTML = "";
@@ -522,9 +530,9 @@ async function loadWatchlist() {
       <div class="grid">
         ${triLine(live(code))}
         <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
-        <div><span>外資買賣超</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（前日 ${fmt(s.f0, 0)}）</div>
-        <div><span>投信買賣超</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（前日 ${fmt(s.t0, 0)}）</div>
-        <div><span>法人合計</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（前日 ${fmt(s.x0, 0)}）</div>
+        <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
+        <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>
+        <div><span>法人合計(${dT2})</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（${dP2}：${fmt(s.x0, 0)}）</div>
         <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
         <div><span>EPS</span> ${fmt(fin.eps, 2)} 元（${fin.period || "—"}）</div>
         <div><button class="wlDel" onclick="wlRemove('${code}')">✕ 從名單移除</button></div>
@@ -563,6 +571,7 @@ async function loadLimitUp() {
     }
   }
   rows.sort((a, b) => (b[1].x || 0) - (a[1].x || 0));    // 法人合計大到小
+  const dT2 = mdd(snap.trade_date), dP2 = mdd(snap.prev_trade_date);
   meta.textContent = `交易日 ${snap.trade_date}｜共 ${rows.length} 檔收盤鎖漲停` +
     `（依收盤價=漲停價判定，含盤中開板收盤回鎖者）`;
   box.innerHTML = rows.length ? "" : '<div class="empty">今日沒有收漲停的個股。</div>';
@@ -589,9 +598,9 @@ async function loadLimitUp() {
       <div class="grid">
         ${triLine(live(code))}
         <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
-        <div><span>外資買賣超</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（前日 ${fmt(s.f0, 0)}）</div>
-        <div><span>投信買賣超</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（前日 ${fmt(s.t0, 0)}）</div>
-        <div><span>法人合計</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（前日 ${fmt(s.x0, 0)}）</div>
+        <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
+        <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>
+        <div><span>法人合計(${dT2})</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（${dP2}：${fmt(s.x0, 0)}）</div>
         <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
         <div><span>EPS</span> ${fmt(fin.eps, 2)} 元（${fin.period || "—"}）</div>
       </div></div>`);

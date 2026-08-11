@@ -232,9 +232,17 @@ def fetch_t86(ymd):
     if cache is not None:
         return cache
 
-    data = _get_json("https://www.twse.com.tw/rwd/zh/fund/T86",
-                     params={"date": ymd, "selectType": "ALLBUT0999",
-                             "response": "json"})
+    # 網路/限流失敗（回 None）重試；查無資料（stat!=OK，如假日）不重試。
+    # 若某天因暫時失敗被誤判為假日，fetch_t86_latest_two 會摸到更舊的日期，
+    # 造成舊資料覆蓋新結果（2026-08-11 曾發生），故這裡務必分辨兩種情況。
+    data = None
+    for attempt in range(3):
+        data = _get_json("https://www.twse.com.tw/rwd/zh/fund/T86",
+                         params={"date": ymd, "selectType": "ALLBUT0999",
+                                 "response": "json"})
+        if data is not None:
+            break
+        time.sleep(6)
     if not data or data.get("stat") != "OK":
         return {}
 
