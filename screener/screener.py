@@ -61,7 +61,7 @@ def run_daily_screen():
     ds.fetch_tdcc_dispersion()          # 更新大戶資料快取與週歷史
 
     # 市場順風指標：夜盤台指（或開盤跳空代理）＋外資全市場買賣超金額
-    market_ctx = _market_context()
+    market_ctx = _market_context(d_today)
 
     surge_ratio = CONFIG["inst_surge_ratio"]
     net_ratio = CONFIG["net_buy_ratio"]
@@ -262,9 +262,10 @@ def _quotes_with_fallback(quotes):
     return quotes
 
 
-def _market_context():
+def _market_context(trade_ymd=None):
     """日級市場指標：夜盤台指漲跌（抓不到改用開盤跳空代理）、
-    外資/三大法人全市場買賣超金額（億）。tailwind=夜盤大漲且外資買超。"""
+    外資/三大法人全市場買賣超金額（億，用交易日查詢）。
+    tailwind=夜盤大漲且外資買超。"""
     ctx = {"night_pct": None, "night_src": None,
            "foreign_yi": None, "total_yi": None, "tailwind": False}
     try:
@@ -279,7 +280,7 @@ def _market_context():
     except Exception:                                        # noqa: BLE001
         log.exception("夜盤指標取得失敗")
     try:
-        totals = ds.fetch_inst_totals()
+        totals = ds.fetch_inst_totals(trade_ymd)
         if totals:
             ctx.update(totals)
     except Exception:                                        # noqa: BLE001
