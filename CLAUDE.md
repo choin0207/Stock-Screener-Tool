@@ -54,7 +54,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v4）
+  看到舊版介面，SHELL 版本 shell-v5）
 - 自選名單：localStorage（key `mywatch`），每台裝置獨立；資料來自
   `data/market_snapshot.json`（每日篩選產出，欄位縮寫見 `_save_market_snapshot`）
   + `data/financials.json`；前端 `TH` 常數需與 config.py 門檻同步

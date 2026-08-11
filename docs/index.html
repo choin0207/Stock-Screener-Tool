@@ -443,7 +443,8 @@ async function loadResults() {
         <span class="price ${cls(pchg)}">${fmt(px, 2)}
           <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? (intraLive ? " 盤中" : " 收盤") : ""}</small>
         </span></div>
-      <div class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
+      <div class="badges"><span class="chip">📅${dT}資料</span>
+        ${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
         ${triLine(lv)}
         <div><span>成交量</span> ${fmt(lv && lv.v != null ? lv.v : s.volume_lots, 0)} 張</div>
@@ -525,7 +526,8 @@ async function loadWatchlist() {
       <div class="head"><b>${wlLight(code)}${code} ${s.n}${s.m === "otc" ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(pch)}">${fmt(px, 2)}
           <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? (intraLive ? " 盤中" : " 收盤") : ""}</small></span></div>
-      <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
+      <div class="badges"><span class="chip">📅${dT2}資料</span>
+        ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
         ${triLine(live(code))}
@@ -593,7 +595,8 @@ async function loadLimitUp() {
       <div class="head"><b>${code} ${s.n || ""}${s.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
         <span class="price up">${fmt(s.c, 2)}
           <small>▲${fmt(s.ch, 2)}（+${fmt(s.ch / (s.c - s.ch) * 100, 1)}%）</small></span></div>
-      <div class="badges">${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
+      <div class="badges"><span class="chip">📅${dT2}資料</span>
+        ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
         ${triLine(live(code))}
