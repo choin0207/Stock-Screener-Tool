@@ -20,6 +20,10 @@ CONFIG = {
     "profitability_metric": "eps",     # eps
     "profitability_threshold": 1.5,
 
+    # 市場順風指標：夜盤台指（或開盤跳空代理）漲逾此 % 且外資全市場買超
+    # → 當日 ①② 股標記「🌙 夜盤順風」
+    "night_surge_pct": 0.5,
+
     # 通過條件①②的候選股最多評估幾檔財報（保護 MOPS 不被大量請求）
     "max_financial_queries": 40,
 

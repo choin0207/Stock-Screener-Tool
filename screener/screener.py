@@ -57,8 +57,11 @@ def run_daily_screen():
         save_results(out)
         return out
 
-    quotes = ds.fetch_daily_quotes()
+    quotes = _quotes_with_fallback(ds.fetch_daily_quotes())
     ds.fetch_tdcc_dispersion()          # 更新大戶資料快取與週歷史
+
+    # 市場順風指標：夜盤台指（或開盤跳空代理）＋外資全市場買賣超金額
+    market_ctx = _market_context()
 
     surge_ratio = CONFIG["inst_surge_ratio"]
     net_ratio = CONFIG["net_buy_ratio"]
@@ -221,6 +224,7 @@ def run_daily_screen():
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "trade_date": d_today,
         "prev_trade_date": d_prev,
+        "market": market_ctx,
         "results": results,
         "message": msg,
     }
@@ -234,6 +238,57 @@ def run_daily_screen():
         log.exception("績效追蹤更新失敗（不影響篩選結果）")
     log.info(out["message"])
     return out
+
+
+def _quotes_with_fallback(quotes):
+    """行情來源整批失敗的保底：缺行情的個股用上一份快照補
+    名稱/市場/收盤（標記 stale，績效追蹤不會拿舊價當今日收盤）。"""
+    path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            prev = json.load(f).get("stocks", {})
+    except Exception:                                        # noqa: BLE001
+        return quotes
+    added = 0
+    for code, s in prev.items():
+        if code in quotes or not s.get("n"):
+            continue
+        quotes[code] = {"name": s["n"], "market": s.get("m", "tse"),
+                        "close": s.get("c"), "change": s.get("ch"),
+                        "volume_lots": s.get("v"), "stale": True}
+        added += 1
+    if added:
+        log.warning("行情缺 %d 檔，以上一份快照補名稱與參考價（stale）", added)
+    return quotes
+
+
+def _market_context():
+    """日級市場指標：夜盤台指漲跌（抓不到改用開盤跳空代理）、
+    外資/三大法人全市場買賣超金額（億）。tailwind=夜盤大漲且外資買超。"""
+    ctx = {"night_pct": None, "night_src": None,
+           "foreign_yi": None, "total_yi": None, "tailwind": False}
+    try:
+        pct = ds.fetch_night_futures()
+        if pct is not None:
+            ctx.update({"night_pct": pct, "night_src": "台指期夜盤"})
+        else:
+            gap = ds.fetch_index_gap()
+            if gap is not None:
+                ctx.update({"night_pct": gap,
+                            "night_src": "加權指數開盤跳空（夜盤代理）"})
+    except Exception:                                        # noqa: BLE001
+        log.exception("夜盤指標取得失敗")
+    try:
+        totals = ds.fetch_inst_totals()
+        if totals:
+            ctx.update(totals)
+    except Exception:                                        # noqa: BLE001
+        log.exception("法人買賣金額取得失敗")
+    ctx["tailwind"] = bool(
+        ctx["night_pct"] is not None and
+        ctx["night_pct"] >= CONFIG["night_surge_pct"] and
+        (ctx["foreign_yi"] or 0) > 0)
+    return ctx
 
 
 def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev):

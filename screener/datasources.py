@@ -144,6 +144,83 @@ def fetch_daily_quotes():
     return out
 
 
+def fetch_night_futures():
+    """前一夜盤台指期（TX 近月）漲跌 %。TAIFEX OpenAPI，失敗回傳 None。"""
+    for url in ("https://openapi.taifex.com.tw/v1/AfterHoursDailyMarketReportFut",
+                "https://openapi.taifex.com.tw/v1/DailyMarketReportFutAh"):
+        data = _get_json(url)
+        if not isinstance(data, list) or not data:
+            continue
+        best = None
+        for row in data:
+            if str(row.get("Contract", "")).strip() != "TX":
+                continue
+            month = str(row.get("ContractMonth(Week)")
+                        or row.get("ContractMonth") or "").strip()
+            if not month or "/" in month:          # 排除價差組合
+                continue
+            if best is None or month < best[0]:
+                best = (month, row)
+        if not best:
+            continue
+        row = best[1]
+        # 欄位名稱防禦性解析：優先百分比欄，否則用 漲跌/(收盤-漲跌) 推算
+        for key in ("%Change", "ChangePercent", "Change%"):
+            v = _num(str(row.get(key, "")).replace("%", ""))
+            if v is not None:
+                return round(v, 2)
+        last = _num(row.get("Last") or row.get("Close"))
+        chg = _num(row.get("Change"))
+        if last is not None and chg is not None and last - chg:
+            return round(chg / (last - chg) * 100, 2)
+    return None
+
+
+def fetch_index_gap():
+    """加權指數今日開盤對昨收的跳空 %（夜盤情緒代理）。失敗回傳 None。"""
+    data = _get_json(
+        "https://query1.finance.yahoo.com/v8/finance/chart/%5ETWII",
+        params={"range": "5d", "interval": "1d"})
+    try:
+        res = data["chart"]["result"][0]
+        q = res["indicators"]["quote"][0]
+        opens, closes = q["open"], q["close"]
+        idx = [i for i, o in enumerate(opens) if o is not None]
+        if len(idx) < 2:
+            return None
+        i = idx[-1]
+        prev_close = next((closes[j] for j in reversed(idx[:-1])
+                           if closes[j] is not None), None)
+        if not prev_close:
+            return None
+        return round((opens[i] - prev_close) / prev_close * 100, 2)
+    except Exception:                                        # noqa: BLE001
+        return None
+
+
+def fetch_inst_totals(ymd=None):
+    """全市場三大法人買賣金額（上市，億元）。回傳
+    {"foreign_yi": 外資買賣差額, "total_yi": 合計買賣差額}，失敗回傳 None。"""
+    d = ymd or date.today().strftime("%Y%m%d")
+    data = _get_json("https://www.twse.com.tw/rwd/zh/fund/BFI82U",
+                     params={"dayDate": d, "type": "day", "response": "json"})
+    if not data or data.get("stat") != "OK":
+        return None
+    foreign = total = 0.0
+    for row in data.get("data", []):
+        if len(row) < 4:
+            continue
+        name, diff = str(row[0]), _num(row[3])
+        if diff is None:
+            continue
+        if "外資" in name:
+            foreign += diff
+        if "合計" in name:
+            total = diff
+    return {"foreign_yi": round(foreign / 1e8, 1),
+            "total_yi": round(total / 1e8, 1)}
+
+
 # ---------------------------------------------------------------------------
 # 2. 三大法人買賣超 (T86)：外資、投信、自營商，單位股數
 # ---------------------------------------------------------------------------

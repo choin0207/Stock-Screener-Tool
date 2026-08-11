@@ -85,6 +85,7 @@
   .clrow .price { font-size: 15.5px; font-weight: 700; }
   .clrow .ratio { font-weight: 700; color: var(--accent); }
   .chip.score { background: var(--accent2); color: var(--accent); font-weight: 700; }
+  .chip.night { background: rgba(125, 159, 255, .18); color: #5b7fd9; font-weight: 700; }
   .badges { font-size: 12.5px; margin: 4px 0 2px; }
   td.badges { text-align: left; }
   .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
@@ -329,9 +330,15 @@ async function loadResults() {
   await loadIntraday();
   const ws = bt && bt.week_stats;
   if (!r) { $("resultMeta").textContent = "尚無資料"; return; }
+  const mk = r.market || {};
+  const mkLine = mk.night_pct != null
+    ? `｜🌙 ${mk.night_src} ${mk.night_pct > 0 ? "+" : ""}${mk.night_pct}%` +
+      (mk.foreign_yi != null ? `、外資全市場 ${mk.foreign_yi > 0 ? "買超" : "賣超"} ${fmt(Math.abs(mk.foreign_yi), 0)} 億` : "") +
+      (mk.tailwind ? "（順風日）" : "")
+    : "";
   $("resultMeta").textContent =
     (r.trade_date ? `交易日 ${r.trade_date}｜` : "") + (r.message || "") +
-    (r.generated_at ? `｜更新 ${r.generated_at}` : "") + liveNote();
+    (r.generated_at ? `｜更新 ${r.generated_at}` : "") + mkLine + liveNote();
   const rows = r.results || [];
   $("resultTable").style.display = rows.length ? "" : "none";
   $("resultEmpty").style.display = rows.length ? "none" : "";
@@ -369,8 +376,10 @@ async function loadResults() {
     const liab = s.contract_liab_k != null ? s.contract_liab_k / 100000 : null;
     const cap  = s.capital_k != null ? s.capital_k / 100000 : null;
     const chg  = s.big_holder_chg == null ? "需累積2週" : fmt(s.big_holder_chg, 2) + "pp";
-    const scoreChip = s.score != null
-      ? `<span class="chip score">評分 ${s.score}</span>` : "";
+    const scoreChip = (s.score != null
+      ? `<span class="chip score">評分 ${s.score}</span>` : "") +
+      (mk.tailwind && s.conds?.c1 && s.conds?.c2
+        ? '<span class="chip night">🌙夜盤順風</span>' : "");
     const wk = weekInfo(s, ws);
     const wkCell = wk
       ? `${fmt(wk.st.p2, 0)}/${fmt(wk.st.p4, 0)}/${fmt(wk.st.p6, 0)}%` : "—";

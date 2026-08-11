@@ -344,11 +344,15 @@ def update(results, quotes, trade_date, t86=None, financials=None,
                 round(d.get("total_net", 0) / 1000, 1)]
 
     # 1. 新增今日 🏆/🟡 組入選股（同日重跑只更新、不重複記錄）
+    def _close(code):
+        q = quotes.get(code) or {}
+        return None if q.get("stale") else q.get("close")
+
     for r in results:
         t = _tier(r)
         if t > 1:
             continue
-        close = (quotes.get(r["code"]) or {}).get("close")
+        close = _close(r["code"])
         if close is None:
             log.warning("績效追蹤：%s 無收盤價，本日略過", r["code"])
             continue
@@ -378,7 +382,7 @@ def update(results, quotes, trade_date, t86=None, financials=None,
         if rec.get("done"):
             continue
         q = quotes.get(rec["code"]) or {}
-        close = q.get("close")
+        close = None if q.get("stale") else q.get("close")
         if close is not None:
             rec["prices"][trade_date] = close
             if q.get("volume_lots") is not None:
