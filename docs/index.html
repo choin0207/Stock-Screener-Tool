@@ -162,6 +162,15 @@
     <div id="riskStocks"></div>
   </div>
 
+    <div class="card">
+    <h2 id="luTitle">🔴 漲停股與開盤委買觀察</h2>
+    <div class="msg" id="luMeta">載入中…</div>
+    <div id="luList"></div>
+    <div class="row" style="margin-top:8px">
+      <button id="luMore" class="secondary" style="display:none">顯示更多</button>
+    </div>
+  </div>
+
   <div class="card">
     <h2>⭐ 自選名單</h2>
     <div class="row">
@@ -200,15 +209,6 @@
     </div>
     <div class="empty" id="resultEmpty" style="display:none">
       今日沒有通過法人條件（外資投信大買＋法人買賣超放大）的候選股。</div>
-  </div>
-
-  <div class="card">
-    <h2>🔴 今日漲停股</h2>
-    <div class="msg" id="luMeta">載入中…</div>
-    <div id="luList"></div>
-    <div class="row" style="margin-top:8px">
-      <button id="luMore" class="secondary" style="display:none">顯示更多</button>
-    </div>
   </div>
 
   <div class="card">
@@ -580,6 +580,8 @@ async function loadLimitUp() {
   }
   rows.sort((a, b) => (b[1].x || 0) - (a[1].x || 0));    // 法人合計大到小
   const dT2 = mdd(snap.trade_date), dP2 = mdd(snap.prev_trade_date);
+  $("luTitle").textContent =
+    `🔴 漲停股（${dT2} 收盤鎖漲停）與開盤委買觀察`;
   meta.textContent = `交易日 ${snap.trade_date}｜共 ${rows.length} 檔收盤鎖漲停` +
     `（依收盤價=漲停價判定，含盤中開板收盤回鎖者）`;
   box.innerHTML = rows.length ? "" : '<div class="empty">今日沒有收漲停的個股。</div>';
