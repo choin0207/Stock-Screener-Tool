@@ -551,6 +551,22 @@ def _roc_to_date(s):
     return None
 
 
+def transfer_general_lots_all(lookback_days=None):
+    """全部個股近 N 日「一般交易」轉讓申報合計張數 {code: lots}。
+    供前端自選/漲停卡計算條件③（清單內沒有的代號=無申報=0 張）。"""
+    lookback = lookback_days or CONFIG["transfer_lookback_days"]
+    cutoff = date.today() - timedelta(days=lookback)
+    out = {}
+    for t in fetch_share_transfers():
+        if "一般交易" not in t["method"]:
+            continue
+        d = _roc_to_date(t["date"])
+        if d and d < cutoff:
+            continue
+        out[t["code"]] = out.get(t["code"], 0) + t["shares"]
+    return {c: round(v / 1000, 1) for c, v in out.items()}
+
+
 def transfer_general_lots(code, lookback_days=None):
     """近 N 日內該股「一般交易」方式的轉讓申報合計張數。"""
     lookback = lookback_days or CONFIG["transfer_lookback_days"]

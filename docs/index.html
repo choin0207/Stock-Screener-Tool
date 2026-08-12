@@ -461,7 +461,18 @@ async function loadResults() {
 }
 
 // ---- 自選名單（localStorage，僅存於本裝置）----
-const TH = { surge: 2, net: 3, liab: 0.5, eps: 1.5 };   // 與 config.py 對應
+const TH = { surge: 2, net: 3, transfer: 100, liab: 0.5, eps: 1.5 };  // 與 config.py 對應
+// 內部人轉讓彙總（transfers.json，每日篩選產出；缺檔=無法判定③）
+let trfData;
+async function getTransfers() {
+  if (trfData === undefined) trfData = await getJSON("data/transfers.json");
+  return trfData;
+}
+function transferChip(code, trf, chipFn) {
+  if (!trf || !trf.lots) return chipFn(false, "③轉讓", true);
+  const lots = trf.lots[code] || 0;                 // 無申報 = 0 張
+  return chipFn(lots <= TH.transfer, `③轉讓${lots ? fmt(lots, 0) + "張" : ""}`);
+}
 const getWl = () => { try { return JSON.parse(localStorage.getItem("mywatch") || "[]"); }
                       catch { return []; } };
 const setWl = l => localStorage.setItem("mywatch", JSON.stringify(l));
@@ -487,6 +498,7 @@ async function loadWatchlist() {
   }
   const snap = await getJSON("data/market_snapshot.json");
   const fins = await getJSON("data/financials.json") || {};
+  const trf = await getTransfers();
   if (!snap) {
     box.innerHTML = '<div class="empty">全市場快照尚未產生（下一次每日篩選後可用）。</div>'
       + list.map(c => `<div class="stock"><div class="head"><b>${c}</b>
@@ -527,7 +539,7 @@ async function loadWatchlist() {
         <span class="price ${cls(pch)}">${fmt(px, 2)}
           <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? (intraLive ? " 盤中" : " 收盤") : ""}</small></span></div>
       <div class="badges"><span class="chip">📅${dT2}資料</span>
-        ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
+        ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
         ${triLine(live(code))}
@@ -554,9 +566,9 @@ function limitUpPrice(prev) {
 }
 let luShown = 30;
 async function loadLimitUp() {
-  const [snap, fins, luw] = await Promise.all([
+  const [snap, fins, luw, trf] = await Promise.all([
     getJSON("data/market_snapshot.json"), getJSON("data/financials.json"),
-    getJSON("data/limitup_watch.json")]);
+    getJSON("data/limitup_watch.json"), getTransfers()]);
   await loadIntraday();
   const meta = $("luMeta"), box = $("luList");
   // 今晨開盤委買觀察（當日資料才顯示）
@@ -578,7 +590,10 @@ async function loadLimitUp() {
       rows.push([code, s]);
     }
   }
-  rows.sort((a, b) => (b[1].x || 0) - (a[1].x || 0));    // 法人合計大到小
+  // 有今晨委買資料時依委買量排序，否則依法人合計
+  rows.sort((a, b) =>
+    ((luwMap[b[0]] || {}).bid_lots || 0) - ((luwMap[a[0]] || {}).bid_lots || 0) ||
+    (b[1].x || 0) - (a[1].x || 0));
   const dT2 = mdd(snap.trade_date), dP2 = mdd(snap.prev_trade_date);
   $("luTitle").textContent =
     `🔴 漲停股（${dT2} 收盤鎖漲停）與開盤委買觀察`;
@@ -589,16 +604,28 @@ async function loadLimitUp() {
      （判定條件：收盤價＝漲停價）。</div>`;
   const COND = "條件＝前日收盤鎖漲停＋開盤30分內委買掛單 ≥1,000 張，達標取前 5 名，約 09:30 發警示";
   if (luwToday) {
+    const min = luwToday.min_bid_lots;
+    const fmtRow = r => `${r.code} ${r.name}（委買 ${fmt(r.bid_lots, 0)} 張、
+          ${fmt(r.price, 2)} ${r.chg_pct != null ? (r.chg_pct > 0 ? "+" : "") + fmt(r.chg_pct, 1) + "%" : ""}）`;
     const top = (luwToday.rows || [])
-      .filter(r => (r.bid_lots || 0) >= luwToday.min_bid_lots).slice(0, 5);
+      .filter(r => (r.bid_lots || 0) >= min).slice(0, 5);
+    const mid = (luwToday.rows || [])
+      .filter(r => (r.bid_lots || 0) >= min / 2 && (r.bid_lots || 0) < min)
+      .slice(0, 10);
     box.insertAdjacentHTML("beforeend", top.length
-      ? `<div class="riskbar red">🔥 開盤30分委買 ≥${luwToday.min_bid_lots.toLocaleString()} 張
+      ? `<div class="riskbar red">🔥 開盤30分委買 ≥${min.toLocaleString()} 張
          前 ${top.length} 名（${luwToday.time.slice(11, 16)} 更新）：` +
-        top.map(r => `${r.code} ${r.name}（委買 ${fmt(r.bid_lots, 0)} 張、
-          ${fmt(r.price, 2)} ${r.chg_pct != null ? (r.chg_pct > 0 ? "+" : "") + fmt(r.chg_pct, 1) + "%" : ""}）`).join("；") + "</div>"
+        top.map(fmtRow).join("；") + "</div>"
       : `<div class="riskbar yellow">🔥 目前未達條件：截至 ${luwToday.time.slice(11, 16)}，
          前日漲停股（${(luwToday.rows || []).length} 檔）中無委買掛單
-         ≥${luwToday.min_bid_lots.toLocaleString()} 張者。（${COND}）</div>`);
+         ≥${min.toLocaleString()} 張者。（${COND}）</div>`);
+    if (mid.length) {
+      box.insertAdjacentHTML("beforeend",
+        `<div class="riskbar yellow">次強觀察（委買 ${(min / 2).toLocaleString()}–${(min - 1).toLocaleString()} 張）：` +
+        mid.map(fmtRow).join("；") + "</div>");
+    }
+    box.insertAdjacentHTML("beforeend",
+      '<div class="msg">↓ 下方個股卡已按今晨委買量排序，各檔附 ①②③④⑤ 條件與法人/財報明細</div>');
   } else {
     box.insertAdjacentHTML("beforeend",
       `<div class="msg">🔥 開盤委買觀察：今日資料尚未產生
@@ -623,7 +650,7 @@ async function loadLimitUp() {
         <span class="price up">${fmt(s.c, 2)}
           <small>▲${fmt(s.ch, 2)}（+${fmt(s.ch / (s.c - s.ch) * 100, 1)}%）</small></span></div>
       <div class="badges"><span class="chip">📅${dT2}資料</span>
-        ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")}
+        ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
         ${triLine(live(code))}
@@ -925,7 +952,8 @@ $("btnNotify").onclick = () => {
   Notification.requestPermission().then(p => $("statusMsg").textContent =
     p === "granted" ? "通知已啟用（頁面開啟時有新警示會提醒）" : "未授權通知");
 };
-$("btnRefresh").onclick = () => { loadResults(); loadAlerts(); loadDiagnose();
+$("btnRefresh").onclick = () => { trfData = undefined;
+                                  loadResults(); loadAlerts(); loadDiagnose();
                                   loadRisk().then(loadWatchlist); detectMode();
                                   loadContract(true); loadPerf(); loadBacktest();
                                   loadLimitUp(); };

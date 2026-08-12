@@ -239,6 +239,15 @@ def run_daily_screen():
     }
     save_results(out)
     _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev)
+    try:                      # 內部人轉讓彙總（供前端自選/漲停卡算條件③）
+        with open(os.path.join(CONFIG["data_dir"], "transfers.json"),
+                  "w", encoding="utf-8") as f:
+            json.dump({"trade_date": d_today,
+                       "lookback_days": CONFIG["transfer_lookback_days"],
+                       "lots": ds.transfer_general_lots_all()},
+                      f, ensure_ascii=False)
+    except Exception:                                        # noqa: BLE001
+        log.exception("轉讓彙總輸出失敗（不影響篩選結果）")
     try:                      # 篩選成效追蹤（🏆/🟡 入選股一個月股價驗證＋跌前警告）
         performance.update(results, quotes, d_today, t86=t86_today,
                            financials=bulk_fin,
