@@ -29,3 +29,6 @@ if __name__ == "__main__":
 
     n = monitor.update_intraday_quotes()
     print(f"盤中價同步 {n} 檔" if n else "盤中價同步：非交易時段未執行")
+
+    k = monitor.check_limitup_open_strength()
+    print(f"漲停續強觀察 {k} 檔" if k else "漲停續強觀察：非觀察時段未執行")

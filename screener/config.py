@@ -30,6 +30,9 @@ CONFIG = {
     # 全市場財報掃描（run_finscan.py）：資料超過此天數視為過期需重抓
     "finscan_max_age_days": 60,
 
+    # 前日漲停股開盤委買觀察：09:30 統計委買掛單 ≥ 此張數的前 5 名發警示
+    "limitup_bid_min_lots": 1000,
+
     # ---- 盤中量能監控 ----
     "monitor_interval_min": 10,        # 每 10 分鐘檢查一次
     "volume_spike_ratio": 10.0,        # 最近一段量 > 當日先前每段平均量的倍數

@@ -554,10 +554,16 @@ function limitUpPrice(prev) {
 }
 let luShown = 30;
 async function loadLimitUp() {
-  const [snap, fins] = await Promise.all([
-    getJSON("data/market_snapshot.json"), getJSON("data/financials.json")]);
+  const [snap, fins, luw] = await Promise.all([
+    getJSON("data/market_snapshot.json"), getJSON("data/financials.json"),
+    getJSON("data/limitup_watch.json")]);
   await loadIntraday();
   const meta = $("luMeta"), box = $("luList");
+  // 今晨開盤委買觀察（當日資料才顯示）
+  const luwToday = luw && luw.date === new Date().toLocaleDateString("sv")
+    .replace(/-/g, "") ? luw : null;
+  const luwMap = {};
+  if (luwToday) for (const r of luwToday.rows || []) luwMap[r.code] = r;
   if (!snap || !snap.stocks) {
     meta.textContent = "全市場快照尚未產生"; box.innerHTML = ""; return;
   }
@@ -577,6 +583,17 @@ async function loadLimitUp() {
   meta.textContent = `交易日 ${snap.trade_date}｜共 ${rows.length} 檔收盤鎖漲停` +
     `（依收盤價=漲停價判定，含盤中開板收盤回鎖者）`;
   box.innerHTML = rows.length ? "" : '<div class="empty">今日沒有收漲停的個股。</div>';
+  if (luwToday) {
+    const top = (luwToday.rows || [])
+      .filter(r => (r.bid_lots || 0) >= luwToday.min_bid_lots).slice(0, 5);
+    box.insertAdjacentHTML("beforeend", top.length
+      ? `<div class="riskbar red">🔥 開盤30分委買 ≥${luwToday.min_bid_lots.toLocaleString()} 張
+         前 ${top.length} 名（${luwToday.time.slice(11, 16)}）：` +
+        top.map(r => `${r.code} ${r.name}（委買 ${fmt(r.bid_lots, 0)} 張、
+          ${fmt(r.price, 2)} ${r.chg_pct != null ? (r.chg_pct > 0 ? "+" : "") + fmt(r.chg_pct, 1) + "%" : ""}）`).join("；") + "</div>"
+      : `<div class="msg">今晨（${luwToday.time.slice(11, 16)}）前日漲停股委買皆未達
+         ${luwToday.min_bid_lots.toLocaleString()} 張。</div>`);
+  }
   for (const [code, s] of rows.slice(0, luShown)) {
     const fin = (fins || {})[code] || {};
     const instT = s.f + s.t, instP = s.f0 + s.t0;
@@ -600,6 +617,8 @@ async function loadLimitUp() {
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
         ${triLine(live(code))}
+        ${luwMap[code] ? `<div><span>今晨委買/委賣</span>
+          <b>${fmt(luwMap[code].bid_lots, 0)}</b> / ${fmt(luwMap[code].ask_lots, 0)} 張</div>` : ""}
         <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
         <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
         <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>

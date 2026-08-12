@@ -98,6 +98,73 @@ def _limit_up_codes():
     return out
 
 
+def check_limitup_open_strength():
+    """前日漲停鎖定股的開盤 30 分鐘委買觀察：
+    09:00–09:40 每輪更新 limitup_watch.json（委買五檔掛單量排序）；
+    09:30 後首次執行時，把「委買 ≥ limitup_bid_min_lots 張」前 5 名
+    發進 alerts.json（每日一次）。回傳觀察檔數。"""
+    now = _now()
+    hm = now.strftime("%H:%M")
+    today = now.strftime("%Y%m%d")
+    if now.weekday() >= 5 or not ("09:00" <= hm <= "09:40"):
+        return 0
+    lus = _limit_up_codes()
+    if not lus:
+        return 0
+    codes = [c for c, _ in lus]
+    q = ds.fetch_intraday_quotes_full(codes, dict(lus))
+    rows = []
+    for c in codes:
+        v = q.get(c)
+        if not v or v.get("price") is None:
+            continue
+        prev = v.get("prev_close")
+        rows.append({
+            "code": c, "name": v.get("name", ""),
+            "bid_lots": v.get("bid_lots"), "ask_lots": v.get("ask_lots"),
+            "price": v.get("price"), "vol": v.get("volume_lots"),
+            "chg_pct": (round((v["price"] - prev) / prev * 100, 2)
+                        if prev else None),
+        })
+    rows.sort(key=lambda r: -(r["bid_lots"] or 0))
+
+    path = _data_path("limitup_watch.json")
+    prev_state = {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            prev_state = json.load(f)
+    except Exception:                                        # noqa: BLE001
+        pass
+    alerted = (prev_state.get("alerted", False)
+               if prev_state.get("date") == today else False)
+
+    min_lots = CONFIG["limitup_bid_min_lots"]
+    if hm >= "09:28" and not alerted:
+        top = [r for r in rows if (r["bid_lots"] or 0) >= min_lots][:5]
+        if top:
+            msg = "、".join(
+                f"{r['code']} {r['name']}（委買 {r['bid_lots']:,.0f} 張"
+                f"，現價 {r['price']}"
+                + (f" {r['chg_pct']:+.1f}%" if r['chg_pct'] is not None else "")
+                + "）" for r in top)
+            alerts = load_alerts()
+            alerts.append({
+                "time": now.isoformat(timespec="seconds"),
+                "code": top[0]["code"], "name": "漲停續強觀察",
+                "message": (f"🔥 前日漲停＋開盤30分委買≥{min_lots:,}張 "
+                            f"前 {len(top)} 名：{msg}"),
+            })
+            _save_alerts(alerts)
+            log.info("漲停續強警示：%d 檔", len(top))
+        alerted = True
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"date": today, "time": now.isoformat(timespec="seconds"),
+                   "min_bid_lots": min_lots, "alerted": alerted,
+                   "rows": rows}, f, ensure_ascii=False)
+    return len(rows)
+
+
 def update_intraday_quotes():
     """盤中價同步：抓「每日篩選結果＋持股清單」的現價寫入
     docs/data/intraday_quotes.json，前端在盤中覆蓋顯示（約每 10 分鐘更新）。
