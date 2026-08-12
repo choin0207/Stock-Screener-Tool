@@ -68,6 +68,7 @@ def run_daily_screen():
 
     quotes = _quotes_with_fallback(ds.fetch_daily_quotes())
     ds.fetch_tdcc_dispersion()          # 更新大戶資料快取與週歷史
+    vh_map = _vol_hist_map(d_today)     # 近4日量能歷史（由前一份快照滾動）
 
     # 市場順風指標：夜盤台指（或開盤跳空代理）＋外資全市場買賣超金額
     market_ctx = _market_context(d_today)
@@ -153,6 +154,7 @@ def run_daily_screen():
             "close": q.get("close"),
             "change": q.get("change"),
             "volume_lots": q.get("volume_lots"),
+            "vol_hist": vh_map.get(code, []),
             # 三大法人（張）
             "foreign_buy": round(cur["foreign_buy"] / 1000, 1),
             "foreign_sell": round(cur["foreign_sell"] / 1000, 1),
@@ -238,7 +240,7 @@ def run_daily_screen():
         "message": msg,
     }
     save_results(out)
-    _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev)
+    _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev, vh_map)
     try:                      # 內部人轉讓彙總（供前端自選/漲停卡算條件③）
         with open(os.path.join(CONFIG["data_dir"], "transfers.json"),
                   "w", encoding="utf-8") as f:
@@ -310,7 +312,28 @@ def _market_context(trade_ymd=None):
     return ctx
 
 
-def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev):
+def _vol_hist_map(d_today):
+    """由前一份快照滾動出「交易日之前 4 個交易日」的成交量 {code: [近→遠]}。
+    同日重跑不重複位移。"""
+    path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            prev = json.load(f)
+    except Exception:                                        # noqa: BLE001
+        return {}
+    same_day = prev.get("trade_date") == d_today
+    out = {}
+    for code, s in prev.get("stocks", {}).items():
+        vh = s.get("vh") or []
+        if same_day or s.get("v") is None:
+            out[code] = vh[:4]
+        else:
+            out[code] = ([s["v"]] + vh)[:4]
+    return out
+
+
+def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev,
+                          vh_map=None):
     """全市場每日快照（供網頁「自選名單」查任意個股）。欄位縮寫壓縮檔案大小：
     n=名稱 m=市場 c=收盤 ch=漲跌 v=量(張) f/f0=外資買賣超今/昨(張)
     t/t0=投信 x/x0=法人合計。"""
@@ -340,6 +363,7 @@ def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev):
             "f": k(cur, "foreign_net"), "f0": k(prev, "foreign_net"),
             "t": k(cur, "trust_net"), "t0": k(prev, "trust_net"),
             "x": k(cur, "total_net"), "x0": k(prev, "total_net"),
+            "vh": (vh_map or {}).get(code, []),
         }
         old = prev_snap.get(code)
         if not q and old and old.get("n"):

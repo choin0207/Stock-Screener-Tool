@@ -304,6 +304,18 @@ const live = code => (intraQ && intraQ[code] && intraQ[code].p != null)
 const liveNote = () => !intraQ ? ""
   : (intraLive ? `｜💹 ${intraDate} 盤中價 ${intraTime} 同步（約5分鐘更新）`
                : `｜💹 含 ${intraDate} 三價（${intraTime} 收盤同步）`);
+// 成交量：目前量 +（前4日量，近→遠）。dataDate=該卡資料日（如 "8/11"）
+function volText(code, dayV, vh, dataDate) {
+  const lvv = (live(code) || {}).v;
+  let hist = (vh || []).slice();
+  if (lvv != null && intraDate && intraDate !== dataDate && dayV != null) {
+    hist = [dayV, ...hist];            // 盤中為新交易日 → 資料日的量列入前日
+  }
+  hist = hist.filter(v => v != null).slice(0, 4);
+  const cur = lvv != null ? lvv : dayV;
+  return `${fmt(cur, 0)} 張` + (hist.length
+    ? `<small>（前${hist.length}日 ${hist.map(v => fmt(v, 0)).join("／")}）</small>` : "");
+}
 // 三價並列：每個價位標明所屬日期（pd=前一交易日，如 8/11）
 const triLine = (lv, pd) => lv
   ? `<div><span>${pd ? pd + "收" : "昨收"}/${intraDate}開/${intraLive ? "現價" : intraDate + "收"}</span>
@@ -448,7 +460,7 @@ async function loadResults() {
         ${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
         ${triLine(lv, dT)}
-        <div><span>成交量</span> ${fmt(lv && lv.v != null ? lv.v : s.volume_lots, 0)} 張</div>
+        <div><span>成交量</span> ${volText(s.code, s.volume_lots, s.vol_hist, dT)}</div>
         <div><span>外資買超(${dT})</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（${dP}：${fmt(s.foreign_net_prev, 0)}）</div>
         <div><span>投信買超(${dT})</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（${dP}：${fmt(s.trust_net_prev, 0)}）</div>
         <div><span>法人合計(${dT})</span> <b class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</b>（${dP}：${fmt(s.total_net_prev, 0)}）</div>
@@ -544,7 +556,7 @@ async function loadWatchlist() {
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
         ${triLine(live(code), dT2)}
-        <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
+        <div><span>成交量</span> ${volText(code, s.v, s.vh, dT2)}</div>
         <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
         <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>
         <div><span>法人合計(${dT2})</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（${dP2}：${fmt(s.x0, 0)}）</div>
@@ -657,7 +669,7 @@ async function loadLimitUp() {
         ${triLine(live(code), dT2)}
         ${luwMap[code] ? `<div><span>今晨委買/委賣</span>
           <b>${fmt(luwMap[code].bid_lots, 0)}</b> / ${fmt(luwMap[code].ask_lots, 0)} 張</div>` : ""}
-        <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
+        <div><span>成交量</span> ${volText(code, s.v, s.vh, dT2)}</div>
         <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
         <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>
         <div><span>法人合計(${dT2})</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（${dP2}：${fmt(s.x0, 0)}）</div>
