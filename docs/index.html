@@ -584,17 +584,25 @@ async function loadLimitUp() {
     `🔴 漲停股（${dT2} 收盤鎖漲停）與開盤委買觀察`;
   meta.textContent = `交易日 ${snap.trade_date}｜共 ${rows.length} 檔收盤鎖漲停` +
     `（依收盤價=漲停價判定，含盤中開板收盤回鎖者）`;
-  box.innerHTML = rows.length ? "" : '<div class="empty">今日沒有收漲停的個股。</div>';
+  box.innerHTML = rows.length ? "" :
+    `<div class="empty">前日（${dT2}）沒有收盤鎖漲停的個股
+     （判定條件：收盤價＝漲停價）。</div>`;
+  const COND = "條件＝前日收盤鎖漲停＋開盤30分內委買掛單 ≥1,000 張，達標取前 5 名，約 09:30 發警示";
   if (luwToday) {
     const top = (luwToday.rows || [])
       .filter(r => (r.bid_lots || 0) >= luwToday.min_bid_lots).slice(0, 5);
     box.insertAdjacentHTML("beforeend", top.length
       ? `<div class="riskbar red">🔥 開盤30分委買 ≥${luwToday.min_bid_lots.toLocaleString()} 張
-         前 ${top.length} 名（${luwToday.time.slice(11, 16)}）：` +
+         前 ${top.length} 名（${luwToday.time.slice(11, 16)} 更新）：` +
         top.map(r => `${r.code} ${r.name}（委買 ${fmt(r.bid_lots, 0)} 張、
           ${fmt(r.price, 2)} ${r.chg_pct != null ? (r.chg_pct > 0 ? "+" : "") + fmt(r.chg_pct, 1) + "%" : ""}）`).join("；") + "</div>"
-      : `<div class="msg">今晨（${luwToday.time.slice(11, 16)}）前日漲停股委買皆未達
-         ${luwToday.min_bid_lots.toLocaleString()} 張。</div>`);
+      : `<div class="riskbar yellow">🔥 目前未達條件：截至 ${luwToday.time.slice(11, 16)}，
+         前日漲停股（${(luwToday.rows || []).length} 檔）中無委買掛單
+         ≥${luwToday.min_bid_lots.toLocaleString()} 張者。（${COND}）</div>`);
+  } else {
+    box.insertAdjacentHTML("beforeend",
+      `<div class="msg">🔥 開盤委買觀察：今日資料尚未產生
+       （交易日 09:00 起每 5 分鐘更新）。${COND}。</div>`);
   }
   for (const [code, s] of rows.slice(0, luShown)) {
     const fin = (fins || {})[code] || {};
