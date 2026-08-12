@@ -1,9 +1,10 @@
 name: OpenWiki Update
 
+# 需要 OPENROUTER_API_KEY repo secret 才能執行；未設定前排程已停用
+# （2026-08-12：每日排程因缺金鑰必失敗、寄失敗信轟炸，改為僅手動觸發。
+#   若要恢復：到 repo Settings → Secrets 加 OPENROUTER_API_KEY 後把 schedule 加回。）
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 8 * * *"
 
 permissions:
   contents: write
