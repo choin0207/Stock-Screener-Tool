@@ -952,11 +952,45 @@ $("btnNotify").onclick = () => {
   Notification.requestPermission().then(p => $("statusMsg").textContent =
     p === "granted" ? "通知已啟用（頁面開啟時有新警示會提醒）" : "未授權通知");
 };
-$("btnRefresh").onclick = () => { trfData = undefined;
-                                  loadResults(); loadAlerts(); loadDiagnose();
-                                  loadRisk().then(loadWatchlist); detectMode();
-                                  loadContract(true); loadPerf(); loadBacktest();
-                                  loadLimitUp(); };
+// 介面版本簽章：更新時比對，發現新版自動整頁重載（免登出登入）
+let pageSig = null;
+async function pageSignature() {
+  try {
+    const t = await (await fetch("index.html?t=" + Date.now(),
+                                 { cache: "no-store" })).text();
+    let h = 0;
+    for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0;
+    return h;
+  } catch { return null; }
+}
+pageSignature().then(s => { pageSig = s; });
+
+$("btnRefresh").onclick = async () => {
+  const btn = $("btnRefresh");
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.textContent = "⏳ 更新中…";
+  $("statusMsg").textContent = "⏳ 正在更新所有資料…";
+  trfData = undefined;
+  try {
+    await Promise.all([loadResults(), loadAlerts(), loadDiagnose(),
+                       loadRisk().then(loadWatchlist), detectMode(),
+                       loadContract(true), loadPerf(), loadBacktest(),
+                       loadLimitUp()]);
+    $("statusMsg").textContent = "✅ 資料已更新（" +
+      new Date().toLocaleTimeString("zh-TW", { hour12: false }) + "）";
+  } catch {
+    $("statusMsg").textContent = "⚠️ 部分資料更新失敗，請再按一次";
+  }
+  const sig = await pageSignature();
+  if (pageSig != null && sig != null && sig !== pageSig) {
+    $("statusMsg").textContent = "🆕 發現新版介面，即將自動重新載入…";
+    setTimeout(() => location.reload(), 1200);
+    return;
+  }
+  btn.textContent = "↻ 更新";
+  btn.disabled = false;
+};
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
