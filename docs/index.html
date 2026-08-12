@@ -283,10 +283,10 @@ async function detectMode() {
 }
 
 // ---- 盤中價同步（data/intraday_quotes.json，交易時段每10分鐘由 Actions 更新）----
-let intraQ = null, intraTime = "", intraLive = false;
+let intraQ = null, intraTime = "", intraLive = false, intraDate = "";
 async function loadIntraday() {
   const d = await getJSON("data/intraday_quotes.json");
-  intraQ = null; intraTime = ""; intraLive = false;
+  intraQ = null; intraTime = ""; intraLive = false; intraDate = "";
   if (d && d.generated_at && d.quotes) {
     const fresh = Date.now() - new Date(d.generated_at).getTime() < 25 * 60 * 1000;
     const sameDay = d.generated_at.slice(0, 10) ===
@@ -294,6 +294,7 @@ async function loadIntraday() {
     if (fresh || sameDay) {          // 盤中即時；收盤後保留當日三價到午夜
       intraQ = d.quotes;
       intraTime = d.generated_at.slice(11, 16);
+      intraDate = mdd(d.generated_at.slice(0, 10).replace(/-/g, ""));
       intraLive = fresh;
     }
   }
@@ -301,11 +302,11 @@ async function loadIntraday() {
 const live = code => (intraQ && intraQ[code] && intraQ[code].p != null)
   ? intraQ[code] : null;
 const liveNote = () => !intraQ ? ""
-  : (intraLive ? `｜💹 盤中價 ${intraTime} 同步（約5分鐘更新）`
-               : `｜💹 含當日三價（${intraTime} 收盤同步）`);
-// 昨收/今開/現價（收盤後標示為收盤）
-const triLine = lv => lv
-  ? `<div><span>昨收/今開/${intraLive ? "現價" : "收盤"}</span>
+  : (intraLive ? `｜💹 ${intraDate} 盤中價 ${intraTime} 同步（約5分鐘更新）`
+               : `｜💹 含 ${intraDate} 三價（${intraTime} 收盤同步）`);
+// 三價並列：每個價位標明所屬日期（pd=前一交易日，如 8/11）
+const triLine = (lv, pd) => lv
+  ? `<div><span>${pd ? pd + "收" : "昨收"}/${intraDate}開/${intraLive ? "現價" : intraDate + "收"}</span>
      ${fmt(lv.pc, 2)} / ${fmt(lv.o, 2)} / <b>${fmt(lv.p, 2)}</b></div>` : "";
 
 // 近一年「相似條件」訊號的一週表現（來自 backtest.json week_stats）。
@@ -441,12 +442,12 @@ async function loadResults() {
     cards.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${s.code} ${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(pchg)}">${fmt(px, 2)}
-          <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? (intraLive ? " 盤中" : " 收盤") : ""}</small>
+          <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? (intraLive ? ` ${intraDate}盤中` : ` ${intraDate}收`) : ""}</small>
         </span></div>
       <div class="badges"><span class="chip">📅${dT}資料</span>
         ${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
-        ${triLine(lv)}
+        ${triLine(lv, dT)}
         <div><span>成交量</span> ${fmt(lv && lv.v != null ? lv.v : s.volume_lots, 0)} 張</div>
         <div><span>外資買超(${dT})</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（${dP}：${fmt(s.foreign_net_prev, 0)}）</div>
         <div><span>投信買超(${dT})</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（${dP}：${fmt(s.trust_net_prev, 0)}）</div>
@@ -537,12 +538,12 @@ async function loadWatchlist() {
     box.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${wlLight(code)}${code} ${s.n}${s.m === "otc" ? ' <small>(櫃)</small>' : ''}</b>
         <span class="price ${cls(pch)}">${fmt(px, 2)}
-          <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? (intraLive ? " 盤中" : " 收盤") : ""}</small></span></div>
+          <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? (intraLive ? ` ${intraDate}盤中` : ` ${intraDate}收`) : ""}</small></span></div>
       <div class="badges"><span class="chip">📅${dT2}資料</span>
         ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
-        ${triLine(live(code))}
+        ${triLine(live(code), dT2)}
         <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
         <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
         <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>
@@ -648,12 +649,12 @@ async function loadLimitUp() {
     box.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${code} ${s.n || ""}${s.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
         <span class="price up">${fmt(s.c, 2)}
-          <small>▲${fmt(s.ch, 2)}（+${fmt(s.ch / (s.c - s.ch) * 100, 1)}%）</small></span></div>
+          <small>▲${fmt(s.ch, 2)}（+${fmt(s.ch / (s.c - s.ch) * 100, 1)}%）${dT2}收盤</small></span></div>
       <div class="badges"><span class="chip">📅${dT2}資料</span>
         ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
-        ${triLine(live(code))}
+        ${triLine(live(code), dT2)}
         ${luwMap[code] ? `<div><span>今晨委買/委賣</span>
           <b>${fmt(luwMap[code].bid_lots, 0)}</b> / ${fmt(luwMap[code].ask_lots, 0)} 張</div>` : ""}
         <div><span>成交量</span> ${fmt((live(code) || {}).v ?? s.v, 0)} 張</div>
