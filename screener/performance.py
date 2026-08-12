@@ -139,12 +139,25 @@ def _stats(recs):
 # ---------------------------------------------------------------------------
 
 def _warn(rec, new_alerts, trade_date, factor, detail):
-    """記錄一次因素轉弱。同一紀錄同一因素只在首次觸發時發 alert。"""
+    """記錄一次因素轉弱。首次觸發（或解除後再次觸發）才發 alert。"""
     label, cond = FACTORS[factor]
     w = rec.setdefault("warnings", {})
-    if factor in w:
+    if factor in w and not w[factor].get("cleared"):
         w[factor].update({"last_date": trade_date, "detail": detail,
                           "count": w[factor].get("count", 0) + 1})
+        return
+    if factor in w:                       # 曾解除 → 再次轉弱，重新警示
+        w[factor].update({"last_date": trade_date, "detail": detail,
+                          "count": w[factor].get("count", 0) + 1,
+                          "cleared": None})
+        w[factor].pop("cleared")
+        src = "技術訊號" if cond == "技" else f"篩選條件{cond}因素"
+        new_alerts.append({
+            "time": _now().isoformat(timespec="seconds"),
+            "code": rec["code"], "name": rec.get("name", ""),
+            "message": (f"⚠️ 再度轉弱 {rec['code']} {rec.get('name', '')}："
+                        f"{label}（{src}）— {detail}。"),
+        })
         return
     w[factor] = {"label": label, "cond": cond, "first_date": trade_date,
                  "last_date": trade_date, "count": 1, "detail": detail}
@@ -253,6 +266,46 @@ def _tech_checks(rec, trade_date, new_alerts):
     if j >= 3 and closes[j] < closes[j - 1] < closes[j - 2] < closes[j - 3]:
         _warn(rec, new_alerts, trade_date, "streak",
               f"連 3 個交易日收黑（{closes[j - 3]} → {closes[j]}）")
+
+
+def _clear_checks(rec, trade_date, new_alerts):
+    """轉弱因素回穩時標記解除並通知，讓警示與最新篩選數據同步。"""
+    w = rec.get("warnings") or {}
+    if not w:
+        return
+
+    def clear(fac, detail):
+        info = w.get(fac)
+        if not info or info.get("cleared"):
+            return
+        info["cleared"] = trade_date
+        new_alerts.append({
+            "time": _now().isoformat(timespec="seconds"),
+            "code": rec["code"], "name": rec.get("name", ""),
+            "message": (f"✅ 警訊解除 {rec['code']} {rec.get('name', '')}："
+                        f"{info['label']}已回穩 — {detail}（{trade_date}）。"),
+        })
+        log.info("警訊解除 %s %s", rec["code"], info["label"])
+
+    fl = (rec.get("flows") or {}).get(trade_date)
+    if fl:
+        f, t, x = fl
+        if f > 0:
+            clear("foreign", f"外資回補買超 {f:,.0f} 張")
+        if t > 0:
+            clear("trust", f"投信回補買超 {t:,.0f} 張")
+        if x > 0:
+            clear("inst", f"三大法人轉買超 {x:,.0f} 張")
+
+    dates = sorted(d for d in rec["prices"] if d <= trade_date)
+    closes = [rec["prices"][d] for d in dates]
+    if len(closes) >= 2 and closes[-1] > closes[-2]:
+        clear("streak", f"收紅止跌（{closes[-1]}）")
+        clear("vol_dump", f"收紅止跌（{closes[-1]}）")
+    if len(closes) >= 5:
+        ma5 = sum(closes[-5:]) / 5
+        if closes[-1] >= ma5:
+            clear("ma5", f"收盤 {closes[-1]} 站回5日線 {ma5:.2f}")
 
 
 def _drop_check(rec, trade_date, new_alerts):
@@ -394,6 +447,7 @@ def update(results, quotes, trade_date, t86=None, financials=None,
 
         _flow_checks(rec, trade_date, new_alerts)
         _tech_checks(rec, trade_date, new_alerts)
+        _clear_checks(rec, trade_date, new_alerts)
         _fin_checks(rec, trade_date, financials.get(rec["code"]), new_alerts)
         if transfer_fn is not None:
             try:

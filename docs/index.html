@@ -748,20 +748,24 @@ async function loadPerf() {
 
   // 轉弱警告橫幅：追蹤中且最近一個交易日仍有警訊的股票
   const hot = rows.filter(r => !r.done && r.warnings &&
-    Object.values(r.warnings).some(w => w.last_date === p.trade_date));
+    Object.values(r.warnings).some(w => !w.cleared && w.last_date === p.trade_date));
   if (hot.length) {
     box.insertAdjacentHTML("beforeend",
       `<div class="riskbar yellow">⚠️ ${hot.length} 檔追蹤股條件因素轉弱：` +
       hot.map(r => `${r.code} ${r.name || ""}（` +
-        Object.values(r.warnings).filter(w => w.last_date === p.trade_date)
+        Object.values(r.warnings)
+          .filter(w => !w.cleared && w.last_date === p.trade_date)
           .map(w => w.label).join("、") + "）").join("；") + "</div>");
   }
 
   for (const r of rows.slice(0, 60)) {
     const wchips = r.warnings ? Object.values(r.warnings)
-      .map(w => `<span class="chip warn" title="${w.detail || ""}">` +
-                `⚠️${w.label}（${w.cond === "技" ? "技術" : "條件" + w.cond}，` +
-                `${md(w.first_date)}起）</span>`)
+      .map(w => w.cleared
+        ? `<span class="chip ok" title="${w.detail || ""}">` +
+          `✅${w.label}已解除（${md(w.cleared)}）</span>`
+        : `<span class="chip warn" title="${w.detail || ""}">` +
+          `⚠️${w.label}（${w.cond === "技" ? "技術" : "條件" + w.cond}，` +
+          `${md(w.first_date)}起）</span>`)
       .join(" ") : "";
     const dropLine = r.drop
       ? `<div class="msg">📉 ${pd(r.drop.date)} 跌破入選價（${fmt(r.drop.ret_pct, 1)}%）` +
