@@ -919,7 +919,7 @@ async function loadRisk() {
       }).join(" ") + "</div>";
   const entries = Object.entries(d.stocks || {});
   stk.innerHTML = entries.length ? "" :
-    '<div class="empty">個股燈號於交易時段（09:00–13:30）每 10 分鐘產生。</div>';
+    '<div class="empty">個股燈號於交易時段（09:00–13:30）每 5 分鐘產生。</div>';
   for (const [code, s] of entries) {
     stk.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${LT_ICON[s.light]} ${code} ${s.name || ""}</b>
@@ -928,13 +928,24 @@ async function loadRisk() {
       <div class="msg">${(s.reasons && s.reasons.length) ? s.reasons.join("；") : "無風險訊號"}</div>
     </div>`);
   }
+  // 自選名單中尚未納入後端監控的股票：提示可加入
+  const monitored = new Set(entries.map(([c]) => c));
+  const extra = getWl().filter(c => !monitored.has(c));
+  if (extra.length) {
+    stk.insertAdjacentHTML("beforeend",
+      `<div class="msg" style="margin-top:6px">⚪ 自選股 ${extra.join("、")} 尚未納入
+       風險燈號監控（燈號需後端每5分鐘評估）——跟 AI 助理說要加入即可。</div>`);
+  }
 }
 
 async function loadAlerts() {
-  const alerts = await getJSON("data/alerts.json") || [];
+  const all = await getJSON("data/alerts.json") || [];
+  // 只顯示今日與昨日的警示（更早的仍留在檔案供統計，不佔版面）
+  const cut = new Date(); cut.setDate(cut.getDate() - 1); cut.setHours(0, 0, 0, 0);
+  const alerts = all.filter(a => new Date(a.time) >= cut);
   const box = $("alerts");
   if (!alerts.length) {
-    box.innerHTML = '<div class="empty">目前沒有警示。</div>';
+    box.innerHTML = '<div class="empty">今日與昨日沒有警示。</div>';
     firstAlertLoad = false; return;
   }
   box.innerHTML = "";

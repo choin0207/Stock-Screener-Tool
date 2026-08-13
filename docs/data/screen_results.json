@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-13T01:14:50",
+  "generated_at": "2026-08-12T09:51:35",
   "trade_date": "20260812",
   "prev_trade_date": "20260811",
   "market": {
-    "night_pct": -0.1,
+    "night_pct": 0.12,
     "night_src": "加權指數開盤跳空（夜盤代理）",
     "foreign_yi": 110.2,
-    "total_yi": 220.0,
+    "total_yi": 225.2,
     "tailwind": false
   },
   "results": [
@@ -22,10 +22,12 @@
         "c5": true
       },
       "passed": 5,
-      "close": 375.5,
-      "change": 25.0,
-      "volume_lots": 17992.5,
-      "vol_hist": [],
+      "close": 350.5,
+      "change": 1.0,
+      "volume_lots": 4100.4,
+      "vol_hist": [
+        4100.4
+      ],
       "foreign_buy": 10251.6,
       "foreign_sell": 6027.6,
       "foreign_net": 4224.0,
@@ -59,10 +61,12 @@
         "c5": true
       },
       "passed": 4,
-      "close": 1000.0,
-      "change": 8.0,
-      "volume_lots": 8196.8,
-      "vol_hist": [],
+      "close": 992.0,
+      "change": 0.0,
+      "volume_lots": 5181.2,
+      "vol_hist": [
+        5181.2
+      ],
       "foreign_buy": 4110.1,
       "foreign_sell": 1813.4,
       "foreign_net": 2296.8,
@@ -96,12 +100,14 @@
         "c5": true
       },
       "passed": 4,
-      "close": 325.5,
-      "change": 10.0,
-      "volume_lots": 28857.1,
-      "vol_hist": [],
-      "foreign_buy": 18068.7,
-      "foreign_sell": 17432.5,
+      "close": 315.5,
+      "change": 2.0,
+      "volume_lots": 15798.1,
+      "vol_hist": [
+        15798.1
+      ],
+      "foreign_buy": 12466.7,
+      "foreign_sell": 11830.5,
       "foreign_net": 636.2,
       "foreign_net_prev": -1441.6,
       "trust_buy": 1149.0,
@@ -133,10 +139,12 @@
         "c5": true
       },
       "passed": 4,
-      "close": 552.0,
-      "change": 20.0,
-      "volume_lots": 1692.4,
-      "vol_hist": [],
+      "close": 532.0,
+      "change": -18.0,
+      "volume_lots": 1100.9,
+      "vol_hist": [
+        1100.9
+      ],
       "foreign_buy": 748.5,
       "foreign_sell": 370.0,
       "foreign_net": 378.5,
@@ -170,10 +178,12 @@
         "c5": true
       },
       "passed": 4,
-      "close": 878.0,
-      "change": 47.0,
-      "volume_lots": 1350.0,
-      "vol_hist": [],
+      "close": 831.0,
+      "change": -92.0,
+      "volume_lots": 1368.3,
+      "vol_hist": [
+        1368.3
+      ],
       "foreign_buy": 771.3,
       "foreign_sell": 758.8,
       "foreign_net": 12.5,
@@ -207,10 +217,12 @@
         "c5": true
       },
       "passed": 4,
-      "close": 165.5,
-      "change": 5.0,
-      "volume_lots": 7262.3,
-      "vol_hist": [],
+      "close": 160.5,
+      "change": 1.0,
+      "volume_lots": 1759.7,
+      "vol_hist": [
+        1759.7
+      ],
       "foreign_buy": 4884.9,
       "foreign_sell": 853.0,
       "foreign_net": 4031.9,
@@ -244,10 +256,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 4055.0,
-      "change": 100.0,
-      "volume_lots": 2029.6,
-      "vol_hist": [],
+      "close": 3955.0,
+      "change": 155.0,
+      "volume_lots": 4658.9,
+      "vol_hist": [
+        4658.9
+      ],
       "foreign_buy": 868.8,
       "foreign_sell": 541.1,
       "foreign_net": 327.7,
@@ -281,10 +295,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 5130.0,
-      "change": 175.0,
-      "volume_lots": 2712.1,
-      "vol_hist": [],
+      "close": 4955.0,
+      "change": 425.0,
+      "volume_lots": 3469.6,
+      "vol_hist": [
+        3469.6
+      ],
       "foreign_buy": 1038.3,
       "foreign_sell": 1048.7,
       "foreign_net": -10.4,
@@ -321,7 +337,9 @@
       "close": 2555.0,
       "change": 165.0,
       "volume_lots": 643.0,
-      "vol_hist": [],
+      "vol_hist": [
+        653.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -330,9 +348,9 @@
       "trust_sell": 0.0,
       "trust_net": 0.0,
       "trust_net_prev": 0.0,
-      "total_net": 42.7,
+      "total_net": 36.7,
       "total_net_prev": 118.3,
-      "main_force_net": 42.7,
+      "main_force_net": 36.7,
       "main_force_src": "以法人合計替代",
       "big_holder_pct": 36.14,
       "big_holder_chg": null,
@@ -355,10 +373,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 747.0,
-      "change": 7.0,
-      "volume_lots": 226.5,
-      "vol_hist": [],
+      "close": 740.0,
+      "change": -15.0,
+      "volume_lots": 276.2,
+      "vol_hist": [
+        276.2
+      ],
       "foreign_buy": 80.1,
       "foreign_sell": 100.4,
       "foreign_net": -20.3,
@@ -392,10 +412,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1135.0,
-      "change": -15.0,
-      "volume_lots": 1163.1,
-      "vol_hist": [],
+      "close": 1150.0,
+      "change": 0.0,
+      "volume_lots": 1119.6,
+      "vol_hist": [
+        1119.6
+      ],
       "foreign_buy": 463.9,
       "foreign_sell": 512.2,
       "foreign_net": -48.4,
@@ -432,7 +454,9 @@
       "close": 918.0,
       "change": -23.0,
       "volume_lots": 2087.0,
-      "vol_hist": [],
+      "vol_hist": [
+        998.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -466,21 +490,23 @@
         "c5": true
       },
       "passed": 3,
-      "close": 6480.0,
-      "change": 130.0,
-      "volume_lots": 402.7,
-      "vol_hist": [],
+      "close": 6350.0,
+      "change": 70.0,
+      "volume_lots": 365.2,
+      "vol_hist": [
+        365.2
+      ],
       "foreign_buy": 236.8,
       "foreign_sell": 169.2,
       "foreign_net": 67.6,
       "foreign_net_prev": 86.8,
       "trust_buy": 14.0,
-      "trust_sell": 46.0,
-      "trust_net": -32.0,
+      "trust_sell": 45.0,
+      "trust_net": -31.0,
       "trust_net_prev": -18.3,
-      "total_net": 37.6,
+      "total_net": 38.6,
       "total_net_prev": 63.2,
-      "main_force_net": 37.6,
+      "main_force_net": 38.6,
       "main_force_src": "以法人合計替代",
       "big_holder_pct": 56.93,
       "big_holder_chg": null,
@@ -503,10 +529,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 811.0,
-      "change": -1.0,
-      "volume_lots": 3041.0,
-      "vol_hist": [],
+      "close": 812.0,
+      "change": 4.0,
+      "volume_lots": 3389.7,
+      "vol_hist": [
+        3389.7
+      ],
       "foreign_buy": 487.5,
       "foreign_sell": 1346.1,
       "foreign_net": -858.6,
@@ -540,10 +568,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 165.5,
-      "change": -1.5,
-      "volume_lots": 1937.2,
-      "vol_hist": [],
+      "close": 167.0,
+      "change": 4.0,
+      "volume_lots": 2222.3,
+      "vol_hist": [
+        2222.3
+      ],
       "foreign_buy": 336.1,
       "foreign_sell": 310.2,
       "foreign_net": 25.9,
@@ -577,10 +607,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 447.5,
-      "change": 40.5,
-      "volume_lots": 1897.8,
-      "vol_hist": [],
+      "close": 407.0,
+      "change": 2.0,
+      "volume_lots": 2192.7,
+      "vol_hist": [
+        2192.7
+      ],
       "foreign_buy": 427.0,
       "foreign_sell": 169.3,
       "foreign_net": 257.7,
@@ -614,10 +646,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 2215.0,
-      "change": 80.0,
-      "volume_lots": 2859.8,
-      "vol_hist": [],
+      "close": 2135.0,
+      "change": -30.0,
+      "volume_lots": 3576.0,
+      "vol_hist": [
+        3576.0
+      ],
       "foreign_buy": 852.2,
       "foreign_sell": 1760.9,
       "foreign_net": -908.7,
@@ -651,21 +685,23 @@
         "c5": true
       },
       "passed": 3,
-      "close": 6025.0,
-      "change": 95.0,
-      "volume_lots": 1113.6,
-      "vol_hist": [],
+      "close": 5930.0,
+      "change": -80.0,
+      "volume_lots": 1723.4,
+      "vol_hist": [
+        1723.4
+      ],
       "foreign_buy": 554.5,
       "foreign_sell": 438.5,
       "foreign_net": 116.0,
       "foreign_net_prev": 171.3,
       "trust_buy": 15.0,
-      "trust_sell": 206.9,
-      "trust_net": -191.9,
+      "trust_sell": 111.0,
+      "trust_net": -96.0,
       "trust_net_prev": -399.0,
-      "total_net": -81.7,
+      "total_net": 14.2,
       "total_net_prev": -189.8,
-      "main_force_net": -81.7,
+      "main_force_net": 14.2,
       "main_force_src": "以法人合計替代",
       "big_holder_pct": 54.27,
       "big_holder_chg": null,
@@ -688,10 +724,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 7170.0,
-      "change": 250.0,
-      "volume_lots": 169.0,
-      "vol_hist": [],
+      "close": 6920.0,
+      "change": 90.0,
+      "volume_lots": 179.2,
+      "vol_hist": [
+        179.2
+      ],
       "foreign_buy": 93.0,
       "foreign_sell": 72.6,
       "foreign_net": 20.5,
@@ -725,10 +763,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 223.5,
-      "change": 5.5,
-      "volume_lots": 287.9,
-      "vol_hist": [],
+      "close": 218.0,
+      "change": -3.0,
+      "volume_lots": 175.4,
+      "vol_hist": [
+        175.4
+      ],
       "foreign_buy": 164.3,
       "foreign_sell": 27.0,
       "foreign_net": 137.3,
@@ -762,21 +802,23 @@
         "c5": true
       },
       "passed": 3,
-      "close": 4015.0,
-      "change": -5.0,
-      "volume_lots": 6018.2,
-      "vol_hist": [],
-      "foreign_buy": 3179.7,
-      "foreign_sell": 3031.2,
+      "close": 4020.0,
+      "change": 60.0,
+      "volume_lots": 7709.2,
+      "vol_hist": [
+        7709.2
+      ],
+      "foreign_buy": 3016.7,
+      "foreign_sell": 2868.2,
       "foreign_net": 148.5,
       "foreign_net_prev": 837.3,
-      "trust_buy": 107.2,
+      "trust_buy": 107.1,
       "trust_sell": 229.8,
-      "trust_net": -122.6,
+      "trust_net": -122.7,
       "trust_net_prev": -167.5,
-      "total_net": 4.4,
+      "total_net": 4.3,
       "total_net_prev": 764.5,
-      "main_force_net": 4.4,
+      "main_force_net": 4.3,
       "main_force_src": "以法人合計替代",
       "big_holder_pct": 64.18,
       "big_holder_chg": null,
@@ -799,12 +841,14 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1790.0,
-      "change": -15.0,
-      "volume_lots": 9097.8,
-      "vol_hist": [],
-      "foreign_buy": 4235.6,
-      "foreign_sell": 5402.2,
+      "close": 1805.0,
+      "change": -10.0,
+      "volume_lots": 18963.7,
+      "vol_hist": [
+        18963.7
+      ],
+      "foreign_buy": 4150.6,
+      "foreign_sell": 5317.2,
       "foreign_net": -1166.6,
       "foreign_net_prev": -4629.1,
       "trust_buy": 172.0,
@@ -836,10 +880,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 733.0,
-      "change": 5.0,
-      "volume_lots": 462.7,
-      "vol_hist": [],
+      "close": 728.0,
+      "change": -4.0,
+      "volume_lots": 341.0,
+      "vol_hist": [
+        341.0
+      ],
       "foreign_buy": 182.9,
       "foreign_sell": 144.2,
       "foreign_net": 38.7,
@@ -873,10 +919,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 99.6,
-      "change": 3.4,
-      "volume_lots": 490.6,
-      "vol_hist": [],
+      "close": 96.2,
+      "change": 3.6,
+      "volume_lots": 957.7,
+      "vol_hist": [
+        957.7
+      ],
       "foreign_buy": 284.0,
       "foreign_sell": 150.0,
       "foreign_net": 134.0,
@@ -910,10 +958,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 532.0,
-      "change": 10.0,
-      "volume_lots": 1065.2,
-      "vol_hist": [],
+      "close": 522.0,
+      "change": 8.0,
+      "volume_lots": 926.4,
+      "vol_hist": [
+        926.4
+      ],
       "foreign_buy": 537.1,
       "foreign_sell": 512.8,
       "foreign_net": 24.3,
@@ -950,7 +1000,9 @@
       "close": 163.0,
       "change": 3.0,
       "volume_lots": 60.0,
-      "vol_hist": [],
+      "vol_hist": [
+        16.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -984,10 +1036,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 455.5,
-      "change": 7.0,
-      "volume_lots": 1504.9,
-      "vol_hist": [],
+      "close": 448.5,
+      "change": -33.5,
+      "volume_lots": 3392.0,
+      "vol_hist": [
+        3392.0
+      ],
       "foreign_buy": 846.0,
       "foreign_sell": 538.6,
       "foreign_net": 307.4,
@@ -1021,10 +1075,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 499.0,
-      "change": -11.0,
-      "volume_lots": 1189.3,
-      "vol_hist": [],
+      "close": 510.0,
+      "change": 3.0,
+      "volume_lots": 882.7,
+      "vol_hist": [
+        882.7
+      ],
       "foreign_buy": 284.2,
       "foreign_sell": 324.4,
       "foreign_net": -40.2,
@@ -1058,10 +1114,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 234.0,
-      "change": -2.5,
-      "volume_lots": 319.5,
-      "vol_hist": [],
+      "close": 236.5,
+      "change": -5.0,
+      "volume_lots": 411.6,
+      "vol_hist": [
+        411.6
+      ],
       "foreign_buy": 175.0,
       "foreign_sell": 196.5,
       "foreign_net": -21.5,
@@ -1095,10 +1153,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 217.5,
-      "change": -2.5,
-      "volume_lots": 10224.0,
-      "vol_hist": [],
+      "close": 220.0,
+      "change": -9.0,
+      "volume_lots": 14125.9,
+      "vol_hist": [
+        14125.9
+      ],
       "foreign_buy": 3999.1,
       "foreign_sell": 5799.0,
       "foreign_net": -1799.9,
@@ -1134,8 +1194,10 @@
       "passed": 3,
       "close": 145.5,
       "change": 0.0,
-      "volume_lots": 445.6,
-      "vol_hist": [],
+      "volume_lots": 301.6,
+      "vol_hist": [
+        301.6
+      ],
       "foreign_buy": 177.4,
       "foreign_sell": 124.0,
       "foreign_net": 53.4,
@@ -1169,10 +1231,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 734.0,
-      "change": 32.0,
-      "volume_lots": 1159.3,
-      "vol_hist": [],
+      "close": 702.0,
+      "change": 6.0,
+      "volume_lots": 726.3,
+      "vol_hist": [
+        726.3
+      ],
       "foreign_buy": 683.1,
       "foreign_sell": 217.0,
       "foreign_net": 466.1,
@@ -1206,10 +1270,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 880.0,
-      "change": 26.0,
-      "volume_lots": 183.4,
-      "vol_hist": [],
+      "close": 854.0,
+      "change": -19.0,
+      "volume_lots": 79.4,
+      "vol_hist": [
+        79.4
+      ],
       "foreign_buy": 67.0,
       "foreign_sell": 31.0,
       "foreign_net": 36.0,
@@ -1243,10 +1309,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 207.0,
-      "change": 4.0,
-      "volume_lots": 140.4,
-      "vol_hist": [],
+      "close": 203.0,
+      "change": 0.5,
+      "volume_lots": 44.6,
+      "vol_hist": [
+        44.6
+      ],
       "foreign_buy": 73.0,
       "foreign_sell": 103.4,
       "foreign_net": -30.4,
@@ -1280,10 +1348,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 168.5,
-      "change": -0.5,
-      "volume_lots": 1451.7,
-      "vol_hist": [],
+      "close": 169.0,
+      "change": -5.0,
+      "volume_lots": 2578.5,
+      "vol_hist": [
+        2578.5
+      ],
       "foreign_buy": 512.0,
       "foreign_sell": 1213.6,
       "foreign_net": -701.6,
@@ -1320,7 +1390,9 @@
       "close": 88.5,
       "change": -0.3,
       "volume_lots": 81.0,
-      "vol_hist": [],
+      "vol_hist": [
+        140.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -1354,10 +1426,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 243.0,
-      "change": 3.5,
-      "volume_lots": 5367.9,
-      "vol_hist": [],
+      "close": 239.5,
+      "change": 21.5,
+      "volume_lots": 5973.8,
+      "vol_hist": [
+        5973.8
+      ],
       "foreign_buy": 1654.2,
       "foreign_sell": 2045.0,
       "foreign_net": -390.9,
@@ -1394,7 +1468,9 @@
       "close": 180.5,
       "change": -2.0,
       "volume_lots": 85.0,
-      "vol_hist": [],
+      "vol_hist": [
+        21.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -1431,7 +1507,9 @@
       "close": 51.4,
       "change": 0.3,
       "volume_lots": 10.0,
-      "vol_hist": [],
+      "vol_hist": [
+        11.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -1465,10 +1543,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 120.5,
-      "change": -0.5,
-      "volume_lots": 238.1,
-      "vol_hist": [],
+      "close": 121.0,
+      "change": 5.0,
+      "volume_lots": 824.4,
+      "vol_hist": [
+        824.4
+      ],
       "foreign_buy": 80.0,
       "foreign_sell": 104.1,
       "foreign_net": -24.1,
@@ -1502,10 +1582,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 88.8,
-      "change": 0.3,
-      "volume_lots": 206.0,
-      "vol_hist": [],
+      "close": 88.5,
+      "change": -2.0,
+      "volume_lots": 387.3,
+      "vol_hist": [
+        387.3
+      ],
       "foreign_buy": 66.0,
       "foreign_sell": 124.6,
       "foreign_net": -58.6,
@@ -1539,10 +1621,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 187.0,
-      "change": 7.5,
-      "volume_lots": 169.4,
-      "vol_hist": [],
+      "close": 179.5,
+      "change": 1.0,
+      "volume_lots": 190.1,
+      "vol_hist": [
+        190.1
+      ],
       "foreign_buy": 75.0,
       "foreign_sell": 39.0,
       "foreign_net": 36.0,
@@ -1576,10 +1660,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 720.0,
-      "change": 17.0,
-      "volume_lots": 2331.3,
-      "vol_hist": [],
+      "close": 703.0,
+      "change": 32.0,
+      "volume_lots": 1993.3,
+      "vol_hist": [
+        1993.3
+      ],
       "foreign_buy": 774.1,
       "foreign_sell": 832.2,
       "foreign_net": -58.1,
@@ -1613,10 +1699,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 148.0,
-      "change": -11.5,
-      "volume_lots": 812.7,
-      "vol_hist": [],
+      "close": 159.5,
+      "change": -17.5,
+      "volume_lots": 797.7,
+      "vol_hist": [
+        797.7
+      ],
       "foreign_buy": 183.0,
       "foreign_sell": 197.0,
       "foreign_net": -14.0,
@@ -1650,10 +1738,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 672.0,
-      "change": 37.0,
-      "volume_lots": 417.5,
-      "vol_hist": [],
+      "close": 635.0,
+      "change": -20.0,
+      "volume_lots": 429.4,
+      "vol_hist": [
+        429.4
+      ],
       "foreign_buy": 73.0,
       "foreign_sell": 153.2,
       "foreign_net": -80.2,
@@ -1687,10 +1777,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 315.5,
-      "change": -3.0,
-      "volume_lots": 1079.1,
-      "vol_hist": [],
+      "close": 318.5,
+      "change": 4.0,
+      "volume_lots": 1217.9,
+      "vol_hist": [
+        1217.9
+      ],
       "foreign_buy": 825.4,
       "foreign_sell": 209.8,
       "foreign_net": 615.7,
@@ -1724,10 +1816,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 47.7,
-      "change": -0.55,
-      "volume_lots": 1536.6,
-      "vol_hist": [],
+      "close": 48.25,
+      "change": -0.25,
+      "volume_lots": 1970.3,
+      "vol_hist": [
+        1970.3
+      ],
       "foreign_buy": 115.4,
       "foreign_sell": 1001.0,
       "foreign_net": -885.6,
@@ -1764,7 +1858,9 @@
       "close": 229.5,
       "change": 3.5,
       "volume_lots": 514.0,
-      "vol_hist": [],
+      "vol_hist": [
+        476.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -1798,10 +1894,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 199.0,
-      "change": 2.0,
-      "volume_lots": 1341.1,
-      "vol_hist": [],
+      "close": 197.0,
+      "change": 1.5,
+      "volume_lots": 1568.4,
+      "vol_hist": [
+        1568.4
+      ],
       "foreign_buy": 471.6,
       "foreign_sell": 444.7,
       "foreign_net": 26.9,
@@ -1835,10 +1933,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 219.5,
-      "change": 0.5,
-      "volume_lots": 1185.0,
-      "vol_hist": [],
+      "close": 219.0,
+      "change": -0.5,
+      "volume_lots": 3130.3,
+      "vol_hist": [
+        3130.3
+      ],
       "foreign_buy": 535.8,
       "foreign_sell": 488.6,
       "foreign_net": 47.2,
@@ -1872,10 +1972,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 224.5,
-      "change": 8.5,
-      "volume_lots": 2298.1,
-      "vol_hist": [],
+      "close": 216.0,
+      "change": 0.5,
+      "volume_lots": 1531.1,
+      "vol_hist": [
+        1531.1
+      ],
       "foreign_buy": 982.2,
       "foreign_sell": 341.2,
       "foreign_net": 641.0,
@@ -1912,7 +2014,9 @@
       "close": 185.5,
       "change": 0.0,
       "volume_lots": 15.0,
-      "vol_hist": [],
+      "vol_hist": [
+        14.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -1946,10 +2050,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 228.5,
+      "close": 229.0,
       "change": -0.5,
-      "volume_lots": 25.6,
-      "vol_hist": [],
+      "volume_lots": 25.3,
+      "vol_hist": [
+        25.3
+      ],
       "foreign_buy": 13.0,
       "foreign_sell": 5.0,
       "foreign_net": 8.0,
@@ -1983,10 +2089,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 142.0,
-      "change": 1.0,
-      "volume_lots": 1535.2,
-      "vol_hist": [],
+      "close": 141.0,
+      "change": -1.0,
+      "volume_lots": 2164.7,
+      "vol_hist": [
+        2164.7
+      ],
       "foreign_buy": 471.4,
       "foreign_sell": 326.0,
       "foreign_net": 145.4,
@@ -2020,10 +2128,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 89.5,
-      "change": 0.5,
-      "volume_lots": 2.3,
-      "vol_hist": [],
+      "close": 89.0,
+      "change": 0.1,
+      "volume_lots": 12.0,
+      "vol_hist": [
+        12.0
+      ],
       "foreign_buy": 2.0,
       "foreign_sell": 0.0,
       "foreign_net": 2.0,
@@ -2057,10 +2167,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 83.6,
-      "change": 1.1,
-      "volume_lots": 47.9,
-      "vol_hist": [],
+      "close": 82.5,
+      "change": -2.3,
+      "volume_lots": 190.8,
+      "vol_hist": [
+        190.8
+      ],
       "foreign_buy": 22.0,
       "foreign_sell": 16.0,
       "foreign_net": 6.0,
@@ -2094,10 +2206,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 142.5,
-      "change": -0.5,
-      "volume_lots": 719.0,
-      "vol_hist": [],
+      "close": 143.0,
+      "change": -1.5,
+      "volume_lots": 1287.1,
+      "vol_hist": [
+        1287.1
+      ],
       "foreign_buy": 291.1,
       "foreign_sell": 227.0,
       "foreign_net": 64.1,
@@ -2131,10 +2245,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 179.0,
-      "change": 9.5,
-      "volume_lots": 422.9,
-      "vol_hist": [],
+      "close": 169.5,
+      "change": -2.0,
+      "volume_lots": 124.9,
+      "vol_hist": [
+        124.9
+      ],
       "foreign_buy": 258.1,
       "foreign_sell": 57.1,
       "foreign_net": 201.0,
@@ -2171,7 +2287,9 @@
       "close": 134.0,
       "change": -2.0,
       "volume_lots": 316.0,
-      "vol_hist": [],
+      "vol_hist": [
+        580.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2208,7 +2326,9 @@
       "close": 72.1,
       "change": 1.2,
       "volume_lots": 266.0,
-      "vol_hist": [],
+      "vol_hist": [
+        180.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2242,10 +2362,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 55.7,
-      "change": -0.4,
-      "volume_lots": 956.3,
-      "vol_hist": [],
+      "close": 56.1,
+      "change": 0.5,
+      "volume_lots": 911.0,
+      "vol_hist": [
+        911.0
+      ],
       "foreign_buy": 227.1,
       "foreign_sell": 512.0,
       "foreign_net": -284.9,
@@ -2282,7 +2404,9 @@
       "close": 123.0,
       "change": 1.0,
       "volume_lots": 78.0,
-      "vol_hist": [],
+      "vol_hist": [
+        22.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2319,7 +2443,9 @@
       "close": 152.5,
       "change": 5.5,
       "volume_lots": 159.0,
-      "vol_hist": [],
+      "vol_hist": [
+        24.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2356,7 +2482,9 @@
       "close": 45.8,
       "change": 0.85,
       "volume_lots": 103.0,
-      "vol_hist": [],
+      "vol_hist": [
+        99.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2393,7 +2521,9 @@
       "close": 22.8,
       "change": 0.8,
       "volume_lots": 197.0,
-      "vol_hist": [],
+      "vol_hist": [
+        114.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2427,10 +2557,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 21.25,
-      "change": 0.3,
-      "volume_lots": 1793.1,
-      "vol_hist": [],
+      "close": 20.95,
+      "change": 0.65,
+      "volume_lots": 2923.0,
+      "vol_hist": [
+        2923.0
+      ],
       "foreign_buy": 1168.0,
       "foreign_sell": 770.0,
       "foreign_net": 398.0,
@@ -2464,10 +2596,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 42.0,
-      "change": 3.35,
-      "volume_lots": 9813.8,
-      "vol_hist": [],
+      "close": 38.65,
+      "change": 0.4,
+      "volume_lots": 1579.5,
+      "vol_hist": [
+        1579.5
+      ],
       "foreign_buy": 6487.8,
       "foreign_sell": 1647.2,
       "foreign_net": 4840.5,
@@ -2501,10 +2635,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 34.3,
-      "change": 0.5,
-      "volume_lots": 1391.0,
-      "vol_hist": [],
+      "close": 33.8,
+      "change": -0.5,
+      "volume_lots": 2277.3,
+      "vol_hist": [
+        2277.3
+      ],
       "foreign_buy": 740.3,
       "foreign_sell": 319.0,
       "foreign_net": 421.3,
@@ -2538,10 +2674,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 45.9,
-      "change": 2.25,
-      "volume_lots": 984.8,
-      "vol_hist": [],
+      "close": 43.65,
+      "change": -0.8,
+      "volume_lots": 315.7,
+      "vol_hist": [
+        315.7
+      ],
       "foreign_buy": 387.5,
       "foreign_sell": 191.2,
       "foreign_net": 196.4,
@@ -2575,10 +2713,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 167.0,
+      "close": 167.5,
       "change": -0.5,
-      "volume_lots": 145.4,
-      "vol_hist": [],
+      "volume_lots": 243.3,
+      "vol_hist": [
+        243.3
+      ],
       "foreign_buy": 84.2,
       "foreign_sell": 40.8,
       "foreign_net": 43.4,
@@ -2612,10 +2752,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 83.8,
-      "change": -1.7,
-      "volume_lots": 3227.7,
-      "vol_hist": [],
+      "close": 85.5,
+      "change": -0.4,
+      "volume_lots": 3464.0,
+      "vol_hist": [
+        3464.0
+      ],
       "foreign_buy": 2062.8,
       "foreign_sell": 2145.0,
       "foreign_net": -82.2,
@@ -2652,7 +2794,9 @@
       "close": 128.5,
       "change": 2.0,
       "volume_lots": 145.0,
-      "vol_hist": [],
+      "vol_hist": [
+        456.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2689,7 +2833,9 @@
       "close": 61.9,
       "change": 0.7,
       "volume_lots": 43.0,
-      "vol_hist": [],
+      "vol_hist": [
+        17.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2726,7 +2872,9 @@
       "close": 185.0,
       "change": 16.5,
       "volume_lots": 32331.0,
-      "vol_hist": [],
+      "vol_hist": [
+        12595.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2760,10 +2908,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 63.0,
-      "change": -2.1,
-      "volume_lots": 2034.6,
-      "vol_hist": [],
+      "close": 65.1,
+      "change": 0.0,
+      "volume_lots": 473.1,
+      "vol_hist": [
+        473.1
+      ],
       "foreign_buy": 146.0,
       "foreign_sell": 1848.0,
       "foreign_net": -1702.0,
@@ -2797,10 +2947,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 55.5,
-      "change": -1.3,
-      "volume_lots": 2455.6,
-      "vol_hist": [],
+      "close": 56.8,
+      "change": 1.0,
+      "volume_lots": 2028.7,
+      "vol_hist": [
+        2028.7
+      ],
       "foreign_buy": 481.0,
       "foreign_sell": 1252.0,
       "foreign_net": -771.0,
@@ -2834,10 +2986,12 @@
         "c5": true
       },
       "passed": 3,
-      "close": 42.15,
-      "change": 0.4,
-      "volume_lots": 22165.8,
-      "vol_hist": [],
+      "close": 41.75,
+      "change": -0.9,
+      "volume_lots": 36659.5,
+      "vol_hist": [
+        36659.5
+      ],
       "foreign_buy": 12470.5,
       "foreign_sell": 13279.1,
       "foreign_net": -808.6,
@@ -2874,7 +3028,9 @@
       "close": 88.8,
       "change": -0.2,
       "volume_lots": 459.0,
-      "vol_hist": [],
+      "vol_hist": [
+        651.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -2908,10 +3064,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 41.0,
-      "change": 0.7,
-      "volume_lots": 135.9,
-      "vol_hist": [],
+      "close": 40.3,
+      "change": -0.3,
+      "volume_lots": 196.0,
+      "vol_hist": [
+        196.0
+      ],
       "foreign_buy": 66.6,
       "foreign_sell": 46.0,
       "foreign_net": 20.6,
@@ -2945,10 +3103,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 69.0,
-      "change": 3.9,
-      "volume_lots": 79797.3,
-      "vol_hist": [],
+      "close": 65.1,
+      "change": -0.9,
+      "volume_lots": 14648.8,
+      "vol_hist": [
+        14648.8
+      ],
       "foreign_buy": 49986.9,
       "foreign_sell": 24318.5,
       "foreign_net": 25668.5,
@@ -2983,9 +3143,11 @@
       },
       "passed": 3,
       "close": 28.85,
-      "change": 0.0,
-      "volume_lots": 34.0,
-      "vol_hist": [],
+      "change": -0.4,
+      "volume_lots": 25.0,
+      "vol_hist": [
+        25.0
+      ],
       "foreign_buy": 19.0,
       "foreign_sell": 4.0,
       "foreign_net": 15.0,
@@ -3019,10 +3181,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 78.3,
-      "change": 0.5,
-      "volume_lots": 628.6,
-      "vol_hist": [],
+      "close": 77.8,
+      "change": -0.5,
+      "volume_lots": 804.4,
+      "vol_hist": [
+        804.4
+      ],
       "foreign_buy": 397.0,
       "foreign_sell": 224.3,
       "foreign_net": 172.7,
@@ -3059,7 +3223,9 @@
       "close": 119.0,
       "change": 4.0,
       "volume_lots": 562.0,
-      "vol_hist": [],
+      "vol_hist": [
+        294.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3096,7 +3262,9 @@
       "close": 66.1,
       "change": 0.4,
       "volume_lots": 63.0,
-      "vol_hist": [],
+      "vol_hist": [
+        21.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3130,10 +3298,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 51.7,
-      "change": 0.2,
-      "volume_lots": 39.3,
-      "vol_hist": [],
+      "close": 51.5,
+      "change": -0.1,
+      "volume_lots": 15.1,
+      "vol_hist": [
+        15.1
+      ],
       "foreign_buy": 14.0,
       "foreign_sell": 2.0,
       "foreign_net": 12.0,
@@ -3170,7 +3340,9 @@
       "close": 20.95,
       "change": 0.05,
       "volume_lots": 128.0,
-      "vol_hist": [],
+      "vol_hist": [
+        180.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3207,7 +3379,9 @@
       "close": 49.35,
       "change": -0.3,
       "volume_lots": 215.0,
-      "vol_hist": [],
+      "vol_hist": [
+        184.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3241,10 +3415,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 25.35,
-      "change": -1.85,
-      "volume_lots": 875.3,
-      "vol_hist": [],
+      "close": 27.2,
+      "change": -1.75,
+      "volume_lots": 598.5,
+      "vol_hist": [
+        598.5
+      ],
       "foreign_buy": 125.0,
       "foreign_sell": 132.0,
       "foreign_net": -7.0,
@@ -3281,7 +3457,9 @@
       "close": 93.0,
       "change": 0.6,
       "volume_lots": 46.0,
-      "vol_hist": [],
+      "vol_hist": [
+        42.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3315,10 +3493,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 59.7,
-      "change": 0.5,
-      "volume_lots": 16.8,
-      "vol_hist": [],
+      "close": 59.2,
+      "change": -0.2,
+      "volume_lots": 24.9,
+      "vol_hist": [
+        24.9
+      ],
       "foreign_buy": 3.0,
       "foreign_sell": 2.0,
       "foreign_net": 1.0,
@@ -3355,7 +3535,9 @@
       "close": 46.6,
       "change": -0.05,
       "volume_lots": 171.0,
-      "vol_hist": [],
+      "vol_hist": [
+        235.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3389,10 +3571,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 23.15,
-      "change": 0.7,
-      "volume_lots": 3177.3,
-      "vol_hist": [],
+      "close": 22.45,
+      "change": 0.25,
+      "volume_lots": 1981.2,
+      "vol_hist": [
+        1981.2
+      ],
       "foreign_buy": 2284.1,
       "foreign_sell": 738.0,
       "foreign_net": 1546.1,
@@ -3427,9 +3611,11 @@
       },
       "passed": 2,
       "close": 93.6,
-      "change": 0.0,
-      "volume_lots": 1115.9,
-      "vol_hist": [],
+      "change": -0.2,
+      "volume_lots": 2124.5,
+      "vol_hist": [
+        2124.5
+      ],
       "foreign_buy": 565.0,
       "foreign_sell": 799.7,
       "foreign_net": -234.7,
@@ -3466,7 +3652,9 @@
       "close": 46.0,
       "change": 0.55,
       "volume_lots": 24.0,
-      "vol_hist": [],
+      "vol_hist": [
+        4.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3500,10 +3688,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 194.0,
-      "change": 6.0,
-      "volume_lots": 974.1,
-      "vol_hist": [],
+      "close": 188.0,
+      "change": 7.5,
+      "volume_lots": 1571.6,
+      "vol_hist": [
+        1571.6
+      ],
       "foreign_buy": 345.1,
       "foreign_sell": 179.8,
       "foreign_net": 165.3,
@@ -3537,10 +3727,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 35.25,
-      "change": 0.8,
-      "volume_lots": 1900.5,
-      "vol_hist": [],
+      "close": 34.45,
+      "change": -0.4,
+      "volume_lots": 1105.6,
+      "vol_hist": [
+        1105.6
+      ],
       "foreign_buy": 1731.7,
       "foreign_sell": 349.0,
       "foreign_net": 1382.7,
@@ -3574,10 +3766,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 24.95,
-      "change": -0.25,
-      "volume_lots": 14.5,
-      "vol_hist": [],
+      "close": 25.2,
+      "change": -0.2,
+      "volume_lots": 7.1,
+      "vol_hist": [
+        7.1
+      ],
       "foreign_buy": 4.0,
       "foreign_sell": 5.0,
       "foreign_net": -1.0,
@@ -3614,7 +3808,9 @@
       "close": 83.9,
       "change": -0.1,
       "volume_lots": 8.0,
-      "vol_hist": [],
+      "vol_hist": [
+        20.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3648,10 +3844,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 44.8,
-      "change": 0.25,
-      "volume_lots": 6356.0,
-      "vol_hist": [],
+      "close": 44.55,
+      "change": 0.2,
+      "volume_lots": 5528.2,
+      "vol_hist": [
+        5528.2
+      ],
       "foreign_buy": 3179.1,
       "foreign_sell": 2450.0,
       "foreign_net": 729.1,
@@ -3686,9 +3884,11 @@
       },
       "passed": 2,
       "close": 76.2,
-      "change": 0.0,
+      "change": -0.9,
       "volume_lots": 13.1,
-      "vol_hist": [],
+      "vol_hist": [
+        13.1
+      ],
       "foreign_buy": 8.0,
       "foreign_sell": 8.0,
       "foreign_net": 0.0,
@@ -3722,10 +3922,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 46.1,
-      "change": 0.05,
-      "volume_lots": 43.2,
-      "vol_hist": [],
+      "close": 46.05,
+      "change": -0.45,
+      "volume_lots": 55.0,
+      "vol_hist": [
+        55.0
+      ],
       "foreign_buy": 19.0,
       "foreign_sell": 15.0,
       "foreign_net": 4.0,
@@ -3759,10 +3961,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 21.75,
-      "change": -0.3,
-      "volume_lots": 82.9,
-      "vol_hist": [],
+      "close": 22.05,
+      "change": 0.0,
+      "volume_lots": 65.4,
+      "vol_hist": [
+        65.4
+      ],
       "foreign_buy": 8.0,
       "foreign_sell": 23.0,
       "foreign_net": -15.0,
@@ -3796,10 +4000,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 45.65,
-      "change": 0.15,
-      "volume_lots": 73.9,
-      "vol_hist": [],
+      "close": 45.5,
+      "change": -0.1,
+      "volume_lots": 106.8,
+      "vol_hist": [
+        106.8
+      ],
       "foreign_buy": 28.0,
       "foreign_sell": 16.0,
       "foreign_net": 12.0,
@@ -3833,10 +4039,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 34.5,
-      "change": 0.2,
-      "volume_lots": 51.2,
-      "vol_hist": [],
+      "close": 34.3,
+      "change": -0.1,
+      "volume_lots": 36.4,
+      "vol_hist": [
+        36.4
+      ],
       "foreign_buy": 15.0,
       "foreign_sell": 8.7,
       "foreign_net": 6.3,
@@ -3870,10 +4078,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 41.45,
+      "close": 41.4,
       "change": 0.05,
-      "volume_lots": 100.8,
-      "vol_hist": [],
+      "volume_lots": 173.0,
+      "vol_hist": [
+        173.0
+      ],
       "foreign_buy": 29.0,
       "foreign_sell": 32.0,
       "foreign_net": -3.0,
@@ -3907,10 +4117,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 33.85,
-      "change": 0.05,
-      "volume_lots": 10.0,
-      "vol_hist": [],
+      "close": 33.8,
+      "change": 0.2,
+      "volume_lots": 11.2,
+      "vol_hist": [
+        11.2
+      ],
       "foreign_buy": 4.0,
       "foreign_sell": 1.0,
       "foreign_net": 3.0,
@@ -3947,7 +4159,9 @@
       "close": 131.0,
       "change": 6.5,
       "volume_lots": 2159.0,
-      "vol_hist": [],
+      "vol_hist": [
+        2484.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -3982,9 +4196,11 @@
       },
       "passed": 2,
       "close": 50.1,
-      "change": 0.0,
-      "volume_lots": 118.8,
-      "vol_hist": [],
+      "change": 0.6,
+      "volume_lots": 153.4,
+      "vol_hist": [
+        153.4
+      ],
       "foreign_buy": 72.3,
       "foreign_sell": 26.0,
       "foreign_net": 46.3,
@@ -4018,10 +4234,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.4,
-      "change": -0.05,
-      "volume_lots": 22.7,
-      "vol_hist": [],
+      "close": 22.45,
+      "change": 0.0,
+      "volume_lots": 23.1,
+      "vol_hist": [
+        23.1
+      ],
       "foreign_buy": 3.4,
       "foreign_sell": 4.0,
       "foreign_net": -0.6,
@@ -4055,10 +4273,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 154.0,
-      "change": 1.0,
-      "volume_lots": 116.2,
-      "vol_hist": [],
+      "close": 153.0,
+      "change": -1.5,
+      "volume_lots": 156.2,
+      "vol_hist": [
+        156.2
+      ],
       "foreign_buy": 73.8,
       "foreign_sell": 24.0,
       "foreign_net": 49.8,
@@ -4092,10 +4312,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 20.0,
-      "change": -0.15,
-      "volume_lots": 1689.8,
-      "vol_hist": [],
+      "close": 20.15,
+      "change": -0.05,
+      "volume_lots": 3428.4,
+      "vol_hist": [
+        3428.4
+      ],
       "foreign_buy": 394.0,
       "foreign_sell": 1155.0,
       "foreign_net": -761.0,
@@ -4129,10 +4351,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 143.0,
-      "change": 2.5,
-      "volume_lots": 4374.7,
-      "vol_hist": [],
+      "close": 140.5,
+      "change": -13.0,
+      "volume_lots": 8641.6,
+      "vol_hist": [
+        8641.6
+      ],
       "foreign_buy": 1812.2,
       "foreign_sell": 837.4,
       "foreign_net": 974.8,
@@ -4166,10 +4390,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 49.0,
-      "change": -0.05,
-      "volume_lots": 7.1,
-      "vol_hist": [],
+      "close": 49.05,
+      "change": -0.25,
+      "volume_lots": 11.5,
+      "vol_hist": [
+        11.5
+      ],
       "foreign_buy": 4.0,
       "foreign_sell": 3.0,
       "foreign_net": 1.0,
@@ -4203,10 +4429,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 70.6,
-      "change": 0.1,
-      "volume_lots": 383.7,
-      "vol_hist": [],
+      "close": 70.5,
+      "change": -0.6,
+      "volume_lots": 429.7,
+      "vol_hist": [
+        429.7
+      ],
       "foreign_buy": 103.1,
       "foreign_sell": 171.0,
       "foreign_net": -67.9,
@@ -4243,7 +4471,9 @@
       "close": 56.8,
       "change": 0.0,
       "volume_lots": 74.0,
-      "vol_hist": [],
+      "vol_hist": [
+        56.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4280,7 +4510,9 @@
       "close": 21.3,
       "change": -0.05,
       "volume_lots": 72.0,
-      "vol_hist": [],
+      "vol_hist": [
+        44.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4314,10 +4546,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 179.0,
-      "change": 3.0,
-      "volume_lots": 2383.8,
-      "vol_hist": [],
+      "close": 176.0,
+      "change": -2.0,
+      "volume_lots": 3115.3,
+      "vol_hist": [
+        3115.3
+      ],
       "foreign_buy": 1232.2,
       "foreign_sell": 589.5,
       "foreign_net": 642.7,
@@ -4351,10 +4585,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 62.3,
-      "change": -2.7,
-      "volume_lots": 205.7,
-      "vol_hist": [],
+      "close": 65.0,
+      "change": 0.9,
+      "volume_lots": 118.8,
+      "vol_hist": [
+        118.8
+      ],
       "foreign_buy": 32.5,
       "foreign_sell": 134.0,
       "foreign_net": -101.5,
@@ -4388,10 +4624,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 77.5,
-      "change": -1.7,
-      "volume_lots": 4956.9,
-      "vol_hist": [],
+      "close": 79.2,
+      "change": -1.5,
+      "volume_lots": 4178.6,
+      "vol_hist": [
+        4178.6
+      ],
       "foreign_buy": 942.2,
       "foreign_sell": 2603.4,
       "foreign_net": -1661.1,
@@ -4428,7 +4666,9 @@
       "close": 66.4,
       "change": 1.0,
       "volume_lots": 53.0,
-      "vol_hist": [],
+      "vol_hist": [
+        28.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4463,9 +4703,11 @@
       },
       "passed": 2,
       "close": 20.25,
-      "change": 0.0,
-      "volume_lots": 25579.6,
-      "vol_hist": [],
+      "change": -0.2,
+      "volume_lots": 56911.8,
+      "vol_hist": [
+        56911.8
+      ],
       "foreign_buy": 10549.9,
       "foreign_sell": 15527.2,
       "foreign_net": -4977.3,
@@ -4502,7 +4744,9 @@
       "close": 130.0,
       "change": 0.0,
       "volume_lots": 104.0,
-      "vol_hist": [],
+      "vol_hist": [
+        98.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4539,7 +4783,9 @@
       "close": 20.1,
       "change": 0.3,
       "volume_lots": 20.0,
-      "vol_hist": [],
+      "vol_hist": [
+        34.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4576,7 +4822,9 @@
       "close": 62.5,
       "change": 1.4,
       "volume_lots": 2695.0,
-      "vol_hist": [],
+      "vol_hist": [
+        2588.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4613,7 +4861,9 @@
       "close": 32.15,
       "change": 0.0,
       "volume_lots": 49.0,
-      "vol_hist": [],
+      "vol_hist": [
+        61.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4648,9 +4898,11 @@
       },
       "passed": 2,
       "close": 12.2,
-      "change": 0.0,
-      "volume_lots": 78.1,
-      "vol_hist": [],
+      "change": -0.05,
+      "volume_lots": 50.3,
+      "vol_hist": [
+        50.3
+      ],
       "foreign_buy": 23.0,
       "foreign_sell": 21.0,
       "foreign_net": 2.0,
@@ -4684,10 +4936,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 11.05,
-      "change": 0.1,
-      "volume_lots": 734.5,
-      "vol_hist": [],
+      "close": 10.95,
+      "change": -0.05,
+      "volume_lots": 394.4,
+      "vol_hist": [
+        394.4
+      ],
       "foreign_buy": 397.0,
       "foreign_sell": 58.0,
       "foreign_net": 339.0,
@@ -4721,10 +4975,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.0,
-      "change": 0.15,
-      "volume_lots": 276.3,
-      "vol_hist": [],
+      "close": 21.85,
+      "change": 0.1,
+      "volume_lots": 272.9,
+      "vol_hist": [
+        272.9
+      ],
       "foreign_buy": 114.1,
       "foreign_sell": 101.0,
       "foreign_net": 13.1,
@@ -4761,7 +5017,9 @@
       "close": 282.5,
       "change": 8.0,
       "volume_lots": 752.0,
-      "vol_hist": [],
+      "vol_hist": [
+        1029.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -4795,10 +5053,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 13.55,
-      "change": 0.05,
-      "volume_lots": 49.0,
-      "vol_hist": [],
+      "close": 13.5,
+      "change": -0.15,
+      "volume_lots": 113.8,
+      "vol_hist": [
+        113.8
+      ],
       "foreign_buy": 8.0,
       "foreign_sell": 4.0,
       "foreign_net": 4.0,
@@ -4832,10 +5092,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.0,
-      "change": 0.1,
-      "volume_lots": 1295.6,
-      "vol_hist": [],
+      "close": 21.9,
+      "change": -0.15,
+      "volume_lots": 634.7,
+      "vol_hist": [
+        634.7
+      ],
       "foreign_buy": 191.0,
       "foreign_sell": 944.0,
       "foreign_net": -753.0,
@@ -4869,10 +5131,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 35.6,
-      "change": -0.85,
-      "volume_lots": 39.8,
-      "vol_hist": [],
+      "close": 36.45,
+      "change": 0.4,
+      "volume_lots": 11.0,
+      "vol_hist": [
+        11.0
+      ],
       "foreign_buy": 6.0,
       "foreign_sell": 7.0,
       "foreign_net": -1.0,
@@ -4906,10 +5170,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 10.3,
-      "change": -0.05,
-      "volume_lots": 1332.7,
-      "vol_hist": [],
+      "close": 10.35,
+      "change": 0.0,
+      "volume_lots": 1677.5,
+      "vol_hist": [
+        1677.5
+      ],
       "foreign_buy": 563.0,
       "foreign_sell": 323.0,
       "foreign_net": 240.0,
@@ -4943,10 +5209,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 61.8,
-      "change": 0.0,
-      "volume_lots": 310.8,
-      "vol_hist": [],
+      "close": 65.8,
+      "change": -0.5,
+      "volume_lots": 387.5,
+      "vol_hist": [
+        387.5
+      ],
       "foreign_buy": 33.0,
       "foreign_sell": 132.0,
       "foreign_net": -99.0,
@@ -4980,10 +5248,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 45.35,
-      "change": -0.8,
-      "volume_lots": 126.1,
-      "vol_hist": [],
+      "close": 46.15,
+      "change": -0.1,
+      "volume_lots": 41.3,
+      "vol_hist": [
+        41.3
+      ],
       "foreign_buy": 58.0,
       "foreign_sell": 118.0,
       "foreign_net": -60.0,
@@ -5020,7 +5290,9 @@
       "close": 26.1,
       "change": 0.15,
       "volume_lots": 572.0,
-      "vol_hist": [],
+      "vol_hist": [
+        318.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5057,7 +5329,9 @@
       "close": 69.1,
       "change": -1.6,
       "volume_lots": 39.0,
-      "vol_hist": [],
+      "vol_hist": [
+        76.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5094,7 +5368,9 @@
       "close": null,
       "change": null,
       "volume_lots": 0,
-      "vol_hist": [],
+      "vol_hist": [
+        5.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5128,10 +5404,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 44.5,
-      "change": 0.5,
-      "volume_lots": 4288.8,
-      "vol_hist": [],
+      "close": 44.0,
+      "change": -1.2,
+      "volume_lots": 1786.4,
+      "vol_hist": [
+        1786.4
+      ],
       "foreign_buy": 1305.0,
       "foreign_sell": 1697.9,
       "foreign_net": -392.9,
@@ -5166,9 +5444,11 @@
       },
       "passed": 2,
       "close": 18.15,
-      "change": 0.0,
-      "volume_lots": 198.6,
-      "vol_hist": [],
+      "change": 0.05,
+      "volume_lots": 219.0,
+      "vol_hist": [
+        219.0
+      ],
       "foreign_buy": 124.3,
       "foreign_sell": 21.0,
       "foreign_net": 103.3,
@@ -5205,7 +5485,9 @@
       "close": 29.55,
       "change": -0.05,
       "volume_lots": 253.0,
-      "vol_hist": [],
+      "vol_hist": [
+        313.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5242,7 +5524,9 @@
       "close": 30.65,
       "change": 0.3,
       "volume_lots": 20.0,
-      "vol_hist": [],
+      "vol_hist": [
+        26.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5279,7 +5563,9 @@
       "close": 17.6,
       "change": 0.55,
       "volume_lots": 40.0,
-      "vol_hist": [],
+      "vol_hist": [
+        34.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5313,10 +5599,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 124.0,
-      "change": 7.0,
-      "volume_lots": 2409.0,
-      "vol_hist": [],
+      "close": 117.0,
+      "change": 2.0,
+      "volume_lots": 2314.2,
+      "vol_hist": [
+        2314.2
+      ],
       "foreign_buy": 965.7,
       "foreign_sell": 619.0,
       "foreign_net": 346.7,
@@ -5350,10 +5638,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 17.15,
-      "change": 0.05,
-      "volume_lots": 36.5,
-      "vol_hist": [],
+      "close": 17.1,
+      "change": -0.15,
+      "volume_lots": 53.2,
+      "vol_hist": [
+        53.2
+      ],
       "foreign_buy": 4.0,
       "foreign_sell": 4.0,
       "foreign_net": 0.0,
@@ -5390,7 +5680,9 @@
       "close": 43.1,
       "change": 0.1,
       "volume_lots": 1195.0,
-      "vol_hist": [],
+      "vol_hist": [
+        2555.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5424,10 +5716,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 85.4,
-      "change": 0.9,
-      "volume_lots": 55.1,
-      "vol_hist": [],
+      "close": 84.5,
+      "change": 0.8,
+      "volume_lots": 16.2,
+      "vol_hist": [
+        16.2
+      ],
       "foreign_buy": 3.0,
       "foreign_sell": 9.0,
       "foreign_net": -6.0,
@@ -5461,10 +5755,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 11.4,
-      "change": -0.1,
-      "volume_lots": 6.4,
-      "vol_hist": [],
+      "close": 11.5,
+      "change": 0.1,
+      "volume_lots": 48.8,
+      "vol_hist": [
+        48.8
+      ],
       "foreign_buy": 2.0,
       "foreign_sell": 0.0,
       "foreign_net": 2.0,
@@ -5501,7 +5797,9 @@
       "close": 12.25,
       "change": 0.0,
       "volume_lots": 172.0,
-      "vol_hist": [],
+      "vol_hist": [
+        629.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5535,10 +5833,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 21.75,
-      "change": 0.05,
-      "volume_lots": 298.0,
-      "vol_hist": [],
+      "close": 21.7,
+      "change": -0.2,
+      "volume_lots": 562.4,
+      "vol_hist": [
+        562.4
+      ],
       "foreign_buy": 94.9,
       "foreign_sell": 59.0,
       "foreign_net": 35.9,
@@ -5575,7 +5875,9 @@
       "close": 25.7,
       "change": 0.0,
       "volume_lots": 40.0,
-      "vol_hist": [],
+      "vol_hist": [
+        102.0
+      ],
       "foreign_buy": 0.0,
       "foreign_sell": 0.0,
       "foreign_net": 0.0,
@@ -5609,10 +5911,12 @@
         "c5": false
       },
       "passed": 2,
-      "close": 61.6,
-      "change": -0.4,
-      "volume_lots": 385.7,
-      "vol_hist": [],
+      "close": 62.0,
+      "change": -0.9,
+      "volume_lots": 255.5,
+      "vol_hist": [
+        255.5
+      ],
       "foreign_buy": 67.3,
       "foreign_sell": 297.1,
       "foreign_net": -229.8,
@@ -5646,10 +5950,12 @@
         "c5": true
       },
       "passed": 4,
-      "close": 537.0,
-      "change": -1.0,
-      "volume_lots": 3050.8,
-      "vol_hist": [],
+      "close": 538.0,
+      "change": -6.0,
+      "volume_lots": 2428.9,
+      "vol_hist": [
+        2428.9
+      ],
       "foreign_buy": 2428.8,
       "foreign_sell": 1767.6,
       "foreign_net": 661.2,
@@ -5683,10 +5989,12 @@
         "c5": true
       },
       "passed": 4,
-      "close": 1595.0,
-      "change": 145.0,
-      "volume_lots": 2991.9,
-      "vol_hist": [],
+      "close": 1450.0,
+      "change": 25.0,
+      "volume_lots": 2269.4,
+      "vol_hist": [
+        2269.4
+      ],
       "foreign_buy": 695.1,
       "foreign_sell": 681.2,
       "foreign_net": 13.9,
@@ -5720,10 +6028,12 @@
         "c5": true
       },
       "passed": 4,
-      "close": 91.6,
-      "change": 0.6,
-      "volume_lots": 5781.3,
-      "vol_hist": [],
+      "close": 91.0,
+      "change": -0.9,
+      "volume_lots": 5287.5,
+      "vol_hist": [
+        5287.5
+      ],
       "foreign_buy": 5087.4,
       "foreign_sell": 2696.6,
       "foreign_net": 2390.8,
@@ -5757,10 +6067,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 78.6,
-      "change": 6.7,
-      "volume_lots": 44658.7,
-      "vol_hist": [],
+      "close": 71.9,
+      "change": 1.9,
+      "volume_lots": 18128.3,
+      "vol_hist": [
+        18128.3
+      ],
       "foreign_buy": 23003.3,
       "foreign_sell": 6674.5,
       "foreign_net": 16328.8,
@@ -5794,10 +6106,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 91.4,
-      "change": 2.4,
-      "volume_lots": 15676.7,
-      "vol_hist": [],
+      "close": 89.0,
+      "change": -0.5,
+      "volume_lots": 12172.1,
+      "vol_hist": [
+        12172.1
+      ],
       "foreign_buy": 11012.1,
       "foreign_sell": 2752.5,
       "foreign_net": 8259.7,
@@ -5831,10 +6145,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 28.35,
-      "change": 0.6,
-      "volume_lots": 3831.6,
-      "vol_hist": [],
+      "close": 27.75,
+      "change": 0.2,
+      "volume_lots": 1310.5,
+      "vol_hist": [
+        1310.5
+      ],
       "foreign_buy": 2325.1,
       "foreign_sell": 735.6,
       "foreign_net": 1589.5,
@@ -5868,10 +6184,12 @@
         "c5": false
       },
       "passed": 3,
-      "close": 35.65,
-      "change": 0.1,
-      "volume_lots": 35236.4,
-      "vol_hist": [],
+      "close": 35.55,
+      "change": -0.35,
+      "volume_lots": 45872.4,
+      "vol_hist": [
+        45872.4
+      ],
       "foreign_buy": 23083.0,
       "foreign_sell": 14000.0,
       "foreign_net": 9082.9,
