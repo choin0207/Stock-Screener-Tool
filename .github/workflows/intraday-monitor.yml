@@ -1,41 +1,47 @@
-# 盤中（台北 09:00–13:30 = UTC 01:00–05:30）每 10 分鐘檢查監控清單成交量，
-# 爆量警示 commit 到 docs/data/alerts.json，網頁每分鐘輪詢並跳出通知。
-# UTC 0 時段（台北 08:00–08:50 開盤前）僅做市場風險訊號（VIX/美期/亞股/EWT），
-# 供熔斷前兆紅黃綠燈判斷；持股個股燈號於交易時段內產生。
-# 注意：GitHub Actions 排程屬盡力執行，尖峰時段可能延遲數分鐘。
+# 盤中監控（台北 08:00–13:55）：量能爆量、風險燈號、盤中價、漲停委買觀察。
+# GitHub 對每 5 分鐘的高頻排程會限流丟棄（2026-08-13 曾整段停擺），
+# 改為「每小時啟動一次、單一 job 內部每 5 分鐘循環執行並提交」，
+# 12 次排程事件縮為 1 次，可靠性大幅提升。
 name: Intraday Volume Monitor
 
 on:
   schedule:
-    - cron: "*/5 0-5 * * 1-5"
+    - cron: "1 0-5 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
 concurrency:
-  group: screener-data
+  group: intraday-monitor
   cancel-in-progress: false
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    timeout-minutes: 70
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - name: Check volume spike
-        run: python run_monitor.py
-      - name: Commit alerts/state
+      - name: Monitor loop（每約 5 分鐘一輪，至整點或台北 13:58）
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data
-          git commit -m "chore: 盤中量能監控更新 [skip ci]" || echo "no changes"
-          for i in 1 2 3; do
-            git pull --rebase -X theirs origin main && git push && break
-            git rebase --abort 2>/dev/null || true
-            sleep 5
+          for i in $(seq 1 11); do
+            echo "=== 第 $i 輪 $(date -u +%H:%M:%S) UTC ==="
+            python run_monitor.py || echo "本輪執行失敗，下一輪重試"
+            git add docs/data
+            git commit -m "chore: 盤中量能監控更新 [skip ci]" || echo "no changes"
+            for r in 1 2 3; do
+              git pull --rebase -X theirs origin main && git push && break
+              git rebase --abort 2>/dev/null || true
+              sleep 5
+            done
+            # 台北 13:58（05:58 UTC）後收工；非最後一輪則等 4 分鐘
+            now=$((10#$(date -u +%H%M)))
+            if [ "$now" -ge 558 ] && [ "$now" -lt 2300 ]; then break; fi
+            [ "$i" -lt 11 ] && sleep 240
           done
