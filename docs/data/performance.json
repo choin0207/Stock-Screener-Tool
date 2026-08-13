@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-12T17:51:35+08:00",
+ "updated_at": "2026-08-13T16:52:30+08:00",
  "track_days": 20,
  "records": [
   {
@@ -12,7 +12,8 @@
     "20260807": 44.4,
     "20260810": 42.65,
     "20260811": 41.75,
-    "20260812": 41.75
+    "20260812": 41.75,
+    "20260813": 42.15
    },
    "flows": {
     "20260807": [
@@ -34,6 +35,11 @@
      -808.6,
      420.8,
      -408.7
+    ],
+    "20260813": [
+     -13925.8,
+     784.1,
+     -13595.7
     ]
    },
    "fin_at_entry": {
@@ -48,12 +54,13 @@
     "20260807": 37423.5,
     "20260810": 40365.4,
     "20260811": 36659.5,
-    "20260812": 36659.5
+    "20260812": 36659.5,
+    "20260813": 22165.8
    },
-   "days_tracked": 3,
-   "last_date": "20260812",
-   "last_close": 41.75,
-   "ret_pct": -5.97,
+   "days_tracked": 4,
+   "last_date": "20260813",
+   "last_close": 42.15,
+   "ret_pct": -5.07,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
@@ -65,17 +72,17 @@
      "label": "外資轉賣",
      "cond": "①",
      "first_date": "20260811",
-     "last_date": "20260812",
-     "count": 6,
-     "detail": "今日外資賣超 809 張（入選日買超 22,000 張）"
+     "last_date": "20260813",
+     "count": 7,
+     "detail": "今日外資賣超 13,926 張（入選日買超 22,000 張）"
     },
     "inst": {
      "label": "法人連賣",
      "cond": "②",
      "first_date": "20260811",
-     "last_date": "20260812",
-     "count": 6,
-     "detail": "三大法人連 2 日賣超（今日 409 張）"
+     "last_date": "20260813",
+     "count": 7,
+     "detail": "三大法人連 2 日賣超（今日 13,596 張）"
     }
    },
    "drop": {
@@ -107,7 +114,8 @@
     "20260807": 4545.0,
     "20260810": 4530.0,
     "20260811": 4955.0,
-    "20260812": 4955.0
+    "20260812": 4955.0,
+    "20260813": 5130.0
    },
    "flows": {
     "20260807": [
@@ -129,6 +137,11 @@
      -10.4,
      250.9,
      286.0
+    ],
+    "20260813": [
+     -31.2,
+     151.0,
+     77.7
     ]
    },
    "fin_at_entry": {
@@ -143,16 +156,17 @@
     "20260807": 1913.7,
     "20260810": 2048.2,
     "20260811": 3469.6,
-    "20260812": 3469.6
+    "20260812": 3469.6,
+    "20260813": 2712.1
    },
-   "days_tracked": 3,
-   "last_date": "20260812",
-   "last_close": 4955.0,
-   "ret_pct": 9.02,
+   "days_tracked": 4,
+   "last_date": "20260813",
+   "last_close": 5130.0,
+   "ret_pct": 12.87,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": 9.02,
+   "max_ret_pct": 12.87,
    "min_ret_pct": -0.33,
    "transfer_lots_now": 0.0,
    "warnings": {
@@ -160,10 +174,9 @@
      "label": "外資轉賣",
      "cond": "①",
      "first_date": "20260810",
-     "last_date": "20260810",
-     "count": 3,
-     "detail": "今日外資賣超 119 張（入選日買超 19 張）",
-     "cleared": "20260811"
+     "last_date": "20260813",
+     "count": 4,
+     "detail": "今日外資賣超 31 張（入選日買超 19 張）"
     },
     "trust": {
      "label": "投信轉賣",
@@ -183,13 +196,19 @@
    "entry_date": "20260812",
    "entry_close": 350.5,
    "prices": {
-    "20260812": 350.5
+    "20260812": 350.5,
+    "20260813": 375.5
    },
    "flows": {
     "20260812": [
      4224.0,
      205.8,
      4783.8
+    ],
+    "20260813": [
+     6831.8,
+     90.1,
+     7164.6
     ]
    },
    "fin_at_entry": {
@@ -201,11 +220,164 @@
    "entry_transfer_lots": 0.0,
    "done": false,
    "vols": {
-    "20260812": 4100.4
+    "20260812": 4100.4,
+    "20260813": 17992.5
+   },
+   "days_tracked": 1,
+   "last_date": "20260813",
+   "last_close": 375.5,
+   "ret_pct": 7.13,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": 7.13,
+   "min_ret_pct": 7.13,
+   "transfer_lots_now": 0.0
+  },
+  {
+   "code": "2006",
+   "name": "東和鋼鐵",
+   "tier": 0,
+   "entry_date": "20260813",
+   "entry_close": 83.8,
+   "prices": {
+    "20260813": 83.8
+   },
+   "flows": {
+    "20260813": [
+     149.3,
+     148.9,
+     277.8
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 4289438.0,
+    "capital_k": 7302138.0,
+    "eps": 2.41,
+    "period": "2026Q2"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260813": 3227.7
    },
    "days_tracked": 0,
-   "last_date": "20260812",
-   "last_close": 350.5,
+   "last_date": "20260813",
+   "last_close": 83.8,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  },
+  {
+   "code": "2454",
+   "name": "聯發科",
+   "tier": 0,
+   "entry_date": "20260813",
+   "entry_close": 4015.0,
+   "prices": {
+    "20260813": 4015.0
+   },
+   "flows": {
+    "20260813": [
+     3760.3,
+     10.1,
+     3640.3
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 8406381.0,
+    "capital_k": 16038954.0,
+    "eps": 15.28,
+    "period": "2026Q2"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260813": 6018.2
+   },
+   "days_tracked": 0,
+   "last_date": "20260813",
+   "last_close": 4015.0,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  },
+  {
+   "code": "2542",
+   "name": "興富發",
+   "tier": 1,
+   "entry_date": "20260813",
+   "entry_close": 44.8,
+   "prices": {
+    "20260813": 44.8
+   },
+   "flows": {
+    "20260813": [
+     6156.7,
+     1432.0,
+     7778.1
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 21331420.0,
+    "capital_k": 21730835.0,
+    "eps": 1.15,
+    "period": "2026Q1"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260813": 6356.0
+   },
+   "days_tracked": 0,
+   "last_date": "20260813",
+   "last_close": 44.8,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  },
+  {
+   "code": "7769",
+   "name": "鴻勁",
+   "tier": 0,
+   "entry_date": "20260813",
+   "entry_close": 6480.0,
+   "prices": {
+    "20260813": 6480.0
+   },
+   "flows": {
+    "20260813": [
+     134.8,
+     143.0,
+     300.4
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 4916074.0,
+    "capital_k": 1799300.0,
+    "eps": 25.7,
+    "period": "2026Q1"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260813": 402.7
+   },
+   "days_tracked": 0,
+   "last_date": "20260813",
+   "last_close": 6480.0,
    "ret_pct": 0.0,
    "ret_d5": null,
    "ret_d10": null,
@@ -216,8 +388,8 @@
   }
  ],
  "summary": {
-  "total": 3,
-  "tracking": 3,
+  "total": 7,
+  "tracking": 7,
   "done": {
    "n": 0,
    "win_rate": null,
@@ -313,5 +485,5 @@
    }
   }
  },
- "trade_date": "20260812"
+ "trade_date": "20260813"
 }
