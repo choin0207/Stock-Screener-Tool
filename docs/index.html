@@ -304,17 +304,24 @@ const live = code => (intraQ && intraQ[code] && intraQ[code].p != null)
 const liveNote = () => !intraQ ? ""
   : (intraLive ? `｜💹 ${intraDate} 盤中價 ${intraTime} 同步（約5分鐘更新）`
                : `｜💹 含 ${intraDate} 三價（${intraTime} 收盤同步）`);
-// 成交量：目前量 +（前4日量，近→遠）。dataDate=該卡資料日（如 "8/11"）
+// 成交量：當日目前量 + 前 5 日（每筆標日期）。dataDate=該卡資料日（如 "8/12"）
 function volText(code, dayV, vh, dataDate) {
   const lvv = (live(code) || {}).v;
-  let hist = (vh || []).slice();
-  if (lvv != null && intraDate && intraDate !== dataDate && dayV != null) {
-    hist = [dayV, ...hist];            // 盤中為新交易日 → 資料日的量列入前日
+  let hist = (vh || [])
+    .filter(e => Array.isArray(e) && e.length === 2 && e[1] != null)
+    .map(e => [mdd(String(e[0])), e[1]]);
+  let cur = dayV;
+  if (lvv != null && intraDate && intraDate !== dataDate) {
+    cur = lvv;                          // 盤中新交易日：即時量為當日目前量
+    if (dayV != null) {                 // 資料日的收盤量列入歷史
+      hist = [[dataDate, dayV], ...hist.filter(h => h[0] !== dataDate)];
+    }
+  } else if (lvv != null) {
+    cur = lvv;
   }
-  hist = hist.filter(v => v != null).slice(0, 4);
-  const cur = lvv != null ? lvv : dayV;
+  hist = hist.slice(0, 5);
   return `${fmt(cur, 0)} 張` + (hist.length
-    ? `<small>（前${hist.length}日 ${hist.map(v => fmt(v, 0)).join("／")}）</small>` : "");
+    ? `<small>（${hist.map(h => `${h[0]} ${fmt(h[1], 0)}`).join("、")}）</small>` : "");
 }
 // 三價並列：每個價位標明所屬日期（pd=前一交易日，如 8/11）
 const triLine = (lv, pd) => lv

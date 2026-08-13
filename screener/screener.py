@@ -313,22 +313,23 @@ def _market_context(trade_ymd=None):
 
 
 def _vol_hist_map(d_today):
-    """由前一份快照滾動出「交易日之前 4 個交易日」的成交量 {code: [近→遠]}。
-    同日重跑不重複位移。"""
+    """由前一份快照滾動出前 5 個交易日成交量 {code: [[ymd, vol], ...]近→遠}。
+    帶日期並以同日期後寫覆蓋（收盤重跑的最終值為準），同日重跑不位移。"""
     path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
     try:
         with open(path, encoding="utf-8") as f:
             prev = json.load(f)
     except Exception:                                        # noqa: BLE001
         return {}
-    same_day = prev.get("trade_date") == d_today
+    prev_d = prev.get("trade_date")
     out = {}
     for code, s in prev.get("stocks", {}).items():
-        vh = s.get("vh") or []
-        if same_day or s.get("v") is None:
-            out[code] = vh[:4]
-        else:
-            out[code] = ([s["v"]] + vh)[:4]
+        # 僅保留帶日期的新格式；舊純數字格式無法補日期，捨棄重建
+        vh = [e for e in (s.get("vh") or [])
+              if isinstance(e, list) and len(e) == 2 and e[1] is not None]
+        if prev_d and prev_d != d_today and s.get("v") is not None:
+            vh = [[prev_d, s["v"]]] + [e for e in vh if e[0] != prev_d]
+        out[code] = vh[:5]
     return out
 
 
