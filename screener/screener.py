@@ -326,7 +326,8 @@ def _vol_hist_map(d_today):
     for code, s in prev.get("stocks", {}).items():
         # 僅保留帶日期的新格式；舊純數字格式無法補日期，捨棄重建
         vh = [e for e in (s.get("vh") or [])
-              if isinstance(e, list) and len(e) == 2 and e[1] is not None]
+              if isinstance(e, list) and len(e) == 2
+              and e[0] and e[1] is not None]
         if prev_d and prev_d != d_today and s.get("v") is not None:
             vh = [[prev_d, s["v"]]] + [e for e in vh if e[0] != prev_d]
         out[code] = vh[:5]
