@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-13T17:51:50+08:00",
+ "updated_at": "2026-08-14T16:48:22+08:00",
  "track_days": 20,
  "records": [
   {
@@ -13,7 +13,8 @@
     "20260810": 42.65,
     "20260811": 41.75,
     "20260812": 41.75,
-    "20260813": 42.15
+    "20260813": 42.15,
+    "20260814": 41.0
    },
    "flows": {
     "20260807": [
@@ -40,6 +41,11 @@
      -13925.8,
      784.1,
      -13595.7
+    ],
+    "20260814": [
+     -16123.7,
+     451.3,
+     -16643.1
     ]
    },
    "fin_at_entry": {
@@ -55,34 +61,35 @@
     "20260810": 40365.4,
     "20260811": 36659.5,
     "20260812": 36659.5,
-    "20260813": 22165.8
+    "20260813": 22165.8,
+    "20260814": 32505.2
    },
-   "days_tracked": 4,
-   "last_date": "20260813",
-   "last_close": 42.15,
-   "ret_pct": -5.07,
-   "ret_d5": null,
+   "days_tracked": 5,
+   "last_date": "20260814",
+   "last_close": 41.0,
+   "ret_pct": -7.66,
+   "ret_d5": -7.66,
    "ret_d10": null,
    "ret_d20": null,
    "max_ret_pct": -3.94,
-   "min_ret_pct": -5.97,
+   "min_ret_pct": -7.66,
    "transfer_lots_now": 0.0,
    "warnings": {
     "foreign": {
      "label": "外資轉賣",
      "cond": "①",
      "first_date": "20260811",
-     "last_date": "20260813",
-     "count": 8,
-     "detail": "今日外資賣超 13,926 張（入選日買超 22,000 張）"
+     "last_date": "20260814",
+     "count": 9,
+     "detail": "今日外資賣超 16,124 張（入選日買超 22,000 張）"
     },
     "inst": {
      "label": "法人連賣",
      "cond": "②",
      "first_date": "20260811",
-     "last_date": "20260813",
-     "count": 8,
-     "detail": "三大法人連 2 日賣超（今日 13,596 張）"
+     "last_date": "20260814",
+     "count": 9,
+     "detail": "三大法人連 2 日賣超（今日 16,643 張）"
     }
    },
    "drop": {
@@ -115,7 +122,8 @@
     "20260810": 4530.0,
     "20260811": 4955.0,
     "20260812": 4955.0,
-    "20260813": 5130.0
+    "20260813": 5130.0,
+    "20260814": 5540.0
    },
    "flows": {
     "20260807": [
@@ -142,6 +150,11 @@
      -31.2,
      151.0,
      77.7
+    ],
+    "20260814": [
+     207.1,
+     6.7,
+     265.8
     ]
    },
    "fin_at_entry": {
@@ -157,16 +170,17 @@
     "20260810": 2048.2,
     "20260811": 3469.6,
     "20260812": 3469.6,
-    "20260813": 2712.1
+    "20260813": 2712.1,
+    "20260814": 2994.6
    },
-   "days_tracked": 4,
-   "last_date": "20260813",
-   "last_close": 5130.0,
-   "ret_pct": 12.87,
-   "ret_d5": null,
+   "days_tracked": 5,
+   "last_date": "20260814",
+   "last_close": 5540.0,
+   "ret_pct": 21.89,
+   "ret_d5": 21.89,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": 12.87,
+   "max_ret_pct": 21.89,
    "min_ret_pct": -0.33,
    "transfer_lots_now": 0.0,
    "warnings": {
@@ -176,7 +190,8 @@
      "first_date": "20260810",
      "last_date": "20260813",
      "count": 5,
-     "detail": "今日外資賣超 31 張（入選日買超 19 張）"
+     "detail": "今日外資賣超 31 張（入選日買超 19 張）",
+     "cleared": "20260814"
     },
     "trust": {
      "label": "投信轉賣",
@@ -197,7 +212,8 @@
    "entry_close": 350.5,
    "prices": {
     "20260812": 350.5,
-    "20260813": 375.5
+    "20260813": 375.5,
+    "20260814": 393.5
    },
    "flows": {
     "20260812": [
@@ -209,6 +225,11 @@
      6831.8,
      90.1,
      7164.6
+    ],
+    "20260814": [
+     5115.6,
+     -4.3,
+     5158.9
     ]
    },
    "fin_at_entry": {
@@ -221,16 +242,17 @@
    "done": false,
    "vols": {
     "20260812": 4100.4,
-    "20260813": 17992.5
+    "20260813": 17992.5,
+    "20260814": 18530.2
    },
-   "days_tracked": 1,
-   "last_date": "20260813",
-   "last_close": 375.5,
-   "ret_pct": 7.13,
+   "days_tracked": 2,
+   "last_date": "20260814",
+   "last_close": 393.5,
+   "ret_pct": 12.27,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": 7.13,
+   "max_ret_pct": 12.27,
    "min_ret_pct": 7.13,
    "transfer_lots_now": 0.0
   },
@@ -241,13 +263,19 @@
    "entry_date": "20260813",
    "entry_close": 83.8,
    "prices": {
-    "20260813": 83.8
+    "20260813": 83.8,
+    "20260814": 85.4
    },
    "flows": {
     "20260813": [
      149.3,
      148.9,
      277.8
+    ],
+    "20260814": [
+     -394.5,
+     3.3,
+     -408.1
     ]
    },
    "fin_at_entry": {
@@ -259,18 +287,29 @@
    "entry_transfer_lots": 0.0,
    "done": false,
    "vols": {
-    "20260813": 3227.7
+    "20260813": 3227.7,
+    "20260814": 2650.0
    },
-   "days_tracked": 0,
-   "last_date": "20260813",
-   "last_close": 83.8,
-   "ret_pct": 0.0,
+   "days_tracked": 1,
+   "last_date": "20260814",
+   "last_close": 85.4,
+   "ret_pct": 1.91,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": null,
-   "min_ret_pct": null,
-   "transfer_lots_now": 0.0
+   "max_ret_pct": 1.91,
+   "min_ret_pct": 1.91,
+   "transfer_lots_now": 0.0,
+   "warnings": {
+    "foreign": {
+     "label": "外資轉賣",
+     "cond": "①",
+     "first_date": "20260814",
+     "last_date": "20260814",
+     "count": 1,
+     "detail": "今日外資賣超 394 張（入選日買超 149 張）"
+    }
+   }
   },
   {
    "code": "2454",
@@ -279,13 +318,19 @@
    "entry_date": "20260813",
    "entry_close": 4015.0,
    "prices": {
-    "20260813": 4015.0
+    "20260813": 4015.0,
+    "20260814": 4225.0
    },
    "flows": {
     "20260813": [
      3760.3,
      10.1,
      3640.3
+    ],
+    "20260814": [
+     1495.0,
+     -408.3,
+     456.5
     ]
    },
    "fin_at_entry": {
@@ -297,18 +342,29 @@
    "entry_transfer_lots": 0.0,
    "done": false,
    "vols": {
-    "20260813": 6018.2
+    "20260813": 6018.2,
+    "20260814": 12263.9
    },
-   "days_tracked": 0,
-   "last_date": "20260813",
-   "last_close": 4015.0,
-   "ret_pct": 0.0,
+   "days_tracked": 1,
+   "last_date": "20260814",
+   "last_close": 4225.0,
+   "ret_pct": 5.23,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": null,
-   "min_ret_pct": null,
-   "transfer_lots_now": 0.0
+   "max_ret_pct": 5.23,
+   "min_ret_pct": 5.23,
+   "transfer_lots_now": 0.0,
+   "warnings": {
+    "trust": {
+     "label": "投信轉賣",
+     "cond": "①",
+     "first_date": "20260814",
+     "last_date": "20260814",
+     "count": 1,
+     "detail": "今日投信賣超 408 張（入選日買超 10 張）"
+    }
+   }
   },
   {
    "code": "2542",
@@ -317,13 +373,19 @@
    "entry_date": "20260813",
    "entry_close": 44.8,
    "prices": {
-    "20260813": 44.8
+    "20260813": 44.8,
+    "20260814": 46.4
    },
    "flows": {
     "20260813": [
      6156.7,
      1432.0,
      7778.1
+    ],
+    "20260814": [
+     -1661.5,
+     451.0,
+     -1152.6
     ]
    },
    "fin_at_entry": {
@@ -335,17 +397,18 @@
    "entry_transfer_lots": 0.0,
    "done": false,
    "vols": {
-    "20260813": 6356.0
+    "20260813": 6356.0,
+    "20260814": 16897.7
    },
-   "days_tracked": 0,
-   "last_date": "20260813",
-   "last_close": 44.8,
-   "ret_pct": 0.0,
+   "days_tracked": 1,
+   "last_date": "20260814",
+   "last_close": 46.4,
+   "ret_pct": 3.57,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": null,
-   "min_ret_pct": null,
+   "max_ret_pct": 3.57,
+   "min_ret_pct": 3.57,
    "transfer_lots_now": 0.0
   },
   {
@@ -355,13 +418,19 @@
    "entry_date": "20260813",
    "entry_close": 6480.0,
    "prices": {
-    "20260813": 6480.0
+    "20260813": 6480.0,
+    "20260814": 6770.0
    },
    "flows": {
     "20260813": [
      134.8,
      143.0,
      300.4
+    ],
+    "20260814": [
+     -88.4,
+     38.0,
+     -56.1
     ]
    },
    "fin_at_entry": {
@@ -373,17 +442,18 @@
    "entry_transfer_lots": 0.0,
    "done": false,
    "vols": {
-    "20260813": 402.7
+    "20260813": 402.7,
+    "20260814": 1096.7
    },
-   "days_tracked": 0,
-   "last_date": "20260813",
-   "last_close": 6480.0,
-   "ret_pct": 0.0,
+   "days_tracked": 1,
+   "last_date": "20260814",
+   "last_close": 6770.0,
+   "ret_pct": 4.48,
    "ret_d5": null,
    "ret_d10": null,
    "ret_d20": null,
-   "max_ret_pct": null,
-   "min_ret_pct": null,
+   "max_ret_pct": 4.48,
+   "min_ret_pct": 4.48,
    "transfer_lots_now": 0.0
   }
  ],
@@ -413,7 +483,7 @@
     "foreign": {
      "label": "外資轉賣",
      "cond": "①",
-     "warned": 2,
+     "warned": 3,
      "warn_settled": 1,
      "warn_then_drop": 1,
      "hit": 1
@@ -421,7 +491,7 @@
     "trust": {
      "label": "投信轉賣",
      "cond": "①",
-     "warned": 1,
+     "warned": 2,
      "warn_settled": 0,
      "warn_then_drop": 0,
      "hit": 0
@@ -485,5 +555,5 @@
    }
   }
  },
- "trade_date": "20260813"
+ "trade_date": "20260814"
 }
