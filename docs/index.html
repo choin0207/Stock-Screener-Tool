@@ -86,6 +86,12 @@
   .clrow .ratio { font-weight: 700; color: var(--accent); }
   .chip.score { background: var(--accent2); color: var(--accent); font-weight: 700; }
   .chip.night { background: rgba(125, 159, 255, .18); color: #5b7fd9; font-weight: 700; }
+  .tabbar { display: flex; gap: 6px; margin-top: 8px; }
+  .tabbar button { flex: 1; background: var(--accent2); color: var(--accent);
+                   font-weight: 700; padding: 8px 0; border-radius: 10px; font-size: 14px; }
+  .tabbar button.active { background: var(--accent); color: #fff; }
+  .tabpane { display: none; }
+  .tabpane.active { display: block; }
   .badges { font-size: 12.5px; margin: 4px 0 2px; }
   td.badges { text-align: left; }
   .stock .head { display: flex; justify-content: space-between; align-items: baseline; }
@@ -138,6 +144,11 @@
     <span class="sub" id="modeText"></span>
     <a href="#" id="logoutLink" style="display:none">登出</a></h1>
   <div class="sub">五條件每日篩選 ＋ 盤中每5分鐘量能與夜盤監控</div>
+  <div class="tabbar" id="tabbar">
+    <button data-tab="wl">⭐ 自選股</button>
+    <button data-tab="lu">🔴 漲停股</button>
+    <button data-tab="scr">📋 選股</button>
+  </div>
 </header>
 <main>
   <div class="card">
@@ -155,23 +166,15 @@
     <div id="alerts"><div class="empty">目前沒有警示。</div></div>
   </div>
 
-  <div class="card">
+  <div class="tabpane" id="tab-wl">
+<div class="card">
     <h2>🚦 持股風險燈號（崩盤前兆訊號）</h2>
     <div class="msg" id="riskMeta"></div>
     <div id="riskMarket"></div>
     <div id="riskStocks"></div>
   </div>
 
-    <div class="card">
-    <h2 id="luTitle">🔴 漲停股與開盤委買觀察</h2>
-    <div class="msg" id="luMeta">載入中…</div>
-    <div id="luList"></div>
-    <div class="row" style="margin-top:8px">
-      <button id="luMore" class="secondary" style="display:none">顯示更多</button>
-    </div>
-  </div>
-
-  <div class="card">
+<div class="card">
     <h2>⭐ 自選名單</h2>
     <div class="row">
       <input id="wlInput" placeholder="輸入代號，例如 6152" inputmode="numeric"
@@ -183,14 +186,21 @@
     <div id="wlList"><div class="empty">尚未加入自選股。輸入代號後按「加入」，
       名單只存在這台裝置上。</div></div>
   </div>
-
-  <div class="card" id="diagCard" style="display:none">
-    <h2>🔎 個股條件診斷</h2>
-    <div class="msg" id="diagMeta"></div>
-    <div id="diagChecks"></div>
   </div>
 
-  <div class="card">
+  <div class="tabpane" id="tab-lu">
+<div class="card">
+    <h2 id="luTitle">🔴 漲停股與開盤委買觀察</h2>
+    <div class="msg" id="luMeta">載入中…</div>
+    <div id="luList"></div>
+    <div class="row" style="margin-top:8px">
+      <button id="luMore" class="secondary" style="display:none">顯示更多</button>
+    </div>
+  </div>
+  </div>
+
+  <div class="tabpane" id="tab-scr">
+<div class="card">
     <h2>📋 每日篩選結果</h2>
     <div class="msg" id="resultMeta"></div>
     <div id="cards"></div>
@@ -211,7 +221,13 @@
       今日沒有通過法人條件（外資投信大買＋法人買賣超放大）的候選股。</div>
   </div>
 
-  <div class="card">
+<div class="card" id="diagCard" style="display:none">
+    <h2>🔎 個股條件診斷</h2>
+    <div class="msg" id="diagMeta"></div>
+    <div id="diagChecks"></div>
+  </div>
+
+<div class="card">
     <h2>📦 合約負債（在手訂單）篩選</h2>
     <div class="row">
       <select id="clMin">
@@ -230,17 +246,35 @@
     </div>
   </div>
 
-  <div class="card">
+<div class="card">
     <h2>📈 篩選成效追蹤（入選後一個月）</h2>
     <div class="msg" id="perfMeta">載入中…</div>
     <div id="perfList"></div>
   </div>
 
-  <div class="card" id="btCard" style="display:none">
+<div class="card" id="btCard" style="display:none">
     <h2>🧪 一年回測（因子權重與跌前指標）</h2>
     <div class="msg" id="btMeta"></div>
     <div id="btBody"></div>
   </div>
+  </div>
+
+
+  
+
+    
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   <div class="card sub" style="font-size:12px">
     條件：①外資+投信較前日大量買超 ②法人買賣超>前日3倍 ③近30日一般交易轉讓≤100張
@@ -1030,6 +1064,18 @@ $("btnRefresh").onclick = async () => {
   btn.textContent = "↻ 更新";
   btn.disabled = false;
 };
+
+function showTab(t) {
+  document.querySelectorAll(".tabpane").forEach(el =>
+    el.classList.toggle("active", el.id === "tab-" + t));
+  document.querySelectorAll("#tabbar button").forEach(b =>
+    b.classList.toggle("active", b.dataset.tab === t));
+  try { localStorage.setItem("activeTab", t); } catch {}
+}
+document.querySelectorAll("#tabbar button").forEach(b =>
+  b.onclick = () => showTab(b.dataset.tab));
+showTab((() => { try { return localStorage.getItem("activeTab") || "wl"; }
+                 catch { return "wl"; } })());
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => {});
