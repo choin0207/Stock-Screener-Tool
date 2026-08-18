@@ -291,16 +291,27 @@ def _safe_quotes(d_today):
             log.warning("盤中執行：沿用前一份快照收盤資料 %d 檔，"
                         "避免即時值誤存為收盤", len(quotes))
             return quotes
-    fresh, qdate = ds.fetch_daily_quotes()
-    if fresh and qdate and qdate != d_today:
-        log.warning("行情 API 資料日 %s ≠ 交易日 %s（尚未更新），"
-                    "價格沿用前一份快照為參考、待保險重跑補正", qdate, d_today)
-        quotes = _stale_quotes_from_prev()
-        if quotes:
-            return quotes
+    fresh, qd = ds.fetch_daily_quotes()
+    qd = qd or {}
+    bad_tse = bool(qd.get("tse") and qd["tse"] != d_today)
+    bad_otc = bool(qd.get("otc") and qd["otc"] != d_today)
+    if fresh and bad_tse:
+        # openapi 延遲 → 改用盤後正式行情表 MI_INDEX（可指定日期）
+        mi = ds.fetch_twse_close_quotes(d_today)
+        if mi:
+            log.warning("openapi 上市資料日 %s ≠ %s，改用 MI_INDEX 盤後表 %d 檔",
+                        qd.get("tse"), d_today, len(mi))
+            fresh = {c: v for c, v in fresh.items() if v["market"] != "tse"}
+            fresh.update(mi)
+            bad_tse = False
+    if fresh and (bad_tse or bad_otc):
+        log.warning("行情資料日不符（tse=%s otc=%s ≠ %s）且無備援，"
+                    "該市場價格標記 stale 待保險重跑補正",
+                    qd.get("tse"), qd.get("otc"), d_today)
         for v in fresh.values():
-            v["stale"] = True
-        return fresh
+            if (v["market"] == "tse" and bad_tse) or \
+                    (v["market"] == "otc" and bad_otc):
+                v["stale"] = True
     return _quotes_with_fallback(fresh)
 
 
@@ -412,7 +423,7 @@ def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev,
             "vh": (vh_map or {}).get(code, []),
         }
         old = prev_snap.get(code)
-        if not q and old and old.get("n"):
+        if (not q or q.get("stale")) and old and old.get("n"):
             for key in ("n", "m", "c", "ch", "v"):
                 snap[code][key] = old.get(key)
     with open(path, "w", encoding="utf-8") as f:

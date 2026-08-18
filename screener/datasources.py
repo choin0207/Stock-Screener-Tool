@@ -109,7 +109,7 @@ def fetch_daily_quotes():
     volume 單位：張。market: 'tse'=上市, 'otc'=上櫃。
     資料日取自 API 的 Date 欄（收盤後 API 可能延遲更新，呼叫端須驗證）。"""
     out = {}
-    qdate = None
+    qdate = {"tse": None, "otc": None}
 
     def _retry_json(url, tries=3, wait=8):
         for i in range(tries):
@@ -128,8 +128,8 @@ def fetch_daily_quotes():
         code = row.get("Code")
         if not code:
             continue
-        if qdate is None:
-            qdate = _roc_ymd(row.get("Date"))
+        if qdate["tse"] is None:
+            qdate["tse"] = _roc_ymd(row.get("Date"))
         vol = _num(row.get("TradeVolume"))
         out[code] = {
             "name": row.get("Name", ""),
@@ -147,8 +147,8 @@ def fetch_daily_quotes():
         code = row.get("SecuritiesCompanyCode")
         if not code:
             continue
-        if qdate is None:
-            qdate = _roc_ymd(row.get("Date"))
+        if qdate["otc"] is None:
+            qdate["otc"] = _roc_ymd(row.get("Date"))
         vol = _num(row.get("TradingShares"))
         out[code] = {
             "name": row.get("CompanyName", ""),
@@ -158,6 +158,47 @@ def fetch_daily_quotes():
             "market": "otc",
         }
     return out, qdate
+
+
+def fetch_twse_close_quotes(ymd):
+    """上市盤後正式行情（MI_INDEX，可指定日期，收盤後約半小時更新）。
+    openapi 延遲時的備援。回傳 {code: {...market:'tse'}} 或 None。"""
+    data = _get_json("https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX",
+                     params={"date": ymd, "type": "ALLBUT0999",
+                             "response": "json"})
+    if not data or data.get("stat") != "OK":
+        return None
+    tables = data.get("tables") or []
+    if not tables and data.get("fields9"):        # 舊版扁平格式
+        tables = [{"fields": data.get("fields9"), "data": data.get("data9")}]
+    for t in tables:
+        f = t.get("fields") or []
+        if "證券代號" not in f or "收盤價" not in f:
+            continue
+        idx = {k: f.index(k) for k in
+               ("證券代號", "證券名稱", "成交股數", "收盤價")}
+        i_sign = f.index("漲跌(+/-)") if "漲跌(+/-)" in f else None
+        i_diff = f.index("漲跌價差") if "漲跌價差" in f else None
+        out = {}
+        for row in t.get("data") or []:
+            try:
+                code = str(row[idx["證券代號"]]).strip()
+            except Exception:                                # noqa: BLE001
+                continue
+            close = _num(row[idx["收盤價"]])
+            vol = _num(row[idx["成交股數"]])
+            chg = None
+            if i_sign is not None and i_diff is not None:
+                d = _num(row[i_diff])
+                if d is not None:
+                    chg = -d if "-" in str(row[i_sign]) else d
+            out[code] = {"name": str(row[idx["證券名稱"]]).strip(),
+                         "close": close, "change": chg,
+                         "volume_lots": round(vol / 1000, 1) if vol else 0,
+                         "market": "tse"}
+        if out:
+            return out
+    return None
 
 
 def fetch_night_futures():
