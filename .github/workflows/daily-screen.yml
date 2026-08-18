@@ -8,6 +8,8 @@ on:
   schedule:
     - cron: "30 7 * * 1-5"
     - cron: "0 9 * * 1-5"
+    # 19:07 台北保險重跑：收盤行情 API 偶爾延遲到 17 點後才更新（2026-08-18）
+    - cron: "7 11 * * 1-5"
   workflow_dispatch: {}
   push:
     branches: [main]

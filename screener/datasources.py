@@ -94,10 +94,22 @@ def _cache_save(name, obj):
 # 1. 收盤行情（上市全部個股）
 # ---------------------------------------------------------------------------
 
+def _roc_ymd(s):
+    """'1150818' / '115/08/18' → '20260818'；解析失敗回傳 None。"""
+    s = str(s or "").replace("/", "").strip()
+    if len(s) == 7 and s.isdigit():
+        return str(int(s[:3]) + 1911) + s[3:]
+    if len(s) == 8 and s.isdigit():
+        return s
+    return None
+
+
 def fetch_daily_quotes():
-    """回傳 {代號: {name, close, change, volume_lots, market}}。volume 單位：張。
-    market: 'tse'=上市, 'otc'=上櫃。"""
+    """回傳 ({代號: {name, close, change, volume_lots, market}}, 資料日 ymd)。
+    volume 單位：張。market: 'tse'=上市, 'otc'=上櫃。
+    資料日取自 API 的 Date 欄（收盤後 API 可能延遲更新，呼叫端須驗證）。"""
     out = {}
+    qdate = None
 
     def _retry_json(url, tries=3, wait=8):
         for i in range(tries):
@@ -116,6 +128,8 @@ def fetch_daily_quotes():
         code = row.get("Code")
         if not code:
             continue
+        if qdate is None:
+            qdate = _roc_ymd(row.get("Date"))
         vol = _num(row.get("TradeVolume"))
         out[code] = {
             "name": row.get("Name", ""),
@@ -133,6 +147,8 @@ def fetch_daily_quotes():
         code = row.get("SecuritiesCompanyCode")
         if not code:
             continue
+        if qdate is None:
+            qdate = _roc_ymd(row.get("Date"))
         vol = _num(row.get("TradingShares"))
         out[code] = {
             "name": row.get("CompanyName", ""),
@@ -141,7 +157,7 @@ def fetch_daily_quotes():
             "volume_lots": round(vol / 1000, 1) if vol else 0,
             "market": "otc",
         }
-    return out
+    return out, qdate
 
 
 def fetch_night_futures():

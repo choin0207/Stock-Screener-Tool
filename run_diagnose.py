@@ -27,7 +27,7 @@ def main(code):
     def add(label, ok, detail):
         checks.append({"label": label, "ok": ok, "detail": detail})
 
-    quotes = ds.fetch_daily_quotes()
+    quotes, _ = ds.fetch_daily_quotes()
     q = quotes.get(code, {})
     t_today, t_prev, d1, d0 = ds.fetch_t86_latest_two()
     cur, prev = t_today.get(code), t_prev.get(code)

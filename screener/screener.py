@@ -260,28 +260,48 @@ def run_daily_screen():
     return out
 
 
+def _stale_quotes_from_prev(require_trade_date=None):
+    """把前一份快照轉成 stale 標記的行情（僅名稱/參考價，績效不入帳）。
+    require_trade_date 給定時，快照交易日不符則回傳 None。"""
+    path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            prev = json.load(f)
+    except Exception:                                        # noqa: BLE001
+        return None
+    if require_trade_date and prev.get("trade_date") != require_trade_date:
+        return None
+    return {c: {"name": s.get("n", ""), "market": s.get("m", "tse"),
+                "close": s.get("c"), "change": s.get("ch"),
+                "volume_lots": s.get("v"), "stale": True}
+            for c, s in prev.get("stocks", {}).items() if s.get("n")}
+
+
 def _safe_quotes(d_today):
-    """取行情並防污染：台北盤中（平日 08:30–14:35）行情 API 回的是即時值，
-    若此時執行（手動重跑），改沿用前一份快照的收盤資料（標記 stale），
-    避免把盤中即時量/價誤存成 d_today 的收盤（2026-08-13 曾發生）。"""
+    """取行情並雙重防污染：
+    1. 台北盤中（平日 08:30–14:35）執行時 API 回即時值 → 沿用前一份快照
+       （2026-08-13 曾把盤中量誤存成收盤）
+    2. 收盤後 API 延遲更新、資料日 ≠ 交易日 → 不採用，沿用前快照為參考價
+       （2026-08-18 曾把 8/17 收盤誤標成 8/18；19:07 保險重跑會補正）"""
     now = performance._now()
     hm = now.strftime("%H:%M")
     if now.weekday() < 5 and "08:30" <= hm <= "14:35":
-        path = os.path.join(CONFIG["data_dir"], "market_snapshot.json")
-        try:
-            with open(path, encoding="utf-8") as f:
-                prev = json.load(f)
-        except Exception:                                    # noqa: BLE001
-            prev = {}
-        if prev.get("trade_date") == d_today:
-            quotes = {c: {"name": s.get("n", ""), "market": s.get("m", "tse"),
-                          "close": s.get("c"), "change": s.get("ch"),
-                          "volume_lots": s.get("v"), "stale": True}
-                      for c, s in prev.get("stocks", {}).items() if s.get("n")}
+        quotes = _stale_quotes_from_prev(require_trade_date=d_today)
+        if quotes:
             log.warning("盤中執行：沿用前一份快照收盤資料 %d 檔，"
                         "避免即時值誤存為收盤", len(quotes))
             return quotes
-    return _quotes_with_fallback(ds.fetch_daily_quotes())
+    fresh, qdate = ds.fetch_daily_quotes()
+    if fresh and qdate and qdate != d_today:
+        log.warning("行情 API 資料日 %s ≠ 交易日 %s（尚未更新），"
+                    "價格沿用前一份快照為參考、待保險重跑補正", qdate, d_today)
+        quotes = _stale_quotes_from_prev()
+        if quotes:
+            return quotes
+        for v in fresh.values():
+            v["stale"] = True
+        return fresh
+    return _quotes_with_fallback(fresh)
 
 
 def _quotes_with_fallback(quotes):

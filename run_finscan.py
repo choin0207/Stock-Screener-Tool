@@ -34,7 +34,7 @@ def save(fin_all):
 
 
 def main():
-    quotes = ds.fetch_daily_quotes()
+    quotes, _ = ds.fetch_daily_quotes()
     codes = sorted(c for c in quotes if len(c) == 4 and c.isdigit())
     if not codes:
         log.error("無法取得個股清單")
