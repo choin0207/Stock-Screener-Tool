@@ -2,7 +2,8 @@
 """每日選股邏輯：五個條件全部通過才列入名單。
 
   1. 外資與投信與前一日相比大量購入（皆為買超，且合計買超 >= 前日 * inst_surge_ratio）
-  2. 三大法人買賣超 > 前一日買賣超 * net_buy_ratio（預設 3 倍，前日需為買超）
+  2. 三大法人買賣超 > 前一日買賣超「絕對值」* net_buy_ratio（預設 3 倍；
+     前日買超=買超放大、前日賣超=由賣轉買且力道達其 3 倍，皆成立）
   3. 近 N 日「一般交易」內部人持股轉讓合計 <= transfer_max_lots（預設 100 張）
   4. 合約負債 > 實收資本額（股本）× contract_liability_capital_ratio（預設 0.5）
   5. 獲利能力：基本每股盈餘 EPS > profitability_threshold（預設 1.5 元）
@@ -90,9 +91,10 @@ def run_daily_screen():
         cond1 = (cur["foreign_net"] > 0 and cur["trust_net"] > 0 and
                  inst_today > max(inst_prev, 0) * surge_ratio and inst_today > 0)
 
-        # 條件2：三大法人買賣超 > 前日 net_buy_ratio 倍（前日需為買超）
-        cond2 = (prev["total_net"] > 0 and
-                 cur["total_net"] > prev["total_net"] * net_ratio)
+        # 條件2：法人買超 > 前日買賣超絕對值 × net_buy_ratio
+        # （買超放大，或由賣超翻轉為大買超）
+        cond2 = (cur["total_net"] > 0 and
+                 cur["total_net"] > abs(prev["total_net"]) * net_ratio)
 
         if cond1 and cond2:
             candidates.append(code)
@@ -126,8 +128,8 @@ def run_daily_screen():
         inst_prev = prev["foreign_net"] + prev["trust_net"]
         c1 = (cur["foreign_net"] > 0 and cur["trust_net"] > 0 and
               inst_today > 0 and inst_today > max(inst_prev, 0) * surge_ratio)
-        c2 = (prev["total_net"] > 0 and
-              cur["total_net"] > prev["total_net"] * net_ratio)
+        c2 = (cur["total_net"] > 0 and
+              cur["total_net"] > abs(prev["total_net"]) * net_ratio)
 
         lots = ds.transfer_general_lots(code)
         c3 = lots <= CONFIG["transfer_max_lots"]

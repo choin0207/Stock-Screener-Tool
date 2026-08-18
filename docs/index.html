@@ -277,7 +277,7 @@
   
 
   <div class="card sub" style="font-size:12px">
-    條件：①外資+投信較前日大量買超 ②法人買賣超>前日3倍 ③近30日一般交易轉讓≤100張
+    條件：①外資+投信較前日大量買超 ②法人買超>前日買賣超絕對值3倍(含由賣轉買) ③近30日一般交易轉讓≤100張
     ④合約負債>資本額50% ⑤EPS>1.5 ｜ 僅供研究參考，不構成投資建議。
     <a id="reportLink" href="report.html" style="display:none">📊 選股成效報告</a>
   </div>
@@ -581,7 +581,7 @@ async function loadWatchlist() {
     const cap  = fin.capital_k != null ? fin.capital_k / 100000 : null;
     const instT = s.f + s.t, instP = s.f0 + s.t0;
     const c1 = s.f > 0 && s.t > 0 && instT > Math.max(instP, 0) * TH.surge && instT > 0;
-    const c2 = s.x0 > 0 && s.x > s.x0 * TH.net;
+    const c2 = s.x > 0 && s.x > Math.abs(s.x0 || 0) * TH.net;
     const c4 = fin.contract_liab_k != null && fin.capital_k != null &&
                fin.contract_liab_k > fin.capital_k * TH.liab;
     const c5 = fin.eps != null && fin.eps > TH.eps;
@@ -696,7 +696,7 @@ async function loadLimitUp() {
     const retail = (s.x || 0) <= 0 && s.dt != null && s.dt >= DT_HOT;
     const instT = s.f + s.t, instP = s.f0 + s.t0;
     const c1 = s.f > 0 && s.t > 0 && instT > Math.max(instP, 0) * TH.surge && instT > 0;
-    const c2 = s.x0 > 0 && s.x > s.x0 * TH.net;
+    const c2 = s.x > 0 && s.x > Math.abs(s.x0 || 0) * TH.net;
     const c4 = fin.contract_liab_k != null && fin.capital_k != null &&
                fin.contract_liab_k > fin.capital_k * TH.liab;
     const c5 = fin.eps != null && fin.eps > TH.eps;

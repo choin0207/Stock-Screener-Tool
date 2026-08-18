@@ -163,14 +163,15 @@ def replay_signals(days, t86_hist):
             inst_p = p["foreign_net"] + p["trust_net"]
             c1 = (cur["foreign_net"] > 0 and cur["trust_net"] > 0 and
                   inst_t > max(inst_p, 0) * surge and inst_t > 0)
-            c2 = (p["total_net"] > 0 and
-                  cur["total_net"] > p["total_net"] * net)
+            c2 = (cur["total_net"] > 0 and
+                  cur["total_net"] > abs(p["total_net"]) * net)
             if not (c1 and c2):
                 continue
             signals.append({
                 "code": code, "date": d_today,
                 "inst_ratio": inst_t / inst_p if inst_p > 0 else 10.0,
-                "net_ratio": cur["total_net"] / p["total_net"],
+                "net_ratio": (cur["total_net"] / abs(p["total_net"])
+                              if p["total_net"] else 10.0),
                 "inst_lots": round(inst_t / 1000, 1),
                 "entry_foreign_lots": round(cur["foreign_net"] / 1000, 1),
                 "entry_trust_lots": round(cur["trust_net"] / 1000, 1),

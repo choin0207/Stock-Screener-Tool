@@ -49,9 +49,9 @@ def main(code):
 
         nb = CONFIG["net_buy_ratio"]
         prev_total = prev["total_net"] if prev else 0
-        c2 = bool(prev and prev_total > 0 and
-                  cur["total_net"] > prev_total * nb)
-        add(f"② 三大法人買賣超>前日{nb:g}倍（前日需為買超）", c2,
+        c2 = bool(prev and cur["total_net"] > 0 and
+                  cur["total_net"] > abs(prev_total) * nb)
+        add(f"② 法人買超>前日買賣超絕對值×{nb:g}（放大或由賣轉買）", c2,
             f"今日 {lots(cur['total_net'])} vs 前日 {lots(prev_total)}")
 
     t_lots = ds.transfer_general_lots(code)
