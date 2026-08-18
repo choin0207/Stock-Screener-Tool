@@ -69,6 +69,7 @@ def run_daily_screen():
     quotes = _safe_quotes(d_today)
     ds.fetch_tdcc_dispersion()          # 更新大戶資料快取與週歷史
     vh_map = _vol_hist_map(d_today)     # 近4日量能歷史（由前一份快照滾動）
+    dt_map = _daytrade_ratio_map(quotes, d_today)   # 當沖率（散戶行情判定用）
 
     # 市場順風指標：夜盤台指（或開盤跳空代理）＋外資全市場買賣超金額
     market_ctx = _market_context(d_today)
@@ -240,7 +241,8 @@ def run_daily_screen():
         "message": msg,
     }
     save_results(out)
-    _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev, vh_map)
+    _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev,
+                          vh_map, dt_map)
     try:                      # 內部人轉讓彙總（供前端自選/漲停卡算條件③）
         with open(os.path.join(CONFIG["data_dir"], "transfers.json"),
                   "w", encoding="utf-8") as f:
@@ -389,8 +391,27 @@ def _vol_hist_map(d_today):
     return out
 
 
+def _daytrade_ratio_map(quotes, d_today):
+    """當沖率 {code: %} = 當沖成交股數 / 總成交股數。行情 stale 時不計算。"""
+    try:
+        shares = ds.fetch_daytrade_shares(d_today)
+    except Exception:                                        # noqa: BLE001
+        log.exception("當沖統計取得失敗")
+        return {}
+    out = {}
+    for code, sh in shares.items():
+        q = quotes.get(code) or {}
+        v = q.get("volume_lots")
+        if q.get("stale") or not v:
+            continue
+        out[code] = round(min(sh / 1000 / v * 100, 100.0), 1)
+    if out:
+        log.info("當沖率計算 %d 檔", len(out))
+    return out
+
+
 def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev,
-                          vh_map=None):
+                          vh_map=None, dt_map=None):
     """全市場每日快照（供網頁「自選名單」查任意個股）。欄位縮寫壓縮檔案大小：
     n=名稱 m=市場 c=收盤 ch=漲跌 v=量(張) f/f0=外資買賣超今/昨(張)
     t/t0=投信 x/x0=法人合計。"""
@@ -421,6 +442,7 @@ def _save_market_snapshot(quotes, t86_today, t86_prev, d_today, d_prev,
             "t": k(cur, "trust_net"), "t0": k(prev, "trust_net"),
             "x": k(cur, "total_net"), "x0": k(prev, "total_net"),
             "vh": (vh_map or {}).get(code, []),
+            "dt": (dt_map or {}).get(code),
         }
         old = prev_snap.get(code)
         if (not q or q.get("stale")) and old and old.get("n"):

@@ -112,6 +112,13 @@ def check_limitup_open_strength():
     if not lus:
         return 0
     codes = [c for c, _ in lus]
+    # 昨日快照：法人參與度與當沖率（散戶行情判定）
+    try:
+        with open(_data_path("market_snapshot.json"), encoding="utf-8") as f:
+            snap_stocks = json.load(f).get("stocks", {})
+    except Exception:                                        # noqa: BLE001
+        snap_stocks = {}
+    hot = CONFIG.get("daytrade_hot_pct", 40.0)
     q = ds.fetch_intraday_quotes_full(codes, dict(lus))
     rows = []
     for c in codes:
@@ -119,12 +126,19 @@ def check_limitup_open_strength():
         if not v or v.get("price") is None:
             continue
         prev = v.get("prev_close")
+        ss = snap_stocks.get(c) or {}
+        inst_pct = (round((ss.get("x") or 0) / ss["v"] * 100, 1)
+                    if ss.get("v") else None)
+        dt_pct = ss.get("dt")
+        retail = bool((ss.get("x") or 0) <= 0 and dt_pct is not None
+                      and dt_pct >= hot)
         rows.append({
             "code": c, "name": v.get("name", ""),
             "bid_lots": v.get("bid_lots"), "ask_lots": v.get("ask_lots"),
             "price": v.get("price"), "vol": v.get("volume_lots"),
             "chg_pct": (round((v["price"] - prev) / prev * 100, 2)
                         if prev else None),
+            "inst_pct": inst_pct, "dt_pct": dt_pct, "retail": retail,
         })
     rows.sort(key=lambda r: -(r["bid_lots"] or 0))
 
@@ -141,21 +155,40 @@ def check_limitup_open_strength():
     min_lots = CONFIG["limitup_bid_min_lots"]
     if hm >= "09:28" and not alerted:
         top = [r for r in rows if (r["bid_lots"] or 0) >= min_lots][:5]
+        retail_rows = [r for r in rows if r.get("retail")]
+        alerts_new = []
         if top:
             msg = "、".join(
-                f"{r['code']} {r['name']}（委買 {r['bid_lots']:,.0f} 張"
-                f"，現價 {r['price']}"
+                ("⚠️" if r.get("retail") else "")
+                + f"{r['code']} {r['name']}（委買 {r['bid_lots']:,.0f} 張"
+                + f"，現價 {r['price']}"
                 + (f" {r['chg_pct']:+.1f}%" if r['chg_pct'] is not None else "")
                 + "）" for r in top)
-            alerts = load_alerts()
-            alerts.append({
+            alerts_new.append({
                 "time": now.isoformat(timespec="seconds"),
                 "code": top[0]["code"], "name": "漲停續強觀察",
                 "message": (f"🔥 前日漲停＋開盤30分委買≥{min_lots:,}張 "
-                            f"前 {len(top)} 名：{msg}"),
+                            f"前 {len(top)} 名：{msg}"
+                            + ("（⚠️=散戶行情）" if any(
+                                r.get("retail") for r in top) else "")),
             })
+        if retail_rows:
+            names = "、".join(f"{r['code']} {r['name']}"
+                              f"（當沖 {r['dt_pct']:.0f}%）"
+                              for r in retail_rows[:8])
+            alerts_new.append({
+                "time": now.isoformat(timespec="seconds"),
+                "code": retail_rows[0]["code"], "name": "散戶行情警告",
+                "message": (f"⚠️ 短線散戶行情，慎防隔日回落："
+                            f"{names}——昨日漲停但法人未買超"
+                            f"且當沖率≥{hot:.0f}%。"),
+            })
+        if alerts_new:
+            alerts = load_alerts()
+            alerts.extend(alerts_new)
             _save_alerts(alerts)
-            log.info("漲停續強警示：%d 檔", len(top))
+            log.info("漲停觀察警示 %d 則（散戶行情 %d 檔）",
+                     len(alerts_new), len(retail_rows))
         alerted = True
 
     with open(path, "w", encoding="utf-8") as f:

@@ -201,6 +201,70 @@ def fetch_twse_close_quotes(ymd):
     return None
 
 
+def fetch_daytrade_shares(ymd):
+    """個股當日沖銷成交股數 {code: shares}。上市 TWTB4U（可指定日期）；
+    上櫃端點盡力嘗試、失敗不影響上市。用於算當沖率=當沖股數/總成交股數。"""
+    out = {}
+    data = _get_json("https://www.twse.com.tw/rwd/zh/afterTrading/TWTB4U",
+                     params={"date": ymd, "selectType": "All",
+                             "response": "json"})
+    if data and data.get("stat") == "OK":
+        tables = data.get("tables") or [
+            {"fields": data.get("fields"), "data": data.get("data")}]
+        for t in tables:
+            f = t.get("fields") or []
+            i_code = next((i for i, x in enumerate(f) if "證券代號" in x), None)
+            i_sh = next((i for i, x in enumerate(f)
+                         if "沖銷" in x and "成交股數" in x
+                         and "買進" not in x and "賣出" not in x), None)
+            if i_code is None or i_sh is None:
+                continue
+            for row in t.get("data") or []:
+                try:
+                    code = str(row[i_code]).strip()
+                    v = _num(row[i_sh])
+                except Exception:                            # noqa: BLE001
+                    continue
+                if code and v:
+                    out[code] = v
+            if out:
+                break
+    else:
+        log.warning("上市當沖統計（TWTB4U）取得失敗")
+
+    # 上櫃（端點格式历经改版，盡力嘗試）
+    roc = f"{int(ymd[:4]) - 1911}/{ymd[4:6]}/{ymd[6:]}"
+    for url, params in (
+        ("https://www.tpex.org.tw/www/zh-tw/intraday/dayTrading",
+         {"date": roc, "type": "Daily", "response": "json"}),
+        ("https://www.tpex.org.tw/web/stock/trading/intraday_trading/"
+         "intraday_trading_list_print.php",
+         {"l": "zh-tw", "d": roc, "o": "json"}),
+    ):
+        try:
+            data = _get_json(url, params=params)
+            rows = []
+            if isinstance(data, dict):
+                rows = (data.get("aaData") or data.get("tables", [{}])[0]
+                        .get("data") or [])
+            got = 0
+            for row in rows:
+                # 慣例：0=代號 1=名稱 2=當沖成交股數
+                try:
+                    code = str(row[0]).strip()
+                    v = _num(row[2])
+                except Exception:                            # noqa: BLE001
+                    continue
+                if code and code[0].isdigit() and v:
+                    out[code] = v
+                    got += 1
+            if got:
+                break
+        except Exception:                                    # noqa: BLE001
+            continue
+    return out
+
+
 def fetch_night_futures():
     """前一夜盤台指期（TX 近月）漲跌 %。TAIFEX OpenAPI，失敗回傳 None。"""
     for url in ("https://openapi.taifex.com.tw/v1/AfterHoursDailyMarketReportFut",

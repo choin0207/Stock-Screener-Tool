@@ -663,7 +663,7 @@ async function loadLimitUp() {
   const COND = "條件＝前日收盤鎖漲停＋開盤30分內委買掛單 ≥1,000 張，達標取前 5 名，約 09:30 發警示";
   if (luwToday) {
     const min = luwToday.min_bid_lots;
-    const fmtRow = r => `${r.code} ${r.name}（委買 ${fmt(r.bid_lots, 0)} 張、
+    const fmtRow = r => `${r.retail ? "⚠️" : ""}${r.code} ${r.name}（委買 ${fmt(r.bid_lots, 0)} 張、
           ${fmt(r.price, 2)} ${r.chg_pct != null ? (r.chg_pct > 0 ? "+" : "") + fmt(r.chg_pct, 1) + "%" : ""}）`;
     const top = (luwToday.rows || [])
       .filter(r => (r.bid_lots || 0) >= min).slice(0, 5);
@@ -689,8 +689,11 @@ async function loadLimitUp() {
       `<div class="msg">🔥 開盤委買觀察：今日資料尚未產生
        （交易日 09:00 起每 5 分鐘更新）。${COND}。</div>`);
   }
+  const DT_HOT = 40;   // 與 config.py daytrade_hot_pct 對應
   for (const [code, s] of rows.slice(0, luShown)) {
     const fin = (fins || {})[code] || {};
+    const instPct = s.v ? +((s.x || 0) / s.v * 100).toFixed(1) : null;
+    const retail = (s.x || 0) <= 0 && s.dt != null && s.dt >= DT_HOT;
     const instT = s.f + s.t, instP = s.f0 + s.t0;
     const c1 = s.f > 0 && s.t > 0 && instT > Math.max(instP, 0) * TH.surge && instT > 0;
     const c2 = s.x0 > 0 && s.x > s.x0 * TH.net;
@@ -709,9 +712,15 @@ async function loadLimitUp() {
           <small>▲${fmt(s.ch, 2)}（+${fmt(s.ch / (s.c - s.ch) * 100, 1)}%）${dT2}收盤</small></span></div>
       <div class="badges"><span class="chip">📅${dT2}資料</span>
         ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
-        ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
+        ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}
+        ${retail ? '<span class="chip bad">⚠️散戶行情</span>' : ""}</div>
+      ${retail ? `<div class="riskbar red" style="font-size:13px">⚠️ 短線散戶行情，
+        慎防隔日回落（漲停日法人未買超、當沖率 ${fmt(s.dt, 0)}%）</div>` : ""}
       <div class="grid">
         ${triLine(live(code), dT2, dP2)}
+        <div><span>法人參與/當沖率</span>
+          <b class="${cls(instPct)}">${instPct != null ? instPct + "%" : "—"}</b>
+          ／${s.dt != null ? fmt(s.dt, 0) + "%" : "—"}</div>
         ${luwMap[code] ? `<div><span>今晨委買/委賣</span>
           <b>${fmt(luwMap[code].bid_lots, 0)}</b> / ${fmt(luwMap[code].ask_lots, 0)} 張</div>` : ""}
         <div><span>成交量</span> ${volText(code, s.v, s.vh, dT2)}</div>

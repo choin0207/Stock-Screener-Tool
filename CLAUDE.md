@@ -81,6 +81,12 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   跌破入選價5%（perf_drop_alert_pct）記「下跌事件」並歸因哪些警訊先出現、
   提前幾個交易日，累積各因素命中率統計（summary.drop_stats）顯示在前端
   「下跌前兆統計」。法人流向存 rec.flows（來自當日已抓的 T86，零額外 API）
+- 散戶行情警告（2026-08-18）：快照存當沖率 dt（TWTB4U/1000÷成交張，
+  stale 不算）；漲停卡顯示「法人參與度(x/v)/當沖率」，法人未買超且
+  當沖≥daytrade_hot_pct(40%) → ⚠️短線散戶行情紅色警告＋09:30 警示標記與獨立警告則
+- 行情雙重防護（2026-08-18）：fetch_daily_quotes 回傳 per-market 資料日，
+  日期≠交易日→上市改抓 MI_INDEX 盤後表（可指定日期）備援，備援失敗標 stale；
+  daily-screen 增 19:07 台北第三輪保險重跑；generated_at 改台北時區
 - 技術跌前訊號（2026-08-09 二補）：爆量下跌（量>5日均2倍且跌>2%）、
   跌破5日線（向下穿越才觸發）、連3黑，資料只用 record 內 prices/vols，零額外請求；
   FACTORS cond="技" 顯示為「技術訊號」
