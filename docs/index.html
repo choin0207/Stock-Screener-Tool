@@ -920,6 +920,10 @@ async function loadRisk() {
   const entries = Object.entries(d.stocks || {});
   stk.innerHTML = entries.length ? "" :
     '<div class="empty">個股燈號於交易時段（09:00–13:30）每 5 分鐘產生。</div>';
+  if (entries.length && d.stocks_asof) {
+    stk.insertAdjacentHTML("beforeend",
+      `<div class="msg">以下為今日收盤前最後評估（${String(d.stocks_asof).slice(11, 16)}）</div>`);
+  }
   for (const [code, s] of entries) {
     stk.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${LT_ICON[s.light]} ${code} ${s.name || ""}</b>

@@ -214,6 +214,21 @@ def assess(force=False, market_only=None, indicators=None, quotes=None):
     os.makedirs(CONFIG["data_dir"], exist_ok=True)
     path = os.path.join(CONFIG["data_dir"], "watch_alerts.json")
 
+    # 盤後只評估市場訊號時，保留當日盤中最後的個股燈號（標註評估時間），
+    # 否則收盤後個股燈號被清空、晚上開網頁什麼都看不到
+    if market_only and not stocks:
+        try:
+            with open(path, encoding="utf-8") as f:
+                prev_out = json.load(f)
+            if prev_out.get("stocks") and \
+                    str(prev_out.get("generated_at", ""))[:10] == \
+                    now.strftime("%Y-%m-%d"):
+                out["stocks"] = prev_out["stocks"]
+                out["stocks_asof"] = prev_out.get("stocks_asof") \
+                    or prev_out.get("generated_at")
+        except Exception:                                    # noqa: BLE001
+            pass
+
     # 紅燈「轉紅」時追加到 alerts.json（避免每 10 分鐘重複轟炸）
     prev = {}
     try:
