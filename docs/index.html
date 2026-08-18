@@ -357,10 +357,14 @@ function volText(code, dayV, vh, dataDate) {
   return `${fmt(cur, 0)} 張` + (hist.length
     ? `<small>（${hist.map(h => `${h[0]} ${fmt(h[1], 0)}`).join("、")}）</small>` : "");
 }
-// 三價並列：每個價位標明所屬日期（pd=前一交易日，如 8/11）
-const triLine = (lv, pd) => lv
-  ? `<div><span>${pd ? pd + "收" : "昨收"}/${intraDate}開/${intraLive ? "現價" : intraDate + "收"}</span>
-     ${fmt(lv.pc, 2)} / ${fmt(lv.o, 2)} / <b>${fmt(lv.p, 2)}</b></div>` : "";
+// 三價並列：dd=卡片資料日、pdd=其前一交易日。盤中日期比資料日新時，
+// 昨收=資料日收盤；同一天時昨收=前一交易日收盤
+const triLine = (lv, dd, pdd) => {
+  if (!lv) return "";
+  const prevLbl = (intraDate && dd && intraDate !== dd) ? dd : (pdd || "昨");
+  return `<div><span>${prevLbl}收/${intraDate}開/${intraLive ? "現價" : intraDate + "收"}</span>
+     ${fmt(lv.pc, 2)} / ${fmt(lv.o, 2)} / <b>${fmt(lv.p, 2)}</b></div>`;
+};
 
 // 近一年「相似條件」訊號的一週表現（來自 backtest.json week_stats）。
 // 歷史樣本的前提是通過①②，因此僅對法人動能組（①②皆過）顯示；
@@ -500,7 +504,7 @@ async function loadResults() {
       <div class="badges"><span class="chip">📅${dT}資料</span>
         ${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
       <div class="grid">
-        ${triLine(lv, dT)}
+        ${triLine(lv, dT, dP)}
         <div><span>成交量</span> ${volText(s.code, s.volume_lots, s.vol_hist, dT)}</div>
         <div><span>外資買超(${dT})</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（${dP}：${fmt(s.foreign_net_prev, 0)}）</div>
         <div><span>投信買超(${dT})</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（${dP}：${fmt(s.trust_net_prev, 0)}）</div>
@@ -596,7 +600,7 @@ async function loadWatchlist() {
         ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
-        ${triLine(live(code), dT2)}
+        ${triLine(live(code), dT2, dP2)}
         <div><span>成交量</span> ${volText(code, s.v, s.vh, dT2)}</div>
         <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
         <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>
@@ -707,7 +711,7 @@ async function loadLimitUp() {
         ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
         ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
       <div class="grid">
-        ${triLine(live(code), dT2)}
+        ${triLine(live(code), dT2, dP2)}
         ${luwMap[code] ? `<div><span>今晨委買/委賣</span>
           <b>${fmt(luwMap[code].bid_lots, 0)}</b> / ${fmt(luwMap[code].ask_lots, 0)} 張</div>` : ""}
         <div><span>成交量</span> ${volText(code, s.v, s.vh, dT2)}</div>

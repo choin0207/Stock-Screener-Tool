@@ -52,7 +52,7 @@ def run_daily_screen():
     if not t86_today or not t86_prev:
         msg = "無法取得三大法人資料（T86），請確認網路或稍後再試"
         log.error(msg)
-        out = {"generated_at": datetime.now().isoformat(timespec="seconds"),
+        out = {"generated_at": performance._now().isoformat(timespec="seconds"),
                "trade_date": None, "results": [], "message": msg}
         save_results(out)
         return out
@@ -63,7 +63,7 @@ def run_daily_screen():
         msg = (f"T86 資料異常：本次僅取得 {d_today}（舊於現有結果 "
                f"{existing['trade_date']}），不覆寫，請稍後重跑")
         log.error(msg)
-        return {"generated_at": datetime.now().isoformat(timespec="seconds"),
+        return {"generated_at": performance._now().isoformat(timespec="seconds"),
                 "trade_date": None, "results": [], "message": msg}
 
     quotes = _safe_quotes(d_today)
@@ -232,7 +232,7 @@ def run_daily_screen():
     if not bulk_fin:
         msg += "（全市場財報資料庫尚未建立，請先執行 Financial Scan）"
     out = {
-        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "generated_at": performance._now().isoformat(timespec="seconds"),
         "trade_date": d_today,
         "prev_trade_date": d_prev,
         "market": market_ctx,
