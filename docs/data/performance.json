@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-18T20:37:25+08:00",
+ "updated_at": "2026-08-18T20:45:59+08:00",
  "track_days": 20,
  "records": [
   {
@@ -112,7 +112,7 @@
      "cond": "①",
      "first_date": "20260817",
      "last_date": "20260818",
-     "count": 6,
+     "count": 7,
      "detail": "今日投信賣超 982 張（入選日買超 127 張）"
     }
    },
@@ -313,7 +313,7 @@
      "cond": "①",
      "first_date": "20260817",
      "last_date": "20260818",
-     "count": 6,
+     "count": 7,
      "detail": "今日外資賣超 2,234 張（入選日買超 4,224 張）"
     },
     "inst": {
@@ -321,7 +321,7 @@
      "cond": "②",
      "first_date": "20260818",
      "last_date": "20260818",
-     "count": 4,
+     "count": 5,
      "detail": "三大法人連 2 日賣超（今日 2,078 張）"
     }
    }
@@ -408,7 +408,7 @@
      "cond": "①",
      "first_date": "20260818",
      "last_date": "20260818",
-     "count": 4,
+     "count": 5,
      "detail": "今日投信賣超 9 張（入選日買超 149 張）"
     }
    }
@@ -477,7 +477,7 @@
      "cond": "①",
      "first_date": "20260814",
      "last_date": "20260818",
-     "count": 9,
+     "count": 10,
      "detail": "今日投信賣超 1,154 張（入選日買超 10 張）"
     },
     "inst": {
@@ -485,7 +485,7 @@
      "cond": "②",
      "first_date": "20260818",
      "last_date": "20260818",
-     "count": 4,
+     "count": 5,
      "detail": "三大法人連 2 日賣超（今日 1,575 張）"
     }
    }
@@ -652,11 +652,49 @@
    "max_ret_pct": 2.23,
    "min_ret_pct": 2.23,
    "transfer_lots_now": 0.0
+  },
+  {
+   "code": "5434",
+   "name": "崇越",
+   "tier": 0,
+   "entry_date": "20260818",
+   "entry_close": 553.0,
+   "prices": {
+    "20260818": 553.0
+   },
+   "flows": {
+    "20260818": [
+     196.3,
+     459.5,
+     654.4
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 3267164.0,
+    "capital_k": 1940080.0,
+    "eps": 7.92,
+    "period": "2026Q2"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260818": 2802.6
+   },
+   "days_tracked": 0,
+   "last_date": "20260818",
+   "last_close": 553.0,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
   }
  ],
  "summary": {
-  "total": 8,
-  "tracking": 8,
+  "total": 9,
+  "tracking": 9,
   "done": {
    "n": 0,
    "win_rate": null,
