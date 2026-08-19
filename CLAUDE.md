@@ -55,7 +55,14 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v7）
+  看到舊版介面，SHELL 版本 shell-v8）
+- 四分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋選股（localStorage activeTab）
+- 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
+  08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
+  觀察池＝昨日法人買超前150＋昨日漲停股＋篩選結果＋watchlist（4碼非00），
+  寫 `docs/data/morning_movers.json`（含逐輪價格軌跡 hist、rising 旗標，
+  同日 hist 延續、跨日重起算）；前端 loadMorning() 過濾 gap_pct>0 且 p>o，
+  附①-⑤ chips 與法人明細，非今日資料顯示留存標註
 - 自選名單：localStorage（key `mywatch`），每台裝置獨立；資料來自
   `data/market_snapshot.json`（每日篩選產出，欄位縮寫見 `_save_market_snapshot`）
   + `data/financials.json`；前端 `TH` 常數需與 config.py 門檻同步

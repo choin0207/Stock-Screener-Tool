@@ -32,3 +32,6 @@ if __name__ == "__main__":
 
     k = monitor.check_limitup_open_strength()
     print(f"漲停續強觀察 {k} 檔" if k else "漲停續強觀察：非觀察時段未執行")
+
+    m = monitor.check_morning_movers()
+    print(f"開盤強勢觀察 {m} 檔" if m else "開盤強勢觀察：非觀察時段未執行")

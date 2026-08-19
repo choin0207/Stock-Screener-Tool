@@ -147,6 +147,7 @@
   <div class="tabbar" id="tabbar">
     <button data-tab="wl">⭐ 自選股</button>
     <button data-tab="lu">🔴 漲停股</button>
+    <button data-tab="mm">🌅 開盤強勢</button>
     <button data-tab="scr">📋 選股</button>
   </div>
 </header>
@@ -195,6 +196,17 @@
     <div id="luList"></div>
     <div class="row" style="margin-top:8px">
       <button id="luMore" class="secondary" style="display:none">顯示更多</button>
+    </div>
+  </div>
+  </div>
+
+  <div class="tabpane" id="tab-mm">
+<div class="card">
+    <h2 id="mmTitle">🌅 開盤強勢（09:00–09:30 開高走高）</h2>
+    <div class="msg" id="mmMeta">載入中…</div>
+    <div id="mmList"></div>
+    <div class="row" style="margin-top:8px">
+      <button id="mmMore" class="secondary" style="display:none">顯示更多</button>
     </div>
   </div>
   </div>
@@ -735,6 +747,86 @@ async function loadLimitUp() {
 }
 $("luMore").onclick = () => { luShown += 50; loadLimitUp(); };
 
+// ---- 🌅 開盤強勢：09:00–09:30 開高（開盤>昨收）走高（現價>開盤）觀察 ----
+// 資料來自 morning_movers.json（盤中監控每 5 分鐘寫入，含逐輪價格軌跡）
+let mmShown = 30;
+async function loadMorning() {
+  const [mm, snap, fins, trf] = await Promise.all([
+    getJSON("data/morning_movers.json"), getJSON("data/market_snapshot.json"),
+    getJSON("data/financials.json"), getTransfers()]);
+  const meta = $("mmMeta"), box = $("mmList");
+  const COND = "條件＝開盤價＞昨日收盤（開高）且 現價＞開盤價（走高）；" +
+    "觀察池＝昨日法人買超前150＋昨日漲停股＋篩選結果＋監控清單，" +
+    "交易日 09:00–09:40 每 5 分鐘更新";
+  if (!mm || !mm.rows) {
+    meta.textContent = `目前未達條件：今日資料尚未產生。（${COND}）`;
+    box.innerHTML = "";
+    $("mmMore").style.display = "none";
+    return;
+  }
+  const todayYmd = new Date().toLocaleDateString("sv").replace(/-/g, "");
+  const dLbl = mdd(mm.date), tLbl = (mm.time || "").slice(11, 16);
+  const isToday = mm.date === todayYmd;
+  const all = (mm.rows || []).filter(r => r.gap_pct > 0 && r.p > r.o);
+  $("mmTitle").textContent = `🌅 開盤強勢（${dLbl} 09:00–09:30 開高走高）`;
+  meta.textContent = (isToday ? "" : "⚠️ 非今日資料，顯示最近一次觀察留存：") +
+    `${dLbl} ${tLbl} 更新｜觀察 ${fmt(mm.universe, 0)} 檔中，開高走高 ${all.length} 檔`;
+  if (!all.length) {
+    box.innerHTML = `<div class="empty">目前未達條件：${dLbl} ${tLbl} 觀察的
+      ${fmt(mm.universe, 0)} 檔中，沒有「開盤價＞昨收 且 現價＞開盤價」的股票。（${COND}）</div>`;
+    $("mmMore").style.display = "none";
+    return;
+  }
+  const stocks = (snap && snap.stocks) || {};
+  const dT2 = snap ? mdd(snap.trade_date) : "";
+  const dP2 = snap ? mdd(snap.prev_trade_date) : "";
+  box.innerHTML = `<div class="msg">依「較昨收漲幅」排序；${COND}。</div>`;
+  const chip = (ok, t, unknown) => unknown
+    ? `<span class="chip">${t}—</span>`
+    : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
+  for (const r of all.slice(0, mmShown)) {
+    const s = stocks[r.code];
+    const fin = (fins || {})[r.code] || {};
+    const flowUnknown = !s || s.f == null;
+    const instT = s ? s.f + s.t : 0, instP = s ? s.f0 + s.t0 : 0;
+    const c1 = !flowUnknown && s.f > 0 && s.t > 0 &&
+               instT > Math.max(instP, 0) * TH.surge && instT > 0;
+    const c2 = !flowUnknown && s.x > 0 && s.x > Math.abs(s.x0 || 0) * TH.net;
+    const c4 = fin.contract_liab_k != null && fin.capital_k != null &&
+               fin.contract_liab_k > fin.capital_k * TH.liab;
+    const c5 = fin.eps != null && fin.eps > TH.eps;
+    const finUnknown = fin.contract_liab_k == null && fin.capital_k == null;
+    const liab = fin.contract_liab_k != null ? fin.contract_liab_k / 100000 : null;
+    const cap = fin.capital_k != null ? fin.capital_k / 100000 : null;
+    const trail = (r.hist || []).map(v => fmt(v, 2)).join(" → ");
+    box.insertAdjacentHTML("beforeend", `<div class="stock">
+      <div class="head"><b>${r.code} ${r.name || ""}${s && s.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
+        <span class="price ${cls(r.chg_pct)}">${fmt(r.p, 2)}
+          <small>較昨收 ${r.chg_pct > 0 ? "+" : ""}${fmt(r.chg_pct, 1)}%（${tLbl}）</small></span></div>
+      <div class="badges">
+        <span class="chip ${r.rising ? "ok" : "bad"}">${r.rising ? "↗ 逐輪走高" : "↘ 最新一輪回落"}</span>
+        <span class="chip ok">開高 +${fmt(r.gap_pct, 1)}%</span>
+        <span class="chip ok">開盤後 +${fmt(r.up_pct, 1)}%</span></div>
+      <div class="badges">${dT2 ? `<span class="chip">📅${dT2}資料</span>` : ""}
+        ${chip(c1, "①外投買超", flowUnknown)} ${chip(c2, "②法人放大", flowUnknown)}
+        ${transferChip(r.code, trf, chip)}
+        ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
+      <div class="grid">
+        <div><span>昨收/今開/現價</span> ${fmt(r.pc, 2)} / ${fmt(r.o, 2)} / <b>${fmt(r.p, 2)}</b></div>
+        ${trail ? `<div><span>逐輪價格（每5分）</span> ${trail}</div>` : ""}
+        <div><span>今日目前量</span> ${r.v != null ? fmt(r.v, 0) + " 張" : "—"}</div>
+        ${!flowUnknown ? `
+        <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
+        <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b>（${dP2}：${fmt(s.t0, 0)}）</div>
+        <div><span>法人合計(${dT2})</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（${dP2}：${fmt(s.x0, 0)}）</div>` : ""}
+        <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
+        <div><span>EPS</span> ${fmt(fin.eps, 2)} 元（${fin.period || "—"}）</div>
+      </div></div>`);
+  }
+  $("mmMore").style.display = all.length > mmShown ? "" : "none";
+}
+$("mmMore").onclick = () => { mmShown += 30; loadMorning(); };
+
 // ---- 合約負債（在手訂單）篩選：資料來自 financials.json + market_snapshot.json ----
 let clAll = null, clShown = 30;
 async function loadContract(force) {
@@ -1062,7 +1154,7 @@ $("btnRefresh").onclick = async () => {
     await Promise.all([loadResults(), loadAlerts(), loadDiagnose(),
                        loadRisk().then(loadWatchlist), detectMode(),
                        loadContract(true), loadPerf(), loadBacktest(),
-                       loadLimitUp()]);
+                       loadLimitUp(), loadMorning()]);
     $("statusMsg").textContent = "✅ 資料已更新（" +
       new Date().toLocaleTimeString("zh-TW", { hour12: false }) + "）";
   } catch {
@@ -1120,8 +1212,9 @@ function startApp() {
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
                             loadRisk().then(loadWatchlist);
                             loadContract(); loadPerf(); loadBacktest();
-                            loadLimitUp(); });
+                            loadLimitUp(); loadMorning(); });
   setInterval(loadAlerts, 60 * 1000);
+  setInterval(loadMorning, 5 * 60 * 1000);
   setInterval(loadRisk, 60 * 1000);
   setInterval(loadResults, 5 * 60 * 1000);
   setInterval(loadDiagnose, 5 * 60 * 1000);

@@ -198,6 +198,69 @@ def check_limitup_open_strength():
     return len(rows)
 
 
+def check_morning_movers():
+    """開盤強勢觀察（09:00–09:40）：觀察池＝昨日法人買超前150＋昨日漲停股＋
+    篩選結果＋監控清單。每輪記錄 昨收/開盤/現價 與逐輪價格軌跡，
+    寫入 morning_movers.json；「開高走高」判定由前端顯示。回傳觀察檔數。"""
+    now = _now()
+    hm = now.strftime("%H:%M")
+    today = now.strftime("%Y%m%d")
+    if now.weekday() >= 5 or not ("08:58" <= hm <= "09:40"):
+        return 0
+    try:
+        with open(_data_path("market_snapshot.json"), encoding="utf-8") as f:
+            stocks = json.load(f).get("stocks", {})
+    except Exception:                                        # noqa: BLE001
+        return 0
+
+    def ok(c):
+        return len(c) == 4 and c.isdigit() and not c.startswith("00")
+
+    ranked = sorted((c for c, s in stocks.items()
+                     if ok(c) and (s.get("x") or 0) > 0),
+                    key=lambda c: -(stocks[c].get("x") or 0))[:150]
+    universe = set(ranked)
+    universe.update(c for c, _ in _limit_up_codes())
+    universe.update(r["code"] for r in
+                    screener.load_results().get("results", []))
+    universe.update(ds.load_holdings())
+    universe = {c for c in universe if ok(c)}
+    market_map = {c: (stocks.get(c) or {}).get("m", "tse") for c in universe}
+
+    prev_rows = {}
+    try:
+        with open(_data_path("morning_movers.json"), encoding="utf-8") as f:
+            pf = json.load(f)
+        if pf.get("date") == today:
+            prev_rows = {r["code"]: r for r in pf.get("rows", [])}
+    except Exception:                                        # noqa: BLE001
+        pass
+
+    q = ds.fetch_intraday_quotes_full(sorted(universe), market_map)
+    rows = []
+    for c, v in q.items():
+        p, o, pc = v.get("price"), v.get("open"), v.get("prev_close")
+        if not p or not o or not pc:
+            continue
+        hist = (prev_rows.get(c, {}).get("hist") or [])[-7:] + [p]
+        rows.append({
+            "code": c, "name": v.get("name", ""),
+            "pc": pc, "o": o, "p": p, "v": v.get("volume_lots"),
+            "gap_pct": round((o - pc) / pc * 100, 2),
+            "up_pct": round((p - o) / o * 100, 2),
+            "chg_pct": round((p - pc) / pc * 100, 2),
+            "hist": hist,
+            "rising": len(hist) < 2 or p >= hist[-2],
+        })
+    rows.sort(key=lambda r: -(r["chg_pct"] or 0))
+    with open(_data_path("morning_movers.json"), "w", encoding="utf-8") as f:
+        json.dump({"date": today, "time": now.isoformat(timespec="seconds"),
+                   "universe": len(universe), "rows": rows},
+                  f, ensure_ascii=False)
+    log.info("開盤強勢觀察 %d/%d 檔", len(rows), len(universe))
+    return len(rows)
+
+
 def update_intraday_quotes():
     """盤中價同步：抓「每日篩選結果＋持股清單」的現價寫入
     docs/data/intraday_quotes.json，前端在盤中覆蓋顯示（約每 10 分鐘更新）。
