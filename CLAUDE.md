@@ -48,6 +48,11 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 - MOPS 個別財報：POST `mopsov.twse.com.tw/mops/web/ajax_t164sb03`(資產負債表)/
   `ajax_t164sb04`(損益表)，有限速(mops_delay_sec=3)；HTML 解析在
   `_html_row_value()`，**已修過小數截斷與 (123) 會計負數 bug**
+- MIS 即時報價 `mis.twse.com.tw/stock/api/getStockInfo.jsp`：**曾對單一 Actions
+  runner 整小時回 502**（2026-08-20 台北 09-10 時，換 runner 即恢復）→
+  `_mis_batches` 每批失敗換 session 重試一次、連兩批失敗即中止（快速失敗）；
+  開盤強勢另有 Yahoo chart 逐檔備援（fetch_intraday_quotes_yahoo，優先池前80檔），
+  兩來源全掛時不覆蓋同日已有資料、無資料可保留則寫 fail 旗標由前端顯示
 - 集保大戶(TDCC 1-5)：週資料，需累積兩週才有「週變動」；歷史存 `.cache/tdcc_history.json`
 - ETF 排除：候選股只留 4 碼數字代號（006205 曾造成 MOPS 逾時）
 - `.cache/` 不入版控；`docs/data/` 由 Actions commit
@@ -55,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v8）
+  看到舊版介面，SHELL 版本 shell-v9）
 - 四分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋選股（localStorage activeTab）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
   08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，

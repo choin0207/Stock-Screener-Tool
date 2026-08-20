@@ -206,12 +206,12 @@ def check_morning_movers():
     hm = now.strftime("%H:%M")
     today = now.strftime("%Y%m%d")
     if now.weekday() >= 5 or not ("08:58" <= hm <= "09:40"):
-        return 0
+        return None
     try:
         with open(_data_path("market_snapshot.json"), encoding="utf-8") as f:
             stocks = json.load(f).get("stocks", {})
     except Exception:                                        # noqa: BLE001
-        return 0
+        return None
 
     def ok(c):
         return len(c) == 4 and c.isdigit() and not c.startswith("00")
@@ -219,12 +219,14 @@ def check_morning_movers():
     ranked = sorted((c for c, s in stocks.items()
                      if ok(c) and (s.get("x") or 0) > 0),
                     key=lambda c: -(stocks[c].get("x") or 0))[:150]
-    universe = set(ranked)
-    universe.update(c for c, _ in _limit_up_codes())
-    universe.update(r["code"] for r in
-                    screener.load_results().get("results", []))
-    universe.update(ds.load_holdings())
-    universe = {c for c in universe if ok(c)}
+    # priority：備援來源逐檔查很慢，只查優先池（持股→篩選→漲停→法人買超大）
+    priority = []
+    for c in (list(ds.load_holdings())
+              + [r["code"] for r in screener.load_results().get("results", [])]
+              + [c for c, _ in _limit_up_codes()] + ranked):
+        if ok(c) and c not in priority:
+            priority.append(c)
+    universe = set(priority)
     market_map = {c: (stocks.get(c) or {}).get("m", "tse") for c in universe}
 
     prev_rows = {}
@@ -237,6 +239,10 @@ def check_morning_movers():
         pass
 
     q = ds.fetch_intraday_quotes_full(sorted(universe), market_map)
+    if len(q) < max(5, len(universe) // 20):     # MIS 幾乎全掛（曾整小時 502）
+        log.warning("MIS 僅回 %d/%d 檔，改用 Yahoo 備援（優先池前80檔）",
+                    len(q), len(universe))
+        q = ds.fetch_intraday_quotes_yahoo(priority, market_map) or q
     rows = []
     for c, v in q.items():
         p, o, pc = v.get("price"), v.get("open"), v.get("prev_close")
@@ -244,7 +250,8 @@ def check_morning_movers():
             continue
         hist = (prev_rows.get(c, {}).get("hist") or [])[-7:] + [p]
         rows.append({
-            "code": c, "name": v.get("name", ""),
+            "code": c,
+            "name": v.get("name") or (stocks.get(c) or {}).get("n", ""),
             "pc": pc, "o": o, "p": p, "v": v.get("volume_lots"),
             "gap_pct": round((o - pc) / pc * 100, 2),
             "up_pct": round((p - o) / o * 100, 2),
@@ -252,11 +259,17 @@ def check_morning_movers():
             "hist": hist,
             "rising": len(hist) < 2 or p >= hist[-2],
         })
+    if not rows and prev_rows:
+        # 本輪行情全抓失敗：保留同日先前輪次的資料，不覆蓋
+        log.warning("開盤強勢本輪無報價，保留先前 %d 檔資料", len(prev_rows))
+        return 0
     rows.sort(key=lambda r: -(r["chg_pct"] or 0))
+    payload = {"date": today, "time": now.isoformat(timespec="seconds"),
+               "universe": len(universe), "rows": rows}
+    if not rows:
+        payload["fail"] = True                   # 前端據此顯示「來源暫時失效」
     with open(_data_path("morning_movers.json"), "w", encoding="utf-8") as f:
-        json.dump({"date": today, "time": now.isoformat(timespec="seconds"),
-                   "universe": len(universe), "rows": rows},
-                  f, ensure_ascii=False)
+        json.dump(payload, f, ensure_ascii=False)
     log.info("開盤強勢觀察 %d/%d 檔", len(rows), len(universe))
     return len(rows)
 

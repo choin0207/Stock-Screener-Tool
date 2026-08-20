@@ -825,31 +825,61 @@ def fetch_intraday_volumes(codes, market_map=None):
         for prefix in ([m] if m in ("tse", "otc") else ["tse", "otc"]):
             queries.append(f"{prefix}_{c}.tw")
 
-    out = {}
+    def parse(out, item):
+        code = item.get("c")
+        if not code:
+            return
+        out[code] = {
+            "volume_lots": _num(item.get("v")) or 0,
+            "price": _num(item.get("z")) or _num(item.get("y")),
+            "time": item.get("t", ""),
+        }
+
+    return _mis_batches(queries, parse)
+
+
+def _mis_session():
     s = _session()
     try:
         s.get("https://mis.twse.com.tw/stock/index.jsp", timeout=15)
     except Exception:                                        # noqa: BLE001
         pass
-    # 每次最多查 20 檔
+    return s
+
+
+def _mis_batches(queries, parse):
+    """MIS getStockInfo 分批查詢（每批 20 檔）。每批失敗換新 session 重試一次；
+    連續兩批（含重試）都失敗即判定 MIS 掛掉（曾整小時回 502），
+    中止剩餘批次快速失敗，讓呼叫端走備援。"""
+    out = {}
+    s = _mis_session()
+    consec_fail = 0
     for i in range(0, len(queries), 20):
         ex_ch = "|".join(queries[i:i + 20])
-        try:
-            r = s.get("https://mis.twse.com.tw/stock/api/getStockInfo.jsp",
-                      params={"ex_ch": ex_ch, "json": "1", "delay": "0"},
-                      timeout=CONFIG["request_timeout"])
-            r.raise_for_status()
-            for item in r.json().get("msgArray", []):
-                code = item.get("c")
-                if not code:
-                    continue
-                out[code] = {
-                    "volume_lots": _num(item.get("v")) or 0,
-                    "price": _num(item.get("z")) or _num(item.get("y")),
-                    "time": item.get("t", ""),
-                }
-        except Exception as e:                               # noqa: BLE001
-            log.warning("即時行情抓取失敗: %s", e)
+        ok = False
+        for attempt in (1, 2):
+            try:
+                r = s.get("https://mis.twse.com.tw/stock/api/getStockInfo.jsp",
+                          params={"ex_ch": ex_ch, "json": "1", "delay": "0"},
+                          timeout=CONFIG["request_timeout"])
+                r.raise_for_status()
+                for item in r.json().get("msgArray", []):
+                    parse(out, item)
+                ok = True
+                break
+            except Exception as e:                           # noqa: BLE001
+                log.warning("MIS 行情批次失敗(第%d次): %s", attempt, e)
+                if attempt == 1:
+                    time.sleep(3)
+                    s = _mis_session()
+        if ok:
+            consec_fail = 0
+        else:
+            consec_fail += 1
+            if consec_fail >= 2:
+                log.warning("MIS 連續失敗，中止其餘 %d 批（來源疑似整段失效）",
+                            max(0, (len(queries) - i - 20) + 19) // 20)
+                break
         time.sleep(1)
     return out
 
@@ -872,40 +902,59 @@ def fetch_intraday_quotes_full(codes, market_map=None):
         vals = [v for v in vals if v is not None]
         return sum(vals) if vals else None
 
+    def parse(out, item):
+        code = item.get("c")
+        if not code:
+            return
+        price = _num(item.get("z")) or _num(item.get("y"))
+        prev = _num(item.get("y"))
+        out[code] = {
+            "price": price,
+            "prev_close": prev,
+            "open": _num(item.get("o")),
+            "change_pct": (round((price - prev) / prev * 100, 2)
+                           if price and prev else None),
+            "volume_lots": _num(item.get("v")) or 0,
+            "ask_lots": _five_sum(item.get("f")),
+            "bid_lots": _five_sum(item.get("g")),
+            "name": item.get("n", ""),
+            "time": item.get("t", ""),
+        }
+
+    return _mis_batches(queries, parse)
+
+
+def fetch_intraday_quotes_yahoo(codes, market_map=None, limit=80, delay=0.4):
+    """MIS 掛掉時的備援：逐檔以 Yahoo chart API 抓 現價/昨收/今開/量。
+    一檔一請求（慢），僅供縮小後的優先觀察池；委買賣五檔無資料。
+    回傳格式與 fetch_intraday_quotes_full 相同（缺欄位為 None）。"""
+    market_map = market_map or {}
     out = {}
-    s = _session()
-    try:
-        s.get("https://mis.twse.com.tw/stock/index.jsp", timeout=15)
-    except Exception:                                        # noqa: BLE001
-        pass
-    for i in range(0, len(queries), 20):
-        ex_ch = "|".join(queries[i:i + 20])
+    for c in list(codes)[:limit]:
+        sfx = ".TWO" if market_map.get(c) == "otc" else ".TW"
+        data = _get_json(
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{c}{sfx}",
+            params={"range": "1d", "interval": "5m"})
         try:
-            r = s.get("https://mis.twse.com.tw/stock/api/getStockInfo.jsp",
-                      params={"ex_ch": ex_ch, "json": "1", "delay": "0"},
-                      timeout=CONFIG["request_timeout"])
-            r.raise_for_status()
-            for item in r.json().get("msgArray", []):
-                code = item.get("c")
-                if not code:
-                    continue
-                price = _num(item.get("z")) or _num(item.get("y"))
-                prev = _num(item.get("y"))
-                out[code] = {
-                    "price": price,
-                    "prev_close": prev,
-                    "open": _num(item.get("o")),
-                    "change_pct": (round((price - prev) / prev * 100, 2)
-                                   if price and prev else None),
-                    "volume_lots": _num(item.get("v")) or 0,
-                    "ask_lots": _five_sum(item.get("f")),
-                    "bid_lots": _five_sum(item.get("g")),
-                    "name": item.get("n", ""),
-                    "time": item.get("t", ""),
+            res = data["chart"]["result"][0]
+            meta = res["meta"]
+            price = meta.get("regularMarketPrice")
+            prev = meta.get("chartPreviousClose") or meta.get("previousClose")
+            q = (res.get("indicators", {}).get("quote") or [{}])[0]
+            opens = [v for v in (q.get("open") or []) if v]
+            vols = [v for v in (q.get("volume") or []) if v]
+            if price and prev:
+                out[c] = {
+                    "price": price, "prev_close": prev,
+                    "open": opens[0] if opens else None,
+                    "change_pct": round((price - prev) / prev * 100, 2),
+                    "volume_lots": (round(sum(vols) / 1000) if vols else None),
+                    "ask_lots": None, "bid_lots": None,
+                    "name": meta.get("shortName", ""), "time": "",
                 }
-        except Exception as e:                               # noqa: BLE001
-            log.warning("即時完整行情抓取失敗: %s", e)
-        time.sleep(1)
+        except Exception:                                    # noqa: BLE001
+            pass
+        time.sleep(delay)
     return out
 
 

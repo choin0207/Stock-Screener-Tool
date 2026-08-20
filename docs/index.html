@@ -771,6 +771,13 @@ async function loadMorning() {
   $("mmTitle").textContent = `🌅 開盤強勢（${dLbl} 09:00–09:30 開高走高）`;
   meta.textContent = (isToday ? "" : "⚠️ 非今日資料，顯示最近一次觀察留存：") +
     `${dLbl} ${tLbl} 更新｜觀察 ${fmt(mm.universe, 0)} 檔中，開高走高 ${all.length} 檔`;
+  if (mm.fail) {
+    box.innerHTML = `<div class="empty">⚠️ ${dLbl} ${tLbl} 這輪行情來源暫時失效
+      （證交所即時報價回應異常，備援也未取得資料），非選股未達條件。
+      每 5 分鐘會自動重試。（${COND}）</div>`;
+    $("mmMore").style.display = "none";
+    return;
+  }
   if (!all.length) {
     box.innerHTML = `<div class="empty">目前未達條件：${dLbl} ${tLbl} 觀察的
       ${fmt(mm.universe, 0)} 檔中，沒有「開盤價＞昨收 且 現價＞開盤價」的股票。（${COND}）</div>`;
