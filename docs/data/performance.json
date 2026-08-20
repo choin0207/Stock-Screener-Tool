@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-20T17:22:02+08:00",
+ "updated_at": "2026-08-20T19:37:00+08:00",
  "track_days": 20,
  "records": [
   {
@@ -126,7 +126,7 @@
      "cond": "①",
      "first_date": "20260817",
      "last_date": "20260820",
-     "count": 9,
+     "count": 10,
      "detail": "今日投信賣超 303 張（入選日買超 127 張）"
     }
    },
@@ -255,7 +255,7 @@
      "cond": "①",
      "first_date": "20260810",
      "last_date": "20260820",
-     "count": 6,
+     "count": 7,
      "detail": "今日外資賣超 356 張（入選日買超 19 張）"
     },
     "trust": {
@@ -363,7 +363,7 @@
      "cond": "①",
      "first_date": "20260817",
      "last_date": "20260820",
-     "count": 12,
+     "count": 13,
      "detail": "今日外資賣超 2,334 張（入選日買超 4,224 張）"
     },
     "inst": {
@@ -371,7 +371,7 @@
      "cond": "②",
      "first_date": "20260818",
      "last_date": "20260820",
-     "count": 10,
+     "count": 11,
      "detail": "三大法人連 2 日賣超（今日 1,918 張）"
     }
    }
@@ -454,7 +454,7 @@
      "cond": "①",
      "first_date": "20260814",
      "last_date": "20260820",
-     "count": 6,
+     "count": 7,
      "detail": "今日外資賣超 259 張（入選日買超 149 張）"
     },
     "inst": {
@@ -537,7 +537,7 @@
     "20260817": 10559.7,
     "20260818": 9323.8,
     "20260819": 7036.5,
-    "20260820": 12865.0
+    "20260820": 13214.0
    },
    "days_tracked": 5,
    "last_date": "20260820",
@@ -555,7 +555,7 @@
      "cond": "①",
      "first_date": "20260814",
      "last_date": "20260820",
-     "count": 15,
+     "count": 16,
      "detail": "今日投信賣超 1,222 張（入選日買超 10 張）"
     },
     "inst": {
@@ -563,7 +563,7 @@
      "cond": "②",
      "first_date": "20260818",
      "last_date": "20260820",
-     "count": 10,
+     "count": 11,
      "detail": "三大法人連 2 日賣超（今日 1,782 張）"
     },
     "foreign": {
@@ -571,7 +571,7 @@
      "cond": "①",
      "first_date": "20260819",
      "last_date": "20260820",
-     "count": 4,
+     "count": 5,
      "detail": "今日外資賣超 259 張（入選日買超 3,760 張）"
     },
     "streak": {
@@ -579,7 +579,7 @@
      "cond": "技",
      "first_date": "20260819",
      "last_date": "20260820",
-     "count": 4,
+     "count": 5,
      "detail": "連 3 個交易日收黑（4050.0 → 3700.0）"
     }
    },
@@ -765,7 +765,7 @@
      "cond": "①",
      "first_date": "20260820",
      "last_date": "20260820",
-     "count": 1,
+     "count": 2,
      "detail": "今日投信賣超 19 張（入選日買超 143 張）"
     }
    }
@@ -816,7 +816,7 @@
     "20260817": 53835.0,
     "20260818": 38561.6,
     "20260819": 24496.6,
-    "20260820": 16186.2
+    "20260820": 16346.2
    },
    "days_tracked": 3,
    "last_date": "20260820",
@@ -834,7 +834,7 @@
      "cond": "①",
      "first_date": "20260819",
      "last_date": "20260820",
-     "count": 4,
+     "count": 5,
      "detail": "今日投信賣超 74 張（入選日買超 50 張）"
     }
    }
@@ -896,7 +896,7 @@
      "cond": "①",
      "first_date": "20260819",
      "last_date": "20260820",
-     "count": 4,
+     "count": 5,
      "detail": "今日外資賣超 238 張（入選日買超 196 張）"
     },
     "inst": {
@@ -904,7 +904,7 @@
      "cond": "②",
      "first_date": "20260820",
      "last_date": "20260820",
-     "count": 1,
+     "count": 2,
      "detail": "三大法人連 2 日賣超（今日 258 張）"
     }
    }
@@ -959,7 +959,7 @@
      "cond": "①",
      "first_date": "20260820",
      "last_date": "20260820",
-     "count": 1,
+     "count": 2,
      "detail": "今日外資賣超 259 張（入選日買超 147 張）"
     }
    }
@@ -1104,7 +1104,7 @@
      "cond": "①",
      "first_date": "20260820",
      "last_date": "20260820",
-     "count": 1,
+     "count": 2,
      "detail": "今日投信賣超 147 張（入選日買超 56 張）"
     }
    }
@@ -1155,6 +1155,82 @@
    "transfer_lots_now": 0.0
   },
   {
+   "code": "2903",
+   "name": "遠百",
+   "tier": 1,
+   "entry_date": "20260820",
+   "entry_close": 22.75,
+   "prices": {
+    "20260820": 22.75
+   },
+   "flows": {
+    "20260820": [
+     3561.5,
+     234.0,
+     3795.5
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 9933416.0,
+    "capital_k": 14169406.0,
+    "eps": 0.39,
+    "period": "2026Q1"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260820": 5296.4
+   },
+   "days_tracked": 0,
+   "last_date": "20260820",
+   "last_close": 22.75,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  },
+  {
+   "code": "2912",
+   "name": "統一超",
+   "tier": 0,
+   "entry_date": "20260820",
+   "entry_close": 220.0,
+   "prices": {
+    "20260820": 220.0
+   },
+   "flows": {
+    "20260820": [
+     1174.0,
+     1.0,
+     1165.1
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 11678280.0,
+    "capital_k": 10396223.0,
+    "eps": 3.06,
+    "period": "2026Q2"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260820": 1975.3
+   },
+   "days_tracked": 0,
+   "last_date": "20260820",
+   "last_close": 220.0,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
+  },
+  {
    "code": "3135",
    "name": "凌航",
    "tier": 0,
@@ -1191,11 +1267,49 @@
    "max_ret_pct": null,
    "min_ret_pct": null,
    "transfer_lots_now": 0.0
+  },
+  {
+   "code": "3167",
+   "name": "大量",
+   "tier": 0,
+   "entry_date": "20260820",
+   "entry_close": 762.0,
+   "prices": {
+    "20260820": 762.0
+   },
+   "flows": {
+    "20260820": [
+     61.6,
+     853.0,
+     902.7
+    ]
+   },
+   "fin_at_entry": {
+    "contract_liab_k": 1365210.0,
+    "capital_k": 895049.0,
+    "eps": 3.19,
+    "period": "2026Q1"
+   },
+   "entry_transfer_lots": 0.0,
+   "done": false,
+   "vols": {
+    "20260820": 9929.3
+   },
+   "days_tracked": 0,
+   "last_date": "20260820",
+   "last_close": 762.0,
+   "ret_pct": 0.0,
+   "ret_d5": null,
+   "ret_d10": null,
+   "ret_d20": null,
+   "max_ret_pct": null,
+   "min_ret_pct": null,
+   "transfer_lots_now": 0.0
   }
  ],
  "summary": {
-  "total": 15,
-  "tracking": 15,
+  "total": 18,
+  "tracking": 18,
   "done": {
    "n": 0,
    "win_rate": null,
