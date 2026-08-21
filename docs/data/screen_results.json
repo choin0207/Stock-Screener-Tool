@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T16:08:44+08:00",
+  "generated_at": "2026-08-21T17:23:41+08:00",
   "trade_date": "20260821",
   "prev_trade_date": "20260820",
   "market": {
@@ -3388,7 +3388,7 @@
       "passed": 3,
       "close": 2035.0,
       "change": -70.0,
-      "volume_lots": 2800.3,
+      "volume_lots": 2809.3,
       "vol_hist": [
         [
           "20260820",
@@ -4258,7 +4258,7 @@
       "passed": 3,
       "close": 3790.0,
       "change": 90.0,
-      "volume_lots": 6012.2,
+      "volume_lots": 6657.5,
       "vol_hist": [
         [
           "20260820",
@@ -4432,7 +4432,7 @@
       "passed": 3,
       "close": 1750.0,
       "change": 5.0,
-      "volume_lots": 4398.6,
+      "volume_lots": 5768.6,
       "vol_hist": [
         [
           "20260820",
@@ -10986,7 +10986,7 @@
       "passed": 4,
       "close": 2410.0,
       "change": 35.0,
-      "volume_lots": 17227.5,
+      "volume_lots": 18922.5,
       "vol_hist": [
         [
           "20260820",
