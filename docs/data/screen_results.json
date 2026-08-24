@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T16:12:31+08:00",
+  "generated_at": "2026-08-24T17:33:55+08:00",
   "trade_date": "20260824",
   "prev_trade_date": "20260821",
   "market": {
@@ -10986,7 +10986,7 @@
       "passed": 4,
       "close": 2855.0,
       "change": -10.0,
-      "volume_lots": 2268.3,
+      "volume_lots": 2274.3,
       "vol_hist": [
         [
           "20260821",
