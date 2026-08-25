@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T17:23:24+08:00",
+  "generated_at": "2026-08-25T19:35:33+08:00",
   "trade_date": "20260825",
   "prev_trade_date": "20260824",
   "market": {
@@ -24,7 +24,7 @@
       "passed": 5,
       "close": 3865.0,
       "change": 130.0,
-      "volume_lots": 1236.3,
+      "volume_lots": 1236.4,
       "vol_hist": [
         [
           "20260824",
@@ -430,7 +430,7 @@
       "passed": 4,
       "close": 876.0,
       "change": 31.0,
-      "volume_lots": 2668.8,
+      "volume_lots": 2668.9,
       "vol_hist": [
         [
           "20260824",
@@ -546,7 +546,7 @@
       "passed": 4,
       "close": 1095.0,
       "change": 20.0,
-      "volume_lots": 15157.4,
+      "volume_lots": 15157.5,
       "vol_hist": [
         [
           "20260824",
@@ -952,7 +952,7 @@
       "passed": 3,
       "close": 1070.0,
       "change": 5.0,
-      "volume_lots": 746.1,
+      "volume_lots": 746.3,
       "vol_hist": [
         [
           "20260824",
@@ -1068,7 +1068,7 @@
       "passed": 3,
       "close": 768.0,
       "change": 10.0,
-      "volume_lots": 1682.6,
+      "volume_lots": 1682.7,
       "vol_hist": [
         [
           "20260824",
@@ -1242,7 +1242,7 @@
       "passed": 3,
       "close": 328.5,
       "change": 3.5,
-      "volume_lots": 7910.7,
+      "volume_lots": 19366.9,
       "vol_hist": [
         [
           "20260824",
@@ -2634,7 +2634,7 @@
       "passed": 3,
       "close": 198.5,
       "change": -2.0,
-      "volume_lots": 5199.2,
+      "volume_lots": 6699.2,
       "vol_hist": [
         [
           "20260824",
@@ -3214,7 +3214,7 @@
       "passed": 3,
       "close": 2030.0,
       "change": -40.0,
-      "volume_lots": 2772.1,
+      "volume_lots": 2786.2,
       "vol_hist": [
         [
           "20260824",
@@ -3446,7 +3446,7 @@
       "passed": 3,
       "close": 717.0,
       "change": 5.0,
-      "volume_lots": 818.3,
+      "volume_lots": 818.5,
       "vol_hist": [
         [
           "20260824",
@@ -3736,7 +3736,7 @@
       "passed": 3,
       "close": 3735.0,
       "change": -30.0,
-      "volume_lots": 5129.0,
+      "volume_lots": 5403.3,
       "vol_hist": [
         [
           "20260824",
@@ -4026,7 +4026,7 @@
       "passed": 3,
       "close": 1710.0,
       "change": -25.0,
-      "volume_lots": 10514.3,
+      "volume_lots": 10537.5,
       "vol_hist": [
         [
           "20260824",
@@ -7854,7 +7854,7 @@
       "passed": 2,
       "close": 145.0,
       "change": -0.5,
-      "volume_lots": 5193.0,
+      "volume_lots": 5193.3,
       "vol_hist": [
         [
           "20260824",
@@ -11218,7 +11218,7 @@
       "passed": 4,
       "close": 451.5,
       "change": 1.5,
-      "volume_lots": 1650.2,
+      "volume_lots": 1650.4,
       "vol_hist": [
         [
           "20260824",
@@ -11392,7 +11392,7 @@
       "passed": 3,
       "close": 120.5,
       "change": 0.0,
-      "volume_lots": 3891.9,
+      "volume_lots": 3892.1,
       "vol_hist": [
         [
           "20260824",
