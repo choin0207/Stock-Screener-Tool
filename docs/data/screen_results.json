@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T21:03:58+08:00",
+  "generated_at": "2026-09-03T22:57:30+08:00",
   "trade_date": "20260903",
   "prev_trade_date": "20260902",
   "market": {
@@ -11193,8 +11193,8 @@
       "trust_net_prev": -13.0,
       "total_net": 53.5,
       "total_net_prev": -6.9,
-      "main_force_net": 6977.0,
-      "main_force_src": "券商分點(富邦)",
+      "main_force_net": 53.5,
+      "main_force_src": "無資料(以法人合計替代)",
       "big_holder_pct": 78.77,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
