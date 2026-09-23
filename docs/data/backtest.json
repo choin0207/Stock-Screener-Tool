@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-09-22T22:48:30+08:00",
+ "generated_at": "2026-09-23T22:58:18+08:00",
  "period": {
   "from": "20230925",
-  "to": "20260922",
+  "to": "20260923",
   "days": 727
  },
  "outcome": {
@@ -91,9 +91,9 @@
   {
    "key": "w_foreign_big",
    "label": "外資單日賣超吃掉入選日買超",
-   "fired": 7774,
+   "fired": 7773,
    "tp": 2976,
-   "fp": 4101,
+   "fp": 4100,
    "late": 697,
    "drops_total": 4929,
    "precision": 38.3,
