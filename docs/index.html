@@ -215,6 +215,15 @@
 <div class="card">
     <h2>📋 每日篩選結果</h2>
     <div class="msg" id="resultMeta"></div>
+    <div class="row" style="margin:6px 0">
+      <select id="techFilter">
+        <option value="all">技術面：全部顯示</option>
+        <option value="bull">只看 📈 技術多頭</option>
+        <option value="bullvol">📈 多頭＋價漲量增</option>
+        <option value="notbear">排除 📉 技術空頭</option>
+      </select>
+      <span class="msg" id="techMeta"></span>
+    </div>
     <div id="cards"></div>
     <div class="tablewrap">
       <table id="resultTable" style="display:none">
@@ -406,12 +415,56 @@ function weekInfo(s, ws) {
   return { st: ws.overall, tag: "全部①②訊號" };
 }
 
+// ---- 技術面判讀（technical.json，每日篩選後以 Yahoo 6個月日K計算）----
+let techData;
+async function getTech() {
+  if (techData === undefined) techData = await getJSON("data/technical.json");
+  return techData;
+}
+const TECH_SUM = { bull: ["📈 技術多頭", "ok"], bear: ["📉 技術空頭", "bad"],
+                   neutral: ["〰️ 技術盤整", ""] };
+function techChip(t) {
+  if (!t) return "";
+  const [txt, cl] = TECH_SUM[t.sum] || TECH_SUM.neutral;
+  return `<span class="chip ${cl}">${txt}</span>`;
+}
+const TECH_X = { gc: "黃金交叉✨", dc: "死亡交叉⚠️" };
+function techLine(t) {
+  if (!t) return "";
+  const ma = t.ma.a === 1 ? "多頭排列（5>20>60向上）"
+           : (t.ma.a === -1 ? "空頭排列（5<20<60向下）" : "均線糾結");
+  const kdEx = t.kd.b === "high" ? "，高檔鈍化（強勢續漲型）"
+             : t.kd.b === "low" ? "，低檔鈍化（弱勢）"
+             : t.kd.z === "ob" ? "，超買區>80（拉回風險）"
+             : t.kd.z === "os" ? "，超賣區<20（反彈機會）" : "";
+  const tr = { hh: "⬆ 高點與低點都墊高（爬樓梯，上升趨勢）",
+               ll: "⬇ 高點與低點都下移（下樓梯，下跌趨勢）",
+               flat: "高低點持平（盤整）" }[t.tr] || "—";
+  return `
+    <div><span>均線MA5/20/60</span> ${ma}${t.ma.x ? "，" + TECH_X[t.ma.x] : ""}
+      <small>（${t.ma.v.map(v => fmt(v, 1)).join(" / ")}）</small></div>
+    <div><span>KD(9)</span> K ${fmt(t.kd.k, 0)}／D ${fmt(t.kd.d, 0)}${t.kd.x ? "，" + TECH_X[t.kd.x] : ""}${kdEx}</div>
+    <div><span>MACD</span> ${t.macd.zero === 1 ? "零軸上（多方）" : (t.macd.zero === -1 ? "零軸下（空方）" : "零軸附近")}、動能${t.macd.hup ? "增強" : "減弱"}${t.macd.x ? "，" + TECH_X[t.macd.x] : ""}</div>
+    <div><span>趨勢結構(近20日vs前20日)</span> ${tr}</div>
+    <div><span>量價關係</span> ${t.vp === "價漲量增" ? "✅ " : ""}${t.vp}${
+      { "價漲量增": "（有資金支持）", "價漲量縮": "（追價意願不足）",
+        "爆量不漲": "（上方賣壓沉重）", "價跌量增": "（賣壓出籠）" }[t.vp] || ""}</div>`;
+}
+const techPass = (t, mode) =>
+  mode === "all" ? true
+  : mode === "bull" ? !!t && t.sum === "bull"
+  : mode === "bullvol" ? !!t && t.sum === "bull" && t.vp === "價漲量增"
+  : !(t && t.sum === "bear");                         // notbear：無資料也保留
+
 async function loadResults() {
   const r = await getJSON("data/screen_results.json");
   const bt = await getJSON("data/backtest.json");
+  const tech = await getTech();
   await loadIntraday();
   const ws = bt && bt.week_stats;
   if (!r) { $("resultMeta").textContent = "尚無資料"; return; }
+  const tstk = (tech && tech.stocks) || {};
+  const tmode = $("techFilter").value;
   const mk = r.market || {};
   const mkLine = mk.night_pct != null
     ? `｜🌙 ${mk.night_src} ${mk.night_pct > 0 ? "+" : ""}${mk.night_pct}%` +
@@ -422,7 +475,14 @@ async function loadResults() {
     (r.trade_date ? `交易日 ${r.trade_date}｜` : "") + (r.message || "") +
     (r.generated_at ? `｜更新 ${r.generated_at}` : "") + mkLine + liveNote();
   const dT = mdd(r.trade_date), dP = mdd(r.prev_trade_date);
-  const rows = r.results || [];
+  const allRows = r.results || [];
+  const rows = allRows.filter(s => techPass(tstk[s.code], tmode));
+  const nTech = allRows.filter(s => tstk[s.code]).length;
+  $("techMeta").textContent = !tech
+    ? "技術面資料將於下次每日篩選後產生"
+    : (tmode === "all"
+       ? `技術面已判讀 ${nTech}/${allRows.length} 檔`
+       : `符合 ${rows.length} 檔／全部 ${allRows.length} 檔`);
   $("resultTable").style.display = rows.length ? "" : "none";
   const TH_D = { 3: `收盤(${dT})`, 6: `外資買超(${dT})`, 7: `外資(${dP})`,
                  8: `投信買超(${dT})`, 9: `投信(${dP})`,
@@ -492,7 +552,7 @@ async function loadResults() {
     const pchg = lv && lv.pc != null ? +(lv.p - lv.pc).toFixed(2) : s.change;
     tb.insertAdjacentHTML("beforeend", `<tr>
       <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td>
-      <td class="badges">${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</td>
+      <td class="badges">${s.passed ?? "—"}/5 ${scoreChip}${techChip(tstk[s.code])}${badges(s)}</td>
       <td title="${lv ? "盤中價" : "篩選日收盤"}">${fmt(px, 2)}${lv ? "*" : ""}</td>
       <td class="${cls(pchg)}">${fmt(pchg, 2)}</td>
       <td>${fmt(s.volume_lots, 0)}</td>
@@ -514,7 +574,7 @@ async function loadResults() {
           <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? (intraLive ? ` ${intraDate}盤中` : ` ${intraDate}收`) : ""}</small>
         </span></div>
       <div class="badges"><span class="chip">📅${dT}資料</span>
-        ${s.passed ?? "—"}/5 ${scoreChip}${badges(s)}</div>
+        ${s.passed ?? "—"}/5 ${scoreChip}${techChip(tstk[s.code])}${badges(s)}</div>
       <div class="grid">
         ${triLine(lv, dT, dP)}
         <div><span>成交量</span> ${volText(s.code, s.volume_lots, s.vol_hist, dT)}</div>
@@ -526,9 +586,21 @@ async function loadResults() {
         <div><span>一般交易轉讓</span> ${fmt(s.transfer_general_lots, 0)} 張/30日</div>
         <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
         <div><span>EPS</span> ${fmt(s.eps, 2)} 元（${s.fin_period || "—"}）</div>
+        ${techLine(tstk[s.code])}
       </div>${wkLine}</div>`);
   }
+  if (!rows.length && allRows.length) {
+    cards.insertAdjacentHTML("beforeend", `<div class="empty">
+      目前的技術面過濾條件下沒有符合的股票（全部 ${allRows.length} 檔）。
+      可改選「技術面：全部顯示」。</div>`);
+  }
 }
+$("techFilter").onchange = () => {
+  try { localStorage.setItem("techFilter", $("techFilter").value); } catch {}
+  loadResults();
+};
+try { $("techFilter").value = localStorage.getItem("techFilter") || "all"; }
+catch {}
 
 // ---- 自選名單（localStorage，僅存於本裝置）----
 const TH = { surge: 2, net: 3, transfer: 100, liab: 0.5, eps: 1.5 };  // 與 config.py 對應
@@ -569,6 +641,7 @@ async function loadWatchlist() {
   const snap = await getJSON("data/market_snapshot.json");
   const fins = await getJSON("data/financials.json") || {};
   const trf = await getTransfers();
+  const wtech = ((await getTech()) || {}).stocks || {};
   if (!snap) {
     box.innerHTML = '<div class="empty">全市場快照尚未產生（下一次每日篩選後可用）。</div>'
       + list.map(c => `<div class="stock"><div class="head"><b>${c}</b>
@@ -610,7 +683,8 @@ async function loadWatchlist() {
           <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? (intraLive ? ` ${intraDate}盤中` : ` ${intraDate}收`) : ""}</small></span></div>
       <div class="badges"><span class="chip">📅${dT2}資料</span>
         ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
-        ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}</div>
+        ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}
+        ${techChip(wtech[code])}</div>
       <div class="grid">
         ${triLine(live(code), dT2, dP2)}
         <div><span>成交量</span> ${volText(code, s.v, s.vh, dT2)}</div>
@@ -619,6 +693,7 @@ async function loadWatchlist() {
         <div><span>法人合計(${dT2})</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（${dP2}：${fmt(s.x0, 0)}）</div>
         <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
         <div><span>EPS</span> ${fmt(fin.eps, 2)} 元（${fin.period || "—"}）</div>
+        ${techLine(wtech[code])}
         <div><button class="wlDel" onclick="wlRemove('${code}')">✕ 從名單移除</button></div>
       </div></div>`);
   }
@@ -1157,6 +1232,7 @@ $("btnRefresh").onclick = async () => {
   btn.textContent = "⏳ 更新中…";
   $("statusMsg").textContent = "⏳ 正在更新所有資料…";
   trfData = undefined;
+  techData = undefined;
   try {
     await Promise.all([loadResults(), loadAlerts(), loadDiagnose(),
                        loadRisk().then(loadWatchlist), detectMode(),

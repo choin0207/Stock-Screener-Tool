@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v9）
+  看到舊版介面，SHELL 版本 shell-v10）
 - 四分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋選股（localStorage activeTab）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
   08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
@@ -71,6 +71,14 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 - 自選名單：localStorage（key `mywatch`），每台裝置獨立；資料來自
   `data/market_snapshot.json`（每日篩選產出，欄位縮寫見 `_save_market_snapshot`）
   + `data/financials.json`；前端 `TH` 常數需與 config.py 門檻同步
+- 技術面判讀（2026-10-02 新增，使用者：篩選股太多無法判斷）：
+  `screener/technical.py` 於每日篩選後對 結果股+watchlist（上限 MAX_CODES=250，
+  Yahoo 6個月日K 一檔一請求）計算 均線MA5/20/60排列與金死叉、KD(9)含超買賣/
+  鈍化、MACD零軸/動能/交叉、趨勢高低點結構（近20日vs前20日，hh爬樓梯/ll下樓梯）、
+  量價關係（價漲量增/縮、爆量不漲、價跌量增）→ 綜合 bull/neutral/bear
+  → `docs/data/technical.json`；前端選股分頁有 techFilter 下拉過濾
+  （全部/只看多頭/多頭+價漲量增/排除空頭，localStorage 記憶），
+  每檔卡片附 📈技術多頭/📉空頭 chip 與五行明細，自選卡同步顯示
 - 登入（選用，預設關）：`docs/config.js` 的 AUTH_URL 填 Apps Script 網址即啟用；
   帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在
   `google-apps-script/Code.gs`。使用者說「先不要用帳密」

@@ -260,6 +260,15 @@ def run_daily_screen():
                            transfer_fn=ds.transfer_general_lots)
     except Exception:                                        # noqa: BLE001
         log.exception("績效追蹤更新失敗（不影響篩選結果）")
+    try:                      # 技術面判讀（均線/KD/MACD/趨勢/量價，供前端過濾）
+        from . import technical
+        t_codes = ([r["code"] for r in results] + ds.load_holdings())
+        technical.update(
+            t_codes,
+            {c: quotes.get(c, {}).get("market", "tse") for c in t_codes},
+            trade_date=d_today)
+    except Exception:                                        # noqa: BLE001
+        log.exception("技術面判讀失敗（不影響篩選結果）")
     log.info(out["message"])
     return out
 
