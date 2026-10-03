@@ -973,21 +973,39 @@ $("clMore").onclick = () => { clShown += 50; renderContract(); };
 // ---- 💰 高殖利率存股篩選（value_screen.json，每日篩選後產出）----
 // Ⓐ殖利率 Ⓑ抵扣稅額(股利8.5%可抵減，2018稅改後舊制扣抵比率已廢除)
 // ⒸK值≤20超賣 Ⓓ合約負債>股本
-let vsShown = 30;
+const VS_TOP = 10;                 // 存股卡最多呈現前 10 檔最績優
 async function loadValue() {
   const d = await getJSON("data/value_screen.json");
   const meta = $("vsMeta"), box = $("vsList");
   if (!d || !d.rows) {
     meta.textContent = "資料尚未產生（下一次每日篩選後出現）。條件＝" +
-      "Ⓐ殖利率≥5%、Ⓑ現金股利≥2元（每股可抵減稅額=股利×8.5%）、" +
+      "Ⓐ高殖利率、Ⓑ現金股利（每股可抵減稅額=股利×8.5%）、" +
       "ⒸKD的K值≤20（超賣區）、Ⓓ合約負債＞股本。";
     box.innerHTML = "";
     return;
   }
   const pm = d.params || {};
   const all = (d.rows || []).filter(r => r.all);     // 只列四條件全符合
-  meta.innerHTML = `交易日 ${d.trade_date}｜<b>全符合 ${all.length} 檔</b>
-    ｜Ⓐ殖利率≥${pm.yield_min}%
+  // 績優綜合排名：EPS／殖利率／近3日法人合計／技術面分數 四項名次加總
+  const instSum = r => ((r.inst && r.inst.x) || [])
+    .filter(v => v != null).reduce((a, b) => a + b, 0);
+  const rankOf = key => {
+    const sorted = [...all].sort((a, b) => (key(b) ?? -1e9) - (key(a) ?? -1e9));
+    const m = {};
+    sorted.forEach((r, i) => { m[r.code] = i + 1; });
+    return m;
+  };
+  const rEps = rankOf(r => r.eps), rY = rankOf(r => r.yield_pct),
+        rI = rankOf(instSum), rT = rankOf(r => r.tech ? r.tech.sc : null);
+  const vsRank = {};
+  for (const r of all) {
+    vsRank[r.code] = rEps[r.code] + rY[r.code] + rI[r.code] + rT[r.code];
+  }
+  all.sort((a, b) => vsRank[a.code] - vsRank[b.code]);
+  const top = all.slice(0, VS_TOP);
+  meta.innerHTML = `交易日 ${d.trade_date}｜全符合 ${all.length} 檔，
+    <b>呈現最績優前 ${top.length} 檔</b>（依 EPS、殖利率、近3日法人買超、
+    技術面分數 綜合排名）｜Ⓐ殖利率≥${pm.yield_min}%
     ｜Ⓑ現金股利≥${pm.div_min}元（可抵減稅額＝股利×8.5%；舊制扣抵比率30%
     已於2018稅改廢除，無資料可查）
     ｜ⒸK值≤${pm.kd_max}（超賣區）｜Ⓓ合約負債＞股本×${pm.cl_ratio}`;
@@ -1017,10 +1035,10 @@ async function loadValue() {
     return parts.join(" → ") +
       `｜合計 <b class="${cls(sum)}">${sum > 0 ? "+" : ""}${fmt(sum, 0)}</b> 張`;
   };
-  for (const r of all.slice(0, vsShown)) {
+  top.forEach((r, idx) => {
     const p = r.pass || {};
     box.insertAdjacentHTML("beforeend", `<div class="stock">
-      <div class="head"><b>${r.code} ${r.name}${r.market === "otc" ? ' <small>(櫃)</small>' : ""}</b>
+      <div class="head"><b>#${idx + 1} ${r.code} ${r.name}${r.market === "otc" ? ' <small>(櫃)</small>' : ""}</b>
         <span class="price">${fmt(r.price, 2)}
           <small>殖利率 ${fmt(r.yield_pct, 1)}%</small></span></div>
       <div class="badges">
@@ -1041,10 +1059,9 @@ async function loadValue() {
         <div><span>EPS</span> ${fmt(r.eps, 2)} 元（${r.period || "—"}）</div>
         ${techLine(r.tech)}
       </div></div>`);
-  }
-  $("vsMore").style.display = all.length > vsShown ? "" : "none";
+  });
+  $("vsMore").style.display = "none";          // 固定最多前10檔，不展開
 }
-$("vsMore").onclick = () => { vsShown += 30; loadValue(); };
 
 // ---- 篩選成效追蹤（🏆/🟡 入選後一個月股價，data/performance.json）----
 async function loadPerf() {
