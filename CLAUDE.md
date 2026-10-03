@@ -60,8 +60,8 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v16）
-- 四分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋選股（localStorage activeTab）
+  看到舊版介面，SHELL 版本 shell-v17）
+- 五分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋選股／💰存股（localStorage activeTab）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
   08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
   觀察池＝昨日法人買超前150＋昨日漲停股＋篩選結果＋watchlist（4碼非00），
