@@ -290,6 +290,12 @@
       <button id="vsMore" class="secondary" style="display:none">顯示更多</button>
     </div>
   </div>
+
+<div class="card">
+    <h2>📈 選股成效追蹤（半年驗證）</h2>
+    <div class="msg" id="vpMeta">載入中…</div>
+    <div id="vpBody"></div>
+  </div>
   </div>
 
 
@@ -1067,6 +1073,46 @@ async function loadValue() {
   $("vsMore").style.display = "none";          // 固定最多前10檔，不展開
 }
 
+// ---- 📈 選股成效追蹤（value_perf.json：入選組 vs 對照組、條件×獲利機率）----
+async function loadValuePerf() {
+  const d = await getJSON("data/value_perf.json");
+  const meta = $("vpMeta"), body = $("vpBody");
+  if (!d || !d.summary) {
+    meta.textContent = "追蹤資料將於下一次每日篩選後開始累積：每天記錄💰選股的" +
+      "符合股與候選股（對照組），追蹤 120 個交易日（約半年）股價，" +
+      "自動統計各條件的獲利機率。";
+    body.innerHTML = "";
+    return;
+  }
+  const sm = d.summary;
+  meta.textContent = `追蹤起始 ${mdd(d.start_date)}｜入選組 ${sm.n_sel} 筆、` +
+    `對照組(候選未全過) ${sm.n_rest} 筆｜每檔追蹤 120 個交易日（≈半年）定案` +
+    `｜報酬以價差計、不含股息（高殖利率組實際另有配息收益）`;
+  const line = (st) => !st ? "<small>尚無資料</small>" :
+    ["5", "20", "60", "120", "now"].map(h => {
+      const s = st[h];
+      if (!s) return "";
+      const lab = h === "now" ? "目前" : `D+${h}`;
+      return `${lab} 勝率<b>${s.win}%</b>/平均<b class="${cls(s.avg)}">${s.avg > 0 ? "+" : ""}${s.avg}%</b><small>(${s.n})</small>`;
+    }).filter(Boolean).join("｜") || "<small>累積中（滿5個交易日起有數據）</small>";
+  let html = `<div class="grid">
+    <div><span>✅ 入選組（全符合條件）</span> ${line(sm.sel)}</div>
+    <div><span>⚪ 對照組（候選但未全過，多為K值未達）</span> ${line(sm.rest)}</div>
+  </div>`;
+  const gs = sm.groups || {};
+  const gk = Object.keys(gs);
+  if (gk.length) {
+    html += '<div class="msg" style="margin-top:8px">🔬 條件 × 獲利機率（驗證各條件是否有效）：</div><div class="grid">';
+    for (const k of gk) {
+      html += `<div><span>${k}</span> ${line(gs[k])}</div>`;
+    }
+    html += "</div>";
+  }
+  html += `<div class="msg" style="margin-top:6px">追蹤滿半年（約 2027/4）後，
+    這裡的統計即可回答「哪些條件真正提高獲利機率」，屆時可依數據調整門檻。</div>`;
+  body.innerHTML = html;
+}
+
 // ---- 篩選成效追蹤（🏆/🟡 入選後一個月股價，data/performance.json）----
 async function loadPerf() {
   const p = await getJSON("data/performance.json");
@@ -1343,7 +1389,8 @@ $("btnRefresh").onclick = async () => {
     await Promise.all([loadResults(), loadAlerts(), loadDiagnose(),
                        loadRisk().then(loadWatchlist), detectMode(),
                        loadContract(true), loadPerf(), loadBacktest(),
-                       loadLimitUp(), loadMorning(), loadValue()]);
+                       loadLimitUp(), loadMorning(), loadValue(),
+                       loadValuePerf()]);
     $("statusMsg").textContent = "✅ 資料已更新（" +
       new Date().toLocaleTimeString("zh-TW", { hour12: false }) + "）";
   } catch {
@@ -1401,7 +1448,8 @@ function startApp() {
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
                             loadRisk().then(loadWatchlist);
                             loadContract(); loadPerf(); loadBacktest();
-                            loadLimitUp(); loadMorning(); loadValue(); });
+                            loadLimitUp(); loadMorning(); loadValue();
+                            loadValuePerf(); });
   setInterval(loadAlerts, 60 * 1000);
   setInterval(loadMorning, 5 * 60 * 1000);
   setInterval(loadRisk, 60 * 1000);

@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v20）
+  看到舊版介面，SHELL 版本 shell-v21）
 - 五分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋法人動能(原「選股」，五條件)／💰選股(高殖利率，使用者稱之為「選股」，2026-10-03 改名)（localStorage activeTab）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
   08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
@@ -85,7 +85,12 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   現制=股利×8.5%可抵減**，上市無股利欄以 價×殖利率 回推）ⒸKD之K值≤20超賣
   （候選縮小後逐檔 Yahoo 日K，上限 value_kd_max_codes=150）Ⓓ合約負債/股本
   介於 value_cl_min~value_cl_max（2026-10-03 使用者定 3~5 倍）；符合者
-  前端依績優綜合排名最多呈現 value_target_count=10 檔（financials.json）→ `docs/data/value_screen.json`；候選=Ⓐ∩Ⓓ，
+  前端依績優綜合排名最多呈現 value_target_count=10 檔（financials.json）；
+  **成效追蹤**（2026-10-03 使用者：記錄半年重新分析條件×獲利機率×殖利率）：
+  `screener/value_perf.py` 每日記錄候選股（sel=全符合/對照組），快照收盤追蹤
+  120 交易日（D+5/20/60/120 里程碑、mu/md），summary 含 入選vs對照、
+  K值/殖利率級距/倍數/技術面 分組勝率 → value_perf.json，
+  前端💰分頁「📈 選股成效追蹤」卡；滿半年≈2027/4 可依數據調門檻→ `docs/data/value_screen.json`；候選=Ⓐ∩Ⓓ，
   全符合排最前；前端選股分頁「💰 高殖利率存股篩選」卡（只列全符合，每檔附近3日外資/投信/法人（第三日另抓一次T86+TPEx）與技術面摘要 tech）；門檻 config `value_*`
 - 登入（選用，預設關）：`docs/config.js` 的 AUTH_URL 填 Apps Script 網址即啟用；
   帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在

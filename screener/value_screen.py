@@ -167,6 +167,11 @@ def run(trade_date=""):
     }
     with open(_data_path("value_screen.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False)
+    try:                      # 成效追蹤：記錄+追蹤半年股價（條件×獲利機率分析）
+        from . import value_perf
+        value_perf.update(rows, stocks, out["trade_date"])
+    except Exception:                                        # noqa: BLE001
+        log.exception("選股成效追蹤更新失敗（不影響篩選）")
     n_all = sum(1 for r in rows if r["all"])
     log.info("高殖利率存股篩選：候選 %d 檔，全符合 %d 檔", len(rows), n_all)
     return len(rows), n_all
