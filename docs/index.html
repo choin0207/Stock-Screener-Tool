@@ -1004,6 +1004,20 @@ async function loadValue() {
   const chip = (ok, t, unknown) => unknown
     ? `<span class="chip">${t}—</span>`
     : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
+  // 近3日法人（inst.d/f/t/x 皆新→舊）：顯示 舊→新 ＋ 3日合計
+  const inst3 = (inst, key) => {
+    if (!inst || !inst[key]) return "—";
+    const ds2 = inst.d, vs = inst[key];
+    const parts = [];
+    for (let i = vs.length - 1; i >= 0; i--) {
+      if (vs[i] == null || !ds2[i]) continue;
+      parts.push(`${mdd(ds2[i])}:<b class="${cls(vs[i])}">${vs[i] > 0 ? "+" : ""}${fmt(vs[i], 0)}</b>`);
+    }
+    if (!parts.length) return "—";
+    const sum = vs.filter(v => v != null).reduce((a, b) => a + b, 0);
+    return parts.join(" → ") +
+      `｜合計 <b class="${cls(sum)}">${sum > 0 ? "+" : ""}${fmt(sum, 0)}</b> 張`;
+  };
   for (const r of all.slice(0, vsShown)) {
     const p = r.pass || {};
     box.insertAdjacentHTML("beforeend", `<div class="stock">
@@ -1014,16 +1028,19 @@ async function loadValue() {
         ${chip(true, `Ⓐ殖利率${fmt(r.yield_pct, 1)}%`)}
         ${chip(p.tc, "Ⓑ抵扣稅額", r.div_est == null)}
         ${chip(p.kd, `ⒸK值${r.k != null ? fmt(r.k, 0) : ""}`, r.k == null)}
-        ${chip(true, `Ⓓ合約負債${fmt(r.liab_ratio, 1)}倍`)}</div>
+        ${chip(true, `Ⓓ合約負債${fmt(r.liab_ratio, 1)}倍`)}
+        ${techChip(r.tech)}</div>
       <div class="grid">
         <div><span>現金股利(估)</span> ${fmt(r.div_est, 2)} 元</div>
         <div><span>每股可抵減稅額(8.5%)</span> ${fmt(r.tax_credit, 3)} 元</div>
-        <div><span>KD(9)</span> K ${fmt(r.k, 1)}／D ${fmt(r.d, 1)}
-          ${r.k != null ? (r.k <= (pm.kd_max ?? 20) ? "（超賣區）" :
-            (r.k > 80 ? "（超買區）" : "")) : ""}</div>
+        <div><span>外資買賣超近3日</span> ${inst3(r.inst, "f")}</div>
+        <div><span>投信買賣超近3日</span> ${inst3(r.inst, "t")}</div>
+        <div><span>法人合計近3日</span> ${inst3(r.inst, "x")}</div>
+        ${r.tech ? "" : `<div><span>KD(9)</span> K ${fmt(r.k, 1)}／D ${fmt(r.d, 1)}</div>`}
         <div><span>合約負債/股本</span> ${fmt(r.liab_ratio, 2)} 倍</div>
         <div><span>本益比</span> ${fmt(r.pe, 1)}</div>
         <div><span>EPS</span> ${fmt(r.eps, 2)} 元（${r.period || "—"}）</div>
+        ${techLine(r.tech)}
       </div></div>`);
   }
   $("vsMore").style.display = all.length > vsShown ? "" : "none";

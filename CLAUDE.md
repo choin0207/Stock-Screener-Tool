@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v12）
+  看到舊版介面，SHELL 版本 shell-v13）
 - 四分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋選股（localStorage activeTab）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
   08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
@@ -85,7 +85,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   現制=股利×8.5%可抵減**，上市無股利欄以 價×殖利率 回推）ⒸKD之K值≤20超賣
   （候選縮小後逐檔 Yahoo 日K，上限 value_kd_max_codes=150）Ⓓ合約負債＞股本×1
   （financials.json）→ `docs/data/value_screen.json`；候選=Ⓐ∩Ⓓ，
-  全符合排最前；前端選股分頁「💰 高殖利率存股篩選」卡；門檻 config `value_*`
+  全符合排最前；前端選股分頁「💰 高殖利率存股篩選」卡（只列全符合，每檔附近3日外資/投信/法人（第三日另抓一次T86+TPEx）與技術面摘要 tech）；門檻 config `value_*`
 - 登入（選用，預設關）：`docs/config.js` 的 AUTH_URL 填 Apps Script 網址即啟用；
   帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在
   `google-apps-script/Code.gs`。使用者說「先不要用帳密」

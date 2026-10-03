@@ -30,6 +30,27 @@ def _data_path(name):
     return os.path.join(CONFIG["data_dir"], name)
 
 
+def _third_day_inst(prev_ymd):
+    """抓「前日再往前」一個交易日的法人買賣超（上市+上櫃，單位：股）。
+    回傳 (ymd, dict)；找不到回傳 (None, {})。"""
+    from datetime import datetime, timedelta
+    try:
+        d = datetime.strptime(str(prev_ymd), "%Y%m%d").date()
+    except Exception:                                        # noqa: BLE001
+        return None, {}
+    probe = d - timedelta(days=1)
+    for _ in range(6):                        # 跳過假日最多找 6 天
+        ymd = probe.strftime("%Y%m%d")
+        data = ds.fetch_t86(ymd)
+        if data:
+            merged = dict(data)
+            merged.update(ds.fetch_tpex_inst(ymd))
+            return ymd, merged
+        probe -= timedelta(days=1)
+        time.sleep(1)
+    return None, {}
+
+
 def _load_json(name):
     try:
         with open(_data_path(name), encoding="utf-8") as f:
@@ -66,6 +87,10 @@ def run(trade_date=""):
     cands.sort(key=lambda t: -t[1]["yield_pct"])
     cands = cands[:CONFIG["value_kd_max_codes"]]
 
+    # 近三日法人：今日/前日取自快照(f/f0,t/t0,x/x0，張)，第三日另抓一次 T86+TPEx
+    d_t, d_p = snap.get("trade_date", ""), snap.get("prev_trade_date", "")
+    d_pp, t86_pp = (_third_day_inst(d_p) if cands and d_p else (None, {}))
+
     rows = []
     for code, yv, fin in cands:
         s = stocks.get(code) or {}
@@ -74,12 +99,30 @@ def run(trade_date=""):
         if div is None and price and yv["yield_pct"]:
             div = round(price * yv["yield_pct"] / 100, 2)   # 上市：由殖利率回推
         k_val = d_val = None
+        tech = None
         kk = technical.fetch_daily_k(code, yv["market"])
         if kk:
             closes, highs, lows, _ = kk
             ks, dvs = technical._kd(closes, highs, lows)
             k_val, d_val = round(ks[-1], 1), round(dvs[-1], 1)
+            try:                              # 技術面摘要（同日K零額外請求）
+                tech = technical.analyze(*kk)
+            except Exception:                                # noqa: BLE001
+                pass
         time.sleep(technical.DELAY_SEC)
+        pp = t86_pp.get(code) or {}
+        inst = {
+            "d": [d_t, d_p, d_pp],            # 新→舊
+            "f": [s.get("f"), s.get("f0"),
+                  round((pp.get("foreign_net") or 0) / 1000, 1)
+                  if d_pp else None],
+            "t": [s.get("t"), s.get("t0"),
+                  round((pp.get("trust_net") or 0) / 1000, 1)
+                  if d_pp else None],
+            "x": [s.get("x"), s.get("x0"),
+                  round((pp.get("total_net") or 0) / 1000, 1)
+                  if d_pp else None],
+        }
         tc = round(div * TAX_CREDIT_RATE, 3) if div is not None else None
         p = {
             "hy": True,                              # 候選即已過Ⓐ
@@ -100,6 +143,8 @@ def run(trade_date=""):
             "liab_ratio": (round(fin["contract_liab_k"] / fin["capital_k"], 2)
                            if fin.get("capital_k") else None),
             "eps": fin.get("eps"), "period": fin.get("period"),
+            "inst": inst,
+            "tech": tech,
             "pass": p,
             "all": all(p.values()),
         })
