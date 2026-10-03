@@ -148,7 +148,7 @@
     <button data-tab="wl">⭐ 自選股</button>
     <button data-tab="lu">🔴 漲停股</button>
     <button data-tab="mm">🌅 開盤強勢</button>
-    <button data-tab="scr">📋 法人動能</button>
+    <button data-tab="scr">📋 投信大買</button>
     <button data-tab="vs">💰 選股</button>
   </div>
 </header>
@@ -214,33 +214,12 @@
 
   <div class="tabpane" id="tab-scr">
 <div class="card">
-    <h2>📋 法人動能每日篩選（五條件）</h2>
+    <h2>📋 投信大買（買超＞前日3倍）</h2>
     <div class="msg" id="resultMeta"></div>
-    <div class="row" style="margin:6px 0">
-      <select id="techFilter">
-        <option value="all">技術面：全部顯示</option>
-        <option value="bull">只看 📈 技術多頭</option>
-        <option value="bullvol">📈 多頭＋價漲量增</option>
-        <option value="notbear">排除 📉 技術空頭</option>
-      </select>
-      <span class="msg" id="techMeta"></span>
-    </div>
     <div id="cards"></div>
-    <div class="tablewrap">
-      <table id="resultTable" style="display:none">
-        <thead><tr>
-          <th>代號</th><th>名稱</th><th>符合條件</th><th>收盤</th><th>漲跌</th><th>量(張)</th>
-          <th>外資買超</th><th>外資前日</th><th>投信買超</th><th>投信前日</th>
-          <th>法人合計</th><th>法人前日</th><th>主力買賣超</th>
-          <th>大戶%</th><th>大戶週變動</th><th>轉讓(張)</th>
-          <th>合約負債(億)</th><th>資本額(億)</th><th>EPS</th><th>期別</th>
-          <th title="近一年相似④⑤條件訊號，一週內最大漲幅達2/4/6%的歷史機率">一週漲2/4/6%</th>
-        </tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="row" style="margin-top:8px">
+      <button id="resMore" class="secondary" style="display:none">顯示更多</button>
     </div>
-    <div class="empty" id="resultEmpty" style="display:none">
-      今日沒有通過法人條件（外資投信大買＋法人買賣超放大）的候選股。</div>
   </div>
 
 <div class="card" id="diagCard" style="display:none">
@@ -474,151 +453,76 @@ const techPass = (t, mode) =>
   : mode === "bullvol" ? !!t && t.sum === "bull" && t.vp === "價漲量增"
   : !(t && t.sum === "bear");                         // notbear：無資料也保留
 
+// ---- 📋 投信大買：全市場快照中 投信當日買超 > 前日買賣超絕對值×3 ----
+// （2026-10-03 使用者將本分頁條件改為單一「投信大買」；由賣轉買也算）
+let resShown = 30;
 async function loadResults() {
-  const r = await getJSON("data/screen_results.json");
-  const bt = await getJSON("data/backtest.json");
-  const tech = await getTech();
+  const [snap, fins, trf, tech] = await Promise.all([
+    getJSON("data/market_snapshot.json"), getJSON("data/financials.json"),
+    getTransfers(), getTech()]);
   await loadIntraday();
-  const ws = bt && bt.week_stats;
-  if (!r) { $("resultMeta").textContent = "尚無資料"; return; }
+  const meta = $("resultMeta"), box = $("cards");
+  if (!snap || !snap.stocks) {
+    meta.textContent = "全市場快照尚未產生（每日篩選後可用）"; box.innerHTML = "";
+    return;
+  }
+  const dT2 = mdd(snap.trade_date), dP2 = mdd(snap.prev_trade_date);
   const tstk = (tech && tech.stocks) || {};
-  const tmode = $("techFilter").value;
-  const mk = r.market || {};
-  const mkLine = mk.night_pct != null
-    ? `｜🌙 ${mk.night_src} ${mk.night_pct > 0 ? "+" : ""}${mk.night_pct}%` +
-      (mk.foreign_yi != null ? `、外資全市場 ${mk.foreign_yi > 0 ? "買超" : "賣超"} ${fmt(Math.abs(mk.foreign_yi), 0)} 億` : "") +
-      (mk.tailwind ? "（順風日）" : "")
-    : "";
-  $("resultMeta").textContent =
-    (r.trade_date ? `交易日 ${r.trade_date}｜` : "") + (r.message || "") +
-    (r.generated_at ? `｜更新 ${r.generated_at}` : "") + mkLine + liveNote();
-  const dT = mdd(r.trade_date), dP = mdd(r.prev_trade_date);
-  const allRows = r.results || [];
-  const rows = allRows.filter(s => techPass(tstk[s.code], tmode));
-  const nTech = allRows.filter(s => tstk[s.code]).length;
-  $("techMeta").textContent = !tech
-    ? "技術面資料將於下次每日篩選後產生"
-    : (tmode === "all"
-       ? `技術面已判讀 ${nTech}/${allRows.length} 檔`
-       : `符合 ${rows.length} 檔／全部 ${allRows.length} 檔`);
-  $("resultTable").style.display = rows.length ? "" : "none";
-  const TH_D = { 3: `收盤(${dT})`, 6: `外資買超(${dT})`, 7: `外資(${dP})`,
-                 8: `投信買超(${dT})`, 9: `投信(${dP})`,
-                 10: `法人合計(${dT})`, 11: `法人(${dP})` };
-  $("resultTable").querySelectorAll("thead th")
-    .forEach((el, i) => { if (TH_D[i]) el.textContent = TH_D[i]; });
-  $("resultEmpty").style.display = rows.length ? "none" : "";
-  const tb = $("resultTable").querySelector("tbody");
-  const cards = $("cards");
-  tb.innerHTML = ""; cards.innerHTML = "";
-  const NCOLS = 21;
-  const tierOf = s => {
-    if (!s.conds) return 0;
-    const gate = (s.conds.c1 ?? true) && (s.conds.c2 ?? true);
-    if (s.passed === 5) return 0;
-    if (gate && s.conds.c4) return 1;
-    if (s.conds.c4) return 2;
-    return 3;
-  };
-  const TIERS = ["🏆 符合全部條件",
-                 "🟡 法人動能＋合約負債達標（部分符合）",
-                 "🔵 全市場合約負債達標股（法人尚未進場）",
-                 "⚪ 其他法人動能股（合約負債未達標）"];
-  const badges = s => !s.conds ? "—" :
-    [["c1", "①外投買超"], ["c2", "②法人放大"], ["c3", "③轉讓"],
-     ["c4", "④合約負債"], ["c5", "⑤EPS"]]
-      .map(([k, t]) => s.conds[k] === undefined ? "" :
-        `<span class="chip ${s.conds[k] ? "ok" : "bad"}">${t}${s.conds[k] ? "✓" : "✗"}</span>`)
-      .join("");
-  let lastTier = -1;
-  for (const s of rows) {
-    const tier = tierOf(s);
-    if (tier !== lastTier) {
-      lastTier = tier;
-      tb.insertAdjacentHTML("beforeend",
-        `<tr class="tier"><td colspan="${NCOLS}">${TIERS[tier]}</td></tr>`);
-      cards.insertAdjacentHTML("beforeend", `<div class="tierhead">${TIERS[tier]}</div>`);
-    }
-    const liab = s.contract_liab_k != null ? s.contract_liab_k / 100000 : null;
-    const cap  = s.capital_k != null ? s.capital_k / 100000 : null;
-    const chg  = s.big_holder_chg == null ? "需累積2週" : fmt(s.big_holder_chg, 2) + "pp";
-    const scoreChip = (s.score != null
-      ? `<span class="chip score">評分 ${s.score}</span>` : "") +
-      (mk.tailwind && s.conds?.c1 && s.conds?.c2
-        ? '<span class="chip night">🌙夜盤順風</span>' : "");
-    const wk = weekInfo(s, ws);
-    const wkCell = wk
-      ? `${fmt(wk.st.p2, 0)}/${fmt(wk.st.p4, 0)}/${fmt(wk.st.p6, 0)}%` : "—";
-    const hitTxt = (o, lab) => (o && o.p != null)
-      ? `≥${lab} <b>${fmt(o.p, 0)}%</b>${o.med_days ? `<small>(中位${o.med_days}日)</small>` : ""}`
-      : "";
-    const wkLine = wk
-      ? `<div class="msg" style="margin-top:6px">📈 歷史相似條件
-         （${wk.tag}，n=${wk.st.n}）：一週內漲≥2% <b>${fmt(wk.st.p2, 0)}%</b>
-         ｜≥4% <b>${fmt(wk.st.p4, 0)}%</b>｜≥6% <b>${fmt(wk.st.p6, 0)}%</b>
-         ｜平均上漲 ${fmt(wk.st.avg_up_days, 1)}/5 天
-         ｜最大漲幅中位 ${wk.st.med_max_up > 0 ? "+" : ""}${fmt(wk.st.med_max_up, 1)}%
-         ${wk.st.med_peak_day ? `（多在第 ${wk.st.med_peak_day} 天見高）` : ""}</div>
-        ${wk.st.m5 ? `<div class="msg">↳ 一個月內漲 ${hitTxt(wk.st.m5, "5%")}
-         ｜${hitTxt(wk.st.m7, "7%")}｜${hitTxt(wk.st.m10, "10%")}
-         ｜一週後收漲 <b>${fmt(wk.st.w1_pos, 0)}%</b>
-         ｜兩週後收漲 <b>${fmt(wk.st.w2_pos, 0)}%</b>
-         ｜連5日紅 ${fmt(wk.st.streak5, 0)}%</div>` : ""}`
-      : "";
-    const lv = live(s.code);
-    const px = lv ? lv.p : s.close;
-    const pchg = lv && lv.pc != null ? +(lv.p - lv.pc).toFixed(2) : s.change;
-    tb.insertAdjacentHTML("beforeend", `<tr>
-      <td>${s.code}</td><td>${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</td>
-      <td class="badges">${s.passed ?? "—"}/5 ${scoreChip}${techChip(tstk[s.code])}${badges(s)}</td>
-      <td title="${lv ? "盤中價" : "篩選日收盤"}">${fmt(px, 2)}${lv ? "*" : ""}</td>
-      <td class="${cls(pchg)}">${fmt(pchg, 2)}</td>
-      <td>${fmt(s.volume_lots, 0)}</td>
-      <td class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</td>
-      <td>${fmt(s.foreign_net_prev, 0)}</td>
-      <td class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</td>
-      <td>${fmt(s.trust_net_prev, 0)}</td>
-      <td class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</td>
-      <td>${fmt(s.total_net_prev, 0)}</td>
-      <td class="${cls(s.main_force_net)}" title="${s.main_force_src || ""}">${fmt(s.main_force_net, 0)}</td>
-      <td>${fmt(s.big_holder_pct, 2)}</td><td class="${cls(s.big_holder_chg)}">${chg}</td>
-      <td>${fmt(s.transfer_general_lots, 0)}</td>
-      <td>${fmt(liab, 2)}</td><td>${fmt(cap, 2)}</td>
-      <td>${fmt(s.eps, 2)}</td><td>${s.fin_period || "—"}</td>
-      <td title="${wk ? `${wk.tag}，n=${wk.st.n}` : ""}">${wkCell}</td></tr>`);
-    cards.insertAdjacentHTML("beforeend", `<div class="stock">
-      <div class="head"><b>${s.code} ${s.name}${s.market === 'otc' ? ' <small>(櫃)</small>' : ''}</b>
-        <span class="price ${cls(pchg)}">${fmt(px, 2)}
-          <small>${pchg > 0 ? "▲" : (pchg < 0 ? "▼" : "")}${fmt(Math.abs(pchg ?? 0), 2)}${lv ? (intraLive ? ` ${intraDate}盤中` : ` ${intraDate}收`) : ""}</small>
-        </span></div>
-      <div class="badges"><span class="chip">📅${dT}資料</span>
-        ${s.passed ?? "—"}/5 ${scoreChip}${techChip(tstk[s.code])}${badges(s)}</div>
+  const rows = [];
+  for (const [code, s] of Object.entries(snap.stocks)) {
+    if (!/^\d{4}$/.test(code) || code.startsWith("00")) continue;   // 排除 ETF
+    if (s.t > 0 && s.t > Math.abs(s.t0 || 0) * TH.net) rows.push([code, s]);
+  }
+  rows.sort((a, b) => (b[1].t || 0) - (a[1].t || 0));
+  meta.textContent = `交易日 ${snap.trade_date}｜全市場符合 ${rows.length} 檔｜` +
+    `條件＝投信當日買超 且 買超＞前日買賣超絕對值×${TH.net} 倍（由賣轉買也算）` +
+    `｜依投信買超張數排序` + liveNote();
+  box.innerHTML = rows.length ? "" :
+    `<div class="empty">目前未達條件：${dT2} 全市場沒有「投信買超且較前日放大
+     ${TH.net} 倍」的股票。（條件＝投信當日買超＞前日買賣超絕對值×${TH.net}）</div>`;
+  const chip = (ok, t, unknown) => unknown
+    ? `<span class="chip">${t}—</span>`
+    : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
+  for (const [code, s] of rows.slice(0, resShown)) {
+    const fin = (fins || {})[code] || {};
+    const ratio = Math.abs(s.t0 || 0) > 0
+      ? fmt(s.t / Math.abs(s.t0), 1) + " 倍" : "前日無進出";
+    const instT = s.f + s.t, instP = s.f0 + s.t0;
+    const c1 = s.f > 0 && s.t > 0 && instT > Math.max(instP, 0) * TH.surge && instT > 0;
+    const c2 = s.x > 0 && s.x > Math.abs(s.x0 || 0) * TH.net;
+    const c4 = fin.contract_liab_k != null && fin.capital_k != null &&
+               fin.contract_liab_k > fin.capital_k * TH.liab;
+    const c5 = fin.eps != null && fin.eps > TH.eps;
+    const finUnknown = fin.contract_liab_k == null && fin.capital_k == null;
+    const liab = fin.contract_liab_k != null ? fin.contract_liab_k / 100000 : null;
+    const cap = fin.capital_k != null ? fin.capital_k / 100000 : null;
+    const lv = live(code);
+    const px = lv ? lv.p : s.c;
+    const pch = lv && lv.pc != null ? +(lv.p - lv.pc).toFixed(2) : s.ch;
+    box.insertAdjacentHTML("beforeend", `<div class="stock">
+      <div class="head"><b>${code} ${s.n || ""}${s.m === "otc" ? ' <small>(櫃)</small>' : ""}</b>
+        <span class="price ${cls(pch)}">${fmt(px, 2)}
+          <small>${pch > 0 ? "▲" : (pch < 0 ? "▼" : "")}${fmt(Math.abs(pch ?? 0), 2)}${lv ? (intraLive ? ` ${intraDate}盤中` : ` ${intraDate}收`) : ""}</small></span></div>
+      <div class="badges"><span class="chip">📅${dT2}資料</span>
+        <span class="chip ok">投信大買 ${ratio}</span>
+        ${chip(c1, "①外投買超")} ${chip(c2, "②法人放大")} ${transferChip(code, trf, chip)}
+        ${chip(c4, "④合約負債", finUnknown)} ${chip(c5, "⑤EPS", fin.eps == null)}
+        ${techChip(tstk[code])}</div>
       <div class="grid">
-        ${triLine(lv, dT, dP)}
-        <div><span>成交量</span> ${volText(s.code, s.volume_lots, s.vol_hist, dT)}</div>
-        <div><span>外資買超(${dT})</span> <b class="${cls(s.foreign_net)}">${fmt(s.foreign_net, 0)}</b>（${dP}：${fmt(s.foreign_net_prev, 0)}）</div>
-        <div><span>投信買超(${dT})</span> <b class="${cls(s.trust_net)}">${fmt(s.trust_net, 0)}</b>（${dP}：${fmt(s.trust_net_prev, 0)}）</div>
-        <div><span>法人合計(${dT})</span> <b class="${cls(s.total_net)}">${fmt(s.total_net, 0)}</b>（${dP}：${fmt(s.total_net_prev, 0)}）</div>
-        <div><span>主力買賣超</span> ${fmt(s.main_force_net, 0)} 張</div>
-        <div><span>大戶>1000張</span> ${fmt(s.big_holder_pct, 2)}%（${chg}）</div>
-        <div><span>一般交易轉讓</span> ${fmt(s.transfer_general_lots, 0)} 張/30日</div>
+        ${triLine(lv, dT2, dP2)}
+        <div><span>投信買賣超(${dT2})</span> <b class="${cls(s.t)}">${fmt(s.t, 0)}</b> 張
+          （${dP2}：${fmt(s.t0, 0)}，放大 ${ratio}）</div>
+        <div><span>外資買賣超(${dT2})</span> <b class="${cls(s.f)}">${fmt(s.f, 0)}</b>（${dP2}：${fmt(s.f0, 0)}）</div>
+        <div><span>法人合計(${dT2})</span> <b class="${cls(s.x)}">${fmt(s.x, 0)}</b>（${dP2}：${fmt(s.x0, 0)}）</div>
+        <div><span>成交量</span> ${volText(code, s.v, s.vh, dT2)}</div>
         <div><span>合約負債/資本額</span> ${fmt(liab, 2)} / ${fmt(cap, 2)} 億</div>
-        <div><span>EPS</span> ${fmt(s.eps, 2)} 元（${s.fin_period || "—"}）</div>
-        ${techLine(tstk[s.code])}
-      </div>${wkLine}</div>`);
+        <div><span>EPS</span> ${fmt(fin.eps, 2)} 元（${fin.period || "—"}）</div>
+        ${techLine(tstk[code])}
+      </div></div>`);
   }
-  if (!rows.length && allRows.length) {
-    cards.insertAdjacentHTML("beforeend", `<div class="empty">
-      目前的技術面過濾條件下沒有符合的股票（全部 ${allRows.length} 檔）。
-      可改選「技術面：全部顯示」。</div>`);
-  }
+  $("resMore").style.display = rows.length > resShown ? "" : "none";
 }
-$("techFilter").onchange = () => {
-  try { localStorage.setItem("techFilter", $("techFilter").value); } catch {}
-  loadResults();
-};
-try { $("techFilter").value = localStorage.getItem("techFilter") || "all"; }
-catch {}
+$("resMore").onclick = () => { resShown += 30; loadResults(); };
 
 // ---- 自選名單（localStorage，僅存於本裝置）----
 const TH = { surge: 2, net: 3, transfer: 100, liab: 0.5, eps: 1.5 };  // 與 config.py 對應
