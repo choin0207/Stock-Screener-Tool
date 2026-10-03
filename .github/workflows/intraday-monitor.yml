@@ -1,12 +1,17 @@
-# 盤中監控（台北 08:00–13:55）：量能爆量、風險燈號、盤中價、漲停委買觀察。
-# GitHub 對每 5 分鐘的高頻排程會限流丟棄（2026-08-13 曾整段停擺），
-# 改為「每小時啟動一次、單一 job 內部每 5 分鐘循環執行並提交」，
-# 12 次排程事件縮為 1 次，可靠性大幅提升。
+# 盤中監控（台北 08:00–13:58）：量能爆量、風險燈號、盤中價、漲停委買、開盤強勢。
+# GitHub 排程事件常被限流丟棄或延遲數小時（2026-08-13 高頻排程停擺、
+# 2026-09 下旬起每小時事件只剩 2/6 且延遲 4-5 小時，開盤強勢整月停更）。
+# 對策：單一事件啟動後「循環到收盤」——每 5 分鐘一輪直到台北 13:58，
+# 或接近 GitHub 6 小時 job 上限時主動收工，由下一個排程事件接手。
+# 三個錯峰啟動點（避開整點壅塞）：07:48 主力＋09:19/11:37 保險，
+# 任一事件實際執行即可涵蓋其後到收盤的全部時段。
 name: Intraday Volume Monitor
 
 on:
   schedule:
-    - cron: "1 0-5 * * 1-5"
+    - cron: "48 23 * * 0-4"   # 台北週一~五 07:48 主力啟動
+    - cron: "19 1 * * 1-5"    # 台北 09:19 保險（補開盤強勢觀察窗）
+    - cron: "37 3 * * 1-5"    # 台北 11:37 保險
   workflow_dispatch: {}
 
 permissions:
@@ -19,19 +24,22 @@ concurrency:
 jobs:
   monitor:
     runs-on: ubuntu-latest
-    timeout-minutes: 70
+    timeout-minutes: 355
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - name: Monitor loop（每約 5 分鐘一輪，至整點或台北 13:58）
+      - name: Monitor loop（每約 5 分鐘一輪，直到台北 13:58 或接近時限）
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for i in $(seq 1 11); do
-            echo "=== 第 $i 輪 $(date -u +%H:%M:%S) UTC ==="
+          start=$(date +%s)
+          round=0
+          while :; do
+            round=$((round+1))
+            echo "=== 第 $round 輪 $(date -u +%H:%M:%S) UTC ==="
             python run_monitor.py || echo "本輪執行失敗，下一輪重試"
             git add docs/data
             git commit -m "chore: 盤中量能監控更新 [skip ci]" || echo "no changes"
@@ -40,8 +48,18 @@ jobs:
               git rebase --abort 2>/dev/null || true
               sleep 5
             done
-            # 台北 13:58（05:58 UTC）後收工；非最後一輪則等 4 分鐘
+            # 台北 13:58（05:58 UTC）後收工；23:4x 啟動屬開盤前不收工
             now=$((10#$(date -u +%H%M)))
-            if [ "$now" -ge 558 ] && [ "$now" -lt 2300 ]; then break; fi
-            [ "$i" -lt 11 ] && sleep 240
+            if [ "$now" -ge 558 ] && [ "$now" -lt 2340 ]; then
+              echo "已過台北 13:58，收工"
+              break
+            fi
+            # 連續運轉 5 小時 40 分後主動收工（GitHub job 上限 6 小時），
+            # 收盤前的剩餘時段由下一個排程事件（排隊中）接手
+            if [ $(( $(date +%s) - start )) -ge 20400 ]; then
+              echo "接近 job 時限，主動收工交棒"
+              break
+            fi
+            sleep 240
           done
+          echo "共執行 $round 輪"

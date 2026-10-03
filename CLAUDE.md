@@ -30,7 +30,7 @@
 | workflow | 排程（UTC） | 推送觸發檔 | 作用 |
 |---|---|---|---|
 | daily-screen.yml | 平日 07:30、09:00（=台北15:30/17:00） | `screen-request.txt` | 每日篩選＋產出全市場快照 |
-| intraday-monitor.yml | 平日 0-5 時每小時啟動、job 內每5分循環（防GitHub高頻排程限流） | — | 量能爆量警示（10分鐘段量>當日均段量10倍） |
+| intraday-monitor.yml | 平日 23:48/01:19/03:37 三個錯峰啟動點，job 內每5分循環**直到台北13:58**（單一事件涵蓋全日，防GitHub排程丟棄/延遲；2026-09下旬事件曾只剩2/6且延遲4-5hr致開盤強勢停更） | — | 量能爆量警示（10分鐘段量>當日均段量10倍） |
 | financial-scan.yml | 週六 22:00（週五UTC） | `finscan-request.txt` | 全市場財報掃描→financials.json |
 | diagnose.yml | 手動/推送 | `diagnose-request.txt`（**只讀第一行**的代號） | 個股五條件診斷→網頁診斷卡 |
 | backtest.yml | 平日 10:07（=台北18:07）＋手動/推送 | `backtest-request.txt` | 3年回測訓練→backtest.json（首跑約2-3hr，.cache 走 actions/cache） |
