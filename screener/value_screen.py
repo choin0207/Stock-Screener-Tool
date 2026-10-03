@@ -69,7 +69,8 @@ def run(trade_date=""):
     y_min = CONFIG["value_yield_min"]
     div_min = CONFIG["value_div_min"]
     kd_max = CONFIG["value_kd_max"]
-    cl_floor = CONFIG["value_cl_ratio"]          # 候選入場底線（0=有合約負債即可）
+    cl_min = CONFIG["value_cl_min"]              # Ⓓ 倍數區間（使用者定 3~5 倍）
+    cl_max = CONFIG["value_cl_max"]
     target = CONFIG.get("value_target_count", 10)
 
     cands = []
@@ -82,7 +83,7 @@ def run(trade_date=""):
         liab, cap = fin.get("contract_liab_k"), fin.get("capital_k")
         if liab is None or cap is None or not cap:
             continue
-        if liab <= 0 or liab <= cap * cl_floor:      # Ⓓ 底線（倍數門檻後面自動定）
+        if not (cap * cl_min < liab <= cap * cl_max):   # Ⓓ 倍數區間（入場券）
             continue
         price = (stocks.get(code) or {}).get("c")
         div = yv["div_ps"]
@@ -133,7 +134,7 @@ def run(trade_date=""):
             "hy": True,                              # Ⓐ（y_min=0 時不設限）
             "tc": True,                              # Ⓑ 候選已過（股利入場券）
             "kd": k_val is not None and k_val <= kd_max,
-            "cl": False,                             # Ⓓ 門檻自動定，稍後回填
+            "cl": True,                              # Ⓓ 候選已過（倍數區間）
         }
         rows.append({
             "code": code,
@@ -151,18 +152,8 @@ def run(trade_date=""):
             "inst": inst,
             "tech": tech,
             "pass": p,
-            "all": False,
+            "all": all(p.values()),
         })
-
-    # Ⓓ 合約負債倍數自動調整：在已過ⒶⒷⒸ者中依倍數由高到低取前 target 檔，
-    # 生效門檻 = 第 target 名的倍數（使用者 2026-10-03：讓篩選剩 10 檔）
-    passers = sorted((r for r in rows if r["pass"]["tc"] and r["pass"]["kd"]),
-                     key=lambda r: -(r["liab_ratio"] or 0))
-    chosen = {r["code"] for r in passers[:target]}
-    cl_cut = passers[:target][-1]["liab_ratio"] if passers else None
-    for r in rows:
-        r["pass"]["cl"] = r["code"] in chosen
-        r["all"] = all(r["pass"].values())
     rows.sort(key=lambda r: (not r["all"], -(r["yield_pct"] or 0)))
 
     from . import performance
@@ -170,8 +161,8 @@ def run(trade_date=""):
         "generated_at": performance._now().isoformat(timespec="seconds"),
         "trade_date": trade_date or snap.get("trade_date", ""),
         "params": {"yield_min": y_min, "div_min": div_min,
-                   "kd_max": kd_max, "cl_mode": "auto",
-                   "cl_target": target, "cl_cut": cl_cut},
+                   "kd_max": kd_max, "cl_min": cl_min, "cl_max": cl_max,
+                   "cl_target": target},
         "rows": rows,
     }
     with open(_data_path("value_screen.json"), "w", encoding="utf-8") as f:
