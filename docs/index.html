@@ -164,7 +164,7 @@
   </div>
 
   <div class="card">
-    <h2>🚨 量能警示</h2>
+    <h2>🚨 量能與風險警示（僅自選股）</h2>
     <div id="alerts"><div class="empty">目前沒有警示。</div></div>
   </div>
 
@@ -1186,7 +1186,7 @@ async function loadRisk() {
     meta.textContent = "尚未產生（平日 08:00 起每 10 分鐘更新）";
     mkt.innerHTML = ""; stk.innerHTML = ""; return;
   }
-  meta.textContent = `更新 ${d.generated_at}｜監控清單增減請告訴 AI 助理`;
+  meta.textContent = `更新 ${d.generated_at}｜僅顯示自選名單個股｜監控清單增減請告訴 AI 助理`;
   const m = d.market || { light: "green", signals: [] };
   mkt.innerHTML =
     `<div class="riskbar ${m.light}">${LT_ICON[m.light]} 市場整體：${LT_TEXT[m.light]}</div>`
@@ -1194,9 +1194,12 @@ async function loadRisk() {
         const c = s.light === "red" ? "bad" : (s.light === "yellow" ? "warn" : "ok");
         return `<span class="chip ${c}">${s.label} ${fmt(s.value, 2)}${s.unit}</span>`;
       }).join(" ") + "</div>";
-  const entries = Object.entries(d.stocks || {});
+  const wl = getWl();                       // 僅顯示自選名單內的個股燈號
+  const entries = Object.entries(d.stocks || {}).filter(([c]) => wl.includes(c));
   stk.innerHTML = entries.length ? "" :
-    '<div class="empty">個股燈號於交易時段（09:00–13:30）每 5 分鐘產生。</div>';
+    (wl.length
+      ? '<div class="empty">自選股的個股燈號於交易時段（09:00–13:30）每 5 分鐘產生。</div>'
+      : '<div class="empty">自選名單是空的——加入自選股後這裡才會顯示風險燈號。</div>');
   if (entries.length && d.stocks_asof) {
     stk.insertAdjacentHTML("beforeend",
       `<div class="msg">以下為今日收盤前最後評估（${String(d.stocks_asof).slice(11, 16)}）</div>`);
@@ -1223,10 +1226,14 @@ async function loadAlerts() {
   const all = await getJSON("data/alerts.json") || [];
   // 只顯示今日與昨日的警示（更早的仍留在檔案供統計，不佔版面）
   const cut = new Date(); cut.setDate(cut.getDate() - 1); cut.setHours(0, 0, 0, 0);
-  const alerts = all.filter(a => new Date(a.time) >= cut);
+  // 僅顯示自選名單個股的警示（無個股代號的市場級警示保留）
+  const wl = getWl();
+  const alerts = all.filter(a => new Date(a.time) >= cut &&
+                                 (!a.code || wl.includes(a.code)));
   const box = $("alerts");
   if (!alerts.length) {
-    box.innerHTML = '<div class="empty">今日與昨日沒有警示。</div>';
+    box.innerHTML = '<div class="empty">今日與昨日沒有自選股相關警示。' +
+      '（其他追蹤股的警訊已隱藏，僅顯示自選名單）</div>';
     firstAlertLoad = false; return;
   }
   box.innerHTML = "";

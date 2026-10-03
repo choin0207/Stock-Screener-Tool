@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v22）
+  看到舊版介面，SHELL 版本 shell-v23）
 - 五分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋投信大買／💰選股（localStorage activeTab）
 - 📋投信大買（2026-10-03，使用者把原「法人動能五條件」分頁顯示改為單一條件）：
   **純前端**掃全市場快照，條件＝投信當日買超 且 >前日買賣超絕對值×TH.net(3)
@@ -73,6 +73,9 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   寫 `docs/data/morning_movers.json`（含逐輪價格軌跡 hist、rising 旗標，
   同日 hist 延續、跨日重起算）；前端 loadMorning() 過濾 gap_pct>0 且 p>o，
   附①-⑤ chips 與法人明細，非今日資料顯示留存標註
+- 警示過濾（2026-10-03 使用者）：量能警示卡與風險燈號卡**只顯示自選名單個股**
+  （loadAlerts 以 a.code∈mywatch 過濾、無代號之市場級警示保留；loadRisk 個股
+  燈號同樣過濾，市場整體燈號保留；後端 alerts.json/watch_alerts.json 不變）
 - 自選名單：localStorage（key `mywatch`），每台裝置獨立；資料來自
   `data/market_snapshot.json`（每日篩選產出，欄位縮寫見 `_save_market_snapshot`）
   + `data/financials.json`；前端 `TH` 常數需與 config.py 門檻同步
