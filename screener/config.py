@@ -78,7 +78,7 @@ CONFIG = {
     "value_yield_min": 8.0,
     "value_div_min": 2.0,
     "value_kd_max": 20.0,
-    "value_cl_ratio": 1.0,
+    "value_cl_ratio": 5.0,
     "value_kd_max_codes": 150,         # 殖利率+合約負債過者最多算幾檔 KD（Yahoo）
 
     # ---- 每日排程 ----
