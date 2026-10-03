@@ -985,30 +985,26 @@ async function loadValue() {
     return;
   }
   const pm = d.params || {};
-  const rows = d.rows, nAll = rows.filter(r => r.all).length;
-  meta.innerHTML = `交易日 ${d.trade_date}｜候選（Ⓐ殖利率≥${pm.yield_min}%
-    ＋Ⓓ合約負債＞股本×${pm.cl_ratio}）${rows.length} 檔，
-    <b>全符合 ${nAll} 檔</b>｜Ⓑ現金股利≥${pm.div_min}元
-    （抵扣稅額＝股利×8.5%，2018稅改後舊制扣抵比率已廢除）
-    ｜ⒸK值≤${pm.kd_max}（超賣區，反彈機會）`;
-  box.innerHTML = rows.length ? "" :
-    `<div class="empty">目前未達條件：沒有「殖利率≥${pm.yield_min}% 且
-     合約負債＞股本」的股票。（財報資料庫涵蓋不足時也會偏少）</div>`;
+  const all = (d.rows || []).filter(r => r.all);     // 只列四條件全符合
+  const nCand = (d.rows || []).length;
+  meta.innerHTML = `交易日 ${d.trade_date}｜<b>四條件全符合 ${all.length} 檔</b>
+    （候選 ${nCand} 檔）｜Ⓐ殖利率≥${pm.yield_min}%
+    ｜Ⓑ現金股利≥${pm.div_min}元（抵扣稅額＝股利×8.5%，2018稅改後舊制扣抵比率已廢除）
+    ｜ⒸK值≤${pm.kd_max}（超賣區，反彈機會）｜Ⓓ合約負債＞股本×${pm.cl_ratio}`;
+  if (!all.length) {
+    box.innerHTML = `<div class="empty">目前未達條件：沒有同時符合
+      Ⓐ殖利率≥${pm.yield_min}%、Ⓑ現金股利≥${pm.div_min}元、
+      ⒸK值≤${pm.kd_max}、Ⓓ合約負債＞股本 四條件的股票
+      （殖利率＋合約負債過關的候選有 ${nCand} 檔，差在Ⓑ或Ⓒ）。
+      條件每日篩選後重新判定。</div>`;
+    $("vsMore").style.display = "none";
+    return;
+  }
+  box.innerHTML = "";
   const chip = (ok, t, unknown) => unknown
     ? `<span class="chip">${t}—</span>`
     : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
-  let shownAllHead = false, shownRestHead = false;
-  for (const r of rows.slice(0, vsShown)) {
-    if (r.all && !shownAllHead) {
-      shownAllHead = true;
-      box.insertAdjacentHTML("beforeend",
-        '<div class="tierhead">🏆 四條件全符合</div>');
-    } else if (!r.all && !shownRestHead) {
-      shownRestHead = true;
-      box.insertAdjacentHTML("beforeend",
-        `<div class="tierhead">⚪ 其餘候選（已過Ⓐ殖利率＋Ⓓ合約負債，
-         Ⓑ或Ⓒ未達）</div>`);
-    }
+  for (const r of all.slice(0, vsShown)) {
     const p = r.pass || {};
     box.insertAdjacentHTML("beforeend", `<div class="stock">
       <div class="head"><b>${r.code} ${r.name}${r.market === "otc" ? ' <small>(櫃)</small>' : ""}</b>
@@ -1030,7 +1026,7 @@ async function loadValue() {
         <div><span>EPS</span> ${fmt(r.eps, 2)} 元（${r.period || "—"}）</div>
       </div></div>`);
   }
-  $("vsMore").style.display = rows.length > vsShown ? "" : "none";
+  $("vsMore").style.display = all.length > vsShown ? "" : "none";
 }
 $("vsMore").onclick = () => { vsShown += 30; loadValue(); };
 
