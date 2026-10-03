@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v18）
+  看到舊版介面，SHELL 版本 shell-v19）
 - 五分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋法人動能(原「選股」，五條件)／💰選股(高殖利率，使用者稱之為「選股」，2026-10-03 改名)（localStorage activeTab）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
   08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
@@ -80,7 +80,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   （全部/只看多頭/多頭+價漲量增/排除空頭，localStorage 記憶），
   每檔卡片附 📈技術多頭/📉空頭 chip 與五行明細，自選卡同步顯示
 - 高殖利率存股篩選（2026-10-03 新增）：`screener/value_screen.py` 於每日篩選後
-  執行，條件 Ⓐ殖利率≥5%（官方本益比殖利率表 BWIBBU_ALL+TPEx openapi，
+  執行，條件 Ⓐ殖利率（value_yield_min=0 不設限，2026-10-03 使用者拿掉）（官方本益比殖利率表 BWIBBU_ALL+TPEx openapi，
   fetch_yield_all）Ⓑ現金股利≥2元（**抵扣稅額：2018稅改後舊制扣抵比率已廢除，
   現制=股利×8.5%可抵減**，上市無股利欄以 價×殖利率 回推）ⒸKD之K值≤20超賣
   （候選縮小後逐檔 Yahoo 日K，上限 value_kd_max_codes=150）Ⓓ合約負債倍數

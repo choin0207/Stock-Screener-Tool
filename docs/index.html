@@ -1008,7 +1008,7 @@ async function loadValue() {
   const top = all.slice(0, VS_TOP);
   meta.innerHTML = `交易日 ${d.trade_date}｜<b>符合 ${all.length} 檔</b>
     （依 EPS、殖利率、近3日法人買超、技術面分數 綜合排名呈現）
-    ｜Ⓐ殖利率≥${pm.yield_min}%
+    ${pm.yield_min > 0 ? `｜Ⓐ殖利率≥${pm.yield_min}%` : "｜殖利率不設限"}
     ｜Ⓑ現金股利≥${pm.div_min}元（可抵減稅額＝股利×8.5%；舊制扣抵比率30%
     已於2018稅改廢除，無資料可查）
     ｜ⒸK值≤${pm.kd_max}（超賣區）
@@ -1016,8 +1016,8 @@ async function loadValue() {
       ? `（本次生效門檻≥${fmt(pm.cl_cut, 2)}倍）` : ""}`;
   if (!all.length) {
     box.innerHTML = `<div class="empty">目前未達條件：沒有同時符合
-      Ⓐ殖利率≥${pm.yield_min}%、Ⓑ現金股利≥${pm.div_min}元、
-      ⒸK值≤${pm.kd_max}（且有合約負債）的股票。每日篩選後重新判定。</div>`;
+      ${pm.yield_min > 0 ? `殖利率≥${pm.yield_min}%、` : ""}現金股利≥${pm.div_min}元、
+      K值≤${pm.kd_max}（且有合約負債）的股票。每日篩選後重新判定。</div>`;
     $("vsMore").style.display = "none";
     return;
   }
@@ -1046,7 +1046,7 @@ async function loadValue() {
         <span class="price">${fmt(r.price, 2)}
           <small>殖利率 ${fmt(r.yield_pct, 1)}%</small></span></div>
       <div class="badges">
-        ${chip(true, `Ⓐ殖利率${fmt(r.yield_pct, 1)}%`)}
+        ${chip(true, `殖利率${fmt(r.yield_pct, 1)}%`)}
         ${chip(p.tc, "Ⓑ抵扣稅額", r.div_est == null)}
         ${chip(p.kd, `ⒸK值${r.k != null ? fmt(r.k, 0) : ""}`, r.k == null)}
         ${chip(true, `Ⓓ合約負債${fmt(r.liab_ratio, 1)}倍`)}

@@ -76,7 +76,7 @@ def run(trade_date=""):
     for code, yv in yields.items():
         if len(code) != 4 or not code.isdigit() or code.startswith("00"):
             continue
-        if yv["yield_pct"] < y_min:                  # Ⓐ 高殖利率（入場券）
+        if y_min > 0 and yv["yield_pct"] < y_min:    # Ⓐ 殖利率（0=不設限）
             continue
         fin = fins.get(code) or {}
         liab, cap = fin.get("contract_liab_k"), fin.get("capital_k")
@@ -84,8 +84,15 @@ def run(trade_date=""):
             continue
         if liab <= 0 or liab <= cap * cl_floor:      # Ⓓ 底線（倍數門檻後面自動定）
             continue
-        cands.append((code, yv, fin))
-    cands.sort(key=lambda t: -t[1]["yield_pct"])
+        price = (stocks.get(code) or {}).get("c")
+        div = yv["div_ps"]
+        if div is None and price and yv["yield_pct"]:
+            div = round(price * yv["yield_pct"] / 100, 2)   # 上市：由殖利率回推
+        if div is None or div < div_min:             # Ⓑ 現金股利（入場券）
+            continue
+        cands.append((code, yv, fin, div))
+    # 以合約負債倍數由高到低排序（Ⓓ 自動門檻取倍數最高者，KD 運算額度留給它們）
+    cands.sort(key=lambda t: -(t[2]["contract_liab_k"] / t[2]["capital_k"]))
     cands = cands[:CONFIG["value_kd_max_codes"]]
 
     # 近三日法人：今日/前日取自快照(f/f0,t/t0,x/x0，張)，第三日另抓一次 T86+TPEx
@@ -93,12 +100,9 @@ def run(trade_date=""):
     d_pp, t86_pp = (_third_day_inst(d_p) if cands and d_p else (None, {}))
 
     rows = []
-    for code, yv, fin in cands:
+    for code, yv, fin, div in cands:
         s = stocks.get(code) or {}
         price = s.get("c")
-        div = yv["div_ps"]
-        if div is None and price and yv["yield_pct"]:
-            div = round(price * yv["yield_pct"] / 100, 2)   # 上市：由殖利率回推
         k_val = d_val = None
         tech = None
         kk = technical.fetch_daily_k(code, yv["market"])
@@ -126,8 +130,8 @@ def run(trade_date=""):
         }
         tc = round(div * TAX_CREDIT_RATE, 3) if div is not None else None
         p = {
-            "hy": True,                              # 候選即已過Ⓐ
-            "tc": div is not None and div >= div_min,
+            "hy": True,                              # Ⓐ（y_min=0 時不設限）
+            "tc": True,                              # Ⓑ 候選已過（股利入場券）
             "kd": k_val is not None and k_val <= kd_max,
             "cl": False,                             # Ⓓ 門檻自動定，稍後回填
         }
