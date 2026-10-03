@@ -268,6 +268,15 @@
   </div>
 
 <div class="card">
+    <h2>💰 高殖利率存股篩選</h2>
+    <div class="msg" id="vsMeta">載入中…</div>
+    <div id="vsList"></div>
+    <div class="row" style="margin-top:8px">
+      <button id="vsMore" class="secondary" style="display:none">顯示更多</button>
+    </div>
+  </div>
+
+<div class="card">
     <h2>📈 篩選成效追蹤（入選後一個月）</h2>
     <div class="msg" id="perfMeta">載入中…</div>
     <div id="perfList"></div>
@@ -961,6 +970,70 @@ $("clMin").onchange = () => { clShown = 30; renderContract(); };
 $("clSearch").addEventListener("input", () => { clShown = 30; renderContract(); });
 $("clMore").onclick = () => { clShown += 50; renderContract(); };
 
+// ---- 💰 高殖利率存股篩選（value_screen.json，每日篩選後產出）----
+// Ⓐ殖利率 Ⓑ抵扣稅額(股利8.5%可抵減，2018稅改後舊制扣抵比率已廢除)
+// ⒸK值≤20超賣 Ⓓ合約負債>股本
+let vsShown = 30;
+async function loadValue() {
+  const d = await getJSON("data/value_screen.json");
+  const meta = $("vsMeta"), box = $("vsList");
+  if (!d || !d.rows) {
+    meta.textContent = "資料尚未產生（下一次每日篩選後出現）。條件＝" +
+      "Ⓐ殖利率≥5%、Ⓑ現金股利≥2元（每股可抵減稅額=股利×8.5%）、" +
+      "ⒸKD的K值≤20（超賣區）、Ⓓ合約負債＞股本。";
+    box.innerHTML = "";
+    return;
+  }
+  const pm = d.params || {};
+  const rows = d.rows, nAll = rows.filter(r => r.all).length;
+  meta.innerHTML = `交易日 ${d.trade_date}｜候選（Ⓐ殖利率≥${pm.yield_min}%
+    ＋Ⓓ合約負債＞股本×${pm.cl_ratio}）${rows.length} 檔，
+    <b>全符合 ${nAll} 檔</b>｜Ⓑ現金股利≥${pm.div_min}元
+    （抵扣稅額＝股利×8.5%，2018稅改後舊制扣抵比率已廢除）
+    ｜ⒸK值≤${pm.kd_max}（超賣區，反彈機會）`;
+  box.innerHTML = rows.length ? "" :
+    `<div class="empty">目前未達條件：沒有「殖利率≥${pm.yield_min}% 且
+     合約負債＞股本」的股票。（財報資料庫涵蓋不足時也會偏少）</div>`;
+  const chip = (ok, t, unknown) => unknown
+    ? `<span class="chip">${t}—</span>`
+    : `<span class="chip ${ok ? "ok" : "bad"}">${t}${ok ? "✓" : "✗"}</span>`;
+  let shownAllHead = false, shownRestHead = false;
+  for (const r of rows.slice(0, vsShown)) {
+    if (r.all && !shownAllHead) {
+      shownAllHead = true;
+      box.insertAdjacentHTML("beforeend",
+        '<div class="tierhead">🏆 四條件全符合</div>');
+    } else if (!r.all && !shownRestHead) {
+      shownRestHead = true;
+      box.insertAdjacentHTML("beforeend",
+        `<div class="tierhead">⚪ 其餘候選（已過Ⓐ殖利率＋Ⓓ合約負債，
+         Ⓑ或Ⓒ未達）</div>`);
+    }
+    const p = r.pass || {};
+    box.insertAdjacentHTML("beforeend", `<div class="stock">
+      <div class="head"><b>${r.code} ${r.name}${r.market === "otc" ? ' <small>(櫃)</small>' : ""}</b>
+        <span class="price">${fmt(r.price, 2)}
+          <small>殖利率 ${fmt(r.yield_pct, 1)}%</small></span></div>
+      <div class="badges">
+        ${chip(true, `Ⓐ殖利率${fmt(r.yield_pct, 1)}%`)}
+        ${chip(p.tc, "Ⓑ抵扣稅額", r.div_est == null)}
+        ${chip(p.kd, `ⒸK值${r.k != null ? fmt(r.k, 0) : ""}`, r.k == null)}
+        ${chip(true, `Ⓓ合約負債${fmt(r.liab_ratio, 1)}倍`)}</div>
+      <div class="grid">
+        <div><span>現金股利(估)</span> ${fmt(r.div_est, 2)} 元</div>
+        <div><span>每股可抵減稅額(8.5%)</span> ${fmt(r.tax_credit, 3)} 元</div>
+        <div><span>KD(9)</span> K ${fmt(r.k, 1)}／D ${fmt(r.d, 1)}
+          ${r.k != null ? (r.k <= (pm.kd_max ?? 20) ? "（超賣區）" :
+            (r.k > 80 ? "（超買區）" : "")) : ""}</div>
+        <div><span>合約負債/股本</span> ${fmt(r.liab_ratio, 2)} 倍</div>
+        <div><span>本益比</span> ${fmt(r.pe, 1)}</div>
+        <div><span>EPS</span> ${fmt(r.eps, 2)} 元（${r.period || "—"}）</div>
+      </div></div>`);
+  }
+  $("vsMore").style.display = rows.length > vsShown ? "" : "none";
+}
+$("vsMore").onclick = () => { vsShown += 30; loadValue(); };
+
 // ---- 篩選成效追蹤（🏆/🟡 入選後一個月股價，data/performance.json）----
 async function loadPerf() {
   const p = await getJSON("data/performance.json");
@@ -1237,7 +1310,7 @@ $("btnRefresh").onclick = async () => {
     await Promise.all([loadResults(), loadAlerts(), loadDiagnose(),
                        loadRisk().then(loadWatchlist), detectMode(),
                        loadContract(true), loadPerf(), loadBacktest(),
-                       loadLimitUp(), loadMorning()]);
+                       loadLimitUp(), loadMorning(), loadValue()]);
     $("statusMsg").textContent = "✅ 資料已更新（" +
       new Date().toLocaleTimeString("zh-TW", { hour12: false }) + "）";
   } catch {
@@ -1295,7 +1368,7 @@ function startApp() {
   detectMode().then(() => { loadResults(); loadAlerts(); loadDiagnose();
                             loadRisk().then(loadWatchlist);
                             loadContract(); loadPerf(); loadBacktest();
-                            loadLimitUp(); loadMorning(); });
+                            loadLimitUp(); loadMorning(); loadValue(); });
   setInterval(loadAlerts, 60 * 1000);
   setInterval(loadMorning, 5 * 60 * 1000);
   setInterval(loadRisk, 60 * 1000);

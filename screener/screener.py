@@ -269,6 +269,11 @@ def run_daily_screen():
             trade_date=d_today)
     except Exception:                                        # noqa: BLE001
         log.exception("技術面判讀失敗（不影響篩選結果）")
+    try:                      # 高殖利率存股篩選（殖利率/抵扣稅額/K值/合約負債>股本）
+        from . import value_screen
+        value_screen.run(trade_date=d_today)
+    except Exception:                                        # noqa: BLE001
+        log.exception("高殖利率篩選失敗（不影響篩選結果）")
     log.info(out["message"])
     return out
 

@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v10）
+  看到舊版介面，SHELL 版本 shell-v11）
 - 四分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋選股（localStorage activeTab）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
   08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
@@ -79,6 +79,13 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   → `docs/data/technical.json`；前端選股分頁有 techFilter 下拉過濾
   （全部/只看多頭/多頭+價漲量增/排除空頭，localStorage 記憶），
   每檔卡片附 📈技術多頭/📉空頭 chip 與五行明細，自選卡同步顯示
+- 高殖利率存股篩選（2026-10-03 新增）：`screener/value_screen.py` 於每日篩選後
+  執行，條件 Ⓐ殖利率≥5%（官方本益比殖利率表 BWIBBU_ALL+TPEx openapi，
+  fetch_yield_all）Ⓑ現金股利≥2元（**抵扣稅額：2018稅改後舊制扣抵比率已廢除，
+  現制=股利×8.5%可抵減**，上市無股利欄以 價×殖利率 回推）ⒸKD之K值≤20超賣
+  （候選縮小後逐檔 Yahoo 日K，上限 value_kd_max_codes=150）Ⓓ合約負債＞股本×1
+  （financials.json）→ `docs/data/value_screen.json`；候選=Ⓐ∩Ⓓ，
+  全符合排最前；前端選股分頁「💰 高殖利率存股篩選」卡；門檻 config `value_*`
 - 登入（選用，預設關）：`docs/config.js` 的 AUTH_URL 填 Apps Script 網址即啟用；
   帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在
   `google-apps-script/Code.gs`。使用者說「先不要用帳密」

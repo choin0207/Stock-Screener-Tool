@@ -1016,3 +1016,35 @@ def fetch_market_indicators():
             log.warning("市場指標 %s(%s) 抓取失敗", key, sym)
         time.sleep(0.5)
     return out
+
+
+# ---------------------------------------------------------------------------
+# 殖利率（高殖利率存股篩選用；上市 BWIBBU_ALL + 上櫃 openapi 皆為官方日更）
+# ---------------------------------------------------------------------------
+
+def fetch_yield_all():
+    """回傳 {代號: {yield_pct, div_ps, pe, name, market}}。
+    上市 BWIBBU_ALL 無每股股利欄（由呼叫端以 價格×殖利率 估算，div_ps=None）；
+    上櫃 openapi 直接提供 DividendPerShare。任一來源失敗只影響該市場。"""
+    out = {}
+    data = _get_json(
+        "https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL") or []
+    for row in data:
+        code = str(row.get("Code", "")).strip()
+        y = _num(row.get("DividendYield"))
+        if code and y is not None:
+            out[code] = {"yield_pct": y, "div_ps": None,
+                         "pe": _num(row.get("PEratio")),
+                         "name": row.get("Name", ""), "market": "tse"}
+    data = _get_json("https://www.tpex.org.tw/openapi/v1/"
+                     "tpex_mainboard_peratio_analysis") or []
+    for row in data:
+        code = str(row.get("SecuritiesCompanyCode", "")).strip()
+        y = _num(row.get("YieldRatio"))
+        if code and y is not None:
+            out[code] = {"yield_pct": y,
+                         "div_ps": _num(row.get("DividendPerShare")),
+                         "pe": _num(row.get("PriceEarningRatio")),
+                         "name": row.get("CompanyName", ""), "market": "otc"}
+    log.info("殖利率表 %d 檔", len(out))
+    return out

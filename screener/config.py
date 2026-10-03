@@ -70,6 +70,16 @@ CONFIG = {
     "backtest_max_mops_pairs": 250,    # 歷史財報最多抓幾個 (個股,季度) 組合
     "backtest_request_delay_sec": 1.2, # 逐日抓法人資料的間隔秒數
 
+    # ---- 高殖利率存股篩選（screener/value_screen.py，2026-10-03 新增）----
+    # 條件：Ⓐ殖利率 ≥ value_yield_min％、Ⓑ現金股利 ≥ value_div_min 元
+    # （每股可抵減稅額=股利×8.5%，2018 稅改後舊制扣抵比率已廢除）、
+    # ⒸKD 的 K 值 ≤ value_kd_max（超賣區）、Ⓓ合約負債 > 股本 × value_cl_ratio
+    "value_yield_min": 5.0,
+    "value_div_min": 2.0,
+    "value_kd_max": 20.0,
+    "value_cl_ratio": 1.0,
+    "value_kd_max_codes": 150,         # 殖利率+合約負債過者最多算幾檔 KD（Yahoo）
+
     # ---- 每日排程 ----
     "daily_screen_time": "15:30",      # 台北時間，盤後資料公布後執行
 
