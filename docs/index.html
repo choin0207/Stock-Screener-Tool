@@ -179,7 +179,8 @@
 <div class="card">
     <h2>⭐ 自選名單</h2>
     <div class="row">
-      <input id="wlInput" placeholder="輸入代號，例如 6152" inputmode="numeric"
+      <input id="wlInput" placeholder="代號，例 6152、00685L" autocapitalize="characters"
+             autocorrect="off" spellcheck="false"
              style="flex:1;min-width:120px;padding:9px 12px;border:1px solid var(--line);
                     border-radius:10px;background:var(--bg);color:var(--text);font-size:15px">
       <button id="wlAdd" class="secondary">＋ 加入</button>
@@ -542,8 +543,11 @@ const getWl = () => { try { return JSON.parse(localStorage.getItem("mywatch") ||
 const setWl = l => localStorage.setItem("mywatch", JSON.stringify(l));
 
 $("wlAdd").onclick = () => {
-  const code = $("wlInput").value.trim();
-  if (!/^\d{4,6}$/.test(code)) { $("wlMeta").textContent = "請輸入 4~6 碼數字代號"; return; }
+  const code = $("wlInput").value.trim().toUpperCase();
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    $("wlMeta").textContent = "請輸入 4~6 碼代號，可帶一位英文字母（例 2330、00850、00685L）";
+    return;
+  }
   const l = getWl();
   if (!l.includes(code)) { l.push(code); setWl(l); }
   $("wlInput").value = ""; $("wlMeta").textContent = "";

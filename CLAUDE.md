@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v23）
+  看到舊版介面，SHELL 版本 shell-v24）
 - 五分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋投信大買／💰選股（localStorage activeTab）
 - 📋投信大買（2026-10-03，使用者把原「法人動能五條件」分頁顯示改為單一條件）：
   **純前端**掃全市場快照，條件＝投信當日買超 且 >前日買賣超絕對值×TH.net(3)
