@@ -69,7 +69,8 @@ def run(trade_date=""):
     y_min = CONFIG["value_yield_min"]
     div_min = CONFIG["value_div_min"]
     kd_max = CONFIG["value_kd_max"]
-    cl_ratio = CONFIG["value_cl_ratio"]
+    cl_floor = CONFIG["value_cl_ratio"]          # 候選入場底線（0=有合約負債即可）
+    target = CONFIG.get("value_target_count", 10)
 
     cands = []
     for code, yv in yields.items():
@@ -81,7 +82,7 @@ def run(trade_date=""):
         liab, cap = fin.get("contract_liab_k"), fin.get("capital_k")
         if liab is None or cap is None or not cap:
             continue
-        if liab <= cap * cl_ratio:                   # Ⓓ 合約負債>股本（入場券）
+        if liab <= 0 or liab <= cap * cl_floor:      # Ⓓ 底線（倍數門檻後面自動定）
             continue
         cands.append((code, yv, fin))
     cands.sort(key=lambda t: -t[1]["yield_pct"])
@@ -128,7 +129,7 @@ def run(trade_date=""):
             "hy": True,                              # 候選即已過Ⓐ
             "tc": div is not None and div >= div_min,
             "kd": k_val is not None and k_val <= kd_max,
-            "cl": True,                              # 候選即已過Ⓓ
+            "cl": False,                             # Ⓓ 門檻自動定，稍後回填
         }
         rows.append({
             "code": code,
@@ -146,8 +147,18 @@ def run(trade_date=""):
             "inst": inst,
             "tech": tech,
             "pass": p,
-            "all": all(p.values()),
+            "all": False,
         })
+
+    # Ⓓ 合約負債倍數自動調整：在已過ⒶⒷⒸ者中依倍數由高到低取前 target 檔，
+    # 生效門檻 = 第 target 名的倍數（使用者 2026-10-03：讓篩選剩 10 檔）
+    passers = sorted((r for r in rows if r["pass"]["tc"] and r["pass"]["kd"]),
+                     key=lambda r: -(r["liab_ratio"] or 0))
+    chosen = {r["code"] for r in passers[:target]}
+    cl_cut = passers[:target][-1]["liab_ratio"] if passers else None
+    for r in rows:
+        r["pass"]["cl"] = r["code"] in chosen
+        r["all"] = all(r["pass"].values())
     rows.sort(key=lambda r: (not r["all"], -(r["yield_pct"] or 0)))
 
     from . import performance
@@ -155,7 +166,8 @@ def run(trade_date=""):
         "generated_at": performance._now().isoformat(timespec="seconds"),
         "trade_date": trade_date or snap.get("trade_date", ""),
         "params": {"yield_min": y_min, "div_min": div_min,
-                   "kd_max": kd_max, "cl_ratio": cl_ratio},
+                   "kd_max": kd_max, "cl_mode": "auto",
+                   "cl_target": target, "cl_cut": cl_cut},
         "rows": rows,
     }
     with open(_data_path("value_screen.json"), "w", encoding="utf-8") as f:

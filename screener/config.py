@@ -74,11 +74,15 @@ CONFIG = {
     # 條件：Ⓐ殖利率 ≥ value_yield_min％（2026-10-03 使用者改 8%）、
     # Ⓑ現金股利 ≥ value_div_min 元（每股可抵減稅額=股利×8.5%；使用者要的
     # 「扣抵比率30%」是 2018 稅改前舊制指標，資料已不存在無法實作）、
-    # ⒸKD 的 K 值 ≤ value_kd_max（超賣區）、Ⓓ合約負債 > 股本 × value_cl_ratio
+    # ⒸKD 的 K 值 ≤ value_kd_max（超賣區）、Ⓓ合約負債倍數自動調整：
+    # 過ⒶⒷⒸ者依 合約負債/股本 由高到低取前 value_target_count 檔
+    # （2026-10-03 使用者：自動調倍數讓篩選剩 10 檔）；value_cl_ratio 為
+    # 候選入場底線（0=有合約負債即可）
     "value_yield_min": 8.0,
     "value_div_min": 2.0,
     "value_kd_max": 20.0,
-    "value_cl_ratio": 5.0,
+    "value_cl_ratio": 0.0,
+    "value_target_count": 10,
     "value_kd_max_codes": 150,         # 殖利率+合約負債過者最多算幾檔 KD（Yahoo）
 
     # ---- 每日排程 ----

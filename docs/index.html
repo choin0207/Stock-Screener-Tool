@@ -1003,17 +1003,18 @@ async function loadValue() {
   }
   all.sort((a, b) => vsRank[a.code] - vsRank[b.code]);
   const top = all.slice(0, VS_TOP);
-  meta.innerHTML = `交易日 ${d.trade_date}｜全符合 ${all.length} 檔，
-    <b>呈現最績優前 ${top.length} 檔</b>（依 EPS、殖利率、近3日法人買超、
-    技術面分數 綜合排名）｜Ⓐ殖利率≥${pm.yield_min}%
+  meta.innerHTML = `交易日 ${d.trade_date}｜<b>符合 ${all.length} 檔</b>
+    （依 EPS、殖利率、近3日法人買超、技術面分數 綜合排名呈現）
+    ｜Ⓐ殖利率≥${pm.yield_min}%
     ｜Ⓑ現金股利≥${pm.div_min}元（可抵減稅額＝股利×8.5%；舊制扣抵比率30%
     已於2018稅改廢除，無資料可查）
-    ｜ⒸK值≤${pm.kd_max}（超賣區）｜Ⓓ合約負債＞股本×${pm.cl_ratio}`;
+    ｜ⒸK值≤${pm.kd_max}（超賣區）
+    ｜Ⓓ合約負債倍數自動調整取前${pm.cl_target ?? 10}檔${pm.cl_cut != null
+      ? `（本次生效門檻≥${fmt(pm.cl_cut, 2)}倍）` : ""}`;
   if (!all.length) {
     box.innerHTML = `<div class="empty">目前未達條件：沒有同時符合
       Ⓐ殖利率≥${pm.yield_min}%、Ⓑ現金股利≥${pm.div_min}元、
-      ⒸK值≤${pm.kd_max}、Ⓓ合約負債＞股本 四條件的股票。
-      每日篩選後重新判定。</div>`;
+      ⒸK值≤${pm.kd_max}（且有合約負債）的股票。每日篩選後重新判定。</div>`;
     $("vsMore").style.display = "none";
     return;
   }
