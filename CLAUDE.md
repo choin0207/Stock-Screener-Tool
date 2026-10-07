@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v24）
+  看到舊版介面，SHELL 版本 shell-v25）
 - 五分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋投信大買／💰選股（localStorage activeTab）
 - 📋投信大買（2026-10-03，使用者把原「法人動能五條件」分頁顯示改為單一條件）：
   **純前端**掃全市場快照，條件＝投信當日買超 且 >前日買賣超絕對值×TH.net(3)
@@ -98,7 +98,11 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   `screener/value_perf.py` 每日記錄候選股（sel=全符合/對照組），快照收盤追蹤
   120 交易日（D+5/20/60/120 里程碑、mu/md），summary 含 入選vs對照、
   K值/殖利率級距/倍數/技術面 分組勝率 → value_perf.json，
-  前端💰分頁「📈 選股成效追蹤」卡；滿半年≈2027/4 可依數據調門檻→ `docs/data/value_screen.json`；候選=Ⓐ∩Ⓓ，
+  前端💰分頁「📈 選股成效追蹤」卡；滿半年≈2027/4 可依數據調門檻；
+  **v2（2026-10-07 使用者）**：入選組逐檔累積 px/vx/xh 序列→每日下車警訊
+  （WARN_SIGS：高點回落8%/破5日線/爆量下跌/法人連2賣/連3黑），高點回落
+  逾10%記 drop 事件並歸因訊號提前天數（drop_stats）；_suggestions 依
+  分組報酬差自動產生指標修正建議；前端逐檔卡＋紅色下車警訊條→ `docs/data/value_screen.json`；候選=Ⓐ∩Ⓓ，
   全符合排最前；前端選股分頁「💰 高殖利率存股篩選」卡（只列全符合，每檔附近3日外資/投信/法人（第三日另抓一次T86+TPEx）與技術面摘要 tech）；門檻 config `value_*`
 - 登入（選用，預設關）：`docs/config.js` 的 AUTH_URL 填 Apps Script 網址即啟用；
   帳密表在使用者私人 Google Sheet；教學在 `SETUP_AUTH.md`，程式在

@@ -981,43 +981,98 @@ async function loadValue() {
   $("vsMore").style.display = "none";          // 固定最多前10檔，不展開
 }
 
-// ---- 📈 選股成效追蹤（value_perf.json：入選組 vs 對照組、條件×獲利機率）----
+// ---- 📈 選股成效追蹤（value_perf.json：逐檔長期績效＋下車警訊＋條件分析）----
+const VP_SIG = { peak_pullback: "高點回落逾8%", ma5_break: "跌破5日線",
+                 vol_dump: "爆量下跌", inst_sell2: "法人連2日賣超",
+                 streak3: "連3黑" };
 async function loadValuePerf() {
   const d = await getJSON("data/value_perf.json");
   const meta = $("vpMeta"), body = $("vpBody");
   if (!d || !d.summary) {
     meta.textContent = "追蹤資料將於下一次每日篩選後開始累積：每天記錄💰選股的" +
-      "符合股與候選股（對照組），追蹤 120 個交易日（約半年）股價，" +
-      "自動統計各條件的獲利機率。";
+      "符合股與候選股（對照組），逐檔追蹤 120 個交易日（約半年），" +
+      "自動統計各條件的獲利機率並提供下車警訊。";
     body.innerHTML = "";
     return;
   }
   const sm = d.summary;
-  meta.textContent = `追蹤起始 ${mdd(d.start_date)}｜入選組 ${sm.n_sel} 筆、` +
-    `對照組(候選未全過) ${sm.n_rest} 筆｜每檔追蹤 120 個交易日（≈半年）定案` +
-    `｜報酬以價差計、不含股息（高殖利率組實際另有配息收益）`;
+  meta.textContent = `追蹤起始 ${mdd(d.start_date)}｜入選 ${sm.n_sel} 筆、` +
+    `對照 ${sm.n_rest} 筆｜每檔追蹤 120 個交易日（≈半年）定案` +
+    `｜報酬以價差計、不含股息`;
+  let html = "";
+  const recs = d.records || [];
+  const sels = recs.filter(r => r.sel).reverse();      // 新→舊
+  // ① 下車警訊（追蹤中且有成立訊號的入選股）
+  const warned = sels.filter(r => !r.done && r.warn && r.warn.length);
+  if (warned.length) {
+    html += `<div class="riskbar red">🔔 下車警訊（獲利了結參考）：` +
+      warned.map(r => `${r.c} ${r.nm}（${r.warn.map(w => VP_SIG[w] || w).join("、")}）`)
+            .join("；") + `</div>`;
+  } else if (sels.some(r => !r.done)) {
+    html += `<div class="riskbar green">✅ 追蹤中的入選股目前沒有下車警訊</div>`;
+  }
+  // ② 逐檔長期績效（入選組）
+  if (sels.length) {
+    html += '<div class="msg" style="margin-top:6px">📂 入選股逐檔追蹤：</div>';
+    for (const r of sels.slice(0, 20)) {
+      const ret = r.lp && r.ep ? (r.lp - r.ep) / r.ep * 100 : null;
+      const ms = ["5", "20", "60", "120"]
+        .filter(h => r.r && r.r[h] != null)
+        .map(h => `D+${h} <b class="${cls(r.r[h])}">${r.r[h] > 0 ? "+" : ""}${fmt(r.r[h], 1)}%</b>`)
+        .join("｜");
+      html += `<div class="stock">
+        <div class="head"><b>${r.c} ${r.nm}</b>
+          <span class="price ${cls(ret)}">${fmt(r.lp, 2)}
+            <small>${ret != null ? (ret > 0 ? "+" : "") + fmt(ret, 1) + "%" : ""}${r.done ? "（已定案）" : `（追蹤第${r.n}日）`}</small></span></div>
+        <div class="badges">
+          <span class="chip">入選 ${mdd(r.d)}＠${fmt(r.ep, 2)}</span>
+          <span class="chip ok">最高 +${fmt(r.mu, 1)}%</span>
+          <span class="chip ${r.md < 0 ? "bad" : ""}">最低 ${fmt(r.md, 1)}%</span>
+          ${(!r.done && r.warn ? r.warn : []).map(w =>
+            `<span class="chip bad">🔔${VP_SIG[w] || w}</span>`).join("")}
+          ${r.drop ? `<span class="chip bad">曾大跌${fmt(r.drop.from_peak, 0)}%</span>` : ""}</div>
+        ${ms ? `<div class="msg">${ms}</div>` : ""}
+      </div>`;
+    }
+  }
+  // ③ 命中率總表（入選 vs 對照）＋ 各指標與漲跌關係
   const line = (st) => !st ? "<small>尚無資料</small>" :
     ["5", "20", "60", "120", "now"].map(h => {
       const s = st[h];
       if (!s) return "";
       const lab = h === "now" ? "目前" : `D+${h}`;
-      return `${lab} 勝率<b>${s.win}%</b>/平均<b class="${cls(s.avg)}">${s.avg > 0 ? "+" : ""}${s.avg}%</b><small>(${s.n})</small>`;
+      return `${lab} 命中率<b>${s.win}%</b>/平均<b class="${cls(s.avg)}">${s.avg > 0 ? "+" : ""}${s.avg}%</b><small>(${s.n})</small>`;
     }).filter(Boolean).join("｜") || "<small>累積中（滿5個交易日起有數據）</small>";
-  let html = `<div class="grid">
+  html += `<div class="msg" style="margin-top:8px">🎯 選股命中率（收漲比例）：</div>
+    <div class="grid">
     <div><span>✅ 入選組（全符合條件）</span> ${line(sm.sel)}</div>
-    <div><span>⚪ 對照組（候選但未全過，多為K值未達）</span> ${line(sm.rest)}</div>
+    <div><span>⚪ 對照組（候選未全過）</span> ${line(sm.rest)}</div>
   </div>`;
   const gs = sm.groups || {};
-  const gk = Object.keys(gs);
-  if (gk.length) {
-    html += '<div class="msg" style="margin-top:8px">🔬 條件 × 獲利機率（驗證各條件是否有效）：</div><div class="grid">';
-    for (const k of gk) {
-      html += `<div><span>${k}</span> ${line(gs[k])}</div>`;
-    }
+  if (Object.keys(gs).length) {
+    html += '<div class="msg" style="margin-top:8px">🔬 各指標 × 股價漲跌關係：</div><div class="grid">';
+    for (const k of Object.keys(gs)) html += `<div><span>${k}</span> ${line(gs[k])}</div>`;
     html += "</div>";
   }
-  html += `<div class="msg" style="margin-top:6px">追蹤滿半年（約 2027/4）後，
-    這裡的統計即可回答「哪些條件真正提高獲利機率」，屆時可依數據調整門檻。</div>`;
+  // ④ 指標修正建議 ＋ 大跌前訊號統計（下車指標可信度）
+  const sg = sm.suggestions || [];
+  html += '<div class="msg" style="margin-top:8px">📐 指標修正建議（依累積數據自動產生）：</div>';
+  html += sg.length
+    ? sg.map(t => `<div class="msg">${t}</div>`).join("")
+    : '<div class="msg">樣本累積中——各組滿 10 筆後自動比較並提出建議。</div>';
+  const ds = sm.drop_stats || {};
+  if (ds.n_drops > 0) {
+    html += `<div class="msg" style="margin-top:8px">📉 大幅下跌（高點回落逾10%）前的訊號統計
+      （共 ${ds.n_drops} 次事件）：</div>`;
+    for (const v of Object.values(ds.sigs || {})) {
+      html += `<div class="msg">・${v.label}：下跌前出現 ${v.pre_n}/${ds.n_drops} 次` +
+        (v.med_lead ? `，中位提前 ${v.med_lead} 個交易日` : "") + `</div>`;
+    }
+  } else {
+    html += `<div class="msg" style="margin-top:6px">📉 尚無大幅下跌事件——
+      之後入選股從高點回落逾10%時會自動歸因哪些訊號先出現、提前幾天，
+      累積成可信的「下車指標」。</div>`;
+  }
   body.innerHTML = html;
 }
 
