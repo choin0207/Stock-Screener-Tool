@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-07T18:46:11+08:00",
+  "generated_at": "2026-10-07T22:42:41+08:00",
   "trade_date": "20261007",
   "prev_trade_date": "20261006",
   "market": {
     "night_pct": 0.07,
     "night_src": "加權指數開盤跳空（夜盤代理）",
     "foreign_yi": -130.4,
-    "total_yi": -212.6,
+    "total_yi": -241.6,
     "tailwind": false
   },
   "results": [
@@ -1729,8 +1729,8 @@
           1887.6
         ]
       ],
-      "foreign_buy": 917.7,
-      "foreign_sell": 1401.8,
+      "foreign_buy": 1695.7,
+      "foreign_sell": 2179.8,
       "foreign_net": -484.1,
       "foreign_net_prev": -267.5,
       "trust_buy": 17.0,
@@ -1792,12 +1792,12 @@
       "foreign_net": -717.7,
       "foreign_net_prev": 26.5,
       "trust_buy": 0.0,
-      "trust_sell": 54.0,
-      "trust_net": -54.0,
+      "trust_sell": 537.0,
+      "trust_net": -537.0,
       "trust_net_prev": -74.7,
-      "total_net": -764.2,
+      "total_net": -1247.2,
       "total_net_prev": -51.8,
-      "main_force_net": -764.2,
+      "main_force_net": -1247.2,
       "main_force_src": "以法人合計替代",
       "big_holder_pct": 35.89,
       "big_holder_chg": null,
@@ -1845,8 +1845,8 @@
           8292.3
         ]
       ],
-      "foreign_buy": 1606.5,
-      "foreign_sell": 4375.8,
+      "foreign_buy": 1694.5,
+      "foreign_sell": 4463.8,
       "foreign_net": -2769.3,
       "foreign_net_prev": -3912.2,
       "trust_buy": 41.0,
@@ -1961,17 +1961,17 @@
           11094.9
         ]
       ],
-      "foreign_buy": 3552.7,
-      "foreign_sell": 5620.0,
+      "foreign_buy": 4423.7,
+      "foreign_sell": 6491.0,
       "foreign_net": -2067.4,
       "foreign_net_prev": 645.0,
-      "trust_buy": 311.5,
+      "trust_buy": 436.5,
       "trust_sell": 239.7,
-      "trust_net": 71.8,
+      "trust_net": 196.8,
       "trust_net_prev": 649.4,
-      "total_net": -2105.3,
+      "total_net": -1980.3,
       "total_net_prev": 1180.9,
-      "main_force_net": -2105.3,
+      "main_force_net": -1980.3,
       "main_force_src": "以法人合計替代",
       "big_holder_pct": 73.62,
       "big_holder_chg": null,
@@ -1980,7 +1980,7 @@
       "capital_k": 25975433.0,
       "eps": 9.68,
       "fin_period": "2026Q2",
-      "score": 87.8
+      "score": 87.9
     },
     {
       "code": "6139",
@@ -2077,8 +2077,8 @@
           10764.9
         ]
       ],
-      "foreign_buy": 5554.7,
-      "foreign_sell": 3743.6,
+      "foreign_buy": 5584.7,
+      "foreign_sell": 3773.6,
       "foreign_net": 1811.0,
       "foreign_net_prev": 2956.8,
       "trust_buy": 233.0,
@@ -2367,8 +2367,8 @@
           12063.2
         ]
       ],
-      "foreign_buy": 5590.1,
-      "foreign_sell": 4149.0,
+      "foreign_buy": 5655.1,
+      "foreign_sell": 4214.0,
       "foreign_net": 1441.1,
       "foreign_net_prev": 2161.1,
       "trust_buy": 180.0,
@@ -2715,8 +2715,8 @@
           3126.3
         ]
       ],
-      "foreign_buy": 589.7,
-      "foreign_sell": 379.4,
+      "foreign_buy": 681.7,
+      "foreign_sell": 471.4,
       "foreign_net": 210.3,
       "foreign_net_prev": 425.1,
       "trust_buy": 5.0,
@@ -3353,8 +3353,8 @@
           2135.3
         ]
       ],
-      "foreign_buy": 685.0,
-      "foreign_sell": 1183.3,
+      "foreign_buy": 1440.0,
+      "foreign_sell": 1938.3,
       "foreign_net": -498.3,
       "foreign_net_prev": -625.0,
       "trust_buy": 14.0,
@@ -11009,8 +11009,8 @@
           2717.0
         ]
       ],
-      "foreign_buy": 3233.7,
-      "foreign_sell": 2444.3,
+      "foreign_buy": 3347.7,
+      "foreign_sell": 2558.3,
       "foreign_net": 789.4,
       "foreign_net_prev": 166.3,
       "trust_buy": 278.0,
@@ -11125,8 +11125,8 @@
           12833.1
         ]
       ],
-      "foreign_buy": 8067.6,
-      "foreign_sell": 6746.3,
+      "foreign_buy": 8221.6,
+      "foreign_sell": 6900.3,
       "foreign_net": 1321.3,
       "foreign_net_prev": -582.4,
       "trust_buy": 138.2,
@@ -11261,64 +11261,6 @@
       "eps": 2.81,
       "fin_period": "2025Q3",
       "score": 31.4
-    },
-    {
-      "code": "1560",
-      "name": "中砂",
-      "market": "tse",
-      "conds": {
-        "c1": true,
-        "c2": true,
-        "c3": true,
-        "c4": false,
-        "c5": true
-      },
-      "passed": 4,
-      "close": 1020.0,
-      "change": -10.0,
-      "volume_lots": 963.1,
-      "vol_hist": [
-        [
-          "20261006",
-          796.5
-        ],
-        [
-          "20261005",
-          1227.3
-        ],
-        [
-          "20261002",
-          1570.8
-        ],
-        [
-          "20261001",
-          1592.7
-        ],
-        [
-          "20260930",
-          1307.5
-        ]
-      ],
-      "foreign_buy": 612.4,
-      "foreign_sell": 340.3,
-      "foreign_net": 272.1,
-      "foreign_net_prev": 128.1,
-      "trust_buy": 61.0,
-      "trust_sell": 23.2,
-      "trust_net": 37.8,
-      "trust_net_prev": -18.0,
-      "total_net": 303.4,
-      "total_net_prev": 62.3,
-      "main_force_net": 6977.0,
-      "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 49.03,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": null,
-      "capital_k": 1489253.0,
-      "eps": 2.94,
-      "fin_period": "2026Q1",
-      "score": 30.2
     },
     {
       "code": "6415",
@@ -11841,6 +11783,64 @@
       "eps": 0.1,
       "fin_period": "2026Q1",
       "score": 8.8
+    },
+    {
+      "code": "2492",
+      "name": "華新科",
+      "market": "tse",
+      "conds": {
+        "c1": true,
+        "c2": true,
+        "c3": true,
+        "c4": false,
+        "c5": false
+      },
+      "passed": 3,
+      "close": 428.0,
+      "change": 38.5,
+      "volume_lots": 53327.8,
+      "vol_hist": [
+        [
+          "20261006",
+          56423.3
+        ],
+        [
+          "20261005",
+          95779.7
+        ],
+        [
+          "20261002",
+          55788.0
+        ],
+        [
+          "20261001",
+          51670.7
+        ],
+        [
+          "20260930",
+          18146.6
+        ]
+      ],
+      "foreign_buy": 17442.5,
+      "foreign_sell": 7508.0,
+      "foreign_net": 9934.5,
+      "foreign_net_prev": 1657.7,
+      "trust_buy": 2670.0,
+      "trust_sell": 1.0,
+      "trust_net": 2669.0,
+      "trust_net_prev": -98.0,
+      "total_net": 12280.5,
+      "total_net_prev": 1945.8,
+      "main_force_net": 6977.0,
+      "main_force_src": "券商分點(富邦)",
+      "big_holder_pct": 61.51,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": null,
+      "capital_k": 4852048.0,
+      "eps": null,
+      "fin_period": "2026Q2",
+      "score": 5.6
     },
     {
       "code": "2882",
