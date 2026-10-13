@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-14T00:24:52+08:00",
+  "generated_at": "2026-10-14T00:31:05+08:00",
   "trade_date": "20261013",
   "prev_trade_date": "20261012",
   "market": {
-    "night_pct": -0.08,
+    "night_pct": -0.36,
     "night_src": "加權指數開盤跳空（夜盤代理）",
     "foreign_yi": -1652.9,
     "total_yi": -1976.4,
@@ -22,9 +22,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 216.5,
-      "change": 1.0,
-      "volume_lots": 12907.1,
+      "close": 211.5,
+      "change": -5.0,
+      "volume_lots": 6718.4,
       "vol_hist": [
         [
           "20261012",
@@ -80,9 +80,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 612.0,
-      "change": -23.0,
-      "volume_lots": 2173.2,
+      "close": 578.0,
+      "change": -34.0,
+      "volume_lots": 1511.1,
       "vol_hist": [
         [
           "20261012",
@@ -138,9 +138,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 193.0,
-      "change": 1.0,
-      "volume_lots": 1367.8,
+      "close": 193.5,
+      "change": 0.5,
+      "volume_lots": 678.6,
       "vol_hist": [
         [
           "20261012",
@@ -544,9 +544,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 657.0,
-      "change": -17.0,
-      "volume_lots": 1828.8,
+      "close": 641.0,
+      "change": -16.0,
+      "volume_lots": 1104.4,
       "vol_hist": [
         [
           "20261012",
@@ -602,9 +602,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 243.5,
-      "change": 0.5,
-      "volume_lots": 124.6,
+      "close": 246.0,
+      "change": 2.5,
+      "volume_lots": 137.3,
       "vol_hist": [
         [
           "20261012",
@@ -660,9 +660,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 116.0,
-      "change": -1.5,
-      "volume_lots": 7347.8,
+      "close": 117.5,
+      "change": 1.5,
+      "volume_lots": 22042.8,
       "vol_hist": [
         [
           "20261012",
@@ -718,9 +718,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 322.0,
-      "change": -3.5,
-      "volume_lots": 8531.7,
+      "close": 323.0,
+      "change": 1.0,
+      "volume_lots": 11368.8,
       "vol_hist": [
         [
           "20261012",
@@ -776,9 +776,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 19.6,
-      "change": 0.1,
-      "volume_lots": 838.5,
+      "close": 20.1,
+      "change": 0.5,
+      "volume_lots": 2412.0,
       "vol_hist": [
         [
           "20261012",
@@ -834,9 +834,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 977.0,
-      "change": -19.0,
-      "volume_lots": 3151.3,
+      "close": 966.0,
+      "change": -11.0,
+      "volume_lots": 2115.3,
       "vol_hist": [
         [
           "20261012",
@@ -892,9 +892,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 270.0,
-      "change": -12.0,
-      "volume_lots": 841.9,
+      "close": 268.5,
+      "change": -1.5,
+      "volume_lots": 528.2,
       "vol_hist": [
         [
           "20261012",
@@ -950,9 +950,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 593.0,
-      "change": -3.0,
-      "volume_lots": 369.7,
+      "close": 595.0,
+      "change": 2.0,
+      "volume_lots": 513.9,
       "vol_hist": [
         [
           "20261012",
@@ -1008,9 +1008,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 837.0,
-      "change": -23.0,
-      "volume_lots": 636.8,
+      "close": 805.0,
+      "change": -32.0,
+      "volume_lots": 587.0,
       "vol_hist": [
         [
           "20261012",
@@ -1066,9 +1066,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 323.0,
-      "change": -6.0,
-      "volume_lots": 708.0,
+      "close": 317.5,
+      "change": -5.5,
+      "volume_lots": 892.4,
       "vol_hist": [
         [
           "20261012",
@@ -1124,9 +1124,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 52.4,
-      "change": -0.3,
-      "volume_lots": 397.5,
+      "close": 51.9,
+      "change": -0.5,
+      "volume_lots": 396.4,
       "vol_hist": [
         [
           "20261012",
@@ -1182,9 +1182,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 21.95,
-      "change": 0.35,
-      "volume_lots": 30.0,
+      "close": 21.6,
+      "change": -0.35,
+      "volume_lots": 45.5,
       "vol_hist": [
         [
           "20261012",
@@ -1240,9 +1240,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 34.15,
-      "change": 0.15,
-      "volume_lots": 27.2,
+      "close": 34.0,
+      "change": -0.15,
+      "volume_lots": 10.2,
       "vol_hist": [
         [
           "20261012",
@@ -1298,9 +1298,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 207.5,
-      "change": 0.0,
-      "volume_lots": 41.7,
+      "close": 208.5,
+      "change": 1.0,
+      "volume_lots": 43.4,
       "vol_hist": [
         [
           "20261012",
@@ -1356,9 +1356,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 77.7,
-      "change": 0.3,
-      "volume_lots": 32.3,
+      "close": 77.9,
+      "change": 0.2,
+      "volume_lots": 62.2,
       "vol_hist": [
         [
           "20261012",
@@ -1414,9 +1414,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 15.25,
-      "change": 0.3,
-      "volume_lots": 156.8,
+      "close": 15.15,
+      "change": -0.1,
+      "volume_lots": 85.0,
       "vol_hist": [
         [
           "20261012",
@@ -1472,9 +1472,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 17.5,
-      "change": 0.1,
-      "volume_lots": 23.4,
+      "close": 17.55,
+      "change": 0.05,
+      "volume_lots": 28.9,
       "vol_hist": [
         [
           "20261012",
@@ -1878,9 +1878,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 227.0,
-      "change": 1.0,
-      "volume_lots": 27.7,
+      "close": 226.0,
+      "change": -1.0,
+      "volume_lots": 30.7,
       "vol_hist": [
         [
           "20261012",
@@ -2052,9 +2052,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 13.95,
-      "change": -0.05,
-      "volume_lots": 31.8,
+      "close": 14.0,
+      "change": 0.05,
+      "volume_lots": 18.1,
       "vol_hist": [
         [
           "20261012",
@@ -2110,9 +2110,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 197.5,
-      "change": -4.5,
-      "volume_lots": 2717.0,
+      "close": 192.0,
+      "change": -5.5,
+      "volume_lots": 4451.1,
       "vol_hist": [
         [
           "20261012",
@@ -2168,9 +2168,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 49.05,
-      "change": 0.0,
-      "volume_lots": 1.0,
+      "close": 49.15,
+      "change": 0.1,
+      "volume_lots": 15.3,
       "vol_hist": [
         [
           "20261012",
@@ -2284,9 +2284,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 86.8,
-      "change": 1.5,
-      "volume_lots": 995.1,
+      "close": 88.2,
+      "change": 1.4,
+      "volume_lots": 2105.6,
       "vol_hist": [
         [
           "20261012",
@@ -2342,9 +2342,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 255.5,
-      "change": 23.0,
-      "volume_lots": 39634.3,
+      "close": 264.0,
+      "change": 8.5,
+      "volume_lots": 61917.0,
       "vol_hist": [
         [
           "20261012",
@@ -2400,9 +2400,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 45.25,
-      "change": 0.3,
-      "volume_lots": 51.8,
+      "close": 45.3,
+      "change": 0.05,
+      "volume_lots": 44.1,
       "vol_hist": [
         [
           "20261012",
@@ -2516,9 +2516,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 404.5,
-      "change": 5.5,
-      "volume_lots": 868.7,
+      "close": 402.5,
+      "change": -2.0,
+      "volume_lots": 896.2,
       "vol_hist": [
         [
           "20261012",
@@ -2632,9 +2632,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 157.0,
-      "change": 0.5,
-      "volume_lots": 611.9,
+      "close": 158.0,
+      "change": 1.0,
+      "volume_lots": 785.9,
       "vol_hist": [
         [
           "20261012",
@@ -2749,8 +2749,8 @@
       },
       "passed": 3,
       "close": 216.0,
-      "change": 3.0,
-      "volume_lots": 2114.6,
+      "change": 0.0,
+      "volume_lots": 1867.7,
       "vol_hist": [
         [
           "20261012",
@@ -2806,9 +2806,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 240.0,
-      "change": 2.5,
-      "volume_lots": 487.6,
+      "close": 241.5,
+      "change": 1.5,
+      "volume_lots": 497.2,
       "vol_hist": [
         [
           "20261012",
@@ -2922,9 +2922,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 164.0,
-      "change": 0.0,
-      "volume_lots": 150.5,
+      "close": 163.0,
+      "change": -1.0,
+      "volume_lots": 135.8,
       "vol_hist": [
         [
           "20261012",
@@ -3038,9 +3038,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 176.5,
-      "change": 11.5,
-      "volume_lots": 1231.2,
+      "close": 192.5,
+      "change": 16.0,
+      "volume_lots": 2883.9,
       "vol_hist": [
         [
           "20261012",
@@ -3096,9 +3096,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 53.6,
-      "change": 0.3,
-      "volume_lots": 418.0,
+      "close": 53.4,
+      "change": -0.2,
+      "volume_lots": 322.1,
       "vol_hist": [
         [
           "20261012",
@@ -3154,9 +3154,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 8100.0,
-      "change": -260.0,
-      "volume_lots": 1784.4,
+      "close": 8095.0,
+      "change": -5.0,
+      "volume_lots": 1357.6,
       "vol_hist": [
         [
           "20261012",
@@ -3212,9 +3212,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 225.5,
-      "change": 7.0,
-      "volume_lots": 1178.6,
+      "close": 227.0,
+      "change": 1.5,
+      "volume_lots": 598.7,
       "vol_hist": [
         [
           "20261012",
@@ -3328,9 +3328,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 88.4,
-      "change": -1.3,
-      "volume_lots": 55.3,
+      "close": 88.6,
+      "change": 0.2,
+      "volume_lots": 165.0,
       "vol_hist": [
         [
           "20261012",
@@ -3386,9 +3386,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 114.0,
-      "change": 2.5,
-      "volume_lots": 284.5,
+      "close": 113.0,
+      "change": -1.0,
+      "volume_lots": 86.0,
       "vol_hist": [
         [
           "20261012",
@@ -3618,9 +3618,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 46.6,
-      "change": 0.65,
-      "volume_lots": 844.5,
+      "close": 46.0,
+      "change": -0.6,
+      "volume_lots": 596.6,
       "vol_hist": [
         [
           "20261012",
@@ -3792,9 +3792,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 925.0,
-      "change": -23.0,
-      "volume_lots": 171.5,
+      "close": 887.0,
+      "change": -38.0,
+      "volume_lots": 287.5,
       "vol_hist": [
         [
           "20261012",
@@ -3850,9 +3850,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 86.5,
-      "change": 0.5,
-      "volume_lots": 247.1,
+      "close": 84.2,
+      "change": -2.3,
+      "volume_lots": 226.3,
       "vol_hist": [
         [
           "20261012",
@@ -3966,9 +3966,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 155.5,
-      "change": -0.5,
-      "volume_lots": 85.7,
+      "close": 153.0,
+      "change": -2.5,
+      "volume_lots": 73.3,
       "vol_hist": [
         [
           "20261012",
@@ -4198,9 +4198,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 115.0,
-      "change": -3.5,
-      "volume_lots": 889.6,
+      "close": 104.5,
+      "change": -10.5,
+      "volume_lots": 361.5,
       "vol_hist": [
         [
           "20261012",
@@ -4372,9 +4372,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 126.5,
-      "change": -4.5,
-      "volume_lots": 907.3,
+      "close": 126.0,
+      "change": -0.5,
+      "volume_lots": 509.9,
       "vol_hist": [
         [
           "20261012",
@@ -4430,9 +4430,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 18.35,
-      "change": -0.35,
-      "volume_lots": 672.6,
+      "close": 18.2,
+      "change": -0.15,
+      "volume_lots": 443.3,
       "vol_hist": [
         [
           "20261012",
@@ -4488,9 +4488,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 2275.0,
-      "change": 35.0,
-      "volume_lots": 2909.5,
+      "close": 2195.0,
+      "change": -80.0,
+      "volume_lots": 2907.6,
       "vol_hist": [
         [
           "20261012",
@@ -4546,9 +4546,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 356.0,
-      "change": -7.0,
-      "volume_lots": 7385.6,
+      "close": 355.5,
+      "change": -0.5,
+      "volume_lots": 3586.6,
       "vol_hist": [
         [
           "20261012",
@@ -4604,9 +4604,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 747.0,
-      "change": -42.0,
-      "volume_lots": 1258.7,
+      "close": 720.0,
+      "change": -27.0,
+      "volume_lots": 814.7,
       "vol_hist": [
         [
           "20261012",
@@ -4662,9 +4662,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 127.5,
-      "change": 0.5,
-      "volume_lots": 2880.1,
+      "close": 126.0,
+      "change": -1.5,
+      "volume_lots": 1809.7,
       "vol_hist": [
         [
           "20261012",
@@ -4778,9 +4778,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 46.6,
-      "change": 0.05,
-      "volume_lots": 735.8,
+      "close": 47.2,
+      "change": 0.6,
+      "volume_lots": 2421.5,
       "vol_hist": [
         [
           "20261012",
@@ -4836,9 +4836,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 2130.0,
-      "change": 60.0,
-      "volume_lots": 4616.4,
+      "close": 2040.0,
+      "change": -90.0,
+      "volume_lots": 5547.3,
       "vol_hist": [
         [
           "20261012",
@@ -4894,9 +4894,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1235.0,
-      "change": -70.0,
-      "volume_lots": 1532.6,
+      "close": 1140.0,
+      "change": -95.0,
+      "volume_lots": 2160.3,
       "vol_hist": [
         [
           "20261012",
@@ -4952,9 +4952,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 750.0,
-      "change": -28.0,
-      "volume_lots": 3134.8,
+      "close": 718.0,
+      "change": -32.0,
+      "volume_lots": 3071.7,
       "vol_hist": [
         [
           "20261012",
@@ -5068,9 +5068,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 947.0,
-      "change": -33.0,
-      "volume_lots": 5264.8,
+      "close": 926.0,
+      "change": -21.0,
+      "volume_lots": 8674.6,
       "vol_hist": [
         [
           "20261012",
@@ -5126,9 +5126,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 4625.0,
-      "change": -65.0,
-      "volume_lots": 7865.9,
+      "close": 4525.0,
+      "change": -100.0,
+      "volume_lots": 8227.1,
       "vol_hist": [
         [
           "20261012",
@@ -5184,9 +5184,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1900.0,
-      "change": -65.0,
-      "volume_lots": 11974.4,
+      "close": 1775.0,
+      "change": -125.0,
+      "volume_lots": 15203.1,
       "vol_hist": [
         [
           "20261012",
@@ -5242,9 +5242,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 145.5,
-      "change": 0.5,
-      "volume_lots": 244.9,
+      "close": 143.5,
+      "change": -2.0,
+      "volume_lots": 231.5,
       "vol_hist": [
         [
           "20261012",
@@ -5358,9 +5358,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 85.0,
-      "change": 5.2,
-      "volume_lots": 876.2,
+      "close": 82.4,
+      "change": -2.6,
+      "volume_lots": 482.5,
       "vol_hist": [
         [
           "20261012",
@@ -5416,9 +5416,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 204.0,
-      "change": 7.0,
-      "volume_lots": 3241.3,
+      "close": 198.5,
+      "change": -5.5,
+      "volume_lots": 1736.7,
       "vol_hist": [
         [
           "20261012",
@@ -5474,9 +5474,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 6490.0,
-      "change": 565.0,
-      "volume_lots": 1795.2,
+      "close": 6070.0,
+      "change": -420.0,
+      "volume_lots": 788.7,
       "vol_hist": [
         [
           "20261012",
@@ -5590,9 +5590,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 6025.0,
-      "change": 410.0,
-      "volume_lots": 1126.5,
+      "close": 5700.0,
+      "change": -325.0,
+      "volume_lots": 486.8,
       "vol_hist": [
         [
           "20261012",
@@ -5648,9 +5648,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 590.0,
-      "change": 38.0,
-      "volume_lots": 2624.2,
+      "close": 556.0,
+      "change": -34.0,
+      "volume_lots": 1523.6,
       "vol_hist": [
         [
           "20261012",
@@ -5706,9 +5706,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 62.4,
-      "change": 1.6,
-      "volume_lots": 797.0,
+      "close": 62.1,
+      "change": -0.3,
+      "volume_lots": 482.9,
       "vol_hist": [
         [
           "20261012",
@@ -5764,9 +5764,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 169.0,
-      "change": 2.0,
-      "volume_lots": 5078.1,
+      "close": 165.5,
+      "change": -3.5,
+      "volume_lots": 2731.9,
       "vol_hist": [
         [
           "20261012",
@@ -5938,9 +5938,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 30.45,
-      "change": 0.45,
-      "volume_lots": 2260.7,
+      "close": 29.55,
+      "change": -0.9,
+      "volume_lots": 2628.0,
       "vol_hist": [
         [
           "20261012",
@@ -6112,9 +6112,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1085.0,
-      "change": 30.0,
-      "volume_lots": 1081.3,
+      "close": 977.0,
+      "change": -108.0,
+      "volume_lots": 4651.3,
       "vol_hist": [
         [
           "20261012",
@@ -6170,9 +6170,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 106.5,
-      "change": -1.0,
-      "volume_lots": 168.2,
+      "close": 105.0,
+      "change": -1.5,
+      "volume_lots": 150.9,
       "vol_hist": [
         [
           "20261012",
@@ -6228,9 +6228,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 90.9,
-      "change": -0.5,
-      "volume_lots": 162.9,
+      "close": 89.0,
+      "change": -1.9,
+      "volume_lots": 408.8,
       "vol_hist": [
         [
           "20261012",
@@ -6286,9 +6286,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 724.0,
-      "change": 32.0,
-      "volume_lots": 5249.7,
+      "close": 663.0,
+      "change": -61.0,
+      "volume_lots": 4581.8,
       "vol_hist": [
         [
           "20261012",
@@ -6460,9 +6460,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 755.0,
-      "change": 19.0,
-      "volume_lots": 1228.0,
+      "close": 710.0,
+      "change": -45.0,
+      "volume_lots": 1206.2,
       "vol_hist": [
         [
           "20261012",
@@ -6518,9 +6518,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 4395.0,
-      "change": 50.0,
-      "volume_lots": 3494.7,
+      "close": 4055.0,
+      "change": -340.0,
+      "volume_lots": 5721.5,
       "vol_hist": [
         [
           "20261012",
@@ -6576,9 +6576,9 @@
         "c5": true
       },
       "passed": 3,
-      "close": 1255.0,
-      "change": -15.0,
-      "volume_lots": 8802.3,
+      "close": 1180.0,
+      "change": -75.0,
+      "volume_lots": 15915.0,
       "vol_hist": [
         [
           "20261012",
@@ -6692,9 +6692,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 224.0,
-      "change": 7.5,
-      "volume_lots": 4026.8,
+      "close": 210.0,
+      "change": -14.0,
+      "volume_lots": 3616.5,
       "vol_hist": [
         [
           "20261012",
@@ -6750,9 +6750,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 59.5,
-      "change": 0.2,
-      "volume_lots": 366.3,
+      "close": 58.1,
+      "change": -1.4,
+      "volume_lots": 366.4,
       "vol_hist": [
         [
           "20261012",
@@ -6808,9 +6808,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 76.3,
-      "change": 0.0,
-      "volume_lots": 24.5,
+      "close": 76.2,
+      "change": -0.1,
+      "volume_lots": 19.0,
       "vol_hist": [
         [
           "20261012",
@@ -7040,9 +7040,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 42.0,
-      "change": 0.6,
-      "volume_lots": 15803.0,
+      "close": 43.0,
+      "change": 1.0,
+      "volume_lots": 29418.4,
       "vol_hist": [
         [
           "20261012",
@@ -7098,9 +7098,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 51.0,
-      "change": 0.0,
-      "volume_lots": 47.8,
+      "close": 50.8,
+      "change": -0.2,
+      "volume_lots": 31.4,
       "vol_hist": [
         [
           "20261012",
@@ -7156,9 +7156,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 55.2,
-      "change": 0.4,
-      "volume_lots": 9.4,
+      "close": 54.9,
+      "change": -0.3,
+      "volume_lots": 16.4,
       "vol_hist": [
         [
           "20261012",
@@ -7330,9 +7330,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 11.05,
-      "change": 0.0,
-      "volume_lots": 1981.6,
+      "close": 11.2,
+      "change": 0.15,
+      "volume_lots": 3446.4,
       "vol_hist": [
         [
           "20261012",
@@ -7388,9 +7388,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 20.4,
-      "change": 0.25,
-      "volume_lots": 19907.9,
+      "close": 20.5,
+      "change": 0.1,
+      "volume_lots": 16475.3,
       "vol_hist": [
         [
           "20261012",
@@ -7446,9 +7446,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 64.2,
-      "change": 1.6,
-      "volume_lots": 266.9,
+      "close": 64.1,
+      "change": -0.1,
+      "volume_lots": 224.6,
       "vol_hist": [
         [
           "20261012",
@@ -7504,9 +7504,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 49.95,
-      "change": 0.45,
-      "volume_lots": 503.7,
+      "close": 49.4,
+      "change": -0.55,
+      "volume_lots": 454.4,
       "vol_hist": [
         [
           "20261012",
@@ -7621,8 +7621,8 @@
       },
       "passed": 2,
       "close": 45.85,
-      "change": 0.05,
-      "volume_lots": 28.5,
+      "change": 0.0,
+      "volume_lots": 47.4,
       "vol_hist": [
         [
           "20261012",
@@ -7736,9 +7736,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.35,
-      "change": 0.2,
-      "volume_lots": 2044.9,
+      "close": 22.2,
+      "change": -0.15,
+      "volume_lots": 1041.2,
       "vol_hist": [
         [
           "20261012",
@@ -7794,9 +7794,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 24.5,
-      "change": 0.0,
-      "volume_lots": 27.0,
+      "close": 24.35,
+      "change": -0.15,
+      "volume_lots": 25.9,
       "vol_hist": [
         [
           "20261012",
@@ -7852,9 +7852,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 44.35,
-      "change": 0.15,
-      "volume_lots": 96.9,
+      "close": 44.2,
+      "change": -0.15,
+      "volume_lots": 61.4,
       "vol_hist": [
         [
           "20261012",
@@ -8026,9 +8026,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 40.1,
-      "change": 1.05,
-      "volume_lots": 14650.7,
+      "close": 39.6,
+      "change": -0.5,
+      "volume_lots": 7222.8,
       "vol_hist": [
         [
           "20261012",
@@ -8490,9 +8490,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 22.1,
-      "change": 0.15,
-      "volume_lots": 92.9,
+      "close": 21.85,
+      "change": -0.25,
+      "volume_lots": 48.9,
       "vol_hist": [
         [
           "20261012",
@@ -8548,9 +8548,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": null,
+      "close": 11.15,
       "change": 0.0,
-      "volume_lots": 1.3,
+      "volume_lots": 13.0,
       "vol_hist": [
         [
           "20261012",
@@ -8954,9 +8954,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 36.5,
-      "change": -0.35,
-      "volume_lots": 8.4,
+      "close": 35.0,
+      "change": -1.5,
+      "volume_lots": 33.1,
       "vol_hist": [
         [
           "20261012",
@@ -9012,9 +9012,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 79.3,
-      "change": -0.6,
-      "volume_lots": 33.3,
+      "close": 78.2,
+      "change": -1.1,
+      "volume_lots": 23.5,
       "vol_hist": [
         [
           "20261012",
@@ -9418,9 +9418,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 36.1,
-      "change": 0.05,
-      "volume_lots": 61.4,
+      "close": 35.9,
+      "change": -0.2,
+      "volume_lots": 56.6,
       "vol_hist": [
         [
           "20261012",
@@ -9476,9 +9476,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 21.15,
-      "change": -0.85,
-      "volume_lots": 131.9,
+      "close": 20.5,
+      "change": -0.65,
+      "volume_lots": 108.4,
       "vol_hist": [
         [
           "20261012",
@@ -9534,9 +9534,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 27.85,
-      "change": -0.2,
-      "volume_lots": 31.0,
+      "close": 28.4,
+      "change": 0.55,
+      "volume_lots": 66.1,
       "vol_hist": [
         [
           "20261012",
@@ -9767,8 +9767,8 @@
       },
       "passed": 2,
       "close": 51.3,
-      "change": 0.3,
-      "volume_lots": 131.1,
+      "change": 0.0,
+      "volume_lots": 130.6,
       "vol_hist": [
         [
           "20261012",
@@ -9882,9 +9882,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 21.75,
-      "change": 0.0,
-      "volume_lots": 319.1,
+      "close": 21.5,
+      "change": -0.25,
+      "volume_lots": 275.8,
       "vol_hist": [
         [
           "20261012",
@@ -9940,9 +9940,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 382.5,
-      "change": 0.5,
-      "volume_lots": 750.5,
+      "close": 377.0,
+      "change": -5.5,
+      "volume_lots": 4170.1,
       "vol_hist": [
         [
           "20261012",
@@ -10056,9 +10056,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 17.4,
-      "change": 0.4,
-      "volume_lots": 561.8,
+      "close": 17.65,
+      "change": 0.25,
+      "volume_lots": 718.1,
       "vol_hist": [
         [
           "20261012",
@@ -10114,9 +10114,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 42.7,
+      "close": 42.3,
       "change": -0.4,
-      "volume_lots": 3978.0,
+      "volume_lots": 3520.8,
       "vol_hist": [
         [
           "20261012",
@@ -10173,8 +10173,8 @@
       },
       "passed": 2,
       "close": 10.9,
-      "change": -0.05,
-      "volume_lots": 299.2,
+      "change": 0.0,
+      "volume_lots": 788.5,
       "vol_hist": [
         [
           "20261012",
@@ -10230,9 +10230,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 71.3,
-      "change": -0.9,
-      "volume_lots": 562.6,
+      "close": 70.5,
+      "change": -0.8,
+      "volume_lots": 1099.6,
       "vol_hist": [
         [
           "20261012",
@@ -10288,9 +10288,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 20.5,
+      "close": 20.35,
       "change": -0.15,
-      "volume_lots": 1382.0,
+      "volume_lots": 1685.3,
       "vol_hist": [
         [
           "20261012",
@@ -10346,9 +10346,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 69.1,
-      "change": -1.8,
-      "volume_lots": 3041.5,
+      "close": 66.3,
+      "change": -2.8,
+      "volume_lots": 3929.0,
       "vol_hist": [
         [
           "20261012",
@@ -10404,9 +10404,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 58.1,
-      "change": 0.6,
-      "volume_lots": 12470.8,
+      "close": 57.3,
+      "change": -0.8,
+      "volume_lots": 13005.6,
       "vol_hist": [
         [
           "20261012",
@@ -10462,9 +10462,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 60.5,
-      "change": 0.3,
-      "volume_lots": 87.5,
+      "close": 59.5,
+      "change": -1.0,
+      "volume_lots": 81.6,
       "vol_hist": [
         [
           "20261012",
@@ -10520,9 +10520,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 37.8,
-      "change": 0.45,
-      "volume_lots": 2061.1,
+      "close": 37.2,
+      "change": -0.6,
+      "volume_lots": 578.1,
       "vol_hist": [
         [
           "20261012",
@@ -10636,9 +10636,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 13.3,
-      "change": -0.1,
-      "volume_lots": 237.6,
+      "close": 13.45,
+      "change": 0.15,
+      "volume_lots": 139.9,
       "vol_hist": [
         [
           "20261012",
@@ -10694,9 +10694,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 11.4,
-      "change": 0.05,
-      "volume_lots": 34.3,
+      "close": 11.3,
+      "change": -0.1,
+      "volume_lots": 102.5,
       "vol_hist": [
         [
           "20261012",
@@ -10927,8 +10927,8 @@
       },
       "passed": 2,
       "close": 41.45,
-      "change": 0.1,
-      "volume_lots": 58.4,
+      "change": 0.0,
+      "volume_lots": 36.9,
       "vol_hist": [
         [
           "20261012",
@@ -10984,9 +10984,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 71.1,
-      "change": -0.2,
-      "volume_lots": 203.2,
+      "close": 70.0,
+      "change": -1.1,
+      "volume_lots": 192.6,
       "vol_hist": [
         [
           "20261012",
@@ -11042,9 +11042,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 153.5,
-      "change": 2.0,
-      "volume_lots": 2477.1,
+      "close": 148.5,
+      "change": -5.0,
+      "volume_lots": 2268.7,
       "vol_hist": [
         [
           "20261012",
@@ -11216,9 +11216,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 92.1,
-      "change": 0.3,
-      "volume_lots": 686.3,
+      "close": 91.1,
+      "change": -1.0,
+      "volume_lots": 1410.7,
       "vol_hist": [
         [
           "20261012",
@@ -11274,9 +11274,9 @@
         "c5": false
       },
       "passed": 2,
-      "close": 70.1,
-      "change": 0.0,
-      "volume_lots": 8.8,
+      "close": 69.7,
+      "change": -0.4,
+      "volume_lots": 7.1,
       "vol_hist": [
         [
           "20261012",
@@ -11332,9 +11332,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 48.25,
-      "change": 0.0,
-      "volume_lots": 7780.9,
+      "close": 48.8,
+      "change": 0.55,
+      "volume_lots": 11349.9,
       "vol_hist": [
         [
           "20261012",
@@ -11390,9 +11390,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 529.0,
-      "change": -2.0,
-      "volume_lots": 1469.5,
+      "close": 546.0,
+      "change": 17.0,
+      "volume_lots": 4244.1,
       "vol_hist": [
         [
           "20261012",
@@ -11448,9 +11448,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 174.5,
-      "change": -3.5,
-      "volume_lots": 571.5,
+      "close": 183.0,
+      "change": 8.5,
+      "volume_lots": 1507.3,
       "vol_hist": [
         [
           "20261012",
@@ -11506,9 +11506,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 579.0,
-      "change": -3.0,
-      "volume_lots": 2555.2,
+      "close": 572.0,
+      "change": -7.0,
+      "volume_lots": 3580.1,
       "vol_hist": [
         [
           "20261012",
@@ -11564,9 +11564,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 132.5,
-      "change": 0.0,
-      "volume_lots": 620.7,
+      "close": 133.5,
+      "change": 1.0,
+      "volume_lots": 1135.8,
       "vol_hist": [
         [
           "20261012",
@@ -11622,9 +11622,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 730.0,
-      "change": 0.0,
-      "volume_lots": 565.8,
+      "close": 720.0,
+      "change": -10.0,
+      "volume_lots": 736.6,
       "vol_hist": [
         [
           "20261012",
@@ -11680,9 +11680,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 291.0,
-      "change": 0.0,
-      "volume_lots": 331.3,
+      "close": 295.0,
+      "change": 4.0,
+      "volume_lots": 808.5,
       "vol_hist": [
         [
           "20261012",
@@ -11738,9 +11738,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 247.5,
-      "change": 2.0,
-      "volume_lots": 4462.3,
+      "close": 240.0,
+      "change": -7.5,
+      "volume_lots": 6406.6,
       "vol_hist": [
         [
           "20261012",
@@ -11796,9 +11796,9 @@
         "c5": true
       },
       "passed": 4,
-      "close": 236.0,
-      "change": 0.5,
-      "volume_lots": 296.9,
+      "close": 240.0,
+      "change": 4.0,
+      "volume_lots": 611.2,
       "vol_hist": [
         [
           "20261012",
@@ -11854,9 +11854,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 31.35,
-      "change": 0.05,
-      "volume_lots": 10977.2,
+      "close": 31.25,
+      "change": -0.1,
+      "volume_lots": 10319.7,
       "vol_hist": [
         [
           "20261012",
@@ -11912,9 +11912,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 26.1,
-      "change": 0.05,
-      "volume_lots": 14850.3,
+      "close": 25.75,
+      "change": -0.35,
+      "volume_lots": 11830.9,
       "vol_hist": [
         [
           "20261012",
@@ -11970,9 +11970,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 296.0,
-      "change": -9.5,
-      "volume_lots": 17729.2,
+      "close": 275.5,
+      "change": -20.5,
+      "volume_lots": 25340.4,
       "vol_hist": [
         [
           "20261012",
@@ -12028,9 +12028,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 121.5,
-      "change": -2.5,
-      "volume_lots": 6213.1,
+      "close": 125.0,
+      "change": 3.5,
+      "volume_lots": 7304.8,
       "vol_hist": [
         [
           "20261012",
@@ -12086,9 +12086,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 23.55,
-      "change": -0.5,
-      "volume_lots": 1820.8,
+      "close": 23.7,
+      "change": 0.15,
+      "volume_lots": 2955.2,
       "vol_hist": [
         [
           "20261012",
@@ -12144,9 +12144,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 68.0,
-      "change": 0.2,
-      "volume_lots": 1124.0,
+      "close": 68.3,
+      "change": 0.3,
+      "volume_lots": 1897.8,
       "vol_hist": [
         [
           "20261012",
@@ -12202,9 +12202,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 345.0,
-      "change": -7.5,
-      "volume_lots": 809.3,
+      "close": 317.0,
+      "change": -28.0,
+      "volume_lots": 1369.2,
       "vol_hist": [
         [
           "20261012",
@@ -12260,9 +12260,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 105.5,
-      "change": -0.5,
-      "volume_lots": 3927.3,
+      "close": 107.5,
+      "change": 2.0,
+      "volume_lots": 8641.9,
       "vol_hist": [
         [
           "20261012",
@@ -12318,9 +12318,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 179.0,
-      "change": -4.5,
-      "volume_lots": 4280.5,
+      "close": 168.0,
+      "change": -11.0,
+      "volume_lots": 17989.2,
       "vol_hist": [
         [
           "20261012",
@@ -12376,9 +12376,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 49.4,
+      "close": 49.5,
       "change": 0.1,
-      "volume_lots": 287.5,
+      "volume_lots": 266.8,
       "vol_hist": [
         [
           "20261012",
@@ -12434,9 +12434,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 48.1,
-      "change": 0.15,
-      "volume_lots": 2292.5,
+      "close": 49.3,
+      "change": 1.2,
+      "volume_lots": 4120.2,
       "vol_hist": [
         [
           "20261012",
@@ -12492,9 +12492,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 155.0,
-      "change": 0.5,
-      "volume_lots": 3101.7,
+      "close": 157.0,
+      "change": 2.0,
+      "volume_lots": 8682.4,
       "vol_hist": [
         [
           "20261012",
@@ -12550,9 +12550,9 @@
         "c5": false
       },
       "passed": 3,
-      "close": 26.8,
-      "change": 0.35,
-      "volume_lots": 19553.4,
+      "close": 27.2,
+      "change": 0.4,
+      "volume_lots": 27275.3,
       "vol_hist": [
         [
           "20261012",
