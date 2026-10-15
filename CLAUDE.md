@@ -30,7 +30,7 @@
 | workflow | 排程（UTC） | 推送觸發檔 | 作用 |
 |---|---|---|---|
 | daily-screen.yml | 平日 07:30、09:00（=台北15:30/17:00） | `screen-request.txt` | 每日篩選＋產出全市場快照 |
-| intraday-monitor.yml | 平日 23:48/01:19/03:37 三個錯峰啟動點，job 內每5分循環**直到台北13:58**（單一事件涵蓋全日，防GitHub排程丟棄/延遲；2026-09下旬事件曾只剩2/6且延遲4-5hr致開盤強勢停更） | — | 量能爆量警示（10分鐘段量>當日均段量10倍） |
+| intraday-monitor.yml | 平日 23:48/00:41/01:19/02:33/03:37 五個錯峰啟動點，job 內每5分循環**直到台北13:58**（單一事件涵蓋全日，防GitHub排程丟棄/延遲；2026-09下旬事件曾只剩2/6且延遲4-5hr致開盤強勢停更） | — | 量能爆量警示（10分鐘段量>當日均段量10倍） |
 | financial-scan.yml | 週六 22:00（週五UTC） | `finscan-request.txt` | 全市場財報掃描→financials.json |
 | diagnose.yml | 手動/推送 | `diagnose-request.txt`（**只讀第一行**的代號） | 個股五條件診斷→網頁診斷卡 |
 | backtest.yml | 平日 10:07（=台北18:07）＋手動/推送 | `backtest-request.txt` | 3年回測訓練→backtest.json（首跑約2-3hr，.cache 走 actions/cache） |
@@ -60,7 +60,7 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
 ## 前端（docs/）
 
 - 純靜態 PWA；SW 快取策略：**頁面/config.js 網路優先**（曾因 cache-first 讓使用者
-  看到舊版介面，SHELL 版本 shell-v25）
+  看到舊版介面，SHELL 版本 shell-v26）
 - 五分頁：⭐自選股／🔴漲停股／🌅開盤強勢／📋投信大買／💰選股（localStorage activeTab）
 - 📋投信大買（2026-10-03，使用者把原「法人動能五條件」分頁顯示改為單一條件）：
   **純前端**掃全市場快照，條件＝投信當日買超 且 >前日買賣超絕對值×TH.net(3)
@@ -68,7 +68,8 @@ commit 步驟已含衝突重試（`git pull --rebase -X theirs` ×3）。
   **後端五條件篩選/績效追蹤/回測照常運作**（screen_results.json 仍產出，
   僅前端不再顯示五條件卡；loadDiagnose/績效/回測卡仍在本分頁）
 - 🌅 開盤強勢（2026-08-19 新增）：`monitor.check_morning_movers()` 於交易日
-  08:58–09:40 每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
+  08:58–13:30（原09:40收窗，2026-10-15放寬——排程延遲致8/27起窗口全錯過停更；
+  漲停委買觀察同步放寬至11:30）每輪（盤中監控5分循環）觀察「開高（開盤>昨收）走高（現價>開盤）」，
   觀察池＝昨日法人買超前150＋昨日漲停股＋篩選結果＋watchlist（4碼非00），
   寫 `docs/data/morning_movers.json`（含逐輪價格軌跡 hist、rising 旗標，
   同日 hist 延續、跨日重起算）；前端 loadMorning() 過濾 gap_pct>0 且 p>o，

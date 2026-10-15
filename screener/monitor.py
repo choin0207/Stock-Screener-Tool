@@ -100,13 +100,15 @@ def _limit_up_codes():
 
 def check_limitup_open_strength():
     """前日漲停鎖定股的開盤 30 分鐘委買觀察：
-    09:00–09:40 每輪更新 limitup_watch.json（委買五檔掛單量排序）；
+    09:00–11:30 每輪更新 limitup_watch.json（委買五檔掛單量排序；
+    原 09:40 收窗，2026-10-15 放寬——GitHub 排程常延遲 0.5~2 小時，
+    窄窗自 8/27 起整天錯過致停更）；
     09:30 後首次執行時，把「委買 ≥ limitup_bid_min_lots 張」前 5 名
     發進 alerts.json（每日一次）。回傳觀察檔數。"""
     now = _now()
     hm = now.strftime("%H:%M")
     today = now.strftime("%Y%m%d")
-    if now.weekday() >= 5 or not ("09:00" <= hm <= "09:40"):
+    if now.weekday() >= 5 or not ("09:00" <= hm <= "11:30"):
         return 0
     lus = _limit_up_codes()
     if not lus:
@@ -199,13 +201,14 @@ def check_limitup_open_strength():
 
 
 def check_morning_movers():
-    """開盤強勢觀察（09:00–09:40）：觀察池＝昨日法人買超前150＋昨日漲停股＋
+    """開盤強勢觀察（08:58–13:30，以開盤時段為主；原 09:40 收窗，
+    2026-10-15 放寬防排程延遲餓死）：觀察池＝昨日法人買超前150＋昨日漲停股＋
     篩選結果＋監控清單。每輪記錄 昨收/開盤/現價 與逐輪價格軌跡，
     寫入 morning_movers.json；「開高走高」判定由前端顯示。回傳觀察檔數。"""
     now = _now()
     hm = now.strftime("%H:%M")
     today = now.strftime("%Y%m%d")
-    if now.weekday() >= 5 or not ("08:58" <= hm <= "09:40"):
+    if now.weekday() >= 5 or not ("08:58" <= hm <= "13:30"):
         return None
     try:
         with open(_data_path("market_snapshot.json"), encoding="utf-8") as f:

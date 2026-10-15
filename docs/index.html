@@ -204,7 +204,7 @@
 
   <div class="tabpane" id="tab-mm">
 <div class="card">
-    <h2 id="mmTitle">🌅 開盤強勢（09:00–09:30 開高走高）</h2>
+    <h2 id="mmTitle">🌅 開盤強勢（開高走高觀察）</h2>
     <div class="msg" id="mmMeta">載入中…</div>
     <div id="mmList"></div>
     <div class="row" style="margin-top:8px">
@@ -758,7 +758,7 @@ async function loadMorning() {
   const meta = $("mmMeta"), box = $("mmList");
   const COND = "條件＝開盤價＞昨日收盤（開高）且 現價＞開盤價（走高）；" +
     "觀察池＝昨日法人買超前150＋昨日漲停股＋篩選結果＋監控清單，" +
-    "交易日 09:00–09:40 每 5 分鐘更新";
+    "交易日盤中每 5 分鐘更新（以開盤時段為主，全日持續觀察）";
   if (!mm || !mm.rows) {
     meta.textContent = `目前未達條件：今日資料尚未產生。（${COND}）`;
     box.innerHTML = "";
@@ -769,7 +769,7 @@ async function loadMorning() {
   const dLbl = mdd(mm.date), tLbl = (mm.time || "").slice(11, 16);
   const isToday = mm.date === todayYmd;
   const all = (mm.rows || []).filter(r => r.gap_pct > 0 && r.p > r.o);
-  $("mmTitle").textContent = `🌅 開盤強勢（${dLbl} 09:00–09:30 開高走高）`;
+  $("mmTitle").textContent = `🌅 開盤強勢（${dLbl} 開高走高觀察）`;
   meta.textContent = (isToday ? "" : "⚠️ 非今日資料，顯示最近一次觀察留存：") +
     `${dLbl} ${tLbl} 更新｜觀察 ${fmt(mm.universe, 0)} 檔中，開高走高 ${all.length} 檔`;
   if (mm.fail) {
