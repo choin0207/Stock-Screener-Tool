@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T22:58:42+08:00",
+  "generated_at": "2026-10-28T00:23:02+08:00",
   "trade_date": "20261027",
   "prev_trade_date": "20261022",
   "market": {
@@ -182,7 +182,7 @@
       "capital_k": 6698889.0,
       "eps": 9.86,
       "fin_period": "2026Q2",
-      "score": 73.0
+      "score": 74.0
     },
     {
       "code": "3702",
@@ -240,7 +240,7 @@
       "capital_k": 17284600.0,
       "eps": 5.12,
       "fin_period": "2026Q2",
-      "score": 60.0
+      "score": 61.1
     },
     {
       "code": "2382",
@@ -298,7 +298,7 @@
       "capital_k": 38626274.0,
       "eps": 19.45,
       "fin_period": "2025Q4",
-      "score": 39.9
+      "score": 40.6
     },
     {
       "code": "2388",
@@ -414,7 +414,7 @@
       "capital_k": 35874751.0,
       "eps": 1.09,
       "fin_period": "2026Q2",
-      "score": 46.5
+      "score": 46.8
     },
     {
       "code": "3036",
@@ -994,7 +994,7 @@
       "capital_k": 979813.0,
       "eps": 15.55,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3131",
@@ -1052,7 +1052,7 @@
       "capital_k": 298316.0,
       "eps": 11.18,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "5511",
@@ -1110,7 +1110,7 @@
       "capital_k": 1360000.0,
       "eps": 3.42,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "6752",
@@ -1168,7 +1168,7 @@
       "capital_k": 382584.0,
       "eps": 1.55,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "5515",
@@ -1226,7 +1226,7 @@
       "capital_k": 2016001.0,
       "eps": 4.12,
       "fin_period": "2026Q2",
-      "score": 73.2
+      "score": 72.0
     },
     {
       "code": "2535",
@@ -1284,7 +1284,7 @@
       "capital_k": 2707940.0,
       "eps": 3.44,
       "fin_period": "2026Q2",
-      "score": 68.5
+      "score": 68.8
     },
     {
       "code": "7751",
@@ -1342,7 +1342,7 @@
       "capital_k": 268886.0,
       "eps": 6.85,
       "fin_period": "2026Q2",
-      "score": 64.9
+      "score": 62.5
     },
     {
       "code": "6196",
@@ -1400,7 +1400,7 @@
       "capital_k": 2203295.0,
       "eps": 8.17,
       "fin_period": "2026Q2",
-      "score": 49.4
+      "score": 48.0
     },
     {
       "code": "6669",
@@ -1458,7 +1458,7 @@
       "capital_k": 5585384.0,
       "eps": 80.43,
       "fin_period": "2026Q2",
-      "score": 35.3
+      "score": 35.2
     },
     {
       "code": "6933",
@@ -1516,7 +1516,7 @@
       "capital_k": 424181.0,
       "eps": 5.33,
       "fin_period": "2026Q2",
-      "score": 27.3
+      "score": 27.2
     },
     {
       "code": "5522",
@@ -2560,7 +2560,7 @@
       "capital_k": 4226043.0,
       "eps": 0.98,
       "fin_period": "2025Q4",
-      "score": 90.7
+      "score": 90.8
     },
     {
       "code": "5483",
@@ -2618,7 +2618,7 @@
       "capital_k": 6412217.0,
       "eps": 3.19,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3498",
@@ -2676,7 +2676,7 @@
       "capital_k": 612730.0,
       "eps": 3.46,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "6122",
@@ -2734,7 +2734,7 @@
       "capital_k": 780916.0,
       "eps": 1.16,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3147",
@@ -2792,7 +2792,7 @@
       "capital_k": 436868.0,
       "eps": 7.6,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3680",
@@ -2850,7 +2850,7 @@
       "capital_k": 961550.0,
       "eps": 5.53,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3709",
@@ -2908,7 +2908,7 @@
       "capital_k": 1255695.0,
       "eps": 2.85,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "6227",
@@ -2966,7 +2966,7 @@
       "capital_k": 761118.0,
       "eps": 3.84,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3379",
@@ -3024,7 +3024,7 @@
       "capital_k": 380417.0,
       "eps": -0.54,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "6667",
@@ -3082,7 +3082,7 @@
       "capital_k": 492789.0,
       "eps": 4.06,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "6725",
@@ -3140,7 +3140,7 @@
       "capital_k": 371300.0,
       "eps": 2.26,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "1259",
@@ -3198,7 +3198,7 @@
       "capital_k": 323895.0,
       "eps": 1.96,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "6613",
@@ -3256,7 +3256,7 @@
       "capital_k": 389007.0,
       "eps": 4.67,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "2520",
@@ -3314,7 +3314,7 @@
       "capital_k": 6094871.0,
       "eps": 1.35,
       "fin_period": "2026Q2",
-      "score": 39.2
+      "score": 39.3
     },
     {
       "code": "6177",
@@ -3433,64 +3433,6 @@
       "score": 27.0
     },
     {
-      "code": "3443",
-      "name": "創意",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 3,
-      "close": 7430.0,
-      "change": -155.0,
-      "volume_lots": 2369.2,
-      "vol_hist": [
-        [
-          "20261022",
-          1513.6
-        ],
-        [
-          "20261021",
-          1995.9
-        ],
-        [
-          "20261020",
-          1406.8
-        ],
-        [
-          "20261019",
-          1877.0
-        ],
-        [
-          "20261016",
-          1896.7
-        ]
-      ],
-      "foreign_buy": 1195.4,
-      "foreign_sell": 988.4,
-      "foreign_net": 207.0,
-      "foreign_net_prev": 32.1,
-      "trust_buy": 189.2,
-      "trust_sell": 259.0,
-      "trust_net": -69.8,
-      "trust_net_prev": 39.0,
-      "total_net": 163.2,
-      "total_net_prev": 70.5,
-      "main_force_net": 163.2,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 52.69,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 13214722.0,
-      "capital_k": 1340119.0,
-      "eps": 11.61,
-      "fin_period": "2026Q2",
-      "score": 22.3
-    },
-    {
       "code": "6887",
       "name": "寶綠特-KY",
       "market": "tse",
@@ -3545,6 +3487,64 @@
       "contract_liab_k": 554716.0,
       "capital_k": 741755.0,
       "eps": 2.71,
+      "fin_period": "2026Q2",
+      "score": 25.0
+    },
+    {
+      "code": "3443",
+      "name": "創意",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": 7430.0,
+      "change": -155.0,
+      "volume_lots": 2369.2,
+      "vol_hist": [
+        [
+          "20261022",
+          1513.6
+        ],
+        [
+          "20261021",
+          1995.9
+        ],
+        [
+          "20261020",
+          1406.8
+        ],
+        [
+          "20261019",
+          1877.0
+        ],
+        [
+          "20261016",
+          1896.7
+        ]
+      ],
+      "foreign_buy": 1195.4,
+      "foreign_sell": 988.4,
+      "foreign_net": 207.0,
+      "foreign_net_prev": 32.1,
+      "trust_buy": 189.2,
+      "trust_sell": 259.0,
+      "trust_net": -69.8,
+      "trust_net_prev": 39.0,
+      "total_net": 163.2,
+      "total_net_prev": 70.5,
+      "main_force_net": 163.2,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 52.69,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 13214722.0,
+      "capital_k": 1340119.0,
+      "eps": 11.61,
       "fin_period": "2026Q2",
       "score": 22.2
     },
@@ -3604,7 +3604,7 @@
       "capital_k": 1000000.0,
       "eps": 1.81,
       "fin_period": "2026Q2",
-      "score": 15.6
+      "score": 15.0
     },
     {
       "code": "8299",
@@ -3662,7 +3662,7 @@
       "capital_k": 2211653.0,
       "eps": 118.57,
       "fin_period": "2026Q2",
-      "score": 11.8
+      "score": 11.4
     },
     {
       "code": "2745",
@@ -3720,7 +3720,7 @@
       "capital_k": 338085.0,
       "eps": 1.68,
       "fin_period": "2026Q2",
-      "score": 10.0
+      "score": 9.6
     },
     {
       "code": "7792",
@@ -3778,7 +3778,7 @@
       "capital_k": 466620.0,
       "eps": 5.1,
       "fin_period": "2026Q2",
-      "score": 9.8
+      "score": 9.5
     },
     {
       "code": "9933",
@@ -3894,7 +3894,7 @@
       "capital_k": 1063603.0,
       "eps": 2.28,
       "fin_period": "2026Q2",
-      "score": 8.0
+      "score": 8.1
     },
     {
       "code": "3515",
@@ -4184,7 +4184,7 @@
       "capital_k": 268842.0,
       "eps": 3.11,
       "fin_period": "2026Q2",
-      "score": 6.2
+      "score": 6.0
     },
     {
       "code": "1472",
@@ -4242,7 +4242,7 @@
       "capital_k": 524881.0,
       "eps": 1.69,
       "fin_period": "2026Q2",
-      "score": 5.3
+      "score": 5.9
     },
     {
       "code": "2603",
@@ -4358,7 +4358,7 @@
       "capital_k": 529144.0,
       "eps": 2.07,
       "fin_period": "2026Q2",
-      "score": 4.2
+      "score": 4.0
     },
     {
       "code": "2723",
@@ -4648,7 +4648,7 @@
       "capital_k": 657386.0,
       "eps": 4.71,
       "fin_period": "2026Q2",
-      "score": 1.4
+      "score": 1.3
     },
     {
       "code": "6438",
@@ -6272,7 +6272,7 @@
       "capital_k": 5209722.0,
       "eps": 2.25,
       "fin_period": "2026Q2",
-      "score": -0.6
+      "score": -0.5
     },
     {
       "code": "4770",
@@ -6330,7 +6330,7 @@
       "capital_k": 799760.0,
       "eps": 3.11,
       "fin_period": "2026Q2",
-      "score": -1.2
+      "score": -1.3
     },
     {
       "code": "6811",
@@ -6388,7 +6388,7 @@
       "capital_k": 414490.0,
       "eps": 4.69,
       "fin_period": "2026Q2",
-      "score": -2.1
+      "score": -2.0
     },
     {
       "code": "6192",
@@ -6562,7 +6562,7 @@
       "capital_k": 860589.0,
       "eps": 1.62,
       "fin_period": "2026Q2",
-      "score": -5.3
+      "score": -5.1
     },
     {
       "code": "2006",
@@ -6678,7 +6678,7 @@
       "capital_k": 5031125.0,
       "eps": 2.56,
       "fin_period": "2026Q2",
-      "score": -5.6
+      "score": -5.8
     },
     {
       "code": "6944",
@@ -6736,7 +6736,7 @@
       "capital_k": 996943.0,
       "eps": 8.75,
       "fin_period": "2026Q2",
-      "score": -6.0
+      "score": -5.9
     },
     {
       "code": "2404",
@@ -6794,7 +6794,7 @@
       "capital_k": 1905867.0,
       "eps": 19.92,
       "fin_period": "2026Q2",
-      "score": -7.4
+      "score": -8.3
     },
     {
       "code": "2704",
@@ -7548,7 +7548,7 @@
       "capital_k": 9448741.0,
       "eps": 0.03,
       "fin_period": "2026Q2",
-      "score": 88.6
+      "score": 87.2
     },
     {
       "code": "8096",
@@ -7606,7 +7606,7 @@
       "capital_k": 1493431.0,
       "eps": 1.4,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "4533",
@@ -7664,7 +7664,7 @@
       "capital_k": 1584341.0,
       "eps": -0.07,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "5529",
@@ -7722,7 +7722,7 @@
       "capital_k": 1018374.0,
       "eps": 0.67,
       "fin_period": "2026Q1",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3687",
@@ -7780,7 +7780,7 @@
       "capital_k": 301241.0,
       "eps": 0.29,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "3489",
@@ -7838,7 +7838,7 @@
       "capital_k": 904522.0,
       "eps": 0.05,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "5206",
@@ -7896,7 +7896,7 @@
       "capital_k": 1800934.0,
       "eps": 0.87,
       "fin_period": "2026Q2",
-      "score": 77.8
+      "score": 75.0
     },
     {
       "code": "2348",
@@ -7957,64 +7957,6 @@
       "score": 28.0
     },
     {
-      "code": "2618",
-      "name": "長榮航",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 42.95,
-      "change": 0.75,
-      "volume_lots": 16768.3,
-      "vol_hist": [
-        [
-          "20261022",
-          12638.5
-        ],
-        [
-          "20261021",
-          17926.8
-        ],
-        [
-          "20261020",
-          12934.4
-        ],
-        [
-          "20261019",
-          16752.5
-        ],
-        [
-          "20261016",
-          20803.7
-        ]
-      ],
-      "foreign_buy": 15477.4,
-      "foreign_sell": 6832.2,
-      "foreign_net": 8645.2,
-      "foreign_net_prev": 5818.8,
-      "trust_buy": 38.0,
-      "trust_sell": 2811.3,
-      "trust_net": -2773.3,
-      "trust_net_prev": -4176.0,
-      "total_net": 6073.7,
-      "total_net_prev": 3175.7,
-      "main_force_net": 6073.7,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 80.43,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 34715698.0,
-      "capital_k": 54004443.0,
-      "eps": 0.71,
-      "fin_period": "2026Q2",
-      "score": 22.8
-    },
-    {
       "code": "2493",
       "name": "揚博",
       "market": "tse",
@@ -8070,7 +8012,65 @@
       "capital_k": 1267965.0,
       "eps": 1.41,
       "fin_period": "2026Q2",
-      "score": 22.2
+      "score": 25.0
+    },
+    {
+      "code": "2618",
+      "name": "長榮航",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 42.95,
+      "change": 0.75,
+      "volume_lots": 16768.3,
+      "vol_hist": [
+        [
+          "20261022",
+          12638.5
+        ],
+        [
+          "20261021",
+          17926.8
+        ],
+        [
+          "20261020",
+          12934.4
+        ],
+        [
+          "20261019",
+          16752.5
+        ],
+        [
+          "20261016",
+          20803.7
+        ]
+      ],
+      "foreign_buy": 15477.4,
+      "foreign_sell": 6832.2,
+      "foreign_net": 8645.2,
+      "foreign_net_prev": 5818.8,
+      "trust_buy": 38.0,
+      "trust_sell": 2811.3,
+      "trust_net": -2773.3,
+      "trust_net_prev": -4176.0,
+      "total_net": 6073.7,
+      "total_net_prev": 3175.7,
+      "main_force_net": 6073.7,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 80.43,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 34715698.0,
+      "capital_k": 54004443.0,
+      "eps": 0.71,
+      "fin_period": "2026Q2",
+      "score": 23.3
     },
     {
       "code": "3703",
@@ -8244,65 +8244,7 @@
       "capital_k": 1686012.0,
       "eps": 0.87,
       "fin_period": "2026Q2",
-      "score": 16.0
-    },
-    {
-      "code": "8227",
-      "name": "巨有科技",
-      "market": "otc",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 246.0,
-      "change": -27.0,
-      "volume_lots": 2950.0,
-      "vol_hist": [
-        [
-          "20261022",
-          2494.0
-        ],
-        [
-          "20261021",
-          4458.0
-        ],
-        [
-          "20261020",
-          4879.0
-        ],
-        [
-          "20261019",
-          2239.0
-        ],
-        [
-          "20261016",
-          2802.0
-        ]
-      ],
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": 0.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 817.5,
-      "total_net_prev": 420.1,
-      "main_force_net": 817.5,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 18.22,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 506721.0,
-      "capital_k": 395430.0,
-      "eps": null,
-      "fin_period": "2026Q2",
-      "score": 15.1
+      "score": 15.4
     },
     {
       "code": "2013",
@@ -8361,6 +8303,64 @@
       "eps": 0.78,
       "fin_period": "2026Q2",
       "score": 14.8
+    },
+    {
+      "code": "8227",
+      "name": "巨有科技",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 246.0,
+      "change": -27.0,
+      "volume_lots": 2950.0,
+      "vol_hist": [
+        [
+          "20261022",
+          2494.0
+        ],
+        [
+          "20261021",
+          4458.0
+        ],
+        [
+          "20261020",
+          4879.0
+        ],
+        [
+          "20261019",
+          2239.0
+        ],
+        [
+          "20261016",
+          2802.0
+        ]
+      ],
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 817.5,
+      "total_net_prev": 420.1,
+      "main_force_net": 817.5,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 18.22,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 506721.0,
+      "capital_k": 395430.0,
+      "eps": null,
+      "fin_period": "2026Q2",
+      "score": 14.6
     },
     {
       "code": "1535",
@@ -8476,65 +8476,7 @@
       "capital_k": 1949076.0,
       "eps": 0.16,
       "fin_period": "2026Q2",
-      "score": 9.3
-    },
-    {
-      "code": "3558",
-      "name": "神準",
-      "market": "otc",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 138.5,
-      "change": 0.5,
-      "volume_lots": 174.0,
-      "vol_hist": [
-        [
-          "20261022",
-          187.0
-        ],
-        [
-          "20261021",
-          522.0
-        ],
-        [
-          "20261020",
-          78.0
-        ],
-        [
-          "20261019",
-          118.0
-        ],
-        [
-          "20261016",
-          190.0
-        ]
-      ],
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": 0.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 45.1,
-      "total_net_prev": 42.8,
-      "main_force_net": 45.1,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 47.07,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 438344.0,
-      "capital_k": 590609.0,
-      "eps": 0.71,
-      "fin_period": "2026Q2",
-      "score": 8.2
+      "score": 9.0
     },
     {
       "code": "2542",
@@ -8593,6 +8535,64 @@
       "eps": 1.3,
       "fin_period": "2026Q2",
       "score": 8.0
+    },
+    {
+      "code": "3558",
+      "name": "神準",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 138.5,
+      "change": 0.5,
+      "volume_lots": 174.0,
+      "vol_hist": [
+        [
+          "20261022",
+          187.0
+        ],
+        [
+          "20261021",
+          522.0
+        ],
+        [
+          "20261020",
+          78.0
+        ],
+        [
+          "20261019",
+          118.0
+        ],
+        [
+          "20261016",
+          190.0
+        ]
+      ],
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 45.1,
+      "total_net_prev": 42.8,
+      "main_force_net": 45.1,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 47.07,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 438344.0,
+      "capital_k": 590609.0,
+      "eps": 0.71,
+      "fin_period": "2026Q2",
+      "score": 7.9
     },
     {
       "code": "6689",
@@ -8882,7 +8882,7 @@
       "capital_k": 61449886.0,
       "eps": 0.23,
       "fin_period": "2026Q2",
-      "score": 4.7
+      "score": 4.6
     },
     {
       "code": "5213",
@@ -8940,7 +8940,7 @@
       "capital_k": 7213343.0,
       "eps": 0.42,
       "fin_period": "2026Q2",
-      "score": 4.1
+      "score": 4.0
     },
     {
       "code": "2743",
@@ -8998,7 +8998,7 @@
       "capital_k": 468152.0,
       "eps": 0.61,
       "fin_period": "2026Q2",
-      "score": 2.1
+      "score": 2.0
     },
     {
       "code": "4542",
@@ -9056,7 +9056,7 @@
       "capital_k": 352542.0,
       "eps": 1.07,
       "fin_period": "2026Q2",
-      "score": 1.0
+      "score": 0.9
     },
     {
       "code": "2926",
@@ -10796,7 +10796,7 @@
       "capital_k": 1088667.0,
       "eps": -0.24,
       "fin_period": "2026Q2",
-      "score": -0.8
+      "score": -0.7
     },
     {
       "code": "3581",
@@ -11086,7 +11086,7 @@
       "capital_k": 4200842.0,
       "eps": 0.74,
       "fin_period": "2026Q2",
-      "score": -5.4
+      "score": -5.2
     },
     {
       "code": "8054",
@@ -11144,7 +11144,7 @@
       "capital_k": 1062326.0,
       "eps": null,
       "fin_period": "2026Q2",
-      "score": -7.3
+      "score": -7.0
     },
     {
       "code": "6763",
@@ -11202,7 +11202,7 @@
       "capital_k": 184039.0,
       "eps": 0.53,
       "fin_period": "2026Q2",
-      "score": -7.6
+      "score": -7.4
     },
     {
       "code": "4744",
@@ -11260,7 +11260,7 @@
       "capital_k": 569485.0,
       "eps": -0.16,
       "fin_period": "2026Q2",
-      "score": -7.8
+      "score": -7.5
     },
     {
       "code": "6111",
@@ -11318,7 +11318,7 @@
       "capital_k": 1085111.0,
       "eps": 0.58,
       "fin_period": "2026Q2",
-      "score": -8.0
+      "score": -7.7
     },
     {
       "code": "6486",
@@ -11376,7 +11376,7 @@
       "capital_k": 508933.0,
       "eps": 0.45,
       "fin_period": "2026Q2",
-      "score": -12.9
+      "score": -12.5
     },
     {
       "code": "2548",
@@ -11550,7 +11550,7 @@
       "capital_k": 11595611.0,
       "eps": 0.22,
       "fin_period": "2026Q2",
-      "score": -85.4
+      "score": -86.1
     },
     {
       "code": "2408",
@@ -11956,7 +11956,7 @@
       "capital_k": 1467328.0,
       "eps": 15.8,
       "fin_period": "2026Q2",
-      "score": 68.3
+      "score": 68.4
     },
     {
       "code": "2317",
@@ -12014,7 +12014,7 @@
       "capital_k": 140734239.0,
       "eps": 4.27,
       "fin_period": "2026Q2",
-      "score": 37.6
+      "score": 37.7
     },
     {
       "code": "6770",
