@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>選股成效報告｜台股選股雷達</title>
+<style>
+ body { margin:0; padding:16px; background:#f5f6fa; color:#1a2233;
+        font:15px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif; }
+ @media (prefers-color-scheme: dark) { body { background:#101420; color:#e8ebf2; }
+   .card { background:#1a2030 !important; border-color:#2b3245 !important; }
+   th,td { border-color:#2b3245 !important; } }
+ .card { background:#fff; border:1px solid #e3e6ee; border-radius:12px;
+         padding:16px 18px; margin:0 auto 14px; max-width:760px; }
+ h1 { font-size:20px; margin:0 0 4px; } h2 { font-size:16px; margin:0 0 10px; }
+ .sub { color:#66708a; font-size:12.5px; }
+ table { border-collapse:collapse; width:100%; font-size:13.5px; }
+ th,td { padding:6px 8px; border-bottom:1px solid #e3e6ee; text-align:right; }
+ th:first-child,td:first-child { text-align:left; }
+ th { color:#66708a; font-weight:600; }
+ .big { font-size:22px; font-weight:700; }
+ .up { color:#c92a3d; } .down { color:#1a9955; }
+ .warn { background:#fff4e5; border:1px solid #f0b45c; border-radius:10px;
+         padding:10px 12px; margin:10px 0; font-size:14px; }
+ .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+         gap:10px; }
+ .kpi { border:1px solid #e3e6ee; border-radius:10px; padding:10px 12px; }
+ .kpi span { display:block; color:#66708a; font-size:12px; }
+</style></head><body>
+<div class="card">
+ <h1>📊 選股成效報告</h1>
+ <div class="sub">台股選股雷達｜報告期間 2026/08/07 – 2026/11/09
+  ｜產生於 2026/11/10 16:30｜僅供研究參考，不構成投資建議</div>
+ 
+</div>
+
+<div class="card"><h2>一、實盤篩選成效（🏆/🟡 入選股，入選日收盤進場、追蹤20交易日）</h2>
+ <div class="grid">
+  <div class="kpi"><span>累計訊號</span><b class="big">153</b> 筆</div>
+  <div class="kpi"><span>已定案</span><b class="big">98</b> 筆</div>
+  <div class="kpi"><span>定案勝率</span><b class="big">29.6%</b></div>
+  <div class="kpi"><span>平均報酬</span><b class="big down">-3.31%</b></div>
+  <div class="kpi"><span>同期加權指數</span><b class="big">-5.80%</b></div>
+ </div>
+ <p class="sub">分組：🏆全符合 {"n": 80, "win_rate": 30.0, "avg_ret": -3.53}；
+ 🟡①②+④ {"n": 18, "win_rate": 27.8, "avg_ret": -2.34}</p>
+ <h2 style="margin-top:14px">定案報酬分布（D+20）</h2>
+ <table><tr><th>區間</th><th>筆數</th><th>占比</th></tr><tr><td><-10%</td><td>22</td><td>22%</td></tr><tr><td>-10~-5%</td><td>8</td><td>8%</td></tr><tr><td>-5~0%</td><td>38</td><td>39%</td></tr><tr><td>0~5%</td><td>11</td><td>11%</td></tr><tr><td>5~10%</td><td>9</td><td>9%</td></tr><tr><td>>10%</td><td>10</td><td>10%</td></tr></table>
+</div>
+
+<div class="card"><h2>二、跌前警訊命中率（實盤累積）</h2>
+ <p class="sub">下跌事件＝跌破入選價 5%；「準確率」＝發警後該筆最終下跌的比例、
+ 「覆蓋」＝下跌事件中事先有此警訊的比例</p>
+ <table><tr><th>警訊因素</th><th>發警檔數</th><th>準確率</th><th>覆蓋</th></tr>
+ <tr><td>外資轉賣（①）</td><td>138</td><td>78/131</td><td>64/83</td></tr><tr><td>法人連賣（②）</td><td>132</td><td>79/129</td><td>57/83</td></tr><tr><td>連3黑（技）</td><td>115</td><td>76/114</td><td>44/83</td></tr><tr><td>投信轉賣（①）</td><td>106</td><td>57/102</td><td>35/83</td></tr><tr><td>跌破5日線（技）</td><td>109</td><td>56/108</td><td>34/83</td></tr><tr><td>爆量下跌（技）</td><td>41</td><td>33/41</td><td>15/83</td></tr><tr><td>獲利轉弱（⑤）</td><td>5</td><td>0/5</td><td>0/83</td></tr></table>
+</div>
+
+<div class="card"><h2>三、歷史回測對照（20231110
+ – 20261106）</h2>
+ <div class="grid">
+  <div class="kpi"><span>①②訊號數</span><b class="big">10756</b></div>
+  <div class="kpi"><span>20日勝率</span><b class="big">49.8%</b></div>
+  <div class="kpi"><span>平均20日報酬</span><b class="big">+1.71%</b></div>
+  <div class="kpi"><span>一週漲≥2%機率</span><b class="big">47%</b></div>
+ </div>
+ <p class="sub">評分權重：①外投放大 40%、②法人放大 60%</p>
+</div>
+
+<div class="card"><h2>四、方法與限制</h2>
+ <p class="sub">・訊號定義：①外資+投信買超較前日放大 ②三大法人買賣超放大
+ ③內部人轉讓有限 ④合約負債>資本額50% ⑤EPS>1.5。<br>
+ ・實盤為系統每日自動篩選的真實紀錄（非事後回填）；進場價=入選日收盤，
+ 未計交易成本與滑價。<br>
+ ・回測樣本受財報抓取上限影響，④⑤因子覆蓋以近期訊號為主。<br>
+ ・樣本仍在累積中，統計會隨時間更新；本報告不構成投資建議。</p>
+ <p class="sub"><a href="./index.html">← 回選股雷達</a></p>
+</div>
+</body></html>
