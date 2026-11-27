@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T02:31:50+08:00",
+  "generated_at": "2026-11-28T03:52:59+08:00",
   "trade_date": "20261127",
   "prev_trade_date": "20261126",
   "market": {
@@ -59,7 +59,7 @@
       "total_net_prev": -55.8,
       "main_force_net": 6977.0,
       "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 41.34,
+      "big_holder_pct": 41.76,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 57496026.0,
@@ -117,14 +117,14 @@
       "total_net_prev": 46.2,
       "main_force_net": 6977.0,
       "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 56.37,
+      "big_holder_pct": 56.83,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1578923.0,
       "capital_k": 2400690.0,
       "eps": 3.76,
       "fin_period": "2026Q2",
-      "score": 55.3
+      "score": 54.2
     },
     {
       "code": "1472",
@@ -175,7 +175,7 @@
       "total_net_prev": 0.4,
       "main_force_net": 5.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 69.27,
+      "big_holder_pct": 69.26,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 937356.0,
@@ -183,64 +183,6 @@
       "eps": 1.69,
       "fin_period": "2026Q2",
       "score": 100.0
-    },
-    {
-      "code": "2535",
-      "name": "達欣工",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": true,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 4,
-      "close": 86.5,
-      "change": 0.2,
-      "volume_lots": 121.0,
-      "vol_hist": [
-        [
-          "20261126",
-          209.1
-        ],
-        [
-          "20261125",
-          362.0
-        ],
-        [
-          "20261124",
-          546.3
-        ],
-        [
-          "20261123",
-          587.2
-        ],
-        [
-          "20261120",
-          898.9
-        ]
-      ],
-      "foreign_buy": 83.0,
-      "foreign_sell": 81.3,
-      "foreign_net": 1.7,
-      "foreign_net_prev": -6.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 1.0,
-      "total_net": 6.7,
-      "total_net_prev": 2.2,
-      "main_force_net": 6.7,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 55.49,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 4847316.0,
-      "capital_k": 2707940.0,
-      "eps": 3.44,
-      "fin_period": "2026Q2",
-      "score": 60.3
     },
     {
       "code": "6596",
@@ -298,7 +240,7 @@
       "capital_k": 380000.0,
       "eps": 5.29,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "1259",
@@ -349,14 +291,72 @@
       "total_net_prev": 1.0,
       "main_force_net": 10.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 73.03,
+      "big_holder_pct": 74.14,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 337637.0,
       "capital_k": 323895.0,
       "eps": 1.96,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
+    },
+    {
+      "code": "2535",
+      "name": "達欣工",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": true,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 4,
+      "close": 86.5,
+      "change": 0.2,
+      "volume_lots": 121.0,
+      "vol_hist": [
+        [
+          "20261126",
+          209.1
+        ],
+        [
+          "20261125",
+          362.0
+        ],
+        [
+          "20261124",
+          546.3
+        ],
+        [
+          "20261123",
+          587.2
+        ],
+        [
+          "20261120",
+          898.9
+        ]
+      ],
+      "foreign_buy": 83.0,
+      "foreign_sell": 81.3,
+      "foreign_net": 1.7,
+      "foreign_net_prev": -6.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 1.0,
+      "total_net": 6.7,
+      "total_net_prev": 2.2,
+      "main_force_net": 6.7,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 55.39,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 4847316.0,
+      "capital_k": 2707940.0,
+      "eps": 3.44,
+      "fin_period": "2026Q2",
+      "score": 57.6
     },
     {
       "code": "2536",
@@ -407,14 +407,14 @@
       "total_net_prev": 7.0,
       "main_force_net": 26.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 67.7,
+      "big_holder_pct": 67.3,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 5295214.0,
       "capital_k": 3328087.0,
       "eps": 2.05,
       "fin_period": "2026Q2",
-      "score": 56.0
+      "score": 54.3
     },
     {
       "code": "3596",
@@ -465,14 +465,14 @@
       "total_net_prev": 61.7,
       "main_force_net": 232.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 57.5,
+      "big_holder_pct": 57.28,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 7794411.0,
       "capital_k": 2203543.0,
       "eps": 3.38,
       "fin_period": "2026Q2",
-      "score": 40.2
+      "score": 40.0
     },
     {
       "code": "3167",
@@ -523,7 +523,7 @@
       "total_net_prev": -1870.8,
       "main_force_net": 514.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 41.85,
+      "big_holder_pct": 40.82,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1506076.0,
@@ -697,7 +697,7 @@
       "total_net_prev": -76.9,
       "main_force_net": 25.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 61.98,
+      "big_holder_pct": 62.06,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 411553.0,
@@ -755,7 +755,7 @@
       "total_net_prev": -91.1,
       "main_force_net": 25.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 66.99,
+      "big_holder_pct": 66.75,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 4035814.0,
@@ -813,7 +813,7 @@
       "total_net_prev": -30.5,
       "main_force_net": 13.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 50.62,
+      "big_holder_pct": 50.08,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 308678.0,
@@ -871,7 +871,7 @@
       "total_net_prev": -85.0,
       "main_force_net": 11.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 58.7,
+      "big_holder_pct": 58.41,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 826809.0,
@@ -929,7 +929,7 @@
       "total_net_prev": -1.8,
       "main_force_net": 8.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 46.05,
+      "big_holder_pct": 46.08,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 242184.0,
@@ -987,7 +987,7 @@
       "total_net_prev": -24.0,
       "main_force_net": 0.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 23.7,
+      "big_holder_pct": 24.33,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 586229.0,
@@ -1045,7 +1045,7 @@
       "total_net_prev": 0.6,
       "main_force_net": 5.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 77.73,
+      "big_holder_pct": 77.76,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 571567.0,
@@ -1103,14 +1103,14 @@
       "total_net_prev": 1.5,
       "main_force_net": 13.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 64.7,
+      "big_holder_pct": 64.72,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2980222.0,
       "capital_k": 2245505.0,
       "eps": -0.08,
       "fin_period": "2026Q2",
-      "score": 94.7
+      "score": 94.3
     },
     {
       "code": "5522",
@@ -1161,14 +1161,14 @@
       "total_net_prev": 82.5,
       "main_force_net": 551.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 85.51,
+      "big_holder_pct": 85.75,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 11279607.0,
       "capital_k": 7815962.0,
       "eps": 0.23,
       "fin_period": "2026Q2",
-      "score": 81.1
+      "score": 79.8
     },
     {
       "code": "1438",
@@ -1219,72 +1219,14 @@
       "total_net_prev": 1.2,
       "main_force_net": 5.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 79.99,
+      "big_holder_pct": 80.14,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1709289.0,
       "capital_k": 1201022.0,
       "eps": -0.43,
       "fin_period": "2026Q2",
-      "score": 67.6
-    },
-    {
-      "code": "2243",
-      "name": "宏旭-KY",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": true,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 3,
-      "close": 34.2,
-      "change": 0.7,
-      "volume_lots": 123.6,
-      "vol_hist": [
-        [
-          "20261126",
-          142.9
-        ],
-        [
-          "20261125",
-          161.7
-        ],
-        [
-          "20261124",
-          27.5
-        ],
-        [
-          "20261123",
-          279.5
-        ],
-        [
-          "20261120",
-          287.2
-        ]
-      ],
-      "foreign_buy": 94.6,
-      "foreign_sell": 72.0,
-      "foreign_net": 22.6,
-      "foreign_net_prev": 2.5,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 20.6,
-      "total_net_prev": 5.5,
-      "main_force_net": 20.6,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 50.7,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 857339.0,
-      "capital_k": 773736.0,
-      "eps": -0.33,
-      "fin_period": "2026Q2",
-      "score": 60.2
+      "score": 65.5
     },
     {
       "code": "6163",
@@ -1335,14 +1277,14 @@
       "total_net_prev": 5.8,
       "main_force_net": 184.3,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 30.03,
+      "big_holder_pct": 30.61,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1096743.0,
       "capital_k": 1488387.0,
       "eps": -0.2,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "6111",
@@ -1393,14 +1335,14 @@
       "total_net_prev": -31.1,
       "main_force_net": 140.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 42.79,
+      "big_holder_pct": 43.25,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 591326.0,
       "capital_k": 1085111.0,
       "eps": 0.58,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "6727",
@@ -1458,7 +1400,7 @@
       "capital_k": 268842.0,
       "eps": 3.11,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "3508",
@@ -1509,14 +1451,14 @@
       "total_net_prev": -8.0,
       "main_force_net": 33.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 39.98,
+      "big_holder_pct": 39.99,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 894065.0,
       "capital_k": 1088667.0,
       "eps": -0.24,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "6667",
@@ -1574,7 +1516,7 @@
       "capital_k": 492789.0,
       "eps": 4.06,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "4506",
@@ -1625,14 +1567,14 @@
       "total_net_prev": -6.3,
       "main_force_net": 16.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 74.7,
+      "big_holder_pct": 74.73,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3399924.0,
       "capital_k": 1770120.0,
       "eps": 2.34,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "6613",
@@ -1690,7 +1632,7 @@
       "capital_k": 389007.0,
       "eps": 4.67,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "3310",
@@ -1741,14 +1683,14 @@
       "total_net_prev": 0.0,
       "main_force_net": 4.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 71.01,
+      "big_holder_pct": 71.04,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 487099.0,
       "capital_k": 749485.0,
       "eps": 1.25,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "5536",
@@ -1799,14 +1741,14 @@
       "total_net_prev": -3.7,
       "main_force_net": 3.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 35.39,
+      "big_holder_pct": 36.66,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 7644545.0,
       "capital_k": 620405.0,
       "eps": 10.97,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "5455",
@@ -1864,7 +1806,7 @@
       "capital_k": 655018.0,
       "eps": -0.32,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
     },
     {
       "code": "6294",
@@ -1922,7 +1864,65 @@
       "capital_k": 260471.0,
       "eps": 2.2,
       "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 60.9
+    },
+    {
+      "code": "2243",
+      "name": "宏旭-KY",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": true,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 3,
+      "close": 34.2,
+      "change": 0.7,
+      "volume_lots": 123.6,
+      "vol_hist": [
+        [
+          "20261126",
+          142.9
+        ],
+        [
+          "20261125",
+          161.7
+        ],
+        [
+          "20261124",
+          27.5
+        ],
+        [
+          "20261123",
+          279.5
+        ],
+        [
+          "20261120",
+          287.2
+        ]
+      ],
+      "foreign_buy": 94.6,
+      "foreign_sell": 72.0,
+      "foreign_net": 22.6,
+      "foreign_net_prev": 2.5,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 20.6,
+      "total_net_prev": 5.5,
+      "main_force_net": 20.6,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 51.73,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 857339.0,
+      "capital_k": 773736.0,
+      "eps": -0.33,
+      "fin_period": "2026Q2",
+      "score": 58.2
     },
     {
       "code": "2546",
@@ -1980,7 +1980,7 @@
       "capital_k": 1461871.0,
       "eps": 7.46,
       "fin_period": "2026Q2",
-      "score": 52.1
+      "score": 48.9
     },
     {
       "code": "2501",
@@ -2038,7 +2038,7 @@
       "capital_k": 11595611.0,
       "eps": 0.22,
       "fin_period": "2026Q2",
-      "score": 46.0
+      "score": 45.9
     },
     {
       "code": "3036",
@@ -2089,14 +2089,14 @@
       "total_net_prev": 295.9,
       "main_force_net": 824.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 78.64,
+      "big_holder_pct": 78.73,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 35950078.0,
       "capital_k": 12705867.0,
       "eps": 7.68,
       "fin_period": "2026Q2",
-      "score": 43.1
+      "score": 41.7
     },
     {
       "code": "6515",
@@ -2147,14 +2147,14 @@
       "total_net_prev": -58.2,
       "main_force_net": -19.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 30.8,
+      "big_holder_pct": 30.83,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 440709.0,
       "capital_k": 364448.0,
       "eps": 18.7,
       "fin_period": "2026Q2",
-      "score": 42.9
+      "score": 39.1
     },
     {
       "code": "3528",
@@ -2205,14 +2205,14 @@
       "total_net_prev": 21.5,
       "main_force_net": 48.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 62.4,
+      "big_holder_pct": 62.39,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 475422.0,
       "capital_k": 666392.0,
       "eps": 2.66,
       "fin_period": "2026Q2",
-      "score": 23.5
+      "score": 23.4
     },
     {
       "code": "6887",
@@ -2270,7 +2270,7 @@
       "capital_k": 741755.0,
       "eps": 2.71,
       "fin_period": "2026Q2",
-      "score": 16.7
+      "score": 17.0
     },
     {
       "code": "8446",
@@ -2321,72 +2321,14 @@
       "total_net_prev": 10.6,
       "main_force_net": 23.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 43.34,
+      "big_holder_pct": 43.29,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 408026.0,
       "capital_k": 529144.0,
       "eps": 2.07,
       "fin_period": "2026Q2",
-      "score": 12.8
-    },
-    {
-      "code": "6464",
-      "name": "台數科",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 3,
-      "close": 76.1,
-      "change": 0.1,
-      "volume_lots": 17.0,
-      "vol_hist": [
-        [
-          "20261126",
-          19.0
-        ],
-        [
-          "20261125",
-          107.5
-        ],
-        [
-          "20261124",
-          8.1
-        ],
-        [
-          "20261123",
-          44.5
-        ],
-        [
-          "20261120",
-          39.2
-        ]
-      ],
-      "foreign_buy": 15.9,
-      "foreign_sell": 2.0,
-      "foreign_net": 13.9,
-      "foreign_net_prev": 8.9,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 13.9,
-      "total_net_prev": 13.9,
-      "main_force_net": 13.9,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 79.72,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 703858.0,
-      "capital_k": 1339328.0,
-      "eps": 1.57,
-      "fin_period": "2026Q2",
-      "score": 12.4
+      "score": 13.7
     },
     {
       "code": "2247",
@@ -2444,7 +2386,65 @@
       "capital_k": 807109.0,
       "eps": 4.2,
       "fin_period": "2026Q2",
-      "score": 12.3
+      "score": 12.4
+    },
+    {
+      "code": "6464",
+      "name": "台數科",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": 76.1,
+      "change": 0.1,
+      "volume_lots": 17.0,
+      "vol_hist": [
+        [
+          "20261126",
+          19.0
+        ],
+        [
+          "20261125",
+          107.5
+        ],
+        [
+          "20261124",
+          8.1
+        ],
+        [
+          "20261123",
+          44.5
+        ],
+        [
+          "20261120",
+          39.2
+        ]
+      ],
+      "foreign_buy": 15.9,
+      "foreign_sell": 2.0,
+      "foreign_net": 13.9,
+      "foreign_net_prev": 8.9,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 13.9,
+      "total_net_prev": 13.9,
+      "main_force_net": 13.9,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 79.77,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 703858.0,
+      "capital_k": 1339328.0,
+      "eps": 1.57,
+      "fin_period": "2026Q2",
+      "score": 12.2
     },
     {
       "code": "6753",
@@ -2553,14 +2553,14 @@
       "total_net_prev": 196.1,
       "main_force_net": 106.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 63.76,
+      "big_holder_pct": 64.36,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 4811647.0,
       "capital_k": 5585384.0,
       "eps": 80.43,
       "fin_period": "2026Q2",
-      "score": 6.7
+      "score": 6.6
     },
     {
       "code": "6903",
@@ -2618,7 +2618,7 @@
       "capital_k": 666760.0,
       "eps": 7.42,
       "fin_period": "2026Q2",
-      "score": 6.2
+      "score": 6.6
     },
     {
       "code": "8299",
@@ -2669,72 +2669,14 @@
       "total_net_prev": 493.6,
       "main_force_net": 506.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 28.68,
+      "big_holder_pct": 30.35,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2372413.0,
       "capital_k": 2211653.0,
       "eps": 118.57,
       "fin_period": "2026Q2",
-      "score": 5.9
-    },
-    {
-      "code": "1513",
-      "name": "中興電",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 3,
-      "close": 137.0,
-      "change": -1.0,
-      "volume_lots": 957.5,
-      "vol_hist": [
-        [
-          "20261126",
-          1721.7
-        ],
-        [
-          "20261125",
-          2191.6
-        ],
-        [
-          "20261124",
-          4448.9
-        ],
-        [
-          "20261123",
-          3246.0
-        ],
-        [
-          "20261120",
-          3989.4
-        ]
-      ],
-      "foreign_buy": 365.8,
-      "foreign_sell": 234.8,
-      "foreign_net": 131.0,
-      "foreign_net_prev": 199.0,
-      "trust_buy": 94.0,
-      "trust_sell": 6.0,
-      "trust_net": 88.0,
-      "trust_net_prev": -14.3,
-      "total_net": 19.9,
-      "total_net_prev": 242.7,
-      "main_force_net": 19.9,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 40.19,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 8908404.0,
-      "capital_k": 5031125.0,
-      "eps": 2.56,
-      "fin_period": "2026Q2",
-      "score": 5.6
+      "score": 6.3
     },
     {
       "code": "2597",
@@ -2785,7 +2727,7 @@
       "total_net_prev": 493.2,
       "main_force_net": 263.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 78.16,
+      "big_holder_pct": 78.17,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2564590.0,
@@ -2793,6 +2735,64 @@
       "eps": 2.7,
       "fin_period": "2026Q2",
       "score": 5.2
+    },
+    {
+      "code": "1513",
+      "name": "中興電",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": 137.0,
+      "change": -1.0,
+      "volume_lots": 957.5,
+      "vol_hist": [
+        [
+          "20261126",
+          1721.7
+        ],
+        [
+          "20261125",
+          2191.6
+        ],
+        [
+          "20261124",
+          4448.9
+        ],
+        [
+          "20261123",
+          3246.0
+        ],
+        [
+          "20261120",
+          3989.4
+        ]
+      ],
+      "foreign_buy": 365.8,
+      "foreign_sell": 234.8,
+      "foreign_net": 131.0,
+      "foreign_net_prev": 199.0,
+      "trust_buy": 94.0,
+      "trust_sell": 6.0,
+      "trust_net": 88.0,
+      "trust_net_prev": -14.3,
+      "total_net": 19.9,
+      "total_net_prev": 242.7,
+      "main_force_net": 19.9,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 40.15,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 8908404.0,
+      "capital_k": 5031125.0,
+      "eps": 2.56,
+      "fin_period": "2026Q2",
+      "score": 5.1
     },
     {
       "code": "2357",
@@ -2843,7 +2843,7 @@
       "total_net_prev": 438.5,
       "main_force_net": 177.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 64.74,
+      "big_holder_pct": 64.51,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 4819033.0,
@@ -2851,64 +2851,6 @@
       "eps": 25.64,
       "fin_period": "2026Q2",
       "score": 4.0
-    },
-    {
-      "code": "2912",
-      "name": "統一超",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 3,
-      "close": 207.5,
-      "change": 0.0,
-      "volume_lots": 3311.2,
-      "vol_hist": [
-        [
-          "20261126",
-          4567.1
-        ],
-        [
-          "20261125",
-          4984.2
-        ],
-        [
-          "20261124",
-          4528.9
-        ],
-        [
-          "20261123",
-          5553.1
-        ],
-        [
-          "20261120",
-          4002.9
-        ]
-      ],
-      "foreign_buy": 2239.7,
-      "foreign_sell": 1121.1,
-      "foreign_net": 1118.6,
-      "foreign_net_prev": 1362.3,
-      "trust_buy": 92.0,
-      "trust_sell": 1188.0,
-      "trust_net": -1096.0,
-      "trust_net_prev": -1301.0,
-      "total_net": 46.5,
-      "total_net_prev": 120.2,
-      "main_force_net": 46.5,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 79.37,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 11678280.0,
-      "capital_k": 10396223.0,
-      "eps": 3.06,
-      "fin_period": "2026Q2",
-      "score": 3.8
     },
     {
       "code": "2731",
@@ -2966,6 +2908,64 @@
       "capital_k": 932777.0,
       "eps": 3.11,
       "fin_period": "2026Q2",
+      "score": 3.9
+    },
+    {
+      "code": "2912",
+      "name": "統一超",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": 207.5,
+      "change": 0.0,
+      "volume_lots": 3311.2,
+      "vol_hist": [
+        [
+          "20261126",
+          4567.1
+        ],
+        [
+          "20261125",
+          4984.2
+        ],
+        [
+          "20261124",
+          4528.9
+        ],
+        [
+          "20261123",
+          5553.1
+        ],
+        [
+          "20261120",
+          4002.9
+        ]
+      ],
+      "foreign_buy": 2239.7,
+      "foreign_sell": 1121.1,
+      "foreign_net": 1118.6,
+      "foreign_net_prev": 1362.3,
+      "trust_buy": 92.0,
+      "trust_sell": 1188.0,
+      "trust_net": -1096.0,
+      "trust_net_prev": -1301.0,
+      "total_net": 46.5,
+      "total_net_prev": 120.2,
+      "main_force_net": 46.5,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 79.14,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 11678280.0,
+      "capital_k": 10396223.0,
+      "eps": 3.06,
+      "fin_period": "2026Q2",
       "score": 3.8
     },
     {
@@ -3017,7 +3017,7 @@
       "total_net_prev": 311.8,
       "main_force_net": 110.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 67.38,
+      "big_holder_pct": 67.65,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 5439018.0,
@@ -3075,7 +3075,7 @@
       "total_net_prev": 1169.7,
       "main_force_net": 371.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 62.1,
+      "big_holder_pct": 62.81,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 49600720.0,
@@ -3140,7 +3140,7 @@
       "capital_k": 2232200.0,
       "eps": 2.46,
       "fin_period": "2026Q2",
-      "score": 2.9
+      "score": 3.1
     },
     {
       "code": "1503",
@@ -3191,7 +3191,7 @@
       "total_net_prev": 365.2,
       "main_force_net": 125.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 70.62,
+      "big_holder_pct": 70.66,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 8393130.0,
@@ -3249,7 +3249,7 @@
       "total_net_prev": 80.4,
       "main_force_net": 18.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 41.61,
+      "big_holder_pct": 41.06,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3267164.0,
@@ -3307,14 +3307,14 @@
       "total_net_prev": 1144.2,
       "main_force_net": 200.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 76.13,
+      "big_holder_pct": 75.46,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 10426538.0,
       "capital_k": 17284600.0,
       "eps": 5.12,
       "fin_period": "2026Q2",
-      "score": 1.5
+      "score": 1.6
     },
     {
       "code": "6691",
@@ -3365,14 +3365,14 @@
       "total_net_prev": 2.0,
       "main_force_net": 0.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 57.72,
+      "big_holder_pct": 59.17,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2771585.0,
       "capital_k": 1335469.0,
       "eps": 10.93,
       "fin_period": "2026Q2",
-      "score": 0.9
+      "score": 1.1
     },
     {
       "code": "2480",
@@ -3423,7 +3423,7 @@
       "total_net_prev": -31.7,
       "main_force_net": -0.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 18.47,
+      "big_holder_pct": 18.31,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2423217.0,
@@ -3481,7 +3481,7 @@
       "total_net_prev": 0.0,
       "main_force_net": -1.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 60.6,
+      "big_holder_pct": 61.6,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1199667.0,
@@ -3655,7 +3655,7 @@
       "total_net_prev": -31.0,
       "main_force_net": -5.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 39.7,
+      "big_holder_pct": 39.86,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 179221.0,
@@ -3713,7 +3713,7 @@
       "total_net_prev": -41.5,
       "main_force_net": -5.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 18.97,
+      "big_holder_pct": 18.96,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 454732.0,
@@ -3829,7 +3829,7 @@
       "total_net_prev": 0.0,
       "main_force_net": -12.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 83.75,
+      "big_holder_pct": 83.85,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2932748.0,
@@ -4003,7 +4003,7 @@
       "total_net_prev": -4.0,
       "main_force_net": -20.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 64.52,
+      "big_holder_pct": 61.84,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1805520.0,
@@ -4119,7 +4119,7 @@
       "total_net_prev": -130.4,
       "main_force_net": -23.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 58.47,
+      "big_holder_pct": 58.32,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 5030444.0,
@@ -4351,7 +4351,7 @@
       "total_net_prev": -63.6,
       "main_force_net": -31.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 43.72,
+      "big_holder_pct": 43.3,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 736502.0,
@@ -4467,7 +4467,7 @@
       "total_net_prev": -21.8,
       "main_force_net": -39.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 45.17,
+      "big_holder_pct": 45.03,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 354929.0,
@@ -4583,7 +4583,7 @@
       "total_net_prev": -15.2,
       "main_force_net": -41.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 32.85,
+      "big_holder_pct": 33.19,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3274936.0,
@@ -4641,7 +4641,7 @@
       "total_net_prev": -16.5,
       "main_force_net": -44.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 52.73,
+      "big_holder_pct": 54.24,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 13214722.0,
@@ -4699,7 +4699,7 @@
       "total_net_prev": -205.5,
       "main_force_net": -124.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 50.63,
+      "big_holder_pct": 52.7,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1320592.0,
@@ -4757,7 +4757,7 @@
       "total_net_prev": -65.8,
       "main_force_net": -160.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 56.36,
+      "big_holder_pct": 56.24,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3946564.0,
@@ -4815,7 +4815,7 @@
       "total_net_prev": -120.7,
       "main_force_net": -172.3,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 47.35,
+      "big_holder_pct": 47.36,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 246312.0,
@@ -4873,7 +4873,7 @@
       "total_net_prev": -173.4,
       "main_force_net": -234.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 66.13,
+      "big_holder_pct": 66.34,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 24585497.0,
@@ -4931,7 +4931,7 @@
       "total_net_prev": -345.7,
       "main_force_net": -239.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 65.59,
+      "big_holder_pct": 65.34,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 6958047.0,
@@ -4989,7 +4989,7 @@
       "total_net_prev": -234.8,
       "main_force_net": -246.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 58.13,
+      "big_holder_pct": 58.5,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 8579461.0,
@@ -5047,7 +5047,7 @@
       "total_net_prev": -501.3,
       "main_force_net": -254.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 7.67,
+      "big_holder_pct": 9.03,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 15296768.0,
@@ -5105,7 +5105,7 @@
       "total_net_prev": -604.4,
       "main_force_net": -266.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 50.41,
+      "big_holder_pct": 46.74,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 164063.0,
@@ -5163,7 +5163,7 @@
       "total_net_prev": -562.7,
       "main_force_net": -322.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 53.19,
+      "big_holder_pct": 52.97,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 7107776.0,
@@ -5221,7 +5221,7 @@
       "total_net_prev": -125.7,
       "main_force_net": -974.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 74.29,
+      "big_holder_pct": 74.4,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 4289438.0,
@@ -5279,7 +5279,7 @@
       "total_net_prev": -45.1,
       "main_force_net": -1778.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 67.6,
+      "big_holder_pct": 67.77,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 12557264.0,
@@ -5337,7 +5337,7 @@
       "total_net_prev": -3117.8,
       "main_force_net": -2082.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 72.63,
+      "big_holder_pct": 72.47,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 13464002.0,
@@ -5395,14 +5395,72 @@
       "total_net_prev": 351.5,
       "main_force_net": -19.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 51.1,
+      "big_holder_pct": 50.94,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 50361128.0,
       "capital_k": 2355757.0,
       "eps": 16.46,
       "fin_period": "2026Q2",
-      "score": -0.3
+      "score": -0.4
+    },
+    {
+      "code": "2727",
+      "name": "王品",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": 229.5,
+      "change": -2.5,
+      "volume_lots": 134.4,
+      "vol_hist": [
+        [
+          "20261126",
+          465.1
+        ],
+        [
+          "20261125",
+          312.6
+        ],
+        [
+          "20261124",
+          350.8
+        ],
+        [
+          "20261123",
+          414.7
+        ],
+        [
+          "20261120",
+          528.4
+        ]
+      ],
+      "foreign_buy": 71.8,
+      "foreign_sell": 98.9,
+      "foreign_net": -27.1,
+      "foreign_net_prev": 281.2,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 1.0,
+      "total_net": -22.9,
+      "total_net_prev": 286.2,
+      "main_force_net": -22.9,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 16.66,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 3042434.0,
+      "capital_k": 829401.0,
+      "eps": 4.82,
+      "fin_period": "2026Q2",
+      "score": -0.9
     },
     {
       "code": "7792",
@@ -5460,65 +5518,7 @@
       "capital_k": 466620.0,
       "eps": 5.1,
       "fin_period": "2026Q2",
-      "score": -0.9
-    },
-    {
-      "code": "2727",
-      "name": "王品",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 3,
-      "close": 229.5,
-      "change": -2.5,
-      "volume_lots": 134.4,
-      "vol_hist": [
-        [
-          "20261126",
-          465.1
-        ],
-        [
-          "20261125",
-          312.6
-        ],
-        [
-          "20261124",
-          350.8
-        ],
-        [
-          "20261123",
-          414.7
-        ],
-        [
-          "20261120",
-          528.4
-        ]
-      ],
-      "foreign_buy": 71.8,
-      "foreign_sell": 98.9,
-      "foreign_net": -27.1,
-      "foreign_net_prev": 281.2,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 1.0,
-      "total_net": -22.9,
-      "total_net_prev": 286.2,
-      "main_force_net": -22.9,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 16.8,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 3042434.0,
-      "capital_k": 829401.0,
-      "eps": 4.82,
-      "fin_period": "2026Q2",
-      "score": -0.9
+      "score": -1.0
     },
     {
       "code": "6223",
@@ -5569,14 +5569,14 @@
       "total_net_prev": 152.5,
       "main_force_net": -24.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 38.32,
+      "big_holder_pct": 38.68,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2281850.0,
       "capital_k": 979813.0,
       "eps": 15.55,
       "fin_period": "2026Q2",
-      "score": -0.9
+      "score": -1.0
     },
     {
       "code": "3709",
@@ -5627,14 +5627,14 @@
       "total_net_prev": 209.6,
       "main_force_net": -43.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 66.11,
+      "big_holder_pct": 65.27,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 7208701.0,
       "capital_k": 1255695.0,
       "eps": 2.85,
       "fin_period": "2026Q2",
-      "score": -1.2
+      "score": -1.3
     },
     {
       "code": "6953",
@@ -5692,7 +5692,7 @@
       "capital_k": 300146.0,
       "eps": 3.66,
       "fin_period": "2026Q2",
-      "score": -1.4
+      "score": -1.5
     },
     {
       "code": "6414",
@@ -5743,7 +5743,7 @@
       "total_net_prev": 108.3,
       "main_force_net": -16.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 45.44,
+      "big_holder_pct": 46.08,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 27730058.0,
@@ -5801,14 +5801,14 @@
       "total_net_prev": 2.7,
       "main_force_net": -1.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 21.11,
+      "big_holder_pct": 23.79,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 735718.0,
       "capital_k": 382584.0,
       "eps": 1.55,
       "fin_period": "2026Q2",
-      "score": -2.3
+      "score": -2.5
     },
     {
       "code": "7822",
@@ -5924,7 +5924,7 @@
       "capital_k": 761118.0,
       "eps": 3.84,
       "fin_period": "2026Q2",
-      "score": -3.8
+      "score": -4.1
     },
     {
       "code": "3515",
@@ -5975,7 +5975,7 @@
       "total_net_prev": 33.2,
       "main_force_net": -14.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 61.8,
+      "big_holder_pct": 60.83,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1538177.0,
@@ -6033,7 +6033,7 @@
       "total_net_prev": 2895.5,
       "main_force_net": -1489.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 81.06,
+      "big_holder_pct": 81.18,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 107124589.0,
@@ -6098,7 +6098,7 @@
       "capital_k": 611513.0,
       "eps": 3.57,
       "fin_period": "2026Q2",
-      "score": -6.7
+      "score": -7.1
     },
     {
       "code": "3498",
@@ -6149,14 +6149,14 @@
       "total_net_prev": 166.9,
       "main_force_net": -205.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 40.46,
+      "big_holder_pct": 38.0,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1737100.0,
       "capital_k": 612730.0,
       "eps": 3.46,
       "fin_period": "2026Q2",
-      "score": -7.0
+      "score": -7.5
     },
     {
       "code": "3583",
@@ -6207,7 +6207,7 @@
       "total_net_prev": 59.4,
       "main_force_net": -43.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 48.03,
+      "big_holder_pct": 49.81,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 14981339.0,
@@ -6272,7 +6272,65 @@
       "capital_k": 338085.0,
       "eps": 1.68,
       "fin_period": "2026Q2",
-      "score": -9.5
+      "score": -10.1
+    },
+    {
+      "code": "3209",
+      "name": "全科",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": 41.65,
+      "change": -0.65,
+      "volume_lots": 776.1,
+      "vol_hist": [
+        [
+          "20261126",
+          923.1
+        ],
+        [
+          "20261125",
+          1793.1
+        ],
+        [
+          "20261124",
+          2005.7
+        ],
+        [
+          "20261123",
+          1703.5
+        ],
+        [
+          "20261120",
+          2244.3
+        ]
+      ],
+      "foreign_buy": 229.7,
+      "foreign_sell": 321.6,
+      "foreign_net": -91.9,
+      "foreign_net_prev": 80.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": -106.9,
+      "total_net_prev": 103.7,
+      "main_force_net": -106.9,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 31.6,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 1399284.0,
+      "capital_k": 2471608.0,
+      "eps": 1.75,
+      "fin_period": "2026Q2",
+      "score": -10.8
     },
     {
       "code": "6788",
@@ -6330,65 +6388,7 @@
       "capital_k": 387397.0,
       "eps": 5.3,
       "fin_period": "2026Q2",
-      "score": -10.6
-    },
-    {
-      "code": "3209",
-      "name": "全科",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 3,
-      "close": 41.65,
-      "change": -0.65,
-      "volume_lots": 776.1,
-      "vol_hist": [
-        [
-          "20261126",
-          923.1
-        ],
-        [
-          "20261125",
-          1793.1
-        ],
-        [
-          "20261124",
-          2005.7
-        ],
-        [
-          "20261123",
-          1703.5
-        ],
-        [
-          "20261120",
-          2244.3
-        ]
-      ],
-      "foreign_buy": 229.7,
-      "foreign_sell": 321.6,
-      "foreign_net": -91.9,
-      "foreign_net_prev": 80.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": -106.9,
-      "total_net_prev": 103.7,
-      "main_force_net": -106.9,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 31.77,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 1399284.0,
-      "capital_k": 2471608.0,
-      "eps": 1.75,
-      "fin_period": "2026Q2",
-      "score": -10.8
+      "score": -11.3
     },
     {
       "code": "2762",
@@ -6449,64 +6449,6 @@
       "score": -12.1
     },
     {
-      "code": "5292",
-      "name": "華懋",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": true
-      },
-      "passed": 3,
-      "close": 206.5,
-      "change": 0.5,
-      "volume_lots": 62.9,
-      "vol_hist": [
-        [
-          "20261126",
-          100.3
-        ],
-        [
-          "20261125",
-          130.3
-        ],
-        [
-          "20261124",
-          31.0
-        ],
-        [
-          "20261123",
-          157.7
-        ],
-        [
-          "20261120",
-          181.5
-        ]
-      ],
-      "foreign_buy": 33.4,
-      "foreign_sell": 44.5,
-      "foreign_net": -11.1,
-      "foreign_net_prev": -4.7,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": -7.8,
-      "total_net_prev": 3.3,
-      "main_force_net": -7.8,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 48.84,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 1668200.0,
-      "capital_k": 463188.0,
-      "eps": 2.25,
-      "fin_period": "2026Q2",
-      "score": -13.5
-    },
-    {
       "code": "2359",
       "name": "所羅門",
       "market": "tse",
@@ -6555,14 +6497,72 @@
       "total_net_prev": 83.4,
       "main_force_net": -112.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 37.64,
+      "big_holder_pct": 37.89,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1706946.0,
       "capital_k": 1714711.0,
       "eps": 3.77,
       "fin_period": "2026Q2",
-      "score": -14.0
+      "score": -13.9
+    },
+    {
+      "code": "5292",
+      "name": "華懋",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": true
+      },
+      "passed": 3,
+      "close": 206.5,
+      "change": 0.5,
+      "volume_lots": 62.9,
+      "vol_hist": [
+        [
+          "20261126",
+          100.3
+        ],
+        [
+          "20261125",
+          130.3
+        ],
+        [
+          "20261124",
+          31.0
+        ],
+        [
+          "20261123",
+          157.7
+        ],
+        [
+          "20261120",
+          181.5
+        ]
+      ],
+      "foreign_buy": 33.4,
+      "foreign_sell": 44.5,
+      "foreign_net": -11.1,
+      "foreign_net_prev": -4.7,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": -7.8,
+      "total_net_prev": 3.3,
+      "main_force_net": -7.8,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 48.87,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 1668200.0,
+      "capital_k": 463188.0,
+      "eps": 2.25,
+      "fin_period": "2026Q2",
+      "score": -14.4
     },
     {
       "code": "6944",
@@ -6613,14 +6613,14 @@
       "total_net_prev": 28.9,
       "main_force_net": -36.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 38.64,
+      "big_holder_pct": 39.63,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2798621.0,
       "capital_k": 996943.0,
       "eps": 8.75,
       "fin_period": "2026Q2",
-      "score": -15.4
+      "score": -15.2
     },
     {
       "code": "2467",
@@ -6671,14 +6671,14 @@
       "total_net_prev": 78.5,
       "main_force_net": -141.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 58.07,
+      "big_holder_pct": 58.75,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2989798.0,
       "capital_k": 1615137.0,
       "eps": 4.09,
       "fin_period": "2026Q2",
-      "score": -21.5
+      "score": -21.2
     },
     {
       "code": "5515",
@@ -6729,14 +6729,14 @@
       "total_net_prev": 19.3,
       "main_force_net": -44.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 62.32,
+      "big_holder_pct": 62.76,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3189689.0,
       "capital_k": 2016001.0,
       "eps": 4.12,
       "fin_period": "2026Q2",
-      "score": -24.8
+      "score": -24.7
     },
     {
       "code": "2723",
@@ -6787,14 +6787,14 @@
       "total_net_prev": 12.2,
       "main_force_net": -30.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 61.45,
+      "big_holder_pct": 61.41,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 974469.0,
       "capital_k": 1800000.0,
       "eps": 1.88,
       "fin_period": "2026Q2",
-      "score": -36.9
+      "score": -35.8
     },
     {
       "code": "2454",
@@ -6845,14 +6845,14 @@
       "total_net_prev": 27.0,
       "main_force_net": -352.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 61.27,
+      "big_holder_pct": 61.17,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 8406381.0,
       "capital_k": 16038954.0,
       "eps": 15.28,
       "fin_period": "2026Q2",
-      "score": -74.6
+      "score": -79.5
     },
     {
       "code": "2376",
@@ -6903,14 +6903,14 @@
       "total_net_prev": 238.6,
       "main_force_net": -635.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 65.14,
+      "big_holder_pct": 65.23,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 10159540.0,
       "capital_k": 6698889.0,
       "eps": 9.86,
       "fin_period": "2026Q2",
-      "score": -119.6
+      "score": -111.4
     },
     {
       "code": "2603",
@@ -6961,14 +6961,14 @@
       "total_net_prev": 76.7,
       "main_force_net": -2423.3,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 72.43,
+      "big_holder_pct": 72.52,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 14571580.0,
       "capital_k": 21650430.0,
       "eps": 7.41,
       "fin_period": "2026Q2",
-      "score": -180.4
+      "score": -192.4
     },
     {
       "code": "2610",
@@ -7019,7 +7019,7 @@
       "total_net_prev": -5379.2,
       "main_force_net": 1938.6,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 75.12,
+      "big_holder_pct": 75.19,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 36829821.0,
@@ -7077,7 +7077,7 @@
       "total_net_prev": -6.4,
       "main_force_net": 6.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 68.72,
+      "big_holder_pct": 68.75,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 473799.0,
@@ -7193,7 +7193,7 @@
       "total_net_prev": -13.5,
       "main_force_net": 2.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 43.8,
+      "big_holder_pct": 43.81,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1537674.0,
@@ -7251,14 +7251,246 @@
       "total_net_prev": -6.4,
       "main_force_net": 5.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 81.26,
+      "big_holder_pct": 81.23,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 577134.0,
       "capital_k": 937200.0,
       "eps": -0.64,
       "fin_period": "2026Q2",
-      "score": 62.8
+      "score": 66.1
+    },
+    {
+      "code": "1535",
+      "name": "中宇",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 42.3,
+      "change": 0.35,
+      "volume_lots": 46.7,
+      "vol_hist": [
+        [
+          "20261126",
+          57.9
+        ],
+        [
+          "20261125",
+          116.2
+        ],
+        [
+          "20261124",
+          82.2
+        ],
+        [
+          "20261123",
+          124.2
+        ],
+        [
+          "20261120",
+          132.9
+        ]
+      ],
+      "foreign_buy": 23.4,
+      "foreign_sell": 23.0,
+      "foreign_net": 0.4,
+      "foreign_net_prev": 3.8,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 2.4,
+      "total_net_prev": -1.2,
+      "main_force_net": 2.4,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 75.68,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 1610460.0,
+      "capital_k": 1237426.0,
+      "eps": 0.87,
+      "fin_period": "2026Q2",
+      "score": 61.3
+    },
+    {
+      "code": "4542",
+      "name": "科嶠",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 154.0,
+      "change": -8.5,
+      "volume_lots": 477.0,
+      "vol_hist": [
+        [
+          "20261126",
+          548.0
+        ],
+        [
+          "20261125",
+          672.0
+        ],
+        [
+          "20261124",
+          63.0
+        ],
+        [
+          "20261123",
+          1380.0
+        ],
+        [
+          "20261120",
+          86.0
+        ]
+      ],
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 92.1,
+      "total_net_prev": -54.9,
+      "main_force_net": 92.1,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 20.92,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 381958.0,
+      "capital_k": 352542.0,
+      "eps": 1.07,
+      "fin_period": "2026Q2",
+      "score": 60.9
+    },
+    {
+      "code": "6219",
+      "name": "富旺",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 8.77,
+      "change": 0.14,
+      "volume_lots": 78.0,
+      "vol_hist": [
+        [
+          "20261126",
+          179.0
+        ],
+        [
+          "20261125",
+          128.0
+        ],
+        [
+          "20261124",
+          121.0
+        ],
+        [
+          "20261123",
+          478.0
+        ],
+        [
+          "20261120",
+          185.0
+        ]
+      ],
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 12.0,
+      "total_net_prev": -4.0,
+      "main_force_net": 12.0,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 67.03,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 813444.0,
+      "capital_k": 1249671.0,
+      "eps": -0.81,
+      "fin_period": "2026Q2",
+      "score": 60.9
+    },
+    {
+      "code": "6221",
+      "name": "晉泰",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 30.3,
+      "change": -0.7,
+      "volume_lots": 2849.0,
+      "vol_hist": [
+        [
+          "20261126",
+          3113.0
+        ],
+        [
+          "20261125",
+          7128.0
+        ],
+        [
+          "20261124",
+          4019.0
+        ],
+        [
+          "20261123",
+          4151.0
+        ],
+        [
+          "20261120",
+          11536.0
+        ]
+      ],
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 11.0,
+      "total_net_prev": -145.7,
+      "main_force_net": 11.0,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 72.1,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 1691515.0,
+      "capital_k": 1686012.0,
+      "eps": 0.87,
+      "fin_period": "2026Q2",
+      "score": 60.9
     },
     {
       "code": "6666",
@@ -7316,239 +7548,7 @@
       "capital_k": 473880.0,
       "eps": null,
       "fin_period": "2026Q2",
-      "score": 57.8
-    },
-    {
-      "code": "1535",
-      "name": "中宇",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 42.3,
-      "change": 0.35,
-      "volume_lots": 46.7,
-      "vol_hist": [
-        [
-          "20261126",
-          57.9
-        ],
-        [
-          "20261125",
-          116.2
-        ],
-        [
-          "20261124",
-          82.2
-        ],
-        [
-          "20261123",
-          124.2
-        ],
-        [
-          "20261120",
-          132.9
-        ]
-      ],
-      "foreign_buy": 23.4,
-      "foreign_sell": 23.0,
-      "foreign_net": 0.4,
-      "foreign_net_prev": 3.8,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 2.4,
-      "total_net_prev": -1.2,
-      "main_force_net": 2.4,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 75.61,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 1610460.0,
-      "capital_k": 1237426.0,
-      "eps": 0.87,
-      "fin_period": "2026Q2",
-      "score": 57.6
-    },
-    {
-      "code": "4542",
-      "name": "科嶠",
-      "market": "otc",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 154.0,
-      "change": -8.5,
-      "volume_lots": 477.0,
-      "vol_hist": [
-        [
-          "20261126",
-          548.0
-        ],
-        [
-          "20261125",
-          672.0
-        ],
-        [
-          "20261124",
-          63.0
-        ],
-        [
-          "20261123",
-          1380.0
-        ],
-        [
-          "20261120",
-          86.0
-        ]
-      ],
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": 0.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 92.1,
-      "total_net_prev": -54.9,
-      "main_force_net": 92.1,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 20.86,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 381958.0,
-      "capital_k": 352542.0,
-      "eps": 1.07,
-      "fin_period": "2026Q2",
-      "score": 57.1
-    },
-    {
-      "code": "6219",
-      "name": "富旺",
-      "market": "otc",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 8.77,
-      "change": 0.14,
-      "volume_lots": 78.0,
-      "vol_hist": [
-        [
-          "20261126",
-          179.0
-        ],
-        [
-          "20261125",
-          128.0
-        ],
-        [
-          "20261124",
-          121.0
-        ],
-        [
-          "20261123",
-          478.0
-        ],
-        [
-          "20261120",
-          185.0
-        ]
-      ],
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": 0.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 12.0,
-      "total_net_prev": -4.0,
-      "main_force_net": 12.0,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 67.55,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 813444.0,
-      "capital_k": 1249671.0,
-      "eps": -0.81,
-      "fin_period": "2026Q2",
-      "score": 57.1
-    },
-    {
-      "code": "6221",
-      "name": "晉泰",
-      "market": "otc",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 30.3,
-      "change": -0.7,
-      "volume_lots": 2849.0,
-      "vol_hist": [
-        [
-          "20261126",
-          3113.0
-        ],
-        [
-          "20261125",
-          7128.0
-        ],
-        [
-          "20261124",
-          4019.0
-        ],
-        [
-          "20261123",
-          4151.0
-        ],
-        [
-          "20261120",
-          11536.0
-        ]
-      ],
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": 0.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 11.0,
-      "total_net_prev": -145.7,
-      "main_force_net": 11.0,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 72.09,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 1691515.0,
-      "capital_k": 1686012.0,
-      "eps": 0.87,
-      "fin_period": "2026Q2",
-      "score": 57.1
+      "score": 55.0
     },
     {
       "code": "2430",
@@ -7599,14 +7599,14 @@
       "total_net_prev": 5.8,
       "main_force_net": 12.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 57.2,
+      "big_holder_pct": 57.21,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 796924.0,
       "capital_k": 1168000.0,
       "eps": 0.02,
       "fin_period": "2026Q2",
-      "score": 54.7
+      "score": 51.7
     },
     {
       "code": "3266",
@@ -7664,7 +7664,7 @@
       "capital_k": 3523143.0,
       "eps": -0.05,
       "fin_period": "2026Q2",
-      "score": 39.7
+      "score": 38.8
     },
     {
       "code": "2520",
@@ -7715,14 +7715,72 @@
       "total_net_prev": 75.6,
       "main_force_net": 173.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 71.93,
+      "big_holder_pct": 72.11,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 4346312.0,
       "capital_k": 6094871.0,
       "eps": 1.35,
       "fin_period": "2026Q2",
-      "score": 24.9
+      "score": 24.7
+    },
+    {
+      "code": "3285",
+      "name": "微端",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 55.2,
+      "change": -5.8,
+      "volume_lots": 1925.0,
+      "vol_hist": [
+        [
+          "20261126",
+          1851.0
+        ],
+        [
+          "20261125",
+          750.0
+        ],
+        [
+          "20261124",
+          650.0
+        ],
+        [
+          "20261123",
+          204.0
+        ],
+        [
+          "20261120",
+          227.0
+        ]
+      ],
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 24.3,
+      "total_net_prev": 8.2,
+      "main_force_net": 24.3,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 51.53,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 224042.0,
+      "capital_k": 427353.0,
+      "eps": 0.66,
+      "fin_period": "2026Q2",
+      "score": 18.0
     },
     {
       "code": "8443",
@@ -7773,7 +7831,7 @@
       "total_net_prev": 2.5,
       "main_force_net": 4.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 61.94,
+      "big_holder_pct": 61.97,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 385091.0,
@@ -7831,7 +7889,7 @@
       "total_net_prev": 5.4,
       "main_force_net": 9.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 63.09,
+      "big_holder_pct": 63.13,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1633357.0,
@@ -7839,64 +7897,6 @@
       "eps": -0.79,
       "fin_period": "2026Q2",
       "score": 17.0
-    },
-    {
-      "code": "3285",
-      "name": "微端",
-      "market": "otc",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 55.2,
-      "change": -5.8,
-      "volume_lots": 1925.0,
-      "vol_hist": [
-        [
-          "20261126",
-          1851.0
-        ],
-        [
-          "20261125",
-          750.0
-        ],
-        [
-          "20261124",
-          650.0
-        ],
-        [
-          "20261123",
-          204.0
-        ],
-        [
-          "20261120",
-          227.0
-        ]
-      ],
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": 0.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 24.3,
-      "total_net_prev": 8.2,
-      "main_force_net": 24.3,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 52.0,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 224042.0,
-      "capital_k": 427353.0,
-      "eps": 0.66,
-      "fin_period": "2026Q2",
-      "score": 16.9
     },
     {
       "code": "8227",
@@ -7947,14 +7947,14 @@
       "total_net_prev": 6.1,
       "main_force_net": 13.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 20.77,
+      "big_holder_pct": 20.81,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 506721.0,
       "capital_k": 395430.0,
       "eps": null,
       "fin_period": "2026Q2",
-      "score": 13.0
+      "score": 13.9
     },
     {
       "code": "9926",
@@ -8012,7 +8012,7 @@
       "capital_k": 1795041.0,
       "eps": 0.93,
       "fin_period": "2026Q2",
-      "score": 11.7
+      "score": 11.6
     },
     {
       "code": "2540",
@@ -8063,7 +8063,7 @@
       "total_net_prev": 247.0,
       "main_force_net": 168.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 89.26,
+      "big_holder_pct": 89.29,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 9299996.0,
@@ -8071,64 +8071,6 @@
       "eps": 0.03,
       "fin_period": "2026Q2",
       "score": 7.1
-    },
-    {
-      "code": "5525",
-      "name": "順天",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 20.1,
-      "change": -0.2,
-      "volume_lots": 64.5,
-      "vol_hist": [
-        [
-          "20261126",
-          76.5
-        ],
-        [
-          "20261125",
-          106.8
-        ],
-        [
-          "20261124",
-          65.5
-        ],
-        [
-          "20261123",
-          125.7
-        ],
-        [
-          "20261120",
-          105.5
-        ]
-      ],
-      "foreign_buy": 35.4,
-      "foreign_sell": 16.0,
-      "foreign_net": 19.4,
-      "foreign_net_prev": 28.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 21.4,
-      "total_net_prev": 40.0,
-      "main_force_net": 21.4,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 84.48,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 3028240.0,
-      "capital_k": 3181054.0,
-      "eps": 1.34,
-      "fin_period": "2026Q2",
-      "score": 6.0
     },
     {
       "code": "3558",
@@ -8186,7 +8128,65 @@
       "capital_k": 590609.0,
       "eps": 0.71,
       "fin_period": "2026Q2",
-      "score": 5.7
+      "score": 6.1
+    },
+    {
+      "code": "5525",
+      "name": "順天",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 20.1,
+      "change": -0.2,
+      "volume_lots": 64.5,
+      "vol_hist": [
+        [
+          "20261126",
+          76.5
+        ],
+        [
+          "20261125",
+          106.8
+        ],
+        [
+          "20261124",
+          65.5
+        ],
+        [
+          "20261123",
+          125.7
+        ],
+        [
+          "20261120",
+          105.5
+        ]
+      ],
+      "foreign_buy": 35.4,
+      "foreign_sell": 16.0,
+      "foreign_net": 19.4,
+      "foreign_net_prev": 28.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 21.4,
+      "total_net_prev": 40.0,
+      "main_force_net": 21.4,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 84.5,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 3028240.0,
+      "capital_k": 3181054.0,
+      "eps": 1.34,
+      "fin_period": "2026Q2",
+      "score": 6.0
     },
     {
       "code": "2548",
@@ -8237,7 +8237,7 @@
       "total_net_prev": 384.3,
       "main_force_net": 144.3,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 39.15,
+      "big_holder_pct": 38.69,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 6558117.0,
@@ -8245,64 +8245,6 @@
       "eps": 0.64,
       "fin_period": "2026Q2",
       "score": 3.3
-    },
-    {
-      "code": "2348",
-      "name": "海悅",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 52.4,
-      "change": -0.6,
-      "volume_lots": 146.6,
-      "vol_hist": [
-        [
-          "20261126",
-          237.4
-        ],
-        [
-          "20261125",
-          190.6
-        ],
-        [
-          "20261124",
-          358.4
-        ],
-        [
-          "20261123",
-          285.5
-        ],
-        [
-          "20261120",
-          747.4
-        ]
-      ],
-      "foreign_buy": 78.2,
-      "foreign_sell": 48.8,
-      "foreign_net": 29.4,
-      "foreign_net_prev": 131.1,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": 30.4,
-      "total_net_prev": 126.1,
-      "main_force_net": 30.4,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 65.84,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 3658152.0,
-      "capital_k": 1894856.0,
-      "eps": 0.91,
-      "fin_period": "2026Q2",
-      "score": 2.3
     },
     {
       "code": "6171",
@@ -8360,6 +8302,64 @@
       "capital_k": 1000000.0,
       "eps": 0.28,
       "fin_period": "2026Q2",
+      "score": 2.4
+    },
+    {
+      "code": "2348",
+      "name": "海悅",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 52.4,
+      "change": -0.6,
+      "volume_lots": 146.6,
+      "vol_hist": [
+        [
+          "20261126",
+          237.4
+        ],
+        [
+          "20261125",
+          190.6
+        ],
+        [
+          "20261124",
+          358.4
+        ],
+        [
+          "20261123",
+          285.5
+        ],
+        [
+          "20261120",
+          747.4
+        ]
+      ],
+      "foreign_buy": 78.2,
+      "foreign_sell": 48.8,
+      "foreign_net": 29.4,
+      "foreign_net_prev": 131.1,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": 30.4,
+      "total_net_prev": 126.1,
+      "main_force_net": 30.4,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 65.22,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 3658152.0,
+      "capital_k": 1894856.0,
+      "eps": 0.91,
+      "fin_period": "2026Q2",
       "score": 2.3
     },
     {
@@ -8411,14 +8411,14 @@
       "total_net_prev": 3.0,
       "main_force_net": 1.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 36.72,
+      "big_holder_pct": 38.55,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 298650.0,
       "capital_k": 569485.0,
       "eps": -0.16,
       "fin_period": "2026Q2",
-      "score": 1.9
+      "score": 2.0
     },
     {
       "code": "2514",
@@ -8469,7 +8469,7 @@
       "total_net_prev": 104.9,
       "main_force_net": 17.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 84.81,
+      "big_holder_pct": 84.8,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2348969.0,
@@ -8527,7 +8527,7 @@
       "total_net_prev": 522.6,
       "main_force_net": 115.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 32.5,
+      "big_holder_pct": 33.2,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 6275656.0,
@@ -8585,7 +8585,7 @@
       "total_net_prev": 4002.2,
       "main_force_net": 245.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 70.45,
+      "big_holder_pct": 70.07,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 21364734.0,
@@ -8701,7 +8701,7 @@
       "total_net_prev": 0.1,
       "main_force_net": 0.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 34.5,
+      "big_holder_pct": 34.27,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 413426.0,
@@ -8817,7 +8817,7 @@
       "total_net_prev": 0.0,
       "main_force_net": 0.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 65.31,
+      "big_holder_pct": 65.33,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 286920.0,
@@ -9107,7 +9107,7 @@
       "total_net_prev": 7.0,
       "main_force_net": 0.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 80.77,
+      "big_holder_pct": 80.81,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1859069.0,
@@ -9397,7 +9397,7 @@
       "total_net_prev": -4.0,
       "main_force_net": 0.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 66.11,
+      "big_holder_pct": 66.12,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1218675.0,
@@ -9513,7 +9513,7 @@
       "total_net_prev": -6.0,
       "main_force_net": -7.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 67.86,
+      "big_holder_pct": 67.9,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 242453.0,
@@ -9571,7 +9571,7 @@
       "total_net_prev": -8.1,
       "main_force_net": -11.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 30.88,
+      "big_holder_pct": 31.24,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1102054.0,
@@ -9687,7 +9687,7 @@
       "total_net_prev": -19.0,
       "main_force_net": -19.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 76.39,
+      "big_holder_pct": 76.78,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1269756.0,
@@ -9745,7 +9745,7 @@
       "total_net_prev": -10.4,
       "main_force_net": -24.3,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 34.83,
+      "big_holder_pct": 34.7,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 596437.0,
@@ -9803,7 +9803,7 @@
       "total_net_prev": -35.5,
       "main_force_net": -45.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 48.26,
+      "big_holder_pct": 48.42,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1922442.0,
@@ -9861,7 +9861,7 @@
       "total_net_prev": -42.0,
       "main_force_net": -55.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 20.74,
+      "big_holder_pct": 21.86,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2422304.0,
@@ -9919,7 +9919,7 @@
       "total_net_prev": -78.0,
       "main_force_net": -66.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 54.48,
+      "big_holder_pct": 55.04,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2495956.0,
@@ -10035,7 +10035,7 @@
       "total_net_prev": -72.3,
       "main_force_net": -91.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 15.39,
+      "big_holder_pct": 13.72,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 636943.0,
@@ -10093,7 +10093,7 @@
       "total_net_prev": -107.8,
       "main_force_net": -108.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 85.37,
+      "big_holder_pct": 85.49,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3672294.0,
@@ -10209,7 +10209,7 @@
       "total_net_prev": -100.2,
       "main_force_net": -178.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 73.55,
+      "big_holder_pct": 73.39,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 5143388.0,
@@ -10267,7 +10267,7 @@
       "total_net_prev": -69.9,
       "main_force_net": -422.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 61.92,
+      "big_holder_pct": 62.07,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 19289821.0,
@@ -10383,7 +10383,7 @@
       "total_net_prev": 102.7,
       "main_force_net": -0.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 76.07,
+      "big_holder_pct": 76.16,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2723532.0,
@@ -10441,14 +10441,14 @@
       "total_net_prev": 86.0,
       "main_force_net": -4.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 59.2,
+      "big_holder_pct": 59.29,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 4981693.0,
       "capital_k": 4226043.0,
       "eps": 0.98,
       "fin_period": "2025Q4",
-      "score": -0.7
+      "score": -0.6
     },
     {
       "code": "4533",
@@ -10499,14 +10499,14 @@
       "total_net_prev": 272.1,
       "main_force_net": -108.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 35.06,
+      "big_holder_pct": 34.09,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 804492.0,
       "capital_k": 1584341.0,
       "eps": -0.07,
       "fin_period": "2026Q2",
-      "score": -2.3
+      "score": -2.4
     },
     {
       "code": "8054",
@@ -10557,14 +10557,14 @@
       "total_net_prev": 195.9,
       "main_force_net": -85.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 28.65,
+      "big_holder_pct": 28.59,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2882560.0,
       "capital_k": 1062326.0,
       "eps": null,
       "fin_period": "2026Q2",
-      "score": -2.5
+      "score": -2.6
     },
     {
       "code": "5534",
@@ -10615,14 +10615,14 @@
       "total_net_prev": 40.2,
       "main_force_net": -23.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 56.95,
+      "big_holder_pct": 57.31,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3759640.0,
       "capital_k": 3153260.0,
       "eps": 0.84,
       "fin_period": "2026Q2",
-      "score": -3.3
+      "score": -3.5
     },
     {
       "code": "3687",
@@ -10680,7 +10680,7 @@
       "capital_k": 301241.0,
       "eps": 0.29,
       "fin_period": "2026Q2",
-      "score": -3.4
+      "score": -3.6
     },
     {
       "code": "2388",
@@ -10731,72 +10731,14 @@
       "total_net_prev": 172.9,
       "main_force_net": -58.0,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 67.0,
+      "big_holder_pct": 65.88,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 9536853.0,
       "capital_k": 5559709.0,
       "eps": 0.25,
       "fin_period": "2026Q2",
-      "score": -5.0
-    },
-    {
-      "code": "3581",
-      "name": "博磊",
-      "market": "otc",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 61.0,
-      "change": -2.3,
-      "volume_lots": 260.0,
-      "vol_hist": [
-        [
-          "20261126",
-          312.0
-        ],
-        [
-          "20261125",
-          467.0
-        ],
-        [
-          "20261124",
-          307.0
-        ],
-        [
-          "20261123",
-          546.0
-        ],
-        [
-          "20261120",
-          388.0
-        ]
-      ],
-      "foreign_buy": 0.0,
-      "foreign_sell": 0.0,
-      "foreign_net": 0.0,
-      "foreign_net_prev": 0.0,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": -37.3,
-      "total_net_prev": 36.0,
-      "main_force_net": -37.3,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 45.76,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 559522.0,
-      "capital_k": 510060.0,
-      "eps": 0.63,
-      "fin_period": "2026Q2",
-      "score": -5.9
+      "score": -4.9
     },
     {
       "code": "2013",
@@ -10847,18 +10789,18 @@
       "total_net_prev": 11.3,
       "main_force_net": -5.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 77.52,
+      "big_holder_pct": 77.5,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2506550.0,
       "capital_k": 2000000.0,
       "eps": 0.78,
       "fin_period": "2026Q2",
-      "score": -6.0
+      "score": -5.9
     },
     {
-      "code": "5530",
-      "name": "龍巖",
+      "code": "3581",
+      "name": "博磊",
       "market": "otc",
       "conds": {
         "c1": false,
@@ -10868,29 +10810,29 @@
         "c5": false
       },
       "passed": 2,
-      "close": 41.85,
-      "change": -0.15,
-      "volume_lots": 110.0,
+      "close": 61.0,
+      "change": -2.3,
+      "volume_lots": 260.0,
       "vol_hist": [
         [
           "20261126",
-          194.0
+          312.0
         ],
         [
           "20261125",
-          304.0
+          467.0
         ],
         [
           "20261124",
-          268.0
+          307.0
         ],
         [
           "20261123",
-          274.0
+          546.0
         ],
         [
           "20261120",
-          493.0
+          388.0
         ]
       ],
       "foreign_buy": 0.0,
@@ -10901,18 +10843,18 @@
       "trust_sell": 0.0,
       "trust_net": 0.0,
       "trust_net_prev": 0.0,
-      "total_net": -48.5,
-      "total_net_prev": 39.0,
-      "main_force_net": -48.5,
+      "total_net": -37.3,
+      "total_net_prev": 36.0,
+      "main_force_net": -37.3,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 79.63,
+      "big_holder_pct": 45.75,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
-      "contract_liab_k": 42727145.0,
-      "capital_k": 4200842.0,
-      "eps": 0.74,
+      "contract_liab_k": 559522.0,
+      "capital_k": 510060.0,
+      "eps": 0.63,
       "fin_period": "2026Q2",
-      "score": -7.1
+      "score": -6.3
     },
     {
       "code": "3035",
@@ -10963,7 +10905,7 @@
       "total_net_prev": 1651.9,
       "main_force_net": -1189.8,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 29.91,
+      "big_holder_pct": 28.42,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 2088766.0,
@@ -10971,6 +10913,64 @@
       "eps": 0.76,
       "fin_period": "2026Q2",
       "score": -7.1
+    },
+    {
+      "code": "5530",
+      "name": "龍巖",
+      "market": "otc",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 41.85,
+      "change": -0.15,
+      "volume_lots": 110.0,
+      "vol_hist": [
+        [
+          "20261126",
+          194.0
+        ],
+        [
+          "20261125",
+          304.0
+        ],
+        [
+          "20261124",
+          268.0
+        ],
+        [
+          "20261123",
+          274.0
+        ],
+        [
+          "20261120",
+          493.0
+        ]
+      ],
+      "foreign_buy": 0.0,
+      "foreign_sell": 0.0,
+      "foreign_net": 0.0,
+      "foreign_net_prev": 0.0,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": -48.5,
+      "total_net_prev": 39.0,
+      "main_force_net": -48.5,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 79.62,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 42727145.0,
+      "capital_k": 4200842.0,
+      "eps": 0.74,
+      "fin_period": "2026Q2",
+      "score": -7.6
     },
     {
       "code": "3703",
@@ -11021,14 +11021,14 @@
       "total_net_prev": 34.1,
       "main_force_net": -49.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 69.37,
+      "big_holder_pct": 69.56,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 15918899.0,
       "capital_k": 8232160.0,
       "eps": 0.24,
       "fin_period": "2026Q2",
-      "score": -8.3
+      "score": -8.8
     },
     {
       "code": "2618",
@@ -11079,7 +11079,7 @@
       "total_net_prev": 1857.0,
       "main_force_net": -2039.2,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 82.73,
+      "big_holder_pct": 82.92,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 34715698.0,
@@ -11137,7 +11137,7 @@
       "total_net_prev": 260.3,
       "main_force_net": -299.1,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 56.93,
+      "big_holder_pct": 57.19,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 4132798.0,
@@ -11145,64 +11145,6 @@
       "eps": 0.45,
       "fin_period": "2026Q2",
       "score": -11.6
-    },
-    {
-      "code": "5203",
-      "name": "訊連",
-      "market": "tse",
-      "conds": {
-        "c1": false,
-        "c2": false,
-        "c3": true,
-        "c4": true,
-        "c5": false
-      },
-      "passed": 2,
-      "close": 51.5,
-      "change": -1.0,
-      "volume_lots": 59.7,
-      "vol_hist": [
-        [
-          "20261126",
-          90.2
-        ],
-        [
-          "20261125",
-          201.7
-        ],
-        [
-          "20261124",
-          156.1
-        ],
-        [
-          "20261123",
-          267.2
-        ],
-        [
-          "20261120",
-          257.0
-        ]
-      ],
-      "foreign_buy": 15.0,
-      "foreign_sell": 29.0,
-      "foreign_net": -14.0,
-      "foreign_net_prev": -14.5,
-      "trust_buy": 0.0,
-      "trust_sell": 0.0,
-      "trust_net": 0.0,
-      "trust_net_prev": 0.0,
-      "total_net": -14.0,
-      "total_net_prev": 5.5,
-      "main_force_net": -14.0,
-      "main_force_src": "以法人合計替代",
-      "big_holder_pct": 33.11,
-      "big_holder_chg": null,
-      "transfer_general_lots": 0.0,
-      "contract_liab_k": 458151.0,
-      "capital_k": 793426.0,
-      "eps": 0.33,
-      "fin_period": "2026Q2",
-      "score": -14.5
     },
     {
       "code": "2493",
@@ -11253,14 +11195,14 @@
       "total_net_prev": 68.5,
       "main_force_net": -95.7,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 35.89,
+      "big_holder_pct": 37.76,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 1285119.0,
       "capital_k": 1267965.0,
       "eps": 1.41,
       "fin_period": "2026Q2",
-      "score": -15.1
+      "score": -15.0
     },
     {
       "code": "2903",
@@ -11311,14 +11253,72 @@
       "total_net_prev": 132.0,
       "main_force_net": -101.9,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 76.02,
+      "big_holder_pct": 76.1,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 9704942.0,
       "capital_k": 14169406.0,
       "eps": 0.16,
       "fin_period": "2026Q2",
-      "score": -15.7
+      "score": -15.0
+    },
+    {
+      "code": "5203",
+      "name": "訊連",
+      "market": "tse",
+      "conds": {
+        "c1": false,
+        "c2": false,
+        "c3": true,
+        "c4": true,
+        "c5": false
+      },
+      "passed": 2,
+      "close": 51.5,
+      "change": -1.0,
+      "volume_lots": 59.7,
+      "vol_hist": [
+        [
+          "20261126",
+          90.2
+        ],
+        [
+          "20261125",
+          201.7
+        ],
+        [
+          "20261124",
+          156.1
+        ],
+        [
+          "20261123",
+          267.2
+        ],
+        [
+          "20261120",
+          257.0
+        ]
+      ],
+      "foreign_buy": 15.0,
+      "foreign_sell": 29.0,
+      "foreign_net": -14.0,
+      "foreign_net_prev": -14.5,
+      "trust_buy": 0.0,
+      "trust_sell": 0.0,
+      "trust_net": 0.0,
+      "trust_net_prev": 0.0,
+      "total_net": -14.0,
+      "total_net_prev": 5.5,
+      "main_force_net": -14.0,
+      "main_force_src": "以法人合計替代",
+      "big_holder_pct": 33.19,
+      "big_holder_chg": null,
+      "transfer_general_lots": 0.0,
+      "contract_liab_k": 458151.0,
+      "capital_k": 793426.0,
+      "eps": 0.33,
+      "fin_period": "2026Q2",
+      "score": -15.5
     },
     {
       "code": "7795",
@@ -11369,7 +11369,7 @@
       "total_net_prev": 83.7,
       "main_force_net": -142.3,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 64.61,
+      "big_holder_pct": 63.0,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 418470.0,
@@ -11434,7 +11434,7 @@
       "capital_k": 572598.0,
       "eps": -0.15,
       "fin_period": "2026Q2",
-      "score": -20.9
+      "score": -22.3
     },
     {
       "code": "6763",
@@ -11492,7 +11492,7 @@
       "capital_k": 184039.0,
       "eps": 0.53,
       "fin_period": "2026Q2",
-      "score": -35.2
+      "score": -37.6
     },
     {
       "code": "7823",
@@ -11543,14 +11543,14 @@
       "total_net_prev": 9.2,
       "main_force_net": -27.4,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 58.48,
+      "big_holder_pct": 58.41,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 184335.0,
       "capital_k": 334909.0,
       "eps": -0.65,
       "fin_period": "2026Q2",
-      "score": -49.6
+      "score": -47.8
     },
     {
       "code": "6214",
@@ -11601,14 +11601,14 @@
       "total_net_prev": 10.9,
       "main_force_net": -39.5,
       "main_force_src": "以法人合計替代",
-      "big_holder_pct": 71.23,
+      "big_holder_pct": 70.88,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 3917319.0,
       "capital_k": 2722431.0,
       "eps": null,
       "fin_period": "2025Q4",
-      "score": -91.9
+      "score": -86.9
     },
     {
       "code": "2337",
@@ -11659,7 +11659,7 @@
       "total_net_prev": 136.4,
       "main_force_net": 6977.0,
       "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 30.61,
+      "big_holder_pct": 30.29,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 160562.0,
@@ -11717,14 +11717,14 @@
       "total_net_prev": 727.8,
       "main_force_net": 6977.0,
       "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 73.76,
+      "big_holder_pct": 73.94,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 473613.0,
       "capital_k": 23161078.0,
       "eps": 3.14,
       "fin_period": "2026Q2",
-      "score": 79.7
+      "score": 78.3
     },
     {
       "code": "2801",
@@ -11775,7 +11775,7 @@
       "total_net_prev": -89.8,
       "main_force_net": 6977.0,
       "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 74.86,
+      "big_holder_pct": 74.74,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": null,
@@ -11833,7 +11833,7 @@
       "total_net_prev": -17.9,
       "main_force_net": 6977.0,
       "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 70.19,
+      "big_holder_pct": 70.02,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 331457.0,
@@ -11889,16 +11889,16 @@
       "trust_net_prev": 0.0,
       "total_net": 118.2,
       "total_net_prev": 16.0,
-      "main_force_net": 6977.0,
-      "main_force_src": "券商分點(富邦)",
-      "big_holder_pct": 79.34,
+      "main_force_net": 118.2,
+      "main_force_src": "無資料(以法人合計替代)",
+      "big_holder_pct": 79.39,
       "big_holder_chg": null,
       "transfer_general_lots": 0.0,
       "contract_liab_k": 188342.0,
       "capital_k": 2649753.0,
       "eps": null,
       "fin_period": "2026Q2",
-      "score": 67.4
+      "score": 68.0
     }
   ],
   "message": "符合全部條件 2 檔；法人動能+合約負債達標 0 檔；全市場合約負債達標 198 檔；其他法人動能股 5 檔"
